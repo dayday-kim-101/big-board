@@ -8,9 +8,9 @@
 - **백엔드**: Pages Functions (`functions/api/`)
   - `quotes.js` — Yahoo/네이버 시세 프록시
   - `list.js` — GitHub 저장소 기반 이메일별 종목 목록 read/write
-- **데이터**: GitHub 저장소 (`data/`) — 별도 DB 없음
-  - `users/<hash>.json` — 이메일별 종목·그룹
-  - `prices/latest.json` — 가격 스냅샷
+- **데이터**: GitHub 저장소 — 별도 DB 없음
+  - `data/users/<hash>.json` — 이메일별 종목·그룹 (비공개, `/api/list`로만 접근)
+  - `public/data/prices/latest.json` — 가격 스냅샷 (Pages가 정적 서빙)
 - **스냅샷**: GitHub Action(`.github/workflows/snapshot.yml`)이 주기적으로 가격 수집·커밋
 
 ## 로컬 개발

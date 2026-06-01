@@ -1,7 +1,7 @@
 # Cloudflare Pages 설정 (Pages + Functions 통합)
 name = "stock-bigboard"
 pages_build_output_dir = "public"
-compatibility_date = "2026-06-01"
+compatibility_date = "2026-05-03"
 
 # Functions(functions/ 디렉터리)는 자동 감지됩니다.
 # 시크릿/환경변수는 저장소에 두지 말고 다음으로 주입하세요:

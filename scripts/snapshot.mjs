@@ -6,7 +6,8 @@ import path from 'node:path';
 import { fetchQuotes } from '../functions/api/_quotes-core.js';
 
 const USERS_DIR = process.env.USERS_DIR || 'data/users';
-const OUT_PATH = process.env.OUT_PATH || 'data/prices/latest.json';
+// 스냅샷은 Pages가 정적으로 서빙하도록 public/ 아래에 둔다.
+const OUT_PATH = process.env.OUT_PATH || 'public/data/prices/latest.json';
 
 // 사용자 객체 배열 → 중복 없는 {market, code} 합집합. (순수, 테스트 대상)
 export function collectTickers(userObjects) {
