@@ -1,7 +1,7 @@
 ---
 title: "feat: 주식 전광판 (Stock Big Board) 구현"
 type: feat
-status: active
+status: completed
 date: 2026-05-31
 origin: docs/brainstorms/2026-05-31-stock-bigboard-requirements.md
 depth: standard
