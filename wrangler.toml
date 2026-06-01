@@ -10,4 +10,4 @@ compatibility_date = "2026-05-03"
 # 필요한 변수:
 #   GITHUB_TOKEN    : 데이터 저장소 contents 권한 fine-grained PAT
 #   GITHUB_REPO     : "owner/repo" (데이터 저장소)
-#   GITHUB_BRANCH   : 데이터 브랜치 (기본 main)
+#   GITHUB_BRANCH   : 데이터 브랜치 (기본 develop)

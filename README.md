@@ -27,7 +27,7 @@ npm run dev                      # wrangler pages dev
 |---|---|
 | `GITHUB_TOKEN` | 데이터 저장소 contents 권한 fine-grained PAT |
 | `GITHUB_REPO` | `owner/repo` (데이터 저장소) |
-| `GITHUB_BRANCH` | 데이터 브랜치 (기본 `main`) |
+| `GITHUB_BRANCH` | 데이터 브랜치 (기본 `develop`) |
 
 ## 배포 (Cloudflare Pages + GitHub)
 
@@ -35,20 +35,25 @@ npm run dev                      # wrangler pages dev
 
 ### 1. GitHub 저장소 생성 + push
 
-코드와 데이터(`data/users/`, `public/data/prices/`)가 같은 저장소에 있습니다.
+코드와 데이터(`data/users/`, `public/data/prices/`)가 같은 저장소에 있습니다. 기본 브랜치는 `develop`입니다.
 
 ```bash
-git remote add origin https://github.com/<owner>/<repo>.git
-git push -u origin main        # 또는 현재 브랜치를 main에 병합 후 push
+git remote add origin https://github.com/dayday-kim-101/big-board.git
+git push -u origin develop
 ```
+
+> 첫 push에는 `.github/workflows/snapshot.yml`가 포함되므로, fine-grained PAT로 push할 경우 토큰에 **Workflows: Read and write** 권한이 있어야 합니다(없으면 push 거부). 자세한 권한은 2단계 참고.
 
 ### 2. fine-grained PAT 발급
 
 GitHub → *Settings → Developer settings → Personal access tokens → Fine-grained tokens*
 
 - **Repository access**: 위에서 만든 저장소 1개만 선택
-- **Permissions**: *Contents → Read and write* (이것만)
-- 발급된 토큰을 복사 (3단계에서 사용)
+- **Permissions**:
+  - *Contents → Read and write* (Function의 목록 read/write + git push)
+  - *Workflows → Read and write* (첫 push에 워크플로 파일 포함 시 필수)
+  - *Metadata → Read-only* (fine-grained 토큰 필수, 자동 선택)
+- 발급된 토큰을 복사 (3단계에서 사용). Cloudflare Function용으로만 쓸 거면 Workflows 없이 Contents R/W만으로 충분합니다.
 
 > 이 토큰은 사이트 코드에 절대 넣지 않습니다. Cloudflare Secret으로만 주입되어 서버(Function) 쪽에 숨겨집니다.
 
@@ -68,8 +73,8 @@ Cloudflare 대시보드 → *Workers & Pages → Create → Pages → Connect to
 | 변수 | 값 |
 |---|---|
 | `GITHUB_TOKEN` | 2단계에서 발급한 PAT |
-| `GITHUB_REPO` | `owner/repo` (데이터 저장소) |
-| `GITHUB_BRANCH` | `main` |
+| `GITHUB_REPO` | `dayday-kim-101/big-board` |
+| `GITHUB_BRANCH` | `develop` |
 
 저장 후 재배포(Retry deployment)하면 `/api/list`가 동작합니다.
 
