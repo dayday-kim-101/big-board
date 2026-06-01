@@ -6,3 +6,6 @@ node_modules/
 .DS_Store
 .claude/worktrees/
 *.log
+
+# OMC 런타임 상태
+.omc/

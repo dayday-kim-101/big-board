@@ -1,0 +1,106 @@
+:root {
+  --bg: #0b0e14;
+  --panel: #131722;
+  --panel-2: #1b2230;
+  --line: #2a3344;
+  --text: #e6e9ef;
+  --muted: #8b94a7;
+  --up: #ff4d4f;     /* 한국식: 상승=빨강 */
+  --down: #4d7bff;   /* 한국식: 하락=파랑 */
+  --flat: #c2c8d4;
+  --accent: #ffce4d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app { max-width: 1100px; margin: 0 auto; padding: 0 12px 48px; }
+
+/* 진입 화면 */
+.gate { max-width: 420px; margin: 18vh auto 0; text-align: center; }
+.gate h1 { font-size: 28px; letter-spacing: 2px; }
+.gate .tagline { color: var(--muted); margin-bottom: 24px; }
+.gate form { display: flex; gap: 8px; }
+.gate input { flex: 1; }
+.gate-error { color: var(--up); font-size: 14px; }
+
+/* 상단바 */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 4px; border-bottom: 1px solid var(--line); margin-bottom: 12px;
+  position: sticky; top: 0; background: var(--bg); z-index: 5;
+}
+.brand { letter-spacing: 3px; color: var(--accent); }
+.topbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.status { color: var(--muted); font-size: 13px; }
+.who { color: var(--muted); font-size: 13px; }
+
+/* 탭 */
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.tab {
+  background: var(--panel); color: var(--text); border: 1px solid var(--line);
+  padding: 6px 14px; border-radius: 999px; cursor: pointer; font-size: 14px;
+}
+.tab.active { background: var(--accent); color: #1a1300; border-color: var(--accent); font-weight: 600; }
+.tab.add { color: var(--muted); }
+
+/* 컨트롤 */
+.controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+.add-ticker { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+.add-ticker input { width: 180px; }
+.add-ticker input:last-of-type { width: 120px; }
+
+/* 버튼·입력 공통 */
+button {
+  background: var(--panel-2); color: var(--text); border: 1px solid var(--line);
+  padding: 7px 14px; border-radius: 8px; cursor: pointer; font-size: 14px;
+}
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: .5; cursor: default; }
+button.ghost { background: transparent; }
+button.danger { color: var(--up); }
+button.refresh { background: var(--accent); color: #1a1300; font-weight: 600; border-color: var(--accent); }
+input, select {
+  background: var(--panel); color: var(--text); border: 1px solid var(--line);
+  padding: 8px 10px; border-radius: 8px; font-size: 14px;
+}
+input:focus, select:focus { outline: none; border-color: var(--accent); }
+
+/* 전광판 격자 */
+table.board { width: 100%; border-collapse: collapse; background: var(--panel); border-radius: 10px; overflow: hidden; }
+.board th, .board td { padding: 11px 12px; border-bottom: 1px solid var(--line); }
+.board th { color: var(--muted); font-weight: 500; font-size: 12px; text-align: right; background: var(--panel-2); }
+.board th:first-child { text-align: left; }
+.board td.num { text-align: right; font-variant-numeric: tabular-nums; font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; }
+.board td.name { text-align: left; display: flex; flex-direction: column; gap: 2px; }
+.name-main { font-weight: 600; }
+.name-sub { color: var(--muted); font-size: 11px; }
+.board td.price { font-weight: 600; }
+
+/* 한국식 색 */
+.up { color: var(--up); }
+.down { color: var(--down); }
+.flat { color: var(--flat); }
+.na { color: var(--muted); }
+tr.tone-up .price { color: var(--up); }
+tr.tone-down .price { color: var(--down); }
+
+.approx { color: var(--accent); font-size: 10px; }
+.actions { text-align: center; }
+button.remove { padding: 2px 8px; background: transparent; color: var(--muted); border: none; }
+button.remove:hover { color: var(--up); }
+
+.empty { color: var(--muted); text-align: center; padding: 40px 0; }
+
+@media (max-width: 640px) {
+  .board th:nth-child(5), .board td:nth-child(5) { display: none; } /* 좁은 화면: 거래량 숨김 */
+  .add-ticker { margin-left: 0; width: 100%; }
+  .add-ticker input { flex: 1; width: auto; }
+}

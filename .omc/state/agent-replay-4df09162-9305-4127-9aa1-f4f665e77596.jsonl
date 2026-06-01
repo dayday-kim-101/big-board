@@ -1,4 +1,0 @@
-{"t":0,"agent":"a916e7b","agent_type":"compound-engineering:ce-web-researcher","event":"agent_start","parent_mode":"none"}
-{"t":0,"agent":"a916e7b","agent_type":"compound-engineering:ce-web-researcher","event":"agent_stop","success":true,"duration_ms":388354}
-{"t":0,"agent":"system","event":"skill_invoked","skill_name":"compound-engineering:ce-plan"}
-{"t":0,"agent":"system","event":"skill_invoked","skill_name":"compound-engineering:ce-work"}
