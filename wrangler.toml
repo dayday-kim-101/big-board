@@ -1,0 +1,13 @@
+# Cloudflare Pages 설정 (Pages + Functions 통합)
+name = "stock-bigboard"
+pages_build_output_dir = "public"
+compatibility_date = "2026-06-01"
+
+# Functions(functions/ 디렉터리)는 자동 감지됩니다.
+# 시크릿/환경변수는 저장소에 두지 말고 다음으로 주입하세요:
+#   - 로컬 개발: 프로젝트 루트의 .dev.vars (gitignore됨)
+#   - 배포: Cloudflare 대시보드 또는 `wrangler pages secret put`
+# 필요한 변수:
+#   GITHUB_TOKEN    : 데이터 저장소 contents 권한 fine-grained PAT
+#   GITHUB_REPO     : "owner/repo" (데이터 저장소)
+#   GITHUB_BRANCH   : 데이터 브랜치 (기본 main)

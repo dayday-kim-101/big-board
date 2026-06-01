@@ -1,0 +1,7 @@
+{
+  "tool_name": "WebFetch",
+  "tool_input_preview": "{\"url\":\"https://www.data.go.kr/data/15094808/openapi.do\",\"prompt\":\"What is this Financial Services Commission stock price API? Is it free? What fields does it return (price, change, volume, trading va...",
+  "error": "The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()",
+  "timestamp": "2026-05-31T04:59:35.009Z",
+  "retry_count": 1
+}
