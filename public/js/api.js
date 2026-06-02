@@ -27,15 +27,23 @@ export async function getQuotes(items) {
   return res.json(); // { updatedAt, quotes }
 }
 
-// 정적 스냅샷 (첫 로드 — 빠름).
+// 스냅샷 (첫 로드 — 빠름).
+// 1순위: /api/snapshot — Function이 GitHub에서 직접 읽어 재배포 없이 항상 최신.
+// 폴백: /data/prices/latest.json 정적 파일 (마지막 배포 시점 기준, 다소 오래될 수 있음).
 export async function getSnapshot() {
   try {
-    const res = await fetch('/data/prices/latest.json', { cache: 'no-cache' });
-    if (!res.ok) return { updatedAt: null, quotes: {} };
-    return res.json();
+    const res = await fetch('/api/snapshot');
+    if (res.ok) return await res.json();
   } catch {
-    return { updatedAt: null, quotes: {} };
+    /* 폴백으로 진행 */
   }
+  try {
+    const res = await fetch('/data/prices/latest.json', { cache: 'no-cache' });
+    if (res.ok) return await res.json();
+  } catch {
+    /* 빈 스냅샷 반환 */
+  }
+  return { updatedAt: null, quotes: {} };
 }
 
 async function safeErr(res) {
