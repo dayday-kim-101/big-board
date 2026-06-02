@@ -18,6 +18,11 @@
           "market": "KR",
           "code": "009150",
           "name": "삼성전기"
+        },
+        {
+          "market": "US",
+          "code": "SOXL",
+          "name": "Direxion Daily Semiconductor Bu"
         }
       ]
     },
@@ -27,5 +32,5 @@
       "tickers": []
     }
   ],
-  "updatedAt": "2026-06-02T18:59:32.719Z"
+  "updatedAt": "2026-06-02T18:59:44.034Z"
 }
