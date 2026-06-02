@@ -1,5 +1,5 @@
 // 진입·상태·그룹/종목 관리·새로고침 오케스트레이션.
-import { getList, putList, getQuotes, getSnapshot } from './api.js';
+import { getList, putList, getQuotes, getSnapshot, searchTickers } from './api.js';
 import { mergeBoard } from './format.js';
 import { renderBoard } from './board.js';
 
@@ -200,35 +200,86 @@ function renderControls() {
   del.textContent = '그룹 삭제';
   del.addEventListener('click', () => deleteGroup(g));
 
-  // 종목 추가 폼
-  const form = document.createElement('form');
-  form.className = 'add-ticker';
-  const market = document.createElement('select');
-  for (const m of ['KR', 'US']) {
-    const opt = document.createElement('option');
-    opt.value = m;
-    opt.textContent = m;
-    market.appendChild(opt);
-  }
-  const codeIn = document.createElement('input');
-  codeIn.placeholder = '코드 (예: 005930 / AAPL)';
-  codeIn.required = true;
-  const nameIn = document.createElement('input');
-  nameIn.placeholder = '이름 (선택)';
-  const addBtn = document.createElement('button');
-  addBtn.type = 'submit';
-  addBtn.textContent = '+ 종목';
-  form.append(market, codeIn, nameIn, addBtn);
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    addTicker(g, market.value, codeIn.value.trim(), nameIn.value.trim());
-    codeIn.value = '';
-    nameIn.value = '';
-    codeIn.focus();
-  });
-
-  bar.append(rename, del, form);
+  // 종목 검색 + 자동완성 (실제 검색 결과에서 선택해야만 추가 → 잘못된 코드 방지)
+  bar.append(rename, del, renderTickerSearch(g));
   return bar;
+}
+
+// 검색 위젯: 디바운스 입력 → 드롭다운 결과, 선택 시에만 addTicker.
+function renderTickerSearch(g) {
+  const wrap = document.createElement('div');
+  wrap.className = 'ticker-search';
+
+  const input = document.createElement('input');
+  input.type = 'search';
+  input.placeholder = '종목 검색 (이름 또는 코드 — 예: 삼성, AAPL, 005930)';
+  input.autocomplete = 'off';
+
+  const results = document.createElement('div');
+  results.className = 'search-results';
+  results.style.display = 'none';
+
+  const close = () => {
+    results.innerHTML = '';
+    results.style.display = 'none';
+  };
+
+  const pick = (r) => {
+    close();
+    input.value = '';
+    addTicker(g, r.market, r.code, r.name); // 유효 종목만 들어옴
+  };
+
+  const render = (items) => {
+    results.innerHTML = '';
+    if (!items.length) {
+      const empty = document.createElement('div');
+      empty.className = 'search-empty';
+      empty.textContent = '검색 결과 없음';
+      results.appendChild(empty);
+      results.style.display = 'block';
+      return;
+    }
+    for (const r of items) {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'search-item';
+      const badge = document.createElement('span');
+      badge.className = `badge market-${r.market.toLowerCase()}`;
+      badge.textContent = r.market;
+      const name = document.createElement('span');
+      name.className = 'search-name';
+      name.textContent = r.name;
+      const meta = document.createElement('span');
+      meta.className = 'search-meta';
+      meta.textContent = `${r.code}${r.sub ? ' · ' + r.sub : ''}`;
+      row.append(badge, name, meta);
+      // mousedown(클릭)이 input blur보다 먼저 처리되도록
+      row.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        pick(r);
+      });
+      results.appendChild(row);
+    }
+    results.style.display = 'block';
+  };
+
+  let timer = null;
+  let reqId = 0;
+  input.addEventListener('input', () => {
+    const q = input.value.trim();
+    clearTimeout(timer);
+    if (!q) return close();
+    timer = setTimeout(async () => {
+      const myId = ++reqId;
+      const items = await searchTickers(q);
+      if (myId === reqId && input.value.trim() === q) render(items); // 최신 요청만 반영
+    }, 250);
+  });
+  input.addEventListener('blur', () => setTimeout(close, 150)); // 바깥 클릭 시 닫기
+
+  wrap.append(input, results);
+  return wrap;
 }
 
 function paintBoard() {

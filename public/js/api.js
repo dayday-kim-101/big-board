@@ -16,6 +16,18 @@ export async function putList(email, list) {
   return res.json();
 }
 
+// 종목 검색/자동완성. q → [{market, code, name, sub}]
+export async function searchTickers(q) {
+  try {
+    const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data.results) ? data.results : [];
+  } catch {
+    return [];
+  }
+}
+
 // 실시간 시세 (수동 새로고침). items: [{market, code}]
 export async function getQuotes(items) {
   const res = await fetch('/api/quotes', {

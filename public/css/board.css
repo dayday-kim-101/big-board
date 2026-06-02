@@ -53,9 +53,26 @@ body {
 
 /* 컨트롤 */
 .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
-.add-ticker { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
-.add-ticker input { width: 180px; }
-.add-ticker input:last-of-type { width: 120px; }
+
+/* 종목 검색 + 자동완성 드롭다운 */
+.ticker-search { position: relative; margin-left: auto; min-width: 280px; }
+.ticker-search input { width: 100%; }
+.search-results {
+  position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; right: 0;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px;
+  max-height: 320px; overflow-y: auto; box-shadow: 0 8px 24px rgba(0,0,0,.4); padding: 4px;
+}
+.search-item {
+  display: flex; align-items: center; gap: 8px; width: 100%; text-align: left;
+  background: transparent; border: none; border-radius: 6px; padding: 8px 10px;
+}
+.search-item:hover { background: var(--panel); border-color: transparent; }
+.search-name { flex: 1; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search-meta { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.search-empty { color: var(--muted); font-size: 13px; padding: 10px; }
+.badge { font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 5px; }
+.badge.market-kr { background: var(--up); color: #fff; }
+.badge.market-us { background: var(--down); color: #fff; }
 
 /* 버튼·입력 공통 */
 button {
@@ -101,6 +118,5 @@ button.remove:hover { color: var(--up); }
 
 @media (max-width: 640px) {
   .board th:nth-child(5), .board td:nth-child(5) { display: none; } /* 좁은 화면: 거래량 숨김 */
-  .add-ticker { margin-left: 0; width: 100%; }
-  .add-ticker input { flex: 1; width: auto; }
+  .ticker-search { margin-left: 0; width: 100%; min-width: 0; }
 }
