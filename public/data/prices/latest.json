@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-02T15:52:45.422Z",
+  "updatedAt": "2026-06-02T17:35:34.399Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
       "code": "AAPL",
       "name": "Apple Inc.",
-      "price": 313,
-      "change": 6.69,
-      "changePct": 2.18,
-      "volume": 13987799,
-      "tradingValue": 4378181087,
+      "price": 314.43,
+      "change": 8.12,
+      "changePct": 2.65,
+      "volume": 21455302,
+      "tradingValue": 6746190608,
       "approxTradingValue": true,
       "ok": true
     },
