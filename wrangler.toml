@@ -1,13 +1,20 @@
 # Cloudflare Pages 설정 (Pages + Functions 통합)
-name = "stock-bigboard"
+name = "big-board"
 pages_build_output_dir = "public"
 compatibility_date = "2026-05-03"
 
-# Functions(functions/ 디렉터리)는 자동 감지됩니다.
-# 시크릿/환경변수는 저장소에 두지 말고 다음으로 주입하세요:
-#   - 로컬 개발: 프로젝트 루트의 .dev.vars (gitignore됨)
-#   - 배포: Cloudflare 대시보드 또는 `wrangler pages secret put`
-# 필요한 변수:
-#   GITHUB_TOKEN    : 데이터 저장소 contents 권한 fine-grained PAT
-#   GITHUB_REPO     : "owner/repo" (데이터 저장소)
-#   GITHUB_BRANCH   : 데이터 브랜치 (기본 develop)
+# 비밀 아닌 환경변수는 여기서 관리됩니다(대시보드에서 plaintext 추가 불가).
+# 데이터 저장소/브랜치는 비밀이 아니므로 커밋해도 됩니다.
+[vars]
+GITHUB_REPO = "dayday-kim-101/big-board"
+GITHUB_BRANCH = "develop"
+
+# Preview 배포에도 동일 적용
+[env.preview.vars]
+GITHUB_REPO = "dayday-kim-101/big-board"
+GITHUB_BRANCH = "develop"
+
+# 비밀 값 GITHUB_TOKEN 은 저장소에 두지 말고 Secret으로 주입:
+#   - 배포:   Cloudflare 대시보드 → Settings → Variables and Secrets → Secret 으로 추가
+#   - 로컬:   프로젝트 루트의 .dev.vars (gitignore됨, .dev.vars.example 참고)
+# GITHUB_TOKEN : 데이터 저장소 contents Read/write 권한 fine-grained PAT
