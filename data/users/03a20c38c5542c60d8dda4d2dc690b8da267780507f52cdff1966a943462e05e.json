@@ -8,9 +8,14 @@
           "market": "US",
           "code": "AAPL",
           "name": "AAPL"
+        },
+        {
+          "market": "KR",
+          "code": "005930",
+          "name": "005930"
         }
       ]
     }
   ],
-  "updatedAt": "2026-06-02T04:50:59.503Z"
+  "updatedAt": "2026-06-02T04:51:05.703Z"
 }
