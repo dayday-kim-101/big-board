@@ -3,8 +3,14 @@
     {
       "id": "g1780583408759727",
       "name": "관심",
-      "tickers": []
+      "tickers": [
+        {
+          "market": "US",
+          "code": "AAPL",
+          "name": "Apple Inc."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-06-04T14:30:08.965Z"
+  "updatedAt": "2026-06-04T14:30:17.545Z"
 }
