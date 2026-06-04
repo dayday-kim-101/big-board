@@ -1,14 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  priceTone, fmtPrice, fmtSigned, fmtPct, fmtVolume, fmtTradingValue, mergeBoard, tvSymbol,
+  priceTone, fmtPrice, fmtSigned, fmtPct, fmtVolume, fmtTradingValue, mergeBoard,
 } from './format.js';
-
-test('tvSymbol: KR은 KRX 접두사, US는 심볼만', () => {
-  assert.equal(tvSymbol('KR', '005930'), 'KRX:005930');
-  assert.equal(tvSymbol('US', 'AAPL'), 'AAPL');
-  assert.equal(tvSymbol('KR', ' 000660 '), 'KRX:000660');
-});
 
 test('priceTone: 상승/하락/보합/없음', () => {
   assert.equal(priceTone(32000), 'up');

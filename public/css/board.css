@@ -142,7 +142,22 @@ button.remove:hover { color: var(--up); }
 .modal-title { font-weight: 600; }
 .modal-close { background: transparent; border: none; color: var(--muted); font-size: 18px; padding: 2px 8px; }
 .modal-close:hover { color: var(--up); border-color: transparent; }
+.modal-body { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+/* US: TradingView iframe */
 .chart-frame { flex: 1; width: 100%; border: 0; }
+
+/* KR: 네이버 차트 이미지 */
+.naver-chart { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px; overflow: auto; }
+.chart-periods { display: flex; gap: 6px; }
+.chart-period {
+  background: var(--panel-2); color: var(--text); border: 1px solid var(--line);
+  padding: 5px 16px; border-radius: 999px; font-size: 13px;
+}
+.chart-period.active { background: var(--accent); color: #1a1300; border-color: var(--accent); font-weight: 600; }
+.chart-img { max-width: 100%; height: auto; border-radius: 8px; background: #fff; }
+.chart-link { color: var(--accent); font-size: 13px; text-decoration: none; }
+.chart-link:hover { text-decoration: underline; }
 
 @media (max-width: 640px) {
   .board th:nth-child(5), .board td:nth-child(5) { display: none; } /* 좁은 화면: 거래량 숨김 */

@@ -1,6 +1,6 @@
 // 진입·상태·그룹/종목 관리·새로고침 오케스트레이션.
 import { getList, putList, getQuotes, getSnapshot, searchTickers } from './api.js';
-import { mergeBoard, tvSymbol } from './format.js';
+import { mergeBoard } from './format.js';
 import { renderBoard } from './board.js';
 
 const EMAIL_KEY = 'bigboard:email';
@@ -293,7 +293,7 @@ function paintBoard() {
   });
 }
 
-// ---------- 차트 모달 (TradingView 임베드) ----------
+// ---------- 차트 모달 (US=TradingView, KR=네이버 차트) ----------
 
 function openChart(row) {
   const overlay = document.createElement('div');
@@ -313,16 +313,12 @@ function openChart(row) {
   closeBtn.textContent = '✕';
   head.append(title, closeBtn);
 
-  const frame = document.createElement('iframe');
-  frame.className = 'chart-frame';
-  frame.loading = 'lazy';
-  const sym = encodeURIComponent(tvSymbol(row.market, row.code));
-  frame.src =
-    `https://s.tradingview.com/widgetembed/?symbol=${sym}` +
-    '&interval=D&theme=dark&style=1&locale=kr&timezone=Asia%2FSeoul' +
-    '&withdateranges=1&hide_side_toolbar=0&allow_symbol_change=1&details=1';
+  const body = document.createElement('div');
+  body.className = 'modal-body';
+  // US = TradingView 인터랙티브, KR = 네이버 차트 이미지(무료 임베드는 KRX 데이터 미제공).
+  body.appendChild(row.market === 'US' ? usChart(row) : krChart(row));
 
-  modal.append(head, frame);
+  modal.append(head, body);
   overlay.appendChild(modal);
 
   const remove = () => {
@@ -339,6 +335,60 @@ function openChart(row) {
   document.addEventListener('keydown', onKey);
 
   document.body.appendChild(overlay);
+}
+
+// US: TradingView 인터랙티브 차트(심볼 자동 해석).
+function usChart(row) {
+  const frame = document.createElement('iframe');
+  frame.className = 'chart-frame';
+  frame.loading = 'lazy';
+  const sym = encodeURIComponent(row.code);
+  frame.src =
+    `https://s.tradingview.com/widgetembed/?symbol=${sym}` +
+    '&interval=D&theme=dark&style=1&locale=kr&timezone=America%2FNew_York' +
+    '&withdateranges=1&hide_side_toolbar=0&allow_symbol_change=1&details=1';
+  return frame;
+}
+
+// KR: 네이버 차트 이미지(일/주/월 토글) + 네이버 금융 링크.
+function krChart(row) {
+  const wrap = document.createElement('div');
+  wrap.className = 'naver-chart';
+
+  const tabs = document.createElement('div');
+  tabs.className = 'chart-periods';
+
+  const img = document.createElement('img');
+  img.className = 'chart-img';
+  img.alt = `${row.name} 차트`;
+  const load = (p) => {
+    img.src = `https://ssl.pstatic.net/imgfinance/chart/item/candle/${p}/${row.code}.png?t=${Date.now()}`;
+  };
+
+  for (const [p, label] of [['day', '일'], ['week', '주'], ['month', '월']]) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chart-period';
+    b.textContent = label;
+    b.addEventListener('click', () => {
+      tabs.querySelectorAll('.chart-period').forEach((x) => x.classList.remove('active'));
+      b.classList.add('active');
+      load(p);
+    });
+    tabs.appendChild(b);
+  }
+  tabs.firstChild.classList.add('active');
+  load('day');
+
+  const link = document.createElement('a');
+  link.href = `https://finance.naver.com/item/main.naver?code=${row.code}`;
+  link.target = '_blank';
+  link.rel = 'noopener';
+  link.className = 'chart-link';
+  link.textContent = '네이버 금융에서 자세히 보기 ↗';
+
+  wrap.append(tabs, img, link);
+  return wrap;
 }
 
 // ---------- 그룹/종목 변경 (변경 후 저장) ----------
