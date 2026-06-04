@@ -69,10 +69,3 @@ export function mergeBoard(list, quotes) {
 function code(t) {
   return t.code;
 }
-
-// TradingView 심볼 매핑. KR은 KRX 접두사, US는 심볼만(TradingView가 자동 해석).
-export function tvSymbol(market, code) {
-  const c = String(code || '').trim();
-  if (market === 'KR') return `KRX:${c}`;
-  return c;
-}
