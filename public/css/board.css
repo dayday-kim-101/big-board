@@ -116,6 +116,34 @@ button.remove:hover { color: var(--up); }
 
 .empty { color: var(--muted); text-align: center; padding: 40px 0; }
 
+/* 종목명 클릭 → 차트 */
+.name-link {
+  background: transparent; border: none; padding: 0; margin: 0; cursor: pointer;
+  display: flex; flex-direction: column; gap: 2px; text-align: left; color: inherit;
+}
+.name-link:hover { border-color: transparent; }
+.name-link:hover .name-main { color: var(--accent); text-decoration: underline; }
+.name-plain { display: flex; flex-direction: column; gap: 2px; }
+
+/* 차트 모달 (TradingView) */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.66); z-index: 100;
+  display: flex; align-items: center; justify-content: center; padding: 16px;
+}
+.modal {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  width: min(960px, 100%); height: min(80vh, 720px);
+  display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,.5);
+}
+.modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 14px; border-bottom: 1px solid var(--line);
+}
+.modal-title { font-weight: 600; }
+.modal-close { background: transparent; border: none; color: var(--muted); font-size: 18px; padding: 2px 8px; }
+.modal-close:hover { color: var(--up); border-color: transparent; }
+.chart-frame { flex: 1; width: 100%; border: 0; }
+
 @media (max-width: 640px) {
   .board th:nth-child(5), .board td:nth-child(5) { display: none; } /* 좁은 화면: 거래량 숨김 */
   .ticker-search { margin-left: 0; width: 100%; min-width: 0; }

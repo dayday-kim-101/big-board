@@ -12,7 +12,8 @@ function cell(tag, text, className) {
 
 // group: {id, name, rows:[{market, code, name, quote}]}
 // onRemove(ticker): 종목 삭제 콜백 (옵션). 없으면 삭제 버튼 미표시.
-export function renderBoard(container, group, { onRemove } = {}) {
+// onChart(ticker): 차트 열기 콜백 (옵션). 있으면 종목명이 클릭 가능.
+export function renderBoard(container, group, { onRemove, onChart } = {}) {
   container.innerHTML = '';
 
   if (!group) {
@@ -41,10 +42,17 @@ export function renderBoard(container, group, { onRemove } = {}) {
     const tr = document.createElement('tr');
     tr.className = `tone-${tone}`;
 
-    // 종목명 + 코드/시장
+    // 종목명 + 코드/시장 (onChart 있으면 클릭 시 차트)
     const nameTd = cell('td', undefined, 'name');
-    nameTd.appendChild(cell('span', row.name, 'name-main'));
-    nameTd.appendChild(cell('span', `${row.market} ${row.code}`, 'name-sub'));
+    const nameInner = onChart ? cell('button', undefined, 'name-link') : cell('span', undefined, 'name-plain');
+    if (onChart) {
+      nameInner.type = 'button';
+      nameInner.title = '차트 보기';
+      nameInner.addEventListener('click', () => onChart(row));
+    }
+    nameInner.appendChild(cell('span', row.name, 'name-main'));
+    nameInner.appendChild(cell('span', `${row.market} ${row.code}`, 'name-sub'));
+    nameTd.appendChild(nameInner);
     tr.appendChild(nameTd);
 
     tr.appendChild(cell('td', fmtPrice(q?.price, row.market), 'num price'));
