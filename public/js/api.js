@@ -16,6 +16,18 @@ export async function putList(email, list) {
   return res.json();
 }
 
+// 과거 OHLC 캔들 (인터랙티브 차트용). → [{time, open, high, low, close, volume}]
+export async function getHistory(market, code, range = '6mo') {
+  try {
+    const res = await fetch(`/api/history?market=${market}&code=${encodeURIComponent(code)}&range=${range}`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data.candles) ? data.candles : [];
+  } catch {
+    return [];
+  }
+}
+
 // 종목 검색/자동완성. q → [{market, code, name, sub}]
 export async function searchTickers(q) {
   try {

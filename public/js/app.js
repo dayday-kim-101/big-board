@@ -1,5 +1,5 @@
 // 진입·상태·그룹/종목 관리·새로고침 오케스트레이션.
-import { getList, putList, getQuotes, getSnapshot, searchTickers } from './api.js';
+import { getList, putList, getQuotes, getSnapshot, searchTickers, getHistory } from './api.js';
 import { mergeBoard } from './format.js';
 import { renderBoard } from './board.js';
 
@@ -315,13 +315,15 @@ function openChart(row) {
 
   const body = document.createElement('div');
   body.className = 'modal-body';
-  // US = TradingView 인터랙티브, KR = 네이버 차트 이미지(무료 임베드는 KRX 데이터 미제공).
-  body.appendChild(row.market === 'US' ? usChart(row) : krChart(row));
+  // US = TradingView 임베드, KR = lightweight-charts(우리 데이터; 무료 임베드는 KRX 미지원).
+  const content = row.market === 'US' ? usChart(row) : krChart(row);
+  body.appendChild(content);
 
   modal.append(head, body);
   overlay.appendChild(modal);
 
   const remove = () => {
+    content._cleanup?.(); // 차트 인스턴스 정리
     overlay.remove();
     document.removeEventListener('keydown', onKey);
   };
@@ -350,22 +352,68 @@ function usChart(row) {
   return frame;
 }
 
-// KR: 네이버 차트 이미지(일/주/월 토글) + 네이버 금융 링크.
+// KR: lightweight-charts 인터랙티브 캔들(확대/이동/크로스헤어) + 네이버 데이터.
+const LWC_CDN = 'https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.mjs';
+const UP = '#ff4d4f';   // 한국식 상승=빨강
+const DOWN = '#4d7bff'; // 한국식 하락=파랑
+
 function krChart(row) {
   const wrap = document.createElement('div');
-  wrap.className = 'naver-chart';
+  wrap.className = 'lw-chart';
 
   const tabs = document.createElement('div');
   tabs.className = 'chart-periods';
 
-  const img = document.createElement('img');
-  img.className = 'chart-img';
-  img.alt = `${row.name} 차트`;
-  const load = (p) => {
-    img.src = `https://ssl.pstatic.net/imgfinance/chart/item/candle/${p}/${row.code}.png?t=${Date.now()}`;
-  };
+  const box = document.createElement('div');
+  box.className = 'chart-canvas';
+  const status = document.createElement('div');
+  status.className = 'chart-status';
+  box.appendChild(status);
 
-  for (const [p, label] of [['day', '일'], ['week', '주'], ['month', '월']]) {
+  const link = document.createElement('a');
+  link.href = `https://finance.naver.com/item/main.naver?code=${row.code}`;
+  link.target = '_blank';
+  link.rel = 'noopener';
+  link.className = 'chart-link';
+  link.textContent = '네이버 금융에서 보기 ↗';
+
+  let chart = null, candleSeries = null, volSeries = null, LWC = null, reqId = 0;
+
+  async function load(range) {
+    const myId = ++reqId;
+    status.style.display = 'block';
+    status.textContent = '불러오는 중…';
+    const candles = await getHistory('KR', row.code, range);
+    if (myId !== reqId) return;
+    if (!candles.length) { status.textContent = '차트 데이터를 불러오지 못했습니다.'; return; }
+    try {
+      if (!LWC) LWC = await import(LWC_CDN);
+      if (myId !== reqId) return;
+      if (!chart) {
+        chart = LWC.createChart(box, {
+          autoSize: true,
+          layout: { background: { color: 'transparent' }, textColor: '#8b94a7' },
+          grid: { vertLines: { color: 'rgba(42,51,68,.4)' }, horzLines: { color: 'rgba(42,51,68,.4)' } },
+          rightPriceScale: { borderColor: '#2a3344' },
+          timeScale: { borderColor: '#2a3344' },
+          crosshair: { mode: LWC.CrosshairMode.Normal },
+        });
+        candleSeries = chart.addCandlestickSeries({
+          upColor: UP, downColor: DOWN, borderVisible: false, wickUpColor: UP, wickDownColor: DOWN,
+        });
+        volSeries = chart.addHistogramSeries({ priceScaleId: '', priceFormat: { type: 'volume' } });
+        volSeries.priceScale().applyOptions({ scaleMargins: { top: 0.82, bottom: 0 } });
+      }
+      candleSeries.setData(candles.map((c) => ({ time: c.time, open: c.open, high: c.high, low: c.low, close: c.close })));
+      volSeries.setData(candles.map((c) => ({ time: c.time, value: c.volume, color: c.close >= c.open ? 'rgba(255,77,79,.45)' : 'rgba(77,123,255,.45)' })));
+      chart.timeScale().fitContent();
+      status.style.display = 'none';
+    } catch (e) {
+      status.textContent = `차트 로드 실패: ${e.message}`;
+    }
+  }
+
+  for (const [r, label] of [['1mo', '1개월'], ['3mo', '3개월'], ['6mo', '6개월'], ['1y', '1년']]) {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'chart-period';
@@ -373,21 +421,16 @@ function krChart(row) {
     b.addEventListener('click', () => {
       tabs.querySelectorAll('.chart-period').forEach((x) => x.classList.remove('active'));
       b.classList.add('active');
-      load(p);
+      load(r);
     });
     tabs.appendChild(b);
   }
-  tabs.firstChild.classList.add('active');
-  load('day');
+  tabs.children[2].classList.add('active'); // 6개월 기본
 
-  const link = document.createElement('a');
-  link.href = `https://finance.naver.com/item/main.naver?code=${row.code}`;
-  link.target = '_blank';
-  link.rel = 'noopener';
-  link.className = 'chart-link';
-  link.textContent = '네이버 금융에서 자세히 보기 ↗';
+  wrap.append(tabs, box, link);
+  load('6mo');
 
-  wrap.append(tabs, img, link);
+  wrap._cleanup = () => { try { chart?.remove(); } catch { /* noop */ } };
   return wrap;
 }
 
