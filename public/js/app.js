@@ -1,6 +1,6 @@
 // 진입·상태·그룹/종목 관리·새로고침 오케스트레이션.
 import { getList, putList, getQuotes, getSnapshot, searchTickers } from './api.js';
-import { mergeBoard } from './format.js';
+import { mergeBoard, tvSymbol } from './format.js';
 import { renderBoard } from './board.js';
 
 const EMAIL_KEY = 'bigboard:email';
@@ -287,7 +287,58 @@ function paintBoard() {
   if (!root) return;
   const g = activeGroup();
   const merged = g ? mergeBoard({ groups: [g] }, state.quotes)[0] : null;
-  renderBoard(root, merged, { onRemove: (row) => removeTicker(g, row) });
+  renderBoard(root, merged, {
+    onRemove: (row) => removeTicker(g, row),
+    onChart: (row) => openChart(row),
+  });
+}
+
+// ---------- 차트 모달 (TradingView 임베드) ----------
+
+function openChart(row) {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+
+  const head = document.createElement('div');
+  head.className = 'modal-head';
+  const title = document.createElement('div');
+  title.className = 'modal-title';
+  title.textContent = `${row.name} · ${row.market} ${row.code}`;
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'modal-close';
+  closeBtn.title = '닫기';
+  closeBtn.textContent = '✕';
+  head.append(title, closeBtn);
+
+  const frame = document.createElement('iframe');
+  frame.className = 'chart-frame';
+  frame.loading = 'lazy';
+  const sym = encodeURIComponent(tvSymbol(row.market, row.code));
+  frame.src =
+    `https://s.tradingview.com/widgetembed/?symbol=${sym}` +
+    '&interval=D&theme=dark&style=1&locale=kr&timezone=Asia%2FSeoul' +
+    '&withdateranges=1&hide_side_toolbar=0&allow_symbol_change=1&details=1';
+
+  modal.append(head, frame);
+  overlay.appendChild(modal);
+
+  const remove = () => {
+    overlay.remove();
+    document.removeEventListener('keydown', onKey);
+  };
+  const onKey = (e) => {
+    if (e.key === 'Escape') remove();
+  };
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) remove(); // 바깥 영역 클릭 시 닫기
+  });
+  closeBtn.addEventListener('click', remove);
+  document.addEventListener('keydown', onKey);
+
+  document.body.appendChild(overlay);
 }
 
 // ---------- 그룹/종목 변경 (변경 후 저장) ----------

@@ -14,18 +14,26 @@ class FakeEl {
   get textContent() { return this._text; }
   set innerHTML(v) { this.children = []; this._text = ''; }
   appendChild(c) { this.children.push(c); return c; }
-  addEventListener() {}
-  // 재귀적으로 모든 텍스트 수집
+  addEventListener(type, fn) { (this._listeners ||= {})[type] = fn; }
+  click() { this._listeners?.click?.(); }
   allText() {
     let t = this._text || '';
     for (const c of this.children) t += ' ' + c.allText();
     return t.trim();
   }
-  // 클래스 가진 노드 전체 수집
   collectClasses(acc = []) {
     if (this.className) acc.push(...this.className.split(/\s+/));
     for (const c of this.children) c.collectClasses(acc);
     return acc;
+  }
+  // className으로 첫 노드 찾기
+  find(cls) {
+    if (this.className.split(/\s+/).includes(cls)) return this;
+    for (const c of this.children) {
+      const hit = c.find(cls);
+      if (hit) return hit;
+    }
+    return null;
   }
 }
 globalThis.document = { createElement: (t) => new FakeEl(t) };
@@ -88,4 +96,24 @@ test('renderBoard: 시세 없는 종목 → 대시(—) 표시, 행은 렌더', 
   assert.ok(text.includes('삼성'), '종목명은 표시');
   assert.ok(text.includes('—'), '시세 없음은 대시');
   assert.ok(root.collectClasses().includes('tone-na'), 'tone-na 클래스');
+});
+
+test('renderBoard: onChart 있으면 종목명 클릭 시 해당 row로 콜백', () => {
+  const root = new FakeEl('div');
+  let clicked = null;
+  const row = { market: 'KR', code: '005930', name: '삼성', quote: null };
+  renderBoard(root, { id: 'g', name: 'x', rows: [row] }, { onChart: (r) => { clicked = r; } });
+  const link = root.find('name-link');
+  assert.ok(link, 'onChart 있으면 name-link 버튼 생성');
+  link.click();
+  assert.equal(clicked, row, '클릭 시 해당 종목으로 콜백');
+});
+
+test('renderBoard: onChart 없으면 name-plain (클릭 불가)', () => {
+  const root = new FakeEl('div');
+  renderBoard(root, { id: 'g', name: 'x', rows: [
+    { market: 'KR', code: '005930', name: '삼성', quote: null },
+  ] }, {});
+  assert.ok(!root.find('name-link'), 'name-link 없음');
+  assert.ok(root.find('name-plain'), 'name-plain 사용');
 });
