@@ -8,10 +8,13 @@
 - **백엔드**: Pages Functions (`functions/api/`)
   - `quotes.js` — Yahoo/네이버 시세 프록시
   - `list.js` — GitHub 저장소 기반 이메일별 종목 목록 read/write
+  - `jaelyo.js` — 일별 재료정리 보드 read/write (날짜별 공용 데이터)
 - **데이터**: GitHub 저장소 — 별도 DB 없음
   - `data/users/<hash>.json` — 이메일별 종목·그룹 (비공개, `/api/list`로만 접근)
+  - `data/jaelyo/<YYYY-MM-DD>.json` — 일별 거래대금 상위 100 + 수동 재료정리 (공용, `/api/jaelyo`로 접근)
   - `public/data/prices/latest.json` — 가격 스냅샷 (Pages가 정적 서빙)
 - **스냅샷**: GitHub Action(`.github/workflows/snapshot.yml`)이 주기적으로 가격 수집·커밋
+- **재료정리 수집**: GitHub Action(`.github/workflows/jaelyo-snapshot.yml`)이 평일 장 마감 후 1회 키움 REST API로 거래대금 상위 100을 수집·커밋
 
 ## 로컬 개발
 
@@ -28,6 +31,8 @@ npm run dev                      # wrangler pages dev
 | `GITHUB_TOKEN` | 데이터 저장소 contents 권한 fine-grained PAT |
 | `GITHUB_REPO` | `owner/repo` (데이터 저장소) |
 | `GITHUB_BRANCH` | 데이터 브랜치 (기본 `develop`) |
+
+> 재료정리 일별 수집은 키움 REST API 키가 필요합니다. 수집은 GitHub Action에서 실행되므로 저장소 **Settings → Secrets and variables → Actions**에 `KIWOOM_APPKEY`/`KIWOOM_SECRETKEY`를 추가하세요. 로컬에서 `node scripts/jaelyo-snapshot.mjs`로 시험할 때는 `.dev.vars`가 아니라 셸 환경변수로 주입합니다(`KIWOOM_APPKEY=... KIWOOM_SECRETKEY=... node scripts/jaelyo-snapshot.mjs`). 모의투자 도메인으로 먼저 검증하려면 `KIWOOM_API_BASE`를 설정합니다.
 
 ## 배포 (Cloudflare Pages + GitHub)
 
