@@ -1494,7 +1494,7 @@
       "tradingValue": 125402000000,
       "tvToMcapPct": 46.6,
       "manual": {
-        "newOrExisting": "",
+        "newOrExisting": "기존",
         "theme": "AI데이터센터",
         "material": "광증폭기와 광통신 부품 사업",
         "materialPersistence": "",
