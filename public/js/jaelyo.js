@@ -13,7 +13,9 @@ const COLS = [
 ];
 
 // 수동 입력 7개 열. 신규/기존은 select.
-const MANUAL_COLS = [
+// key 순서·집합은 서버의 _jaelyo-core MANUAL_FIELDS와 일치해야 한다
+// (public/은 functions/를 import할 수 없어 별도 정의 — 정합성은 jaelyo.dom.test의 패리티 테스트가 잠근다).
+export const MANUAL_COLS = [
   { key: 'newOrExisting', type: 'select', options: ['', '신규', '기존'] },
   { key: 'theme' },
   { key: 'material' },

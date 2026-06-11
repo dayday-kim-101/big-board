@@ -141,6 +141,9 @@ export function normalizeBoard({ date, rows = [], collectedAt = null, source = '
 
 const baseUrl = (env) => (env && env.KIWOOM_API_BASE) || 'https://api.kiwoom.com';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// 멈춘 연결이 100종목 루프(enrichMarketCaps) 전체를 무한정 막지 않도록
+// 모든 키움 호출에 하드 타임아웃을 건다. (AbortSignal.timeout: Node20·Workers 공통)
+const KIWOOM_TIMEOUT_MS = 15_000;
 
 // OAuth access token 발급.
 export async function issueToken(env) {
@@ -152,6 +155,7 @@ export async function issueToken(env) {
       appkey: env.KIWOOM_APPKEY,
       secretkey: env.KIWOOM_SECRETKEY,
     }),
+    signal: AbortSignal.timeout(KIWOOM_TIMEOUT_MS),
   });
   if (!res.ok) throw new Error(`키움 토큰 발급 실패 HTTP ${res.status}`);
   const j = await res.json();
@@ -170,6 +174,7 @@ async function kiwoomCall(env, token, { path, apiId, body, contYn = 'N', nextKey
       'next-key': nextKey,
     },
     body: JSON.stringify(body),
+    signal: AbortSignal.timeout(KIWOOM_TIMEOUT_MS),
   });
   if (!res.ok) throw new Error(`키움 ${apiId} 실패 HTTP ${res.status}`);
   return res.json();

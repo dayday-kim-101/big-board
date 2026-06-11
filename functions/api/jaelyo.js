@@ -15,6 +15,10 @@ const JSON_HEADERS = {
   'Cache-Control': 'no-store',
 };
 
+// 특정일 보드는 그날 1회 수집 후 사실상 불변 → 짧게 캐시해 GitHub API 호출을 줄인다
+// (snapshot.js와 동일 정책). 날짜 목록·PUT은 no-store 유지.
+const BOARD_HEADERS = { ...JSON_HEADERS, 'Cache-Control': 'public, max-age=60' };
+
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 // --- 순수 헬퍼 (테스트 대상) ---
@@ -73,7 +77,7 @@ export async function onRequestGet({ request, env }) {
   if (!isValidDate(date)) return err('date 형식은 YYYY-MM-DD');
   try {
     const { data } = await readJson(env, filePath(date));
-    return new Response(JSON.stringify(data || emptyBoard(date)), { headers: JSON_HEADERS });
+    return new Response(JSON.stringify(data || emptyBoard(date)), { headers: BOARD_HEADERS });
   } catch (e) {
     return err(`보드 읽기 실패: ${e.message}`, 502);
   }

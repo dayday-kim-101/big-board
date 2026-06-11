@@ -44,7 +44,14 @@ class FakeEl {
 }
 globalThis.document = { createElement: (t) => new FakeEl(t) };
 
-const { renderJaelyo } = await import('./jaelyo.js');
+const { renderJaelyo, MANUAL_COLS } = await import('./jaelyo.js');
+const { MANUAL_FIELDS } = await import('../../functions/api/_jaelyo-core.js');
+
+// 서버/클라이언트 수동필드 계약 패리티 — public/은 functions/를 import할 수 없어
+// 두 곳에 정의되므로, 키 집합·순서가 어긋나면 CI에서 잡는다.
+test('패리티: MANUAL_COLS 키가 서버 MANUAL_FIELDS와 동일(순서 포함)', () => {
+  assert.deepEqual(MANUAL_COLS.map((c) => c.key), MANUAL_FIELDS);
+});
 
 function sampleBoard() {
   return {

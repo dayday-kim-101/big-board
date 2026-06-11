@@ -97,6 +97,13 @@ test('mergeManual: 기존 manual을 code 기준 보존, 신규는 빈값', () =>
   assert.deepEqual(merged[1].manual, emptyManual());
 });
 
+test('mergeManual: prevRows에 없는 code는 자신의 manual을 보존(재실행 idempotent)', () => {
+  // 오늘 파일이 이미 manual을 담고 prev-day 파일이 없을 때(?? 우변 경로)
+  const merged = mergeManual([{ code: '028050', rank: 5, manual: { theme: '바이오' } }], []);
+  assert.equal(merged[0].manual.theme, '바이오');
+  assert.equal(merged[0].manual.material, '');
+});
+
 // --- normalizeBoard ---
 test('normalizeBoard: 알 수 없는 필드 제거 + manual 항상 존재', () => {
   const board = normalizeBoard({

@@ -112,26 +112,36 @@ function paintJaelyo() {
   });
 }
 
+// 빠른 날짜 전환 시 늦게 도착한 응답이 최신 선택을 덮어쓰지 않도록 요청 식별자로 가드.
+let jaelyoReqId = 0;
+
 async function selectJaelyoDate(date) {
   state.jaelyo.selectedDate = date;
+  const myId = ++jaelyoReqId;
+  let board;
   try {
-    state.jaelyo.board = await getJaelyo(date);
+    board = await getJaelyo(date);
   } catch (e) {
-    alert(`보드 로드 실패: ${e.message}`);
+    if (myId === jaelyoReqId) alert(`보드 로드 실패: ${e.message}`);
     return;
   }
+  if (myId !== jaelyoReqId) return; // 더 최신 선택이 이미 처리됨 — 무시
+  state.jaelyo.board = board;
   paintJaelyo();
 }
 
-// 수동 필드 저장(낙관적). 실패 시 서버 상태로 롤백 렌더.
+// 수동 필드 저장. 저장 성공 시 서버가 정규화한 보드로 갱신,
+// 실패 시 직전 보드로 롤백·재렌더(app.js save() 패턴과 동일).
 async function editManual(code, patch) {
   const date = state.jaelyo.selectedDate;
   if (!date) return;
+  const previous = state.jaelyo.board;
   try {
     state.jaelyo.board = await putJaelyoManual(date, code, patch);
   } catch (e) {
-    alert(`저장 실패: ${e.message}`);
+    state.jaelyo.board = previous; // 롤백
     paintJaelyo();
+    alert(`저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
   }
 }
 
