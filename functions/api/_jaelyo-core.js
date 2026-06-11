@@ -3,18 +3,16 @@
 // 파일명이 '_'로 시작하므로 Pages Functions 라우트로 노출되지 않는다.
 //
 // 순수 파서/계산/병합은 네트워크 비의존(테스트 대상)이고,
-// issueToken/fetch* 래퍼는 얇은 네트워크 경계다(테스트 미대상).
+// fetchAllStocks 래퍼는 얇은 네트워크 경계다(테스트 미대상).
+//
+// 데이터 소스: KRX(data.krx.co.kr) 전종목 시세 — 무인증·무IP제한, 일자 지정 가능.
+// 한 번 호출로 종목코드·종목명·종가·등락률·거래대금(원)·시가총액(원)을 모두 얻는다.
+// ⚠ KRX bld/필드명(ISU_SRT_CD·ACC_TRDVAL·MKTCAP 등)은 실응답으로 1회 검증 후 확정할 것.
+//   필드 매핑이 parseAllStocks 한 곳에 격리되어 있어 변경 지점이 단일하다.
 //
 // 정규화 스키마 (data/jaelyo/YYYY-MM-DD.json 의 rows[]):
 //   { rank, prevRank, code, name, price, changePct,
 //     marketCap(원), tradingValue(원), tvToMcapPct, manual{...} }
-//
-// ⚠ 키움 REST 계약(도메인·api-id·필드명·단위)은 공식 문서/실호출로 검증 후 확정할 것.
-//   현재 필드명은 문서 기준 best-effort이며 파서에 격리되어 있어 한 곳만 고치면 된다.
-
-// --- 단위 환산 상수 ---
-const WON_PER_MILLION = 1_000_000; // 키움 거래대금: 백만원 → 원
-const WON_PER_EOK = 100_000_000; //   키움 시가총액: 억원 → 원
 
 // 사용자 수동 입력 7개 항목 (신규/기존 ~ 수급)
 export const MANUAL_FIELDS = [
@@ -33,13 +31,6 @@ function num(v) {
   const n = Number(String(v).replace(/,/g, '').trim());
   return Number.isFinite(n) ? n : null;
 }
-function absNum(v) {
-  const n = num(v);
-  return n === null ? null : Math.abs(n);
-}
-function scale(n, factor) {
-  return n === null ? null : Math.round(n * factor);
-}
 function round(n, d) {
   const f = 10 ** d;
   return Math.round(n * f) / f;
@@ -47,25 +38,39 @@ function round(n, d) {
 
 // --- 순수 파서/계산/병합 (테스트 대상) ---
 
-// 거래대금상위(ka10032) 응답 → [{rank, code, name, price, changePct, tradingValue(원)}]
-export function parseRanking(json) {
-  const arr = json?.trde_prica_upper;
-  if (!Array.isArray(arr)) throw new Error('거래대금상위 응답 형식 오류');
+// KRX 전종목 시세(MDCSTAT01501) 응답 → [{code, name, price, changePct, tradingValue(원), marketCap(원)}].
+// KRX는 거래대금·시총을 원 단위로 제공하므로 환산이 필요 없다.
+export function parseAllStocks(json) {
+  const arr = json?.OutBlock_1;
+  if (!Array.isArray(arr)) throw new Error('KRX 전종목 시세 응답 형식 오류');
   return arr
-    .map((o, i) => ({
-      rank: num(o.rank) ?? i + 1, // 응답에 순위 없으면 배열 순서
-      code: String(o.stk_cd ?? '').trim(),
-      name: String(o.stk_nm ?? '').trim(),
-      price: absNum(o.cur_prc), // 현재가(부호는 등락방향이므로 절대값)
-      changePct: num(o.flu_rt),
-      tradingValue: scale(num(o.trde_prica), WON_PER_MILLION),
+    .map((o) => ({
+      code: String(o.ISU_SRT_CD ?? '').trim(),
+      name: String(o.ISU_ABBRV ?? '').trim(),
+      price: num(o.TDD_CLSPRC),
+      changePct: num(o.FLUC_RT),
+      tradingValue: num(o.ACC_TRDVAL),
+      marketCap: num(o.MKTCAP),
     }))
     .filter((r) => r.code);
 }
 
-// 주식기본정보(ka10001) 응답 → 시가총액(원). 누락 시 null.
-export function parseBasicInfo(json) {
-  return scale(num(json?.mac), WON_PER_EOK);
+// 거래대금 내림차순 상위 limit개 선정 → rank(1..N)·시총대비 비율 부여.
+export function rankByTradingValue(rows, limit = 100) {
+  return [...(rows ?? [])]
+    .filter((r) => num(r.tradingValue) !== null)
+    .sort((a, b) => num(b.tradingValue) - num(a.tradingValue))
+    .slice(0, limit)
+    .map((r, i) => ({
+      code: r.code,
+      name: r.name,
+      price: num(r.price),
+      changePct: num(r.changePct),
+      tradingValue: num(r.tradingValue),
+      marketCap: num(r.marketCap),
+      rank: i + 1,
+      tvToMcapPct: computeTvToMcapPct(r.tradingValue, r.marketCap),
+    }));
 }
 
 // 시총대비 거래대금 비율(%) = 거래대금 / 시총 × 100. 분모 0/누락 시 null.
@@ -117,7 +122,7 @@ export function mergeManual(newRows, prevRows = []) {
 }
 
 // 최종 스키마로 정규화 — 알 수 없는 필드 제거, manual 항상 7키 존재.
-export function normalizeBoard({ date, rows = [], collectedAt = null, source = 'kiwoom' }) {
+export function normalizeBoard({ date, rows = [], collectedAt = null, source = 'krx' }) {
   return {
     date,
     collectedAt,
@@ -137,82 +142,51 @@ export function normalizeBoard({ date, rows = [], collectedAt = null, source = '
   };
 }
 
+// 'YYYY-MM-DD' → KRX 일자 형식 'YYYYMMDD'.
+export function toKrxDate(date) {
+  return String(date || '').replace(/-/g, '');
+}
+
 // --- 네트워크 래퍼 (얇음, 테스트 미대상) ---
 
-const baseUrl = (env) => (env && env.KIWOOM_API_BASE) || 'https://api.kiwoom.com';
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-// 멈춘 연결이 100종목 루프(enrichMarketCaps) 전체를 무한정 막지 않도록
-// 모든 키움 호출에 하드 타임아웃을 건다. (AbortSignal.timeout: Node20·Workers 공통)
-const KIWOOM_TIMEOUT_MS = 15_000;
+const KRX_URL = 'https://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd';
+const KRX_REFERER = 'https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd';
+const KRX_TIMEOUT_MS = 15_000;
+const UA = 'Mozilla/5.0 (compatible; stock-bigboard/0.1)';
 
-// OAuth access token 발급.
-export async function issueToken(env) {
-  const res = await fetch(`${baseUrl(env)}/oauth2/token`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-    body: JSON.stringify({
-      grant_type: 'client_credentials',
-      appkey: env.KIWOOM_APPKEY,
-      secretkey: env.KIWOOM_SECRETKEY,
-    }),
-    signal: AbortSignal.timeout(KIWOOM_TIMEOUT_MS),
+// KRX 전종목 시세(MDCSTAT01501) — 무인증. 휴장일/미래일자는 빈 목록을 반환한다.
+// date: 'YYYY-MM-DD'. mktId: ALL=전체, STK=코스피, KSQ=코스닥.
+//
+// ⚠ 실행 시점 확인: KRX getJsonData는 로더 페이지(Referer)를 먼저 방문해 받은 세션 쿠키를
+//   요구할 수 있다(쿠키 없이 POST하면 JSON 대신 'LOGOUT' 등 비정상 응답이 올 수 있음).
+//   그 경우 아래에서 set-cookie를 받아 Cookie 헤더로 전달하는 2단계 호출로 바꾼다.
+//   첫 실호출로 필요 여부를 확정한다.
+export async function fetchAllStocks(date, { url = KRX_URL, mktId = 'ALL' } = {}) {
+  const body = new URLSearchParams({
+    bld: 'dbms/MDC/STAT/standard/MDCSTAT01501',
+    mktId,
+    trdDd: toKrxDate(date),
+    share: '1',
+    money: '1',
+    csvxls_isNo: 'false',
   });
-  if (!res.ok) throw new Error(`키움 토큰 발급 실패 HTTP ${res.status}`);
-  const j = await res.json();
-  if (!j || !j.token) throw new Error(`키움 토큰 응답 이상: ${j?.return_msg || ''}`);
-  return j.token;
-}
-
-async function kiwoomCall(env, token, { path, apiId, body, contYn = 'N', nextKey = '' }) {
-  const res = await fetch(`${baseUrl(env)}${path}`, {
+  const res = await fetch(url, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
-      authorization: `Bearer ${token}`,
-      'api-id': apiId,
-      'cont-yn': contYn,
-      'next-key': nextKey,
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'User-Agent': UA,
+      Referer: KRX_REFERER,
     },
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(KIWOOM_TIMEOUT_MS),
+    body: body.toString(),
+    signal: AbortSignal.timeout(KRX_TIMEOUT_MS),
   });
-  if (!res.ok) throw new Error(`키움 ${apiId} 실패 HTTP ${res.status}`);
-  return res.json();
-}
-
-// 거래대금상위 100 (ka10032). marketType: 000=전체,001=코스피,101=코스닥.
-export async function fetchTopTradingValue(env, token, { marketType = '000', limit = 100 } = {}) {
-  const json = await kiwoomCall(env, token, {
-    path: '/api/dostk/rkinfo',
-    apiId: 'ka10032',
-    body: { mrkt_tp: marketType, mang_stk_incls: '1', stex_tp: '3' },
-  });
-  return parseRanking(json).slice(0, limit);
-}
-
-// 종목 시가총액 1건 (ka10001).
-export async function fetchMarketCap(env, token, code) {
-  const json = await kiwoomCall(env, token, {
-    path: '/api/dostk/stkinfo',
-    apiId: 'ka10001',
-    body: { stk_cd: code },
-  });
-  return parseBasicInfo(json);
-}
-
-// 상위 행들에 시총 보강(스로틀) + 비율 계산. 종목별 실패는 null 허용(부분 실패).
-export async function enrichMarketCaps(env, token, rows, { perSecond = 5 } = {}) {
-  const gap = Math.ceil(1000 / Math.max(1, perSecond));
-  const out = [];
-  for (const r of rows) {
-    let marketCap = null;
-    try {
-      marketCap = await fetchMarketCap(env, token, r.code);
-    } catch {
-      marketCap = null; // 부분 실패 허용
-    }
-    out.push({ ...r, marketCap, tvToMcapPct: computeTvToMcapPct(r.tradingValue, marketCap) });
-    await sleep(gap);
+  if (!res.ok) throw new Error(`KRX 전종목 시세 실패 HTTP ${res.status}`);
+  let json;
+  try {
+    json = await res.json();
+  } catch {
+    // JSON이 아니면(예: 세션 누락 시 'LOGOUT') 명확히 실패시켜 휴장 가드와 구분한다.
+    throw new Error('KRX 응답이 JSON이 아님(세션 쿠키 필요 가능성 — 위 주석 참고)');
   }
-  return out;
+  return parseAllStocks(json);
 }

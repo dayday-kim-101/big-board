@@ -3,8 +3,5 @@ GITHUB_TOKEN="github_pat_xxx"
 GITHUB_REPO="owner/repo"
 GITHUB_BRANCH="develop"
 
-# 재료정리 일별 수집(scripts/jaelyo-snapshot.mjs)용 키움 REST API 키.
-# GitHub Actions에서는 저장소 Secret(KIWOOM_APPKEY/KIWOOM_SECRETKEY)으로 주입한다.
-KIWOOM_APPKEY="your-kiwoom-appkey"
-KIWOOM_SECRETKEY="your-kiwoom-secretkey"
-# KIWOOM_API_BASE="https://mockapi.kiwoom.com"  # 모의투자 도메인으로 검증 시
+# 재료정리 일별 수집(scripts/jaelyo-snapshot.mjs)은 KRX 공개 데이터라 인증·환경변수가 필요 없다.
+# 과거 백필이 필요하면(예: 5/1부터): JAELYO_BACKFILL_FROM=2026-05-01 node scripts/jaelyo-snapshot.mjs

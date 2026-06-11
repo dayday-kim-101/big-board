@@ -27,9 +27,7 @@ jobs:
           node-version: "20"
 
       - name: 재료정리 수집
-        env:
-          KIWOOM_APPKEY: ${{ secrets.KIWOOM_APPKEY }}
-          KIWOOM_SECRETKEY: ${{ secrets.KIWOOM_SECRETKEY }}
+        # KRX 공개 데이터라 인증·시크릿 불필요.
         run: node scripts/jaelyo-snapshot.mjs
 
       - name: 변경 시 커밋

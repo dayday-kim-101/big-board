@@ -14,7 +14,7 @@
   - `data/jaelyo/<YYYY-MM-DD>.json` — 일별 거래대금 상위 100 + 수동 재료정리 (공용, `/api/jaelyo`로 접근)
   - `public/data/prices/latest.json` — 가격 스냅샷 (Pages가 정적 서빙)
 - **스냅샷**: GitHub Action(`.github/workflows/snapshot.yml`)이 주기적으로 가격 수집·커밋
-- **재료정리 수집**: GitHub Action(`.github/workflows/jaelyo-snapshot.yml`)이 평일 장 마감 후 1회 키움 REST API로 거래대금 상위 100을 수집·커밋
+- **재료정리 수집**: GitHub Action(`.github/workflows/jaelyo-snapshot.yml`)이 평일 장 마감 후 1회 KRX 공개 데이터로 거래대금 상위 100을 수집·커밋 (인증·시크릿 불필요)
 
 ## 로컬 개발
 
@@ -32,7 +32,7 @@ npm run dev                      # wrangler pages dev
 | `GITHUB_REPO` | `owner/repo` (데이터 저장소) |
 | `GITHUB_BRANCH` | 데이터 브랜치 (기본 `develop`) |
 
-> 재료정리 일별 수집은 키움 REST API 키가 필요합니다. 수집은 GitHub Action에서 실행되므로 저장소 **Settings → Secrets and variables → Actions**에 `KIWOOM_APPKEY`/`KIWOOM_SECRETKEY`를 추가하세요. 로컬에서 `node scripts/jaelyo-snapshot.mjs`로 시험할 때는 `.dev.vars`가 아니라 셸 환경변수로 주입합니다(`KIWOOM_APPKEY=... KIWOOM_SECRETKEY=... node scripts/jaelyo-snapshot.mjs`). 모의투자 도메인으로 먼저 검증하려면 `KIWOOM_API_BASE`를 설정합니다.
+> 재료정리 일별 수집은 KRX 공개 데이터(data.krx.co.kr)를 사용하므로 인증·시크릿이 필요 없습니다. 로컬 시험: `node scripts/jaelyo-snapshot.mjs`. 과거 백필(예: 5/1부터 오늘까지): `JAELYO_BACKFILL_FROM=2026-05-01 node scripts/jaelyo-snapshot.mjs` (휴장일은 자동 스킵). 결과는 `data/jaelyo/<날짜>.json`에 기록됩니다.
 
 ## 배포 (Cloudflare Pages + GitHub)
 
