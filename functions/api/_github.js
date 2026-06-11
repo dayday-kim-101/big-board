@@ -64,6 +64,18 @@ export async function readJson(env, path) {
   return { data: JSON.parse(fromBase64(body.content)), sha: body.sha };
 }
 
+// 디렉터리 목록 → [{ name, type }] 배열. 404(없음)면 빈 배열.
+// 디렉터리면 GitHub Contents API가 배열을 반환한다.
+export async function listDir(env, path) {
+  const { owner, repo, branch, token } = cfg(env);
+  const url = `${API}/repos/${owner}/${repo}/contents/${path}?ref=${encodeURIComponent(branch)}`;
+  const res = await fetch(url, { headers: headers(token) });
+  if (res.status === 404) return [];
+  if (!res.ok) throw new Error(`GitHub list ${res.status}: ${await res.text()}`);
+  const body = await res.json();
+  return Array.isArray(body) ? body.map((e) => ({ name: e.name, type: e.type })) : [];
+}
+
 // 파일 쓰기(생성/갱신). SHA 충돌(409/422) 시 최신 SHA로 1회 재시도.
 export async function writeJson(env, path, obj, message) {
   const { owner, repo, branch, token } = cfg(env);

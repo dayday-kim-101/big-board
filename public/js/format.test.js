@@ -2,7 +2,59 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   priceTone, fmtPrice, fmtSigned, fmtPct, fmtVolume, fmtTradingValue, mergeBoard,
+  isHotChange, isSmallCap, isHighTradingValue, isHighTvRatio,
+  fmtWonKR, sortByChangeDesc,
 } from './format.js';
+
+// --- 재료정리 임계값 강조 술어 ---
+test('isHotChange: 등락률 10% 이상', () => {
+  assert.equal(isHotChange(10), true);
+  assert.equal(isHotChange(9.99), false);
+  assert.equal(isHotChange(23.6), true);
+  assert.equal(isHotChange(null), false);
+  assert.equal(isHotChange(NaN), false);
+});
+
+test('isSmallCap: 시총 2조 이하', () => {
+  assert.equal(isSmallCap(2e12), true);
+  assert.equal(isSmallCap(2e12 + 1), false);
+  assert.equal(isSmallCap(1.5e12), true);
+  assert.equal(isSmallCap(null), false);
+});
+
+test('isHighTradingValue: 거래대금 4천억 이상', () => {
+  assert.equal(isHighTradingValue(4e11), true);
+  assert.equal(isHighTradingValue(4e11 - 1), false);
+  assert.equal(isHighTradingValue(null), false);
+});
+
+test('isHighTvRatio: 시총대비 비율 20 초과(초과만)', () => {
+  assert.equal(isHighTvRatio(20), false); // 초과(>)라 20은 미강조
+  assert.equal(isHighTvRatio(20.01), true);
+  assert.equal(isHighTvRatio(138.75), true);
+  assert.equal(isHighTvRatio(null), false);
+});
+
+test('fmtWonKR: 조/억 표기 (시총·거래대금 공통)', () => {
+  assert.equal(fmtWonKR(1.27e12), '1.27조');
+  assert.equal(fmtWonKR(5e11), '5,000억');
+  assert.equal(fmtWonKR(null), '—');
+  assert.equal(fmtWonKR(4e11), '4,000억');
+  assert.equal(fmtWonKR(2.5e12), '2.50조');
+});
+
+test('sortByChangeDesc: 등락률 내림차순, null은 말단', () => {
+  const rows = [
+    { code: 'a', changePct: 5 },
+    { code: 'b', changePct: 23.6 },
+    { code: 'c', changePct: null },
+    { code: 'd', changePct: 10 },
+  ];
+  const sorted = sortByChangeDesc(rows);
+  assert.deepEqual(sorted.map((r) => r.code), ['b', 'd', 'a', 'c']);
+  // 원본 불변
+  assert.equal(rows[0].code, 'a');
+});
 
 test('priceTone: 상승/하락/보합/없음', () => {
   assert.equal(priceTone(32000), 'up');

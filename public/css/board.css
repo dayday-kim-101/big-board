@@ -167,3 +167,49 @@ button.remove:hover { color: var(--up); }
   .board th:nth-child(5), .board td:nth-child(5) { display: none; } /* 좁은 화면: 거래량 숨김 */
   .ticker-search { margin-left: 0; width: 100%; min-width: 0; }
 }
+
+/* ---------- 재료정리 보드 ---------- */
+.jaelyo { margin-top: 32px; border-top: 1px solid var(--line); padding-top: 16px; }
+.jaelyo-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.jaelyo-title { font-size: 16px; letter-spacing: 2px; color: var(--accent); margin: 0; }
+.jaelyo-date {
+  background: var(--panel-2); color: var(--text);
+  border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px;
+}
+.jaelyo-empty { color: var(--muted); padding: 24px; text-align: center; }
+
+/* 격자 래퍼: 세로로만 크기조절 + 넘치면 스크롤 */
+.jaelyo-wrap {
+  resize: vertical;
+  overflow: auto;
+  min-height: 240px;
+  max-height: 80vh;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.jaelyo-table { border-collapse: collapse; width: 100%; font-size: 12px; white-space: nowrap; }
+.jaelyo-table th, .jaelyo-table td { border: 1px solid var(--line); padding: 4px 6px; text-align: left; }
+.jaelyo-table thead th {
+  position: sticky; top: 0; z-index: 2;
+  background: var(--panel-2); color: var(--muted);
+}
+.jaelyo-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.jaelyo-table td.code { color: var(--muted); font-variant-numeric: tabular-nums; }
+.jaelyo-table td.prev { color: var(--muted); }
+.jaelyo-table tbody tr:hover { background: rgba(255,255,255,.03); }
+
+/* 임계값 셀 배경 강조 */
+.jaelyo-table td.hot-change { background: rgba(255, 77, 79, .22); }   /* 등락률 ≥ 10% */
+.jaelyo-table td.small-cap  { background: rgba(255, 206, 77, .20); }  /* 시총 ≤ 2조 */
+.jaelyo-table td.high-tv    { background: rgba(77, 123, 255, .22); }  /* 거래대금 ≥ 4천억 */
+.jaelyo-table td.high-ratio { background: rgba(54, 211, 153, .24); }  /* 시총대비 > 20 */
+
+/* 수동 입력 셀 */
+.jaelyo-table td.manual { padding: 2px; }
+.manual-input {
+  width: 100%; min-width: 84px; box-sizing: border-box;
+  background: transparent; color: var(--text);
+  border: none; padding: 3px 5px; font: inherit;
+}
+select.manual-input { min-width: 66px; }
+.manual-input:focus { background: var(--panel); outline: 1px solid var(--accent); }

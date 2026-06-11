@@ -1,7 +1,11 @@
 // 진입·상태·그룹/종목 관리·새로고침 오케스트레이션.
-import { getList, putList, getQuotes, getSnapshot, searchTickers, getHistory } from './api.js';
+import {
+  getList, putList, getQuotes, getSnapshot, searchTickers, getHistory,
+  getJaelyoDates, getJaelyo, putJaelyoManual,
+} from './api.js';
 import { mergeBoard } from './format.js';
 import { renderBoard } from './board.js';
+import { renderJaelyo } from './jaelyo.js';
 
 const EMAIL_KEY = 'bigboard:email';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -13,6 +17,7 @@ const state = {
   updatedAt: null,
   activeGroupId: null,
   loading: false,
+  jaelyo: { dates: [], selectedDate: null, board: null },
 };
 
 const $app = () => document.getElementById('app');
@@ -75,9 +80,68 @@ async function enterBoard(email) {
     state.quotes = snap.quotes || {};
     state.updatedAt = snap.updatedAt;
     if (!state.activeGroupId && state.list.groups[0]) state.activeGroupId = state.list.groups[0].id;
+    try {
+      await loadJaelyo(); // 재료정리 보드(공용) 로드 — 실패해도 전광판은 표시
+    } catch {
+      /* 재료정리 데이터 없거나 실패 — 무시 */
+    }
     renderApp();
   } catch (e) {
     renderGate(`목록을 불러오지 못했습니다: ${e.message}`);
+  }
+}
+
+// ---------- 재료정리 보드 ----------
+
+async function loadJaelyo() {
+  const { dates, latest } = await getJaelyoDates();
+  state.jaelyo.dates = dates;
+  state.jaelyo.selectedDate = latest;
+  state.jaelyo.board = latest ? await getJaelyo(latest) : null;
+}
+
+function paintJaelyo() {
+  const root = document.getElementById('jaelyo-root');
+  if (!root) return;
+  renderJaelyo(root, {
+    dates: state.jaelyo.dates,
+    selectedDate: state.jaelyo.selectedDate,
+    board: state.jaelyo.board,
+    onSelectDate: selectJaelyoDate,
+    onEditManual: editManual,
+  });
+}
+
+// 빠른 날짜 전환 시 늦게 도착한 응답이 최신 선택을 덮어쓰지 않도록 요청 식별자로 가드.
+let jaelyoReqId = 0;
+
+async function selectJaelyoDate(date) {
+  state.jaelyo.selectedDate = date;
+  const myId = ++jaelyoReqId;
+  let board;
+  try {
+    board = await getJaelyo(date);
+  } catch (e) {
+    if (myId === jaelyoReqId) alert(`보드 로드 실패: ${e.message}`);
+    return;
+  }
+  if (myId !== jaelyoReqId) return; // 더 최신 선택이 이미 처리됨 — 무시
+  state.jaelyo.board = board;
+  paintJaelyo();
+}
+
+// 수동 필드 저장. 저장 성공 시 서버가 정규화한 보드로 갱신,
+// 실패 시 직전 보드로 롤백·재렌더(app.js save() 패턴과 동일).
+async function editManual(code, patch) {
+  const date = state.jaelyo.selectedDate;
+  if (!date) return;
+  const previous = state.jaelyo.board;
+  try {
+    state.jaelyo.board = await putJaelyoManual(date, code, patch);
+  } catch (e) {
+    state.jaelyo.board = previous; // 롤백
+    paintJaelyo();
+    alert(`저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
   }
 }
 
@@ -161,6 +225,12 @@ function renderApp() {
   boardRoot.id = 'board-root';
   app.appendChild(boardRoot);
   paintBoard();
+
+  // 전광판 아래: 재료정리 보드
+  const jaelyoRoot = document.createElement('div');
+  jaelyoRoot.id = 'jaelyo-root';
+  app.appendChild(jaelyoRoot);
+  paintJaelyo();
 }
 
 function renderTabs() {

@@ -70,6 +70,38 @@ export async function getSnapshot() {
   return { updatedAt: null, quotes: {} };
 }
 
+// --- 재료정리 보드 ---
+
+// 수집된 날짜 목록 → { dates: [...desc], latest }
+export async function getJaelyoDates() {
+  try {
+    const res = await fetch('/api/jaelyo');
+    if (!res.ok) return { dates: [], latest: null };
+    const data = await res.json();
+    return { dates: Array.isArray(data.dates) ? data.dates : [], latest: data.latest ?? null };
+  } catch {
+    return { dates: [], latest: null };
+  }
+}
+
+// 특정일 보드 → { date, rows: [...] }
+export async function getJaelyo(date) {
+  const res = await fetch(`/api/jaelyo?date=${encodeURIComponent(date)}`);
+  if (!res.ok) throw new Error((await safeErr(res)) || `보드 로드 실패 (${res.status})`);
+  return res.json();
+}
+
+// 수동 필드 부분 저장. manual = 갱신할 키만 담은 객체.
+export async function putJaelyoManual(date, code, manual) {
+  const res = await fetch(`/api/jaelyo?date=${encodeURIComponent(date)}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code, manual }),
+  });
+  if (!res.ok) throw new Error((await safeErr(res)) || `저장 실패 (${res.status})`);
+  return res.json();
+}
+
 async function safeErr(res) {
   try {
     return (await res.json())?.error;
