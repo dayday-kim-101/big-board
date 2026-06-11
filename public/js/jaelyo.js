@@ -25,6 +25,37 @@ export const MANUAL_COLS = [
   { key: 'supplyDemand' },
 ];
 
+// 열 너비 조절(드래그) — 열별 기본 너비(px). 사용자가 끌어 조절하면 localStorage에 저장.
+const DEFAULT_COL_W = {
+  '순위': 44, '전일순위': 56, '종목코드': 64, '종목명': 104, '현재가': 78, '등락률': 64,
+  '시가총액': 86, '거래대금': 90, '시총대비': 64,
+  '신규/기존': 72, '테마': 120, '재료': 168, '재료지속성': 96, '재료연속여부': 100, '재무': 128, '수급': 128,
+};
+const COLW_KEY = 'bigboard:jaelyo:colw';
+const MIN_COL_W = 40;
+
+// localStorage는 테스트(Node)엔 없으므로 항상 가드. 손상된 값이면 기본으로 폴백.
+function loadColW() {
+  try {
+    if (typeof localStorage === 'undefined') return {};
+    const v = JSON.parse(localStorage.getItem(COLW_KEY) || '{}');
+    return v && typeof v === 'object' ? v : {};
+  } catch {
+    return {};
+  }
+}
+function saveColW(map) {
+  try {
+    if (typeof localStorage !== 'undefined') localStorage.setItem(COLW_KEY, JSON.stringify(map));
+  } catch {
+    /* 저장 불가(시크릿 모드 등) — 무시 */
+  }
+}
+// FakeEl(테스트 스텁)엔 .style가 없으므로 가드. 실제 브라우저에서만 너비 적용.
+function setW(el, px) {
+  if (el && el.style) el.style.width = `${px}px`;
+}
+
 function cell(tag, text, className) {
   const el = document.createElement(tag);
   if (text !== undefined) el.textContent = text;
@@ -62,6 +93,46 @@ function manualCell(row, col, onEditManual) {
   field.addEventListener('change', () => onEditManual?.(row.code, { [col.key]: field.value }));
   td.appendChild(field);
   return td;
+}
+
+// 헤더 셀: 라벨 + 우측 너비 조절 핸들(드래그). 더블클릭 시 기본 너비로 리셋.
+// th 개수는 16개로 유지(핸들은 th의 자식). ctx = { widths, widthOf, totalW, table }.
+function headerCell(label, colEl, ctx) {
+  const th = cell('th', undefined, 'jaelyo-th');
+  th.appendChild(cell('span', label, 'th-label'));
+  const handle = cell('div', undefined, 'col-resize');
+  handle.title = '드래그: 너비 조절 · 더블클릭: 기본값';
+  handle.addEventListener('mousedown', (e) => startResize(e, label, colEl, ctx));
+  handle.addEventListener('dblclick', () => {
+    ctx.widths[label] = DEFAULT_COL_W[label] ?? 120;
+    setW(colEl, ctx.widths[label]);
+    setW(ctx.table, ctx.totalW());
+    saveColW(ctx.widths);
+  });
+  th.appendChild(handle);
+  return th;
+}
+
+// 핸들 mousedown → document에 move/up 리스너 부착(드래그 동안만). 실제 브라우저에서만 실행.
+function startResize(e, label, colEl, ctx) {
+  e.preventDefault();
+  const startX = e.clientX;
+  const startWidth = ctx.widthOf(label);
+  const onMove = (ev) => {
+    const w = Math.max(MIN_COL_W, Math.round(startWidth + (ev.clientX - startX)));
+    ctx.widths[label] = w;
+    setW(colEl, w);
+    setW(ctx.table, ctx.totalW());
+  };
+  const onUp = () => {
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    document.body.classList.remove('col-resizing');
+    saveColW(ctx.widths);
+  };
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+  document.body.classList.add('col-resizing'); // 드래그 중 텍스트 선택 방지(CSS)
 }
 
 // container에 재료정리 보드를 그린다.
@@ -112,9 +183,25 @@ export function renderJaelyo(container, { dates = [], selectedDate = null, board
   const table = document.createElement('table');
   table.className = 'jaelyo-table';
 
+  // 열 너비: 저장값 ∪ 기본값. 드래그 핸들러가 이 객체를 직접 변경·저장한다.
+  const widths = { ...DEFAULT_COL_W, ...loadColW() };
+  const widthOf = (label) => widths[label] ?? DEFAULT_COL_W[label] ?? 120;
+  const totalW = () => COLS.reduce((s, l) => s + widthOf(l), 0);
+
+  // <colgroup>로 열 너비를 제어(table-layout: fixed). col별 width를 인라인으로 적용.
+  const colgroup = document.createElement('colgroup');
+  const colEls = COLS.map((label) => {
+    const col = document.createElement('col');
+    setW(col, widthOf(label));
+    colgroup.appendChild(col);
+    return col;
+  });
+  table.appendChild(colgroup);
+  setW(table, totalW()); // 합계 폭으로 고정 → 넘치면 래퍼가 가로 스크롤
+
   const thead = document.createElement('thead');
   const htr = document.createElement('tr');
-  for (const c of COLS) htr.appendChild(cell('th', c));
+  COLS.forEach((label, i) => htr.appendChild(headerCell(label, colEls[i], { widths, widthOf, totalW, table })));
   thead.appendChild(htr);
   table.appendChild(thead);
 
