@@ -10,6 +10,3 @@ node_modules/
 
 # OMC 런타임 상태
 .omc/
-
-# Compound Engineering machine-local config
-.compound-engineering/*.local.yaml
