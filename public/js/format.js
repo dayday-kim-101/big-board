@@ -69,3 +69,43 @@ export function mergeBoard(list, quotes) {
 function code(t) {
   return t.code;
 }
+
+// --- 재료정리 보드: 임계값 강조 술어 (배경색 표시 조건) ---
+// 값이 숫자가 아니면 항상 false(강조 안 함).
+const isNum = (n) => typeof n === 'number' && Number.isFinite(n);
+
+export function isHotChange(changePct) {
+  return isNum(changePct) && changePct >= 10; // 등락률 10% 이상
+}
+export function isSmallCap(marketCap) {
+  return isNum(marketCap) && marketCap <= 2e12; // 시가총액 2조원 이하
+}
+export function isHighTradingValue(tradingValue) {
+  return isNum(tradingValue) && tradingValue >= 4e11; // 거래대금 4천억원 이상
+}
+export function isHighTvRatio(pct) {
+  return isNum(pct) && pct > 20; // 시총대비 거래대금 비율 20 초과
+}
+
+// 시가총액·거래대금 표기 (원 단위 → 조/억). 재료정리 보드 전용.
+function fmtWonKR(n) {
+  if (!isNum(n)) return NA;
+  if (n >= 1e12) return `${(n / 1e12).toFixed(2)}조`;
+  if (n >= 1e8) return `${Math.round(n / 1e8).toLocaleString('en-US')}억`;
+  return Math.round(n).toLocaleString('en-US');
+}
+export function fmtMarketCap(n) {
+  return fmtWonKR(n);
+}
+export function fmtJaelyoTradingValue(n) {
+  return fmtWonKR(n);
+}
+
+// 등락률 내림차순 정렬(원본 불변). null/NaN 등락률은 말단으로.
+export function sortByChangeDesc(rows) {
+  return [...(rows ?? [])].sort((a, b) => {
+    const av = isNum(a?.changePct) ? a.changePct : -Infinity;
+    const bv = isNum(b?.changePct) ? b.changePct : -Infinity;
+    return bv - av;
+  });
+}
