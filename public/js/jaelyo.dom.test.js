@@ -144,6 +144,10 @@ test('renderJaelyo: 날짜 select 변경 → onSelectDate', () => {
   });
   const dateSelect = root.findByClass('jaelyo-date')[0];
   assert.ok(dateSelect, '날짜 드롭다운 존재');
+  // 옵션 라벨은 요일 포함, value는 원본 날짜 유지
+  const opt = dateSelect.children[0];
+  assert.match(opt.textContent, /^2026-05-09\(\w{3}\.\)$/, '라벨에 요일 표기');
+  assert.equal(opt.value, '2026-05-09', 'value는 원본 YYYY-MM-DD');
   dateSelect.value = '2026-05-07';
   dateSelect.dispatch('change');
   assert.equal(picked, '2026-05-07');

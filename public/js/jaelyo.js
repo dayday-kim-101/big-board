@@ -3,7 +3,7 @@
 import {
   fmtPrice, fmtPct,
   isHotChange, isSmallCap, isHighTradingValue, isHighTvRatio,
-  fmtWonKR, sortByChangeDesc,
+  fmtWonKR, sortByChangeDesc, fmtDateWithDow,
 } from './format.js';
 
 const COLS = [
@@ -86,8 +86,8 @@ export function renderJaelyo(container, { dates = [], selectedDate = null, board
   } else {
     for (const d of dates) {
       const opt = document.createElement('option');
-      opt.value = d;
-      opt.textContent = d;
+      opt.value = d; // 값은 원본 YYYY-MM-DD 유지(onSelectDate 계약 불변)
+      opt.textContent = fmtDateWithDow(d); // 표시는 요일 포함: 2026-06-11(Thu.)
       select.appendChild(opt);
     }
     select.value = selectedDate || dates[0];

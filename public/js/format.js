@@ -95,6 +95,15 @@ export function fmtWonKR(n) {
   return Math.round(n).toLocaleString('en-US');
 }
 
+// 날짜(YYYY-MM-DD) → 요일 표기 추가. 예: '2026-06-11' → '2026-06-11(Thu.)'.
+// 요일은 UTC 기준으로 결정론적 계산(타임존 영향 없음).
+const DOW_ABBR = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
+export function fmtDateWithDow(date) {
+  if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return date || '';
+  const dow = DOW_ABBR[new Date(`${date}T00:00:00Z`).getUTCDay()];
+  return dow ? `${date}(${dow})` : date;
+}
+
 // 등락률 내림차순 정렬(원본 불변). null/NaN 등락률은 말단으로.
 export function sortByChangeDesc(rows) {
   return [...(rows ?? [])].sort((a, b) => {
