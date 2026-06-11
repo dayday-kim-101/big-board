@@ -2,7 +2,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  parseAllStocks,
+  parseNaverStocks,
+  naverTradedDate,
   rankByTradingValue,
   computeTvToMcapPct,
   buildRankMap,
@@ -11,36 +12,53 @@ import {
   normalizeBoard,
   sanitizeManual,
   emptyManual,
-  toKrxDate,
   MANUAL_FIELDS,
 } from './_jaelyo-core.js';
 
-// --- parseAllStocks: KRX 전종목 시세(MDCSTAT01501) → 정규화 (거래대금·시총 원 단위 그대로) ---
-test('parseAllStocks: 필드 매핑(원 단위, 콤마 제거)', () => {
+// --- parseNaverStocks: 네이버 모바일 시세 → 정규화 (거래대금·시총 백만원 → 원) ---
+test('parseNaverStocks: 필드 매핑 + 백만원→원 환산', () => {
   const json = {
-    OutBlock_1: [
-      { ISU_SRT_CD: '028050', ISU_ABBRV: '삼성E&A', TDD_CLSPRC: '64,900', FLUC_RT: '23.60', ACC_TRDVAL: '152,285,000,000', MKTCAP: '1,270,000,000,000' },
-      { ISU_SRT_CD: '005930', ISU_ABBRV: '삼성전자', TDD_CLSPRC: '81,000', FLUC_RT: '-1.20', ACC_TRDVAL: '1,000,000,000,000', MKTCAP: '500,000,000,000,000' },
+    stocks: [
+      // 거래대금 accumulatedTradingValue=백만원, 시총 marketValue=억원 (네이버 단위)
+      { itemCode: '028050', stockName: '삼성E&A', stockEndType: 'stock', closePrice: '64,900', fluctuationsRatio: '23.60', accumulatedTradingValue: '152,285', marketValue: '12,700', localTradedAt: '2026-05-07T15:38:23+09:00' },
+      { itemCode: '005930', stockName: '삼성전자', stockEndType: 'stock', closePrice: '81,000', fluctuationsRatio: '-1.20', accumulatedTradingValue: '8,937,536', marketValue: '17,480,373' },
     ],
   };
-  const rows = parseAllStocks(json);
+  const rows = parseNaverStocks(json);
   assert.equal(rows.length, 2);
   assert.deepEqual(rows[0], {
-    code: '028050', name: '삼성E&A', price: 64900, changePct: 23.6, tradingValue: 152_285_000_000, marketCap: 1_270_000_000_000,
+    code: '028050', name: '삼성E&A', price: 64900, changePct: 23.6, tradingValue: 152_285 * 1_000_000, marketCap: 12_700 * 100_000_000, // 1.27조
   });
   assert.equal(rows[1].changePct, -1.2);
+  assert.equal(rows[1].tradingValue, 8_937_536 * 1_000_000); // 8.9조원
+  assert.equal(rows[1].marketCap, 17_480_373 * 100_000_000); // 1,748조원
 });
 
-test('parseAllStocks: code 없는 행 제외', () => {
-  const rows = parseAllStocks({ OutBlock_1: [{ ISU_SRT_CD: '', ISU_ABBRV: 'x', ACC_TRDVAL: '1' }, { ISU_SRT_CD: '000660', ISU_ABBRV: 'SK하이닉스', ACC_TRDVAL: '5', MKTCAP: '10' }] });
+test('parseNaverStocks: code 없는 행 제외', () => {
+  const rows = parseNaverStocks({ stocks: [{ itemCode: '', stockName: 'x', stockEndType: 'stock' }, { itemCode: '000660', stockName: 'SK하이닉스', stockEndType: 'stock', accumulatedTradingValue: '5', marketValue: '10' }] });
   assert.equal(rows.length, 1);
   assert.equal(rows[0].code, '000660');
 });
 
-test('parseAllStocks: 형식 오류 → throw / 빈 목록 → []', () => {
-  assert.throws(() => parseAllStocks({}), /형식/);
-  assert.throws(() => parseAllStocks(null), /형식/);
-  assert.deepEqual(parseAllStocks({ OutBlock_1: [] }), []);
+test('parseNaverStocks: ETF/ETN 제외(stockEndType=stock만)', () => {
+  const rows = parseNaverStocks({ stocks: [
+    { itemCode: '005930', stockName: '삼성전자', stockEndType: 'stock', accumulatedTradingValue: '10', marketValue: '100' },
+    { itemCode: '122630', stockName: 'KODEX 레버리지', stockEndType: 'etf', accumulatedTradingValue: '999', marketValue: '5' },
+    { itemCode: '530031', stockName: 'ETN상품', stockEndType: 'etn', accumulatedTradingValue: '999', marketValue: '5' },
+  ] });
+  assert.deepEqual(rows.map((r) => r.code), ['005930']);
+});
+
+test('parseNaverStocks: 형식 오류 → throw / 빈 목록 → []', () => {
+  assert.throws(() => parseNaverStocks({}), /형식/);
+  assert.throws(() => parseNaverStocks(null), /형식/);
+  assert.deepEqual(parseNaverStocks({ stocks: [] }), []);
+});
+
+test('naverTradedDate: 첫 종목 localTradedAt에서 YYYY-MM-DD', () => {
+  assert.equal(naverTradedDate({ stocks: [{ localTradedAt: '2026-05-07T15:38:23+09:00' }] }), '2026-05-07');
+  assert.equal(naverTradedDate({ stocks: [{}] }), null);
+  assert.equal(naverTradedDate({ stocks: [] }), null);
 });
 
 // --- rankByTradingValue: 거래대금 desc 상위 N + rank·비율 ---
@@ -73,12 +91,6 @@ test('computeTvToMcapPct: 분모 0/누락 → null', () => {
   assert.equal(computeTvToMcapPct(100, 0), null);
   assert.equal(computeTvToMcapPct(100, null), null);
   assert.equal(computeTvToMcapPct(null, 100), null);
-});
-
-// --- toKrxDate ---
-test('toKrxDate: YYYY-MM-DD → YYYYMMDD', () => {
-  assert.equal(toKrxDate('2026-05-07'), '20260507');
-  assert.equal(toKrxDate(''), '');
 });
 
 // --- buildRankMap / attachPrevRank ---
@@ -116,14 +128,14 @@ test('mergeManual: prevRows에 없는 code는 자신의 manual을 보존(재실�
 });
 
 // --- normalizeBoard ---
-test('normalizeBoard: 알 수 없는 필드 제거 + manual 항상 존재 + source 기본 krx', () => {
+test('normalizeBoard: 알 수 없는 필드 제거 + manual 항상 존재 + source 기본 naver', () => {
   const board = normalizeBoard({
     date: '2026-05-07',
     collectedAt: '2026-05-07T06:40:00Z',
     rows: [{ rank: 5, code: '028050', name: '삼성E&A', price: 64900, changePct: 23.6, marketCap: 1.27e12, tradingValue: 1.5e11, tvToMcapPct: 12, junk: 'x' }],
   });
   assert.equal(board.date, '2026-05-07');
-  assert.equal(board.source, 'krx');
+  assert.equal(board.source, 'naver');
   const r = board.rows[0];
   assert.equal(r.junk, undefined);
   assert.deepEqual(Object.keys(r.manual).sort(), [...MANUAL_FIELDS].sort());

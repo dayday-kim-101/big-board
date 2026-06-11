@@ -3,12 +3,12 @@
 // 파일명이 '_'로 시작하므로 Pages Functions 라우트로 노출되지 않는다.
 //
 // 순수 파서/계산/병합은 네트워크 비의존(테스트 대상)이고,
-// fetchAllStocks 래퍼는 얇은 네트워크 경계다(테스트 미대상).
+// fetch* 래퍼는 얇은 네트워크 경계다(테스트 미대상).
 //
-// 데이터 소스: KRX(data.krx.co.kr) 전종목 시세 — 무인증·무IP제한, 일자 지정 가능.
-// 한 번 호출로 종목코드·종목명·종가·등락률·거래대금(원)·시가총액(원)을 모두 얻는다.
-// ⚠ KRX bld/필드명(ISU_SRT_CD·ACC_TRDVAL·MKTCAP 등)은 실응답으로 1회 검증 후 확정할 것.
-//   필드 매핑이 parseAllStocks 한 곳에 격리되어 있어 변경 지점이 단일하다.
+// 데이터 소스: 네이버 모바일 API(m.stock.naver.com) — 무인증·무IP제한.
+// 종목별 거래대금(accumulatedTradingValue)·시총(marketValue)이 백만원 단위로 들어있어,
+// 전 종목을 받아 거래대금 내림차순 상위 100을 직접 뽑는다(소형 고거래대금주 누락 방지).
+// 당일 데이터만 제공하므로 과거 일자 소급은 불가(거래일자는 응답 localTradedAt에서 읽는다).
 //
 // 정규화 스키마 (data/jaelyo/YYYY-MM-DD.json 의 rows[]):
 //   { rank, prevRank, code, name, price, changePct,
@@ -25,11 +25,18 @@ export const MANUAL_FIELDS = [
   'supplyDemand', // 수급
 ];
 
+// 네이버 단위(응답의 한글 라벨로 확인): 거래대금(accumulatedTradingValue)=백만원, 시총(marketValue)=억원.
+const WON_PER_MILLION = 1_000_000; // 거래대금 백만원 → 원
+const WON_PER_EOK = 100_000_000; //   시가총액 억원 → 원
+
 // --- 숫자 유틸 ---
 function num(v) {
   if (v === null || v === undefined || v === '') return null;
   const n = Number(String(v).replace(/,/g, '').trim());
   return Number.isFinite(n) ? n : null;
+}
+function scale(n, factor) {
+  return n === null ? null : Math.round(n * factor);
 }
 function round(n, d) {
   const f = 10 ** d;
@@ -38,21 +45,28 @@ function round(n, d) {
 
 // --- 순수 파서/계산/병합 (테스트 대상) ---
 
-// KRX 전종목 시세(MDCSTAT01501) 응답 → [{code, name, price, changePct, tradingValue(원), marketCap(원)}].
-// KRX는 거래대금·시총을 원 단위로 제공하므로 환산이 필요 없다.
-export function parseAllStocks(json) {
-  const arr = json?.OutBlock_1;
-  if (!Array.isArray(arr)) throw new Error('KRX 전종목 시세 응답 형식 오류');
+// 네이버 모바일 시세 응답(한 페이지) → [{code, name, price, changePct, tradingValue(원), marketCap(원)}].
+export function parseNaverStocks(json) {
+  const arr = json?.stocks;
+  if (!Array.isArray(arr)) throw new Error('네이버 시세 응답 형식 오류');
   return arr
+    // 재료정리는 개별 종목(재료/테마) 대상 → ETF/ETN 제외(stockEnd: stock | etf | etn).
+    .filter((o) => o?.stockEndType === 'stock')
     .map((o) => ({
-      code: String(o.ISU_SRT_CD ?? '').trim(),
-      name: String(o.ISU_ABBRV ?? '').trim(),
-      price: num(o.TDD_CLSPRC),
-      changePct: num(o.FLUC_RT),
-      tradingValue: num(o.ACC_TRDVAL),
-      marketCap: num(o.MKTCAP),
+      code: String(o.itemCode ?? '').trim(),
+      name: String(o.stockName ?? '').trim(),
+      price: num(o.closePrice),
+      changePct: num(o.fluctuationsRatio),
+      tradingValue: scale(num(o.accumulatedTradingValue), WON_PER_MILLION),
+      marketCap: scale(num(o.marketValue), WON_PER_EOK),
     }))
     .filter((r) => r.code);
+}
+
+// 네이버 응답에서 거래 기준일(YYYY-MM-DD). 첫 종목의 localTradedAt 기준. 없으면 null.
+export function naverTradedDate(json) {
+  const t = json?.stocks?.[0]?.localTradedAt;
+  return typeof t === 'string' && t.length >= 10 ? t.slice(0, 10) : null;
 }
 
 // 거래대금 내림차순 상위 limit개 선정 → rank(1..N)·시총대비 비율 부여.
@@ -122,7 +136,7 @@ export function mergeManual(newRows, prevRows = []) {
 }
 
 // 최종 스키마로 정규화 — 알 수 없는 필드 제거, manual 항상 7키 존재.
-export function normalizeBoard({ date, rows = [], collectedAt = null, source = 'krx' }) {
+export function normalizeBoard({ date, rows = [], collectedAt = null, source = 'naver' }) {
   return {
     date,
     collectedAt,
@@ -142,51 +156,44 @@ export function normalizeBoard({ date, rows = [], collectedAt = null, source = '
   };
 }
 
-// 'YYYY-MM-DD' → KRX 일자 형식 'YYYYMMDD'.
-export function toKrxDate(date) {
-  return String(date || '').replace(/-/g, '');
-}
-
 // --- 네트워크 래퍼 (얇음, 테스트 미대상) ---
 
-const KRX_URL = 'https://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd';
-const KRX_REFERER = 'https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd';
-const KRX_TIMEOUT_MS = 15_000;
+const NAVER_BASE = 'https://m.stock.naver.com/api/stocks/marketValue';
+const NAVER_TIMEOUT_MS = 12_000;
 const UA = 'Mozilla/5.0 (compatible; stock-bigboard/0.1)';
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// KRX 전종목 시세(MDCSTAT01501) — 무인증. 휴장일/미래일자는 빈 목록을 반환한다.
-// date: 'YYYY-MM-DD'. mktId: ALL=전체, STK=코스피, KSQ=코스닥.
-//
-// ⚠ 실행 시점 확인: KRX getJsonData는 로더 페이지(Referer)를 먼저 방문해 받은 세션 쿠키를
-//   요구할 수 있다(쿠키 없이 POST하면 JSON 대신 'LOGOUT' 등 비정상 응답이 올 수 있음).
-//   그 경우 아래에서 set-cookie를 받아 Cookie 헤더로 전달하는 2단계 호출로 바꾼다.
-//   첫 실호출로 필요 여부를 확정한다.
-export async function fetchAllStocks(date, { url = KRX_URL, mktId = 'ALL' } = {}) {
-  const body = new URLSearchParams({
-    bld: 'dbms/MDC/STAT/standard/MDCSTAT01501',
-    mktId,
-    trdDd: toKrxDate(date),
-    share: '1',
-    money: '1',
-    csvxls_isNo: 'false',
-  });
+async function getJson(url) {
   const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      'User-Agent': UA,
-      Referer: KRX_REFERER,
-    },
-    body: body.toString(),
-    signal: AbortSignal.timeout(KRX_TIMEOUT_MS),
+    headers: { 'User-Agent': UA, Accept: 'application/json' },
+    signal: AbortSignal.timeout(NAVER_TIMEOUT_MS),
   });
-  if (!res.ok) throw new Error(`KRX 전종목 시세 실패 HTTP ${res.status}`);
-  let json;
-  try {
-    json = await res.json();
-  } catch {
-    // JSON이 아니면(예: 세션 누락 시 'LOGOUT') 명확히 실패시켜 휴장 가드와 구분한다.
-    throw new Error('KRX 응답이 JSON이 아님(세션 쿠키 필요 가능성 — 위 주석 참고)');
+  if (!res.ok) throw new Error(`네이버 시세 실패 HTTP ${res.status}`);
+  return res.json();
+}
+
+// 한 시장(KOSPI|KOSDAQ) 전 종목을 페이지네이션으로 모은다.
+async function fetchMarket(market, { pageSize = 100 } = {}) {
+  const first = await getJson(`${NAVER_BASE}/${market}?page=1&pageSize=${pageSize}`);
+  let rows = parseNaverStocks(first);
+  const tradedDate = naverTradedDate(first);
+  const total = num(first?.totalCount) ?? rows.length;
+  const pages = Math.max(1, Math.ceil(total / pageSize));
+  for (let p = 2; p <= pages; p++) {
+    rows = rows.concat(parseNaverStocks(await getJson(`${NAVER_BASE}/${market}?page=${p}&pageSize=${pageSize}`)));
+    await sleep(120); // 네이버에 과부하 주지 않도록 간격
   }
-  return parseAllStocks(json);
+  return { rows, tradedDate };
+}
+
+// 전체 시장(KOSPI+KOSDAQ) 종목 + 거래 기준일. 거래대금 정렬은 호출부(rankByTradingValue)가 한다.
+export async function fetchTopStocks({ markets = ['KOSPI', 'KOSDAQ'] } = {}) {
+  let rows = [];
+  let tradedDate = null;
+  for (const m of markets) {
+    const r = await fetchMarket(m);
+    rows = rows.concat(r.rows);
+    tradedDate = tradedDate || r.tradedDate;
+  }
+  return { rows, tradedDate };
 }
