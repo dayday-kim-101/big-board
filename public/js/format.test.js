@@ -3,8 +3,18 @@ import assert from 'node:assert/strict';
 import {
   priceTone, fmtPrice, fmtSigned, fmtPct, fmtVolume, fmtTradingValue, mergeBoard,
   isHotChange, isSmallCap, isHighTradingValue, isHighTvRatio,
-  fmtWonKR, sortByChangeDesc,
+  fmtWonKR, sortByChangeDesc, fmtDateWithDow,
 } from './format.js';
+
+test('fmtDateWithDow: 요일 약어 부여(UTC 결정론)', () => {
+  assert.equal(fmtDateWithDow('2026-06-11'), '2026-06-11(Thu.)');
+  assert.equal(fmtDateWithDow('2026-06-08'), '2026-06-08(Mon.)');
+  assert.equal(fmtDateWithDow('2026-06-07'), '2026-06-07(Sun.)');
+  assert.equal(fmtDateWithDow('2026-06-13'), '2026-06-13(Sat.)');
+  // 형식 불일치/빈값은 원본 유지(안전)
+  assert.equal(fmtDateWithDow('20260611'), '20260611');
+  assert.equal(fmtDateWithDow(null), '');
+});
 
 // --- 재료정리 임계값 강조 술어 ---
 test('isHotChange: 등락률 10% 이상', () => {
