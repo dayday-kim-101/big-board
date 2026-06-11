@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Read(//home/dh10kim/.claude/plugins/cache/compound-engineering-plugin/compound-engineering/3.9.3/skills/ce-setup/**)",
-      "Bash(bash scripts/check-health --version 3.9.3)"
+      "Bash(bash scripts/check-health --version 3.9.3)",
+      "Read(//Users/daydaykim/.claude/plugins/cache/compound-engineering-plugin/compound-engineering/3.8.0/skills/ce-setup/**)",
+      "Bash(bash scripts/check-health --version 3.8.0)"
     ]
   }
 }

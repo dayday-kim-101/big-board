@@ -74,13 +74,15 @@ async function main() {
   rows = await enrichMarketCaps(env, token, rows);
 
   // 전일순위: 직전 개장일 파일에서 (code→rank) 맵.
+  // manual 보존: 오늘 파일이 이미 있으면(재실행) 기존 수동입력 병합.
+  // 두 파일 읽기는 서로 독립적이므로 병렬로 읽는다.
   const dates = await listDates(OUT_DIR);
   const prevDate = pickPrevDate(dates, today);
-  const prevBoard = await readBoard(OUT_DIR, prevDate);
+  const [prevBoard, existingToday] = await Promise.all([
+    readBoard(OUT_DIR, prevDate),
+    readBoard(OUT_DIR, today),
+  ]);
   rows = attachPrevRank(rows, buildRankMap(prevBoard?.rows));
-
-  // manual 보존: 오늘 파일이 이미 있으면(재실행) 기존 수동입력 병합.
-  const existingToday = await readBoard(OUT_DIR, today);
   rows = mergeManual(rows, existingToday?.rows);
 
   const board = normalizeBoard({

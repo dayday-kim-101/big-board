@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {
   priceTone, fmtPrice, fmtSigned, fmtPct, fmtVolume, fmtTradingValue, mergeBoard,
   isHotChange, isSmallCap, isHighTradingValue, isHighTvRatio,
-  fmtMarketCap, fmtJaelyoTradingValue, sortByChangeDesc,
+  fmtWonKR, sortByChangeDesc,
 } from './format.js';
 
 // --- 재료정리 임계값 강조 술어 ---
@@ -35,12 +35,12 @@ test('isHighTvRatio: 시총대비 비율 20 초과(초과만)', () => {
   assert.equal(isHighTvRatio(null), false);
 });
 
-test('fmtMarketCap / fmtJaelyoTradingValue: 조/억 표기', () => {
-  assert.equal(fmtMarketCap(1.27e12), '1.27조');
-  assert.equal(fmtMarketCap(5e11), '5,000억');
-  assert.equal(fmtMarketCap(null), '—');
-  assert.equal(fmtJaelyoTradingValue(4e11), '4,000억');
-  assert.equal(fmtJaelyoTradingValue(2.5e12), '2.50조');
+test('fmtWonKR: 조/억 표기 (시총·거래대금 공통)', () => {
+  assert.equal(fmtWonKR(1.27e12), '1.27조');
+  assert.equal(fmtWonKR(5e11), '5,000억');
+  assert.equal(fmtWonKR(null), '—');
+  assert.equal(fmtWonKR(4e11), '4,000억');
+  assert.equal(fmtWonKR(2.5e12), '2.50조');
 });
 
 test('sortByChangeDesc: 등락률 내림차순, null은 말단', () => {

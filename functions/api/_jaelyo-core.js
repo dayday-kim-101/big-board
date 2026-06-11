@@ -44,10 +44,6 @@ function round(n, d) {
   const f = 10 ** d;
   return Math.round(n * f) / f;
 }
-function numOrNull(v) {
-  if (typeof v === 'number') return Number.isFinite(v) ? v : null;
-  return num(v);
-}
 
 // --- 순수 파서/계산/병합 (테스트 대상) ---
 
@@ -74,8 +70,8 @@ export function parseBasicInfo(json) {
 
 // 시총대비 거래대금 비율(%) = 거래대금 / 시총 × 100. 분모 0/누락 시 null.
 export function computeTvToMcapPct(tradingValue, marketCap) {
-  const tv = numOrNull(tradingValue);
-  const mc = numOrNull(marketCap);
+  const tv = num(tradingValue);
+  const mc = num(marketCap);
   if (tv === null || mc === null || mc === 0) return null;
   return round((tv / mc) * 100, 2);
 }
@@ -127,15 +123,15 @@ export function normalizeBoard({ date, rows = [], collectedAt = null, source = '
     collectedAt,
     source,
     rows: (rows ?? []).map((r) => ({
-      rank: numOrNull(r.rank),
-      prevRank: numOrNull(r.prevRank),
+      rank: num(r.rank),
+      prevRank: num(r.prevRank),
       code: String(r.code ?? ''),
       name: String(r.name ?? ''),
-      price: numOrNull(r.price),
-      changePct: numOrNull(r.changePct),
-      marketCap: numOrNull(r.marketCap),
-      tradingValue: numOrNull(r.tradingValue),
-      tvToMcapPct: numOrNull(r.tvToMcapPct),
+      price: num(r.price),
+      changePct: num(r.changePct),
+      marketCap: num(r.marketCap),
+      tradingValue: num(r.tradingValue),
+      tvToMcapPct: num(r.tvToMcapPct),
       manual: sanitizeManual(r.manual),
     })),
   };

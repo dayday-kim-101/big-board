@@ -87,18 +87,12 @@ export function isHighTvRatio(pct) {
   return isNum(pct) && pct > 20; // 시총대비 거래대금 비율 20 초과
 }
 
-// 시가총액·거래대금 표기 (원 단위 → 조/억). 재료정리 보드 전용.
-function fmtWonKR(n) {
+// 원 단위 → 조/억 표기. 재료정리 보드의 시가총액·거래대금 공통 포맷.
+export function fmtWonKR(n) {
   if (!isNum(n)) return NA;
   if (n >= 1e12) return `${(n / 1e12).toFixed(2)}조`;
   if (n >= 1e8) return `${Math.round(n / 1e8).toLocaleString('en-US')}억`;
   return Math.round(n).toLocaleString('en-US');
-}
-export function fmtMarketCap(n) {
-  return fmtWonKR(n);
-}
-export function fmtJaelyoTradingValue(n) {
-  return fmtWonKR(n);
 }
 
 // 등락률 내림차순 정렬(원본 불변). null/NaN 등락률은 말단으로.

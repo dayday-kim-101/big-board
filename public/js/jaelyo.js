@@ -3,7 +3,7 @@
 import {
   fmtPrice, fmtPct,
   isHotChange, isSmallCap, isHighTradingValue, isHighTvRatio,
-  fmtMarketCap, fmtJaelyoTradingValue, sortByChangeDesc,
+  fmtWonKR, sortByChangeDesc,
 } from './format.js';
 
 const COLS = [
@@ -125,8 +125,8 @@ export function renderJaelyo(container, { dates = [], selectedDate = null, board
     tr.appendChild(cell('td', r.name, 'name'));
     tr.appendChild(cell('td', fmtPrice(r.price, 'KR'), 'num'));
     tr.appendChild(cell('td', fmtPct(r.changePct), numCls(isHotChange(r.changePct) && 'hot-change')));
-    tr.appendChild(cell('td', fmtMarketCap(r.marketCap), numCls(isSmallCap(r.marketCap) && 'small-cap')));
-    tr.appendChild(cell('td', fmtJaelyoTradingValue(r.tradingValue), numCls(isHighTradingValue(r.tradingValue) && 'high-tv')));
+    tr.appendChild(cell('td', fmtWonKR(r.marketCap), numCls(isSmallCap(r.marketCap) && 'small-cap')));
+    tr.appendChild(cell('td', fmtWonKR(r.tradingValue), numCls(isHighTradingValue(r.tradingValue) && 'high-tv')));
     tr.appendChild(cell('td', fmtRatio(r.tvToMcapPct), numCls(isHighTvRatio(r.tvToMcapPct) && 'high-ratio')));
     for (const mc of MANUAL_COLS) tr.appendChild(manualCell(r, mc, onEditManual));
     tbody.appendChild(tr);
