@@ -1,7 +1,7 @@
 ---
 title: "feat: 일별 거래대금 상위 재료정리 보드"
 type: feat
-status: active
+status: completed
 date: 2026-06-11
 depth: standard
 branch: feat/daily-jaelyo-board
