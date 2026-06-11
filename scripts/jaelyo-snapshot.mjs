@@ -32,6 +32,12 @@ export function pickPrevDate(dates, today) {
   return prior.length ? prior[prior.length - 1] : null;
 }
 
+// 오늘이 개장일인가 — 네이버가 보고한 거래일이 오늘과 같을 때만 참.
+// (공휴일/임시공휴일이면 네이버 거래일이 직전 개장일이라 거짓 → 하드코딩 달력 불필요)
+export function isTradingDay(tradedDate, today) {
+  return Boolean(tradedDate) && tradedDate === today;
+}
+
 // --- 파일 IO ---
 
 async function listDates(dir) {
@@ -56,13 +62,19 @@ async function readBoard(dir, date) {
 // --- 메인 ---
 
 async function main() {
+  const today = kstDateString();
   const { rows: all, tradedDate } = await fetchTopStocks();
   const ranked = rankByTradingValue(all, TOP_N);
   if (!ranked.length) {
     console.log('수집 결과 없음 — 파일 미작성');
     return;
   }
-  const date = tradedDate || kstDateString();
+  // 공휴일 가드: 네이버 거래일이 오늘이 아니면 휴장 → 미작성(주말·공휴일 공통).
+  if (!isTradingDay(tradedDate, today)) {
+    console.log(`휴장 추정(네이버 거래일 ${tradedDate ?? '없음'} ≠ 오늘 ${today}) — 파일 미작성`);
+    return;
+  }
+  const date = today;
 
   // 전일순위(직전 개장일 파일) + manual 보존(같은 거래일 재실행 대비)을 병렬로 읽는다.
   const dates = await listDates(OUT_DIR);

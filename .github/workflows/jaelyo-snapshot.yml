@@ -3,9 +3,11 @@ name: 재료정리 일별 수집
 on:
   workflow_dispatch: {}
   schedule:
-    # 평일 06:40 UTC ≈ 15:40 KST — KR 장 마감(15:30 KST) 직후 1회.
+    # 평일 12:00 UTC = 21:00 KST — 장 마감(15:30 KST) 후 당일 내용 갱신.
+    # 공휴일은 스크립트가 처리한다: 네이버 거래일 ≠ 오늘이면 휴장으로 보고 미작성
+    #  → 하드코딩 공휴일 달력 없이 임시공휴일까지 자동 대응.
     # GitHub 스케줄은 분 단위 정밀도가 낮아 ±수분 지연될 수 있음(수동 dispatch로 보완).
-    - cron: "40 6 * * 1-5"
+    - cron: "0 12 * * 1-5"
 
 permissions:
   contents: write

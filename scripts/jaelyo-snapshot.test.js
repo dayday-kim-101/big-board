@@ -1,7 +1,7 @@
 // jaelyo-snapshot 순수 헬퍼 테스트 — node --test
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { kstDateString, pickPrevDate } from './jaelyo-snapshot.mjs';
+import { kstDateString, pickPrevDate, isTradingDay } from './jaelyo-snapshot.mjs';
 
 test('kstDateString: UTC → KST(+9) 날짜', () => {
   // 2026-05-07 06:40 UTC = 2026-05-07 15:40 KST (같은 날)
@@ -22,4 +22,11 @@ test('pickPrevDate: 이전 날짜 없음 → null', () => {
   assert.equal(pickPrevDate(['2026-05-07'], '2026-05-07'), null);
   assert.equal(pickPrevDate([], '2026-05-07'), null);
   assert.equal(pickPrevDate(['2026-05-10'], '2026-05-07'), null);
+});
+
+test('isTradingDay: 네이버 거래일 == 오늘일 때만 참(공휴일/주말 가드)', () => {
+  assert.equal(isTradingDay('2026-06-11', '2026-06-11'), true);
+  assert.equal(isTradingDay('2026-06-05', '2026-06-08'), false); // 6/6 현충일 끼인 직후 등 휴장일
+  assert.equal(isTradingDay(null, '2026-06-11'), false);
+  assert.equal(isTradingDay(undefined, '2026-06-11'), false);
 });
