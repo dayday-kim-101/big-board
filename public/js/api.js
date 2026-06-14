@@ -102,6 +102,19 @@ export async function putJaelyoManual(date, code, manual) {
   return res.json();
 }
 
+// --- 매크로 지표 (읽기 전용 정적 파일) ---
+
+// → { collectedAt, seed?, indicators: [...] }. 실패 시 빈 데이터.
+export async function getMacro() {
+  try {
+    const res = await fetch('/data/macro/macro.json', { cache: 'no-cache' });
+    if (res.ok) return await res.json();
+  } catch {
+    /* 빈 데이터 반환 */
+  }
+  return { collectedAt: null, indicators: [] };
+}
+
 async function safeErr(res) {
   try {
     return (await res.json())?.error;

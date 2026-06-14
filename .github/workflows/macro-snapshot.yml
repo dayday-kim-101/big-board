@@ -1,0 +1,43 @@
+name: 매크로 지표 수집
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # 평일 1회. 14:00 UTC(= 23:00 KST) — 미 지표(FRED) 갱신 이후. 매크로는 저빈도라 1일 1회로 충분.
+    - cron: "0 14 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: macro-snapshot
+  cancel-in-progress: false
+
+jobs:
+  macro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 매크로 수집
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          ECOS_API_KEY: ${{ secrets.ECOS_API_KEY }}
+        run: node scripts/macro-snapshot.mjs
+
+      - name: 변경 시 커밋
+        run: |
+          if [ -n "$(git status --porcelain public/data/macro/macro.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add public/data/macro/macro.json
+            git commit -m "chore: 매크로 지표 갱신 [skip ci]"
+            git push
+          else
+            echo "변경 없음 — 커밋 생략"
+          fi

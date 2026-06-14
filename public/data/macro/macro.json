@@ -1,0 +1,101 @@
+{
+  "collectedAt": "2026-06-13T12:00:00.000Z",
+  "seed": true,
+  "indicators": [
+    {
+      "key": "dxy",
+      "label": "달러인덱스",
+      "unit": "",
+      "decimals": 2,
+      "source": "ICE / Stooq",
+      "series": [
+        {
+          "name": "DXY",
+          "points": [
+            { "date": "2026-04-13", "value": 99.42 },
+            { "date": "2026-04-27", "value": 98.91 },
+            { "date": "2026-05-11", "value": 98.34 },
+            { "date": "2026-05-25", "value": 98.72 },
+            { "date": "2026-06-01", "value": 98.12 },
+            { "date": "2026-06-08", "value": 97.95 },
+            { "date": "2026-06-12", "value": 98.21 }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "us_policy_rate",
+      "label": "미국 기준금리",
+      "unit": "%",
+      "decimals": 2,
+      "source": "FRED (DFEDTARU, 상단)",
+      "series": [
+        {
+          "name": "정책금리 상단",
+          "points": [
+            { "date": "2025-09-19", "value": 4.75 },
+            { "date": "2025-12-12", "value": 4.5 },
+            { "date": "2026-03-20", "value": 4.25 },
+            { "date": "2026-06-12", "value": 4.25 }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "kr_reserves_extdebt",
+      "label": "한국 외환보유액 및 대외채무",
+      "unit": "억달러",
+      "decimals": 0,
+      "source": "한국은행 ECOS",
+      "series": [
+        {
+          "name": "외환보유액",
+          "points": [
+            { "date": "2025-12-01", "value": 4156 },
+            { "date": "2026-01-01", "value": 4180 },
+            { "date": "2026-02-01", "value": 4153 },
+            { "date": "2026-03-01", "value": 4092 },
+            { "date": "2026-04-01", "value": 4045 },
+            { "date": "2026-05-01", "value": 4101 }
+          ]
+        },
+        {
+          "name": "대외채무",
+          "points": [
+            { "date": "2025-03-01", "value": 6633 },
+            { "date": "2025-06-01", "value": 6701 },
+            { "date": "2025-09-01", "value": 6738 },
+            { "date": "2025-12-01", "value": 6802 }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "kr_st_extdebt",
+      "label": "한국 단기외채비중·비율",
+      "unit": "%",
+      "decimals": 1,
+      "source": "한국은행 ECOS",
+      "series": [
+        {
+          "name": "단기외채비중",
+          "points": [
+            { "date": "2025-03-01", "value": 22.1 },
+            { "date": "2025-06-01", "value": 22.5 },
+            { "date": "2025-09-01", "value": 22.8 },
+            { "date": "2025-12-01", "value": 23.0 }
+          ]
+        },
+        {
+          "name": "단기외채비율",
+          "points": [
+            { "date": "2025-03-01", "value": 37.5 },
+            { "date": "2025-06-01", "value": 38.2 },
+            { "date": "2025-09-01", "value": 39.0 },
+            { "date": "2025-12-01", "value": 39.4 }
+          ]
+        }
+      ]
+    }
+  ]
+}
