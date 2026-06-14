@@ -1,11 +1,12 @@
 // 진입·상태·그룹/종목 관리·새로고침 오케스트레이션.
 import {
   getList, putList, getQuotes, getSnapshot, searchTickers, getHistory,
-  getJaelyoDates, getJaelyo, putJaelyoManual,
+  getJaelyoDates, getJaelyo, putJaelyoManual, getMacro,
 } from './api.js';
 import { mergeBoard } from './format.js';
 import { renderBoard } from './board.js';
 import { renderJaelyo } from './jaelyo.js';
+import { renderMacro } from './macro.js';
 
 const EMAIL_KEY = 'bigboard:email';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -18,7 +19,14 @@ const state = {
   activeGroupId: null,
   loading: false,
   jaelyo: { dates: [], selectedDate: null, board: null },
+  macro: { data: null },
+  bottomTab: 'jaelyo', // 전광판 아래 탭: 'jaelyo' | 'macro'
 };
+
+const BOTTOM_TABS = [
+  { key: 'jaelyo', label: '재료정리' },
+  { key: 'macro', label: '매크로 지표' },
+];
 
 const $app = () => document.getElementById('app');
 
@@ -80,11 +88,8 @@ async function enterBoard(email) {
     state.quotes = snap.quotes || {};
     state.updatedAt = snap.updatedAt;
     if (!state.activeGroupId && state.list.groups[0]) state.activeGroupId = state.list.groups[0].id;
-    try {
-      await loadJaelyo(); // 재료정리 보드(공용) 로드 — 실패해도 전광판은 표시
-    } catch {
-      /* 재료정리 데이터 없거나 실패 — 무시 */
-    }
+    // 재료정리 보드 + 매크로 지표(공용) 로드 — 실패해도 전광판은 표시.
+    await Promise.allSettled([loadJaelyo(), loadMacro()]);
     renderApp();
   } catch (e) {
     renderGate(`목록을 불러오지 못했습니다: ${e.message}`);
@@ -100,8 +105,44 @@ async function loadJaelyo() {
   state.jaelyo.board = latest ? await getJaelyo(latest) : null;
 }
 
+async function loadMacro() {
+  state.macro.data = await getMacro();
+}
+
+// 전광판 아래 탭바(재료정리 / 매크로 지표). 클릭 시 내용 영역만 교체.
+function renderBottomTabs() {
+  const nav = document.createElement('nav');
+  nav.className = 'subtabs';
+  for (const t of BOTTOM_TABS) {
+    const b = document.createElement('button');
+    b.className = 'subtab' + (state.bottomTab === t.key ? ' active' : '');
+    b.textContent = t.label;
+    b.addEventListener('click', () => {
+      if (state.bottomTab === t.key) return;
+      state.bottomTab = t.key;
+      nav.querySelectorAll('.subtab').forEach((x) => x.classList.remove('active'));
+      b.classList.add('active');
+      paintBottom();
+    });
+    nav.appendChild(b);
+  }
+  return nav;
+}
+
+function paintBottom() {
+  if (state.bottomTab === 'macro') paintMacro();
+  else paintJaelyo();
+}
+
+function paintMacro() {
+  const root = document.getElementById('bottom-content');
+  if (!root) return;
+  renderMacro(root, { data: state.macro.data });
+}
+
 function paintJaelyo() {
-  const root = document.getElementById('jaelyo-root');
+  if (state.bottomTab !== 'jaelyo') return; // 매크로 탭이면 재료정리 콜백 무시
+  const root = document.getElementById('bottom-content');
   if (!root) return;
   renderJaelyo(root, {
     dates: state.jaelyo.dates,
@@ -226,11 +267,12 @@ function renderApp() {
   app.appendChild(boardRoot);
   paintBoard();
 
-  // 전광판 아래: 재료정리 보드
-  const jaelyoRoot = document.createElement('div');
-  jaelyoRoot.id = 'jaelyo-root';
-  app.appendChild(jaelyoRoot);
-  paintJaelyo();
+  // 전광판 아래: 탭(재료정리 / 매크로 지표) + 내용 영역
+  app.appendChild(renderBottomTabs());
+  const bottomContent = document.createElement('div');
+  bottomContent.id = 'bottom-content';
+  app.appendChild(bottomContent);
+  paintBottom();
 }
 
 function renderTabs() {

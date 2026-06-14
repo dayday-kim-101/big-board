@@ -226,3 +226,49 @@ body.col-resizing { cursor: col-resize; user-select: none; } /* 드래그 중 �
 }
 select.manual-input { min-width: 0; }
 .manual-input:focus { background: var(--panel); outline: 1px solid var(--accent); }
+
+/* 전광판 아래 탭(재료정리 / 매크로 지표) */
+.subtabs { display: flex; gap: 6px; margin-top: 32px; border-bottom: 1px solid var(--line); }
+.subtab {
+  background: transparent; color: var(--muted);
+  border: 1px solid transparent; border-bottom: none;
+  border-radius: 8px 8px 0 0; padding: 8px 16px; cursor: pointer; font-size: 14px;
+}
+.subtab:hover { color: var(--text); }
+.subtab.active {
+  color: var(--accent); background: var(--panel);
+  border-color: var(--line); margin-bottom: -1px;
+}
+
+/* 매크로 지표 카드 */
+.macro { padding-top: 16px; }
+.macro-empty { color: var(--muted); padding: 24px; text-align: center; }
+.macro-notice {
+  color: var(--muted); font-size: 12px; margin: 0 0 12px;
+  padding: 8px 12px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px;
+}
+.macro-grid {
+  display: grid; gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.macro-card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+.macro-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.macro-label { font-size: 14px; font-weight: 600; color: var(--text); }
+.macro-source { font-size: 11px; color: var(--muted); white-space: nowrap; }
+.macro-series { display: flex; flex-direction: column; gap: 8px; }
+.macro-srow {
+  display: grid; grid-template-columns: 1fr auto 116px; align-items: center; gap: 8px;
+}
+.macro-sname { font-size: 12px; color: var(--muted); }
+.macro-svalue { font-size: 14px; font-variant-numeric: tabular-nums; text-align: right; }
+.macro-schange { font-size: 11px; font-variant-numeric: tabular-nums; text-align: right; }
+.macro-schange.up { color: #ff6b6d; }
+.macro-schange.down { color: #6b93ff; }
+.macro-schange.flat { color: var(--muted); }
+.macro-spark { width: 116px; height: 30px; display: block; }
+.macro-spark polyline { stroke: var(--accent); }
+.macro-asof { margin-top: 10px; font-size: 11px; color: var(--muted); text-align: right; }
+@media (max-width: 480px) {
+  .macro-srow { grid-template-columns: 1fr auto; }
+  .macro-spark { display: none; } /* 좁은 화면: 스파크라인 숨김 */
+}
