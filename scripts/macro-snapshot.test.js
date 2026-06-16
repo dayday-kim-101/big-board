@@ -1,9 +1,43 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  parseFredObservations, parseStooqCsv, ecosTimeToDate, parseEcosRows,
+  parseFredObservations, parseStooqCsv, parseYahooChart, parseYahooOHLC, ecosTimeToDate, parseEcosRows,
   cleanPoints, normalizeMacro, hasData,
 } from '../functions/api/_macro-core.js';
+
+test('parseYahooOHLC: OHLC 포인트, null 바 제외', () => {
+  const json = { chart: { result: [{
+    timestamp: [1749513600, 1749600000],
+    indicators: { quote: [{ open: [99.1, null], high: [99.9, 100], low: [98.8, 99], close: [99.5, 99.7] }] },
+  }], error: null } };
+  const pts = parseYahooOHLC(json);
+  assert.equal(pts.length, 1); // 둘째 바는 open=null → 제외
+  assert.deepEqual(
+    { open: pts[0].open, high: pts[0].high, low: pts[0].low, close: pts[0].close, value: pts[0].value },
+    { open: 99.1, high: 99.9, low: 98.8, close: 99.5, value: 99.5 },
+  );
+});
+
+test('cleanPoints: OHLC 보존, value 누락 시 close로 보정', () => {
+  const pts = cleanPoints([{ date: '2026-01-05', open: 10, high: 12, low: 9, close: 11 }]);
+  assert.deepEqual(pts, [{ date: '2026-01-05', value: 11, open: 10, high: 12, low: 9, close: 11 }]);
+  // OHLC 불완전(low 누락)이면 레벨 포인트로 — value만 유지
+  const lvl = cleanPoints([{ date: '2026-01-05', value: 5, open: 10, high: 12, close: 11 }]);
+  assert.deepEqual(lvl, [{ date: '2026-01-05', value: 5 }]);
+});
+
+test('parseYahooChart: timestamp+close → 포인트, null 종가 제외', () => {
+  const json = { chart: { result: [{
+    timestamp: [1749513600, 1749600000, 1749686400],
+    indicators: { quote: [{ close: [99.5, null, 99.75] }] },
+  }], error: null } };
+  const pts = parseYahooChart(json);
+  assert.equal(pts.length, 2);
+  assert.equal(pts[0].value, 99.5);
+  assert.equal(pts[1].value, 99.75);
+  assert.match(pts[0].date, /^\d{4}-\d{2}-\d{2}$/);
+  assert.throws(() => parseYahooChart({ chart: { error: { description: '404' } } }), /Yahoo 오류/);
+});
 
 test('parseFredObservations: 결측(.) 제외, 숫자 변환', () => {
   const json = { observations: [

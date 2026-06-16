@@ -268,6 +268,15 @@ select.manual-input { min-width: 0; }
 .macro-spark { width: 116px; height: 30px; display: block; }
 .macro-spark polyline { stroke: var(--accent); }
 .macro-asof { margin-top: 10px; font-size: 11px; color: var(--muted); text-align: right; }
+.macro-card-clickable { cursor: pointer; transition: border-color .12s, transform .12s; }
+.macro-card-clickable:hover { border-color: var(--accent); transform: translateY(-1px); }
+.macro-card-clickable:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.macro-cta { margin-top: 8px; font-size: 11px; color: var(--accent); text-align: right; }
+
+/* 매크로 차트 모달 범례(시리즈 여러 개) */
+.chart-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 8px; }
+.legend-item { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 @media (max-width: 480px) {
   .macro-srow { grid-template-columns: 1fr auto; }
   .macro-spark { display: none; } /* 좁은 화면: 스파크라인 숨김 */
