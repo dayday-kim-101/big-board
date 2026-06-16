@@ -38,6 +38,12 @@ export function isTradingDay(tradedDate, today) {
   return Boolean(tradedDate) && tradedDate === today;
 }
 
+// 오늘치가 이미 수집됐는가 — 재시도 창(cron 분산)에서 중복 수집·커밋을 막는 멱등 가드.
+// 행이 하나라도 있으면 수집 완료로 본다. (manual 입력은 API가 갱신하므로 이 스크립트와 무관)
+export function alreadyCollected(board) {
+  return Array.isArray(board?.rows) && board.rows.length > 0;
+}
+
 // --- 파일 IO ---
 
 async function listDates(dir) {
@@ -63,6 +69,15 @@ async function readBoard(dir, date) {
 
 async function main() {
   const today = kstDateString();
+
+  // 재시도 창 가드: 오늘치가 이미 있으면 네이버 호출 전에 즉시 종료(중복 커밋 방지).
+  // cron을 21시대 여러 번으로 분산했어도 실제 수집은 그날 첫 성공 1회만 일어난다.
+  const existingToday = await readBoard(OUT_DIR, today);
+  if (alreadyCollected(existingToday)) {
+    console.log(`이미 수집됨(${today}, ${existingToday.rows.length}종목) — 생략`);
+    return;
+  }
+
   const { rows: all, tradedDate } = await fetchTopStocks();
   const ranked = rankByTradingValue(all, TOP_N);
   if (!ranked.length) {
@@ -76,12 +91,13 @@ async function main() {
   }
   const date = today;
 
-  // 전일순위(직전 개장일 파일) + manual 보존(같은 거래일 재실행 대비)을 병렬로 읽는다.
+  // 전일순위(직전 개장일 파일)를 읽는다. 같은 날짜 manual 보존은 위에서 읽은 existingToday 재사용
+  // (행 없는 빈 파일일 수 있어 가드를 통과했더라도 manual 병합 입력으로는 안전).
   const dates = await listDates(OUT_DIR);
   const prevDate = pickPrevDate(dates, date);
-  const [prevBoard, existing] = await Promise.all([readBoard(OUT_DIR, prevDate), readBoard(OUT_DIR, date)]);
+  const prevBoard = await readBoard(OUT_DIR, prevDate);
   let rows = attachPrevRank(ranked, buildRankMap(prevBoard?.rows));
-  rows = mergeManual(rows, existing?.rows);
+  rows = mergeManual(rows, existingToday?.rows);
 
   const board = normalizeBoard({ date, collectedAt: new Date().toISOString(), source: 'naver', rows });
   await mkdir(OUT_DIR, { recursive: true });
