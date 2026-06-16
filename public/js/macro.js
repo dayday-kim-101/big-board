@@ -63,6 +63,67 @@ export function sparklinePoints(points, w = 116, h = 30, pad = 3) {
     .join(' ');
 }
 
+// --- 봉차트 집계 (테스트 대상) ---
+
+// 시리즈가 봉차트(OHLC)인가 — 포인트가 있고 전부 open/high/low/close를 가질 때.
+export function seriesHasOHLC(series) {
+  const pts = series?.points ?? [];
+  return pts.length > 0 && pts.every((p) =>
+    isNum(p?.open) && isNum(p?.high) && isNum(p?.low) && isNum(p?.close));
+}
+
+// 포인트 → 봉(없으면 value로 시=고=저=종 평탄봉). 레벨형 라인도 같은 형태로 다룬다.
+function toBar(p) {
+  if (isNum(p.open) && isNum(p.high) && isNum(p.low) && isNum(p.close)) {
+    return { time: p.date, open: p.open, high: p.high, low: p.low, close: p.close };
+  }
+  return { time: p.date, open: p.value, high: p.value, low: p.value, close: p.value };
+}
+
+// ISO 8601 주차 키 'YYYY-Www' (목요일 기준). UTC로 계산해 타임존 영향 없음.
+export function isoWeekKey(dateStr) {
+  const d = new Date(`${dateStr}T00:00:00Z`);
+  const day = (d.getUTCDay() + 6) % 7; // Mon=0..Sun=6
+  d.setUTCDate(d.getUTCDate() - day + 3); // 그 주의 목요일
+  const firstThu = new Date(Date.UTC(d.getUTCFullYear(), 0, 4));
+  const week = 1 + Math.round(((d - firstThu) / 86400000 - 3 + ((firstThu.getUTCDay() + 6) % 7)) / 7);
+  return `${d.getUTCFullYear()}-W${String(week).padStart(2, '0')}`;
+}
+
+// 기간 버킷 키. period: 'D'|'W'|'M'|'Y'.
+function bucketKey(dateStr, period) {
+  if (period === 'W') return isoWeekKey(dateStr);
+  if (period === 'M') return dateStr.slice(0, 7); // YYYY-MM
+  if (period === 'Y') return dateStr.slice(0, 4); // YYYY
+  return dateStr; // 'D' — 일별 그대로
+}
+
+// 일별 포인트를 기간(일/주/월/연)으로 집계 → 봉 배열(시간 오름차순).
+// 각 버킷: open=첫 봉의 시가, high=최고, low=최저, close=마지막 봉의 종가, time=버킷 마지막 날짜.
+export function aggregateOHLC(points, period = 'D') {
+  const valid = (points ?? []).filter((p) => isNum(p?.value) && /^\d{4}-\d{2}-\d{2}$/.test(p?.date));
+  const sorted = [...valid].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+  if (period === 'D') return sorted.map(toBar);
+
+  const buckets = new Map(); // key → {bars[], lastDate}
+  for (const p of sorted) {
+    const key = bucketKey(p.date, period);
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push(toBar(p));
+  }
+  const out = [];
+  for (const bars of buckets.values()) {
+    out.push({
+      time: bars[bars.length - 1].time,
+      open: bars[0].open,
+      high: Math.max(...bars.map((b) => b.high)),
+      low: Math.min(...bars.map((b) => b.low)),
+      close: bars[bars.length - 1].close,
+    });
+  }
+  return out.sort((a, b) => (a.time < b.time ? -1 : a.time > b.time ? 1 : 0));
+}
+
 // --- DOM 헬퍼 ---
 
 function el(tag, text, className) {
@@ -104,9 +165,16 @@ function seriesRow(series, unit, decimals) {
   return row;
 }
 
-// 지표 카드: 헤더(라벨 + 출처) + 시리즈 줄들 + 기준일.
-function indicatorCard(ind) {
-  const card = el('div', undefined, 'macro-card');
+// 지표 카드: 헤더(라벨 + 출처) + 시리즈 줄들 + 기준일. 클릭 시 onOpen(ind) → 차트 모달.
+function indicatorCard(ind, onOpen) {
+  const card = el('div', undefined, 'macro-card' + (onOpen ? ' macro-card-clickable' : ''));
+  if (onOpen) {
+    card.tabIndex = 0;
+    card.addEventListener('click', () => onOpen(ind));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(ind); }
+    });
+  }
 
   const head = el('div', undefined, 'macro-card-head');
   head.appendChild(el('span', ind.label, 'macro-label'));
@@ -124,12 +192,14 @@ function indicatorCard(ind) {
     .sort()
     .pop();
   if (asOf) card.appendChild(el('div', `기준일 ${asOf}`, 'macro-asof'));
+  if (onOpen) card.appendChild(el('div', '클릭하여 차트 보기 ›', 'macro-cta'));
 
   return card;
 }
 
-// container에 매크로 지표 탭을 그린다. opts: { data: { indicators[], seed? } }
-export function renderMacro(container, { data = null } = {}) {
+// container에 매크로 지표 탭을 그린다.
+// opts: { data: { indicators[], seed? }, onOpenChart(ind) }
+export function renderMacro(container, { data = null, onOpenChart = null } = {}) {
   container.innerHTML = '';
 
   const section = el('section', undefined, 'macro');
@@ -146,7 +216,7 @@ export function renderMacro(container, { data = null } = {}) {
   }
 
   const grid = el('div', undefined, 'macro-grid');
-  for (const ind of indicators) grid.appendChild(indicatorCard(ind));
+  for (const ind of indicators) grid.appendChild(indicatorCard(ind, onOpenChart));
   section.appendChild(grid);
 
   container.appendChild(section);

@@ -13,8 +13,8 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import {
-  fetchStooqSeries, fetchFredSeries, fetchEcosSeries,
-  cleanPoints, normalizeMacro, hasData,
+  fetchYahooOHLC, fetchFredSeries, fetchEcosSeries,
+  cleanPoints, normalizeMacro,
 } from '../functions/api/_macro-core.js';
 
 const OUT_PATH = process.env.MACRO_OUT || 'public/data/macro/macro.json';
@@ -31,9 +31,10 @@ const Q_END = `${Y}Q4`;
 // 지표 정의. 새 지표는 여기 추가.
 const INDICATORS = [
   {
-    key: 'dxy', label: '달러인덱스', unit: '', decimals: 2, source: 'ICE / Stooq',
+    key: 'dxy', label: '달러인덱스', unit: '', decimals: 2, source: 'ICE / Yahoo',
     series: [
-      { name: 'DXY', fetch: () => fetchStooqSeries('dx.f') }, // dx.f = ICE 달러인덱스 선물(연속)
+      // 일별 OHLC 2년치 → 봉차트. 주/월/연봉은 프런트가 일봉을 집계. maxPoints는 거래일 2년(~520) 여유분.
+      { name: 'DXY', maxPoints: 600, fetch: () => fetchYahooOHLC('DX-Y.NYB', { range: '2y' }) },
     ],
   },
   {
@@ -45,8 +46,8 @@ const INDICATORS = [
   {
     key: 'kr_reserves_extdebt', label: '한국 외환보유액 및 대외채무', unit: '억달러', decimals: 0, source: '한국은행 ECOS',
     series: [
-      // TODO(ECOS): 통계표코드/항목코드/단위 확인. 외환보유액(월)은 보통 백만달러 단위 → 억달러로 /100 보정.
-      { name: '외환보유액', transform: (v) => v / 100,
+      // 외환보유액(월) 732Y001 item=99: ECOS 단위 천달러 → 억달러로 /100000 보정(워크플로 실측으로 확인).
+      { name: '외환보유액', transform: (v) => v / 100000,
         fetch: () => fetchEcosSeries(ECOS_API_KEY, { statCode: '732Y001', cycle: 'M', itemCode: '99', start: M_START, end: M_END }) },
       // TODO(ECOS): 대외채무(분기) 통계표코드/항목코드 확인.
       { name: '대외채무', transform: (v) => v / 100,
@@ -73,8 +74,17 @@ async function readExisting(file) {
 
 async function buildSeries(s) {
   let pts = await s.fetch();
-  if (s.transform) pts = pts.map((p) => ({ date: p.date, value: s.transform(p.value) }));
-  return { name: s.name, points: cleanPoints(pts) };
+  // transform은 단위 보정용 — value와 함께 OHLC도 같은 배율로 보정(봉차트 보존).
+  if (s.transform) {
+    pts = pts.map((p) => {
+      const out = { ...p, value: s.transform(p.value) };
+      for (const k of ['open', 'high', 'low', 'close']) {
+        if (typeof p[k] === 'number') out[k] = s.transform(p[k]);
+      }
+      return out;
+    });
+  }
+  return { name: s.name, points: cleanPoints(pts, s.maxPoints ?? 60) };
 }
 
 async function main() {
@@ -85,25 +95,26 @@ async function main() {
   let anyFresh = false;
 
   for (const cfg of INDICATORS) {
+    // 직전 파일의 같은 지표 시리즈(이름 기준) — 시리즈별 실패 시 폴백용.
+    const prevSeries = Object.fromEntries((prevByKey[cfg.key]?.series ?? []).map((s) => [s.name, s]));
     const series = [];
     for (const s of cfg.series) {
+      let built;
       try {
-        series.push(await buildSeries(s));
+        built = await buildSeries(s);
       } catch (e) {
         console.warn(`수집 실패 [${cfg.key}/${s.name}]: ${e.message}`);
-        series.push({ name: s.name, points: [] });
+        built = { name: s.name, points: [] };
       }
+      if (built.points.length > 0) {
+        anyFresh = true;
+      } else if (prevSeries[s.name]?.points?.length) {
+        console.warn(`[${cfg.key}/${s.name}] 신규값 없음 — 기존값 유지`);
+        built = { name: s.name, points: prevSeries[s.name].points };
+      }
+      series.push(built);
     }
-    const fresh = { key: cfg.key, label: cfg.label, unit: cfg.unit, decimals: cfg.decimals, source: cfg.source, series };
-    if (hasData(fresh)) {
-      anyFresh = true;
-      indicators.push(fresh);
-    } else if (prevByKey[cfg.key]) {
-      console.warn(`[${cfg.key}] 신규 수집값 없음 — 기존값 유지`);
-      indicators.push(prevByKey[cfg.key]);
-    } else {
-      indicators.push(fresh); // 빈 골격이라도 유지(탭에 카드 표시)
-    }
+    indicators.push({ key: cfg.key, label: cfg.label, unit: cfg.unit, decimals: cfg.decimals, source: cfg.source, series });
   }
 
   // 단 하나도 새로 못 받았고 기존이 샘플이면 '샘플' 표시 유지(시드 값을 실데이터로 오인 방지).

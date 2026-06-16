@@ -7,6 +7,7 @@ import { mergeBoard } from './format.js';
 import { renderBoard } from './board.js';
 import { renderJaelyo } from './jaelyo.js';
 import { renderMacro } from './macro.js';
+import { openMacroChart } from './macro-chart.js';
 
 const EMAIL_KEY = 'bigboard:email';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -137,7 +138,7 @@ function paintBottom() {
 function paintMacro() {
   const root = document.getElementById('bottom-content');
   if (!root) return;
-  renderMacro(root, { data: state.macro.data });
+  renderMacro(root, { data: state.macro.data, onOpenChart: openMacroChart });
 }
 
 function paintJaelyo() {

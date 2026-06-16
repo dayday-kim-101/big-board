@@ -32,6 +32,7 @@ globalThis.document = { createElement: (t) => new FakeEl(t) };
 
 const {
   renderMacro, latestPoint, prevPoint, changeOf, fmtNum, fmtChange, changeTone, sparklinePoints,
+  aggregateOHLC, seriesHasOHLC, isoWeekKey,
 } = await import('./macro.js');
 
 function sampleData() {
@@ -87,7 +88,58 @@ test('sparklinePoints: 좌표열 계산, 포인트<2면 빈 문자열', () => {
   assert.equal(s, '3,27 58,15 113,3');
 });
 
+// --- 봉차트 집계 ---
+
+test('seriesHasOHLC: 모든 포인트가 OHLC면 참', () => {
+  assert.equal(seriesHasOHLC({ points: [{ date: '2026-01-01', value: 1, open: 1, high: 2, low: 0.5, close: 1 }] }), true);
+  assert.equal(seriesHasOHLC({ points: [{ date: '2026-01-01', value: 1 }] }), false);
+  assert.equal(seriesHasOHLC({ points: [] }), false);
+  assert.equal(seriesHasOHLC(null), false);
+});
+
+test('isoWeekKey: ISO 주차(연 경계 포함)', () => {
+  assert.equal(isoWeekKey('2026-01-01'), '2026-W01'); // 2026-01-01은 목요일 → 1주차
+  assert.equal(isoWeekKey('2025-12-29'), '2026-W01'); // 같은 ISO주(목요일=2026-01-01) → 2026-W01
+});
+
+test('aggregateOHLC: 일봉은 그대로 봉으로', () => {
+  const pts = [{ date: '2026-01-05', value: 11, open: 10, high: 12, low: 9, close: 11 }];
+  assert.deepEqual(aggregateOHLC(pts, 'D'), [{ time: '2026-01-05', open: 10, high: 12, low: 9, close: 11 }]);
+});
+
+test('aggregateOHLC: value만 있으면 평탄봉(시=고=저=종)', () => {
+  assert.deepEqual(aggregateOHLC([{ date: '2026-01-05', value: 7 }], 'D'),
+    [{ time: '2026-01-05', open: 7, high: 7, low: 7, close: 7 }]);
+});
+
+test('aggregateOHLC: 월봉 집계(open=첫·high=최고·low=최저·close=마지막)', () => {
+  const pts = [
+    { date: '2026-01-05', value: 11, open: 10, high: 12, low: 9, close: 11 },
+    { date: '2026-01-20', value: 14, open: 11, high: 15, low: 10, close: 14 },
+    { date: '2026-02-10', value: 15, open: 14, high: 16, low: 13, close: 15 },
+  ];
+  assert.deepEqual(aggregateOHLC(pts, 'M'), [
+    { time: '2026-01-20', open: 10, high: 15, low: 9, close: 14 },
+    { time: '2026-02-10', open: 14, high: 16, low: 13, close: 15 },
+  ]);
+});
+
+test('aggregateOHLC: 연봉 집계', () => {
+  const pts = [
+    { date: '2026-01-05', value: 11, open: 10, high: 12, low: 9, close: 11 },
+    { date: '2026-02-10', value: 15, open: 14, high: 16, low: 13, close: 15 },
+  ];
+  assert.deepEqual(aggregateOHLC(pts, 'Y'), [{ time: '2026-02-10', open: 10, high: 16, low: 9, close: 15 }]);
+});
+
 // --- 렌더 ---
+
+test('renderMacro: onOpenChart 주면 카드가 클릭 가능(클래스 + 안내문구)', () => {
+  const root = new FakeEl('div');
+  renderMacro(root, { data: sampleData(), onOpenChart: () => {} });
+  assert.equal(root.findByClass('macro-card-clickable').length, 2);
+  assert.ok(root.allText().includes('클릭하여 차트 보기'));
+});
 
 test('renderMacro: 지표 카드 수 = indicators 길이, 라벨 표시', () => {
   const root = new FakeEl('div');

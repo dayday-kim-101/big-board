@@ -48,6 +48,46 @@ export function parseStooqCsv(csv) {
     .filter((p) => /^\d{4}-\d{2}-\d{2}$/.test(p.date) && isNum(p.value));
 }
 
+// Yahoo Finance chart 응답 → 오름차순 포인트(일별 종가). null 종가/주말 미체결은 제외.
+export function parseYahooChart(json) {
+  const r = json?.chart?.result?.[0];
+  const ts = r?.timestamp;
+  const closes = r?.indicators?.quote?.[0]?.close;
+  if (!Array.isArray(ts) || !Array.isArray(closes)) {
+    if (json?.chart?.error) throw new Error(`Yahoo 오류: ${json.chart.error?.description ?? ''}`);
+    throw new Error('Yahoo 응답 형식 오류');
+  }
+  const out = [];
+  for (let i = 0; i < ts.length; i++) {
+    const v = num(closes[i]);
+    if (!isNum(ts[i]) || v === null) continue;
+    out.push({ date: new Date(ts[i] * 1000).toISOString().slice(0, 10), value: v });
+  }
+  return out;
+}
+
+// Yahoo Finance chart 응답 → 오름차순 OHLC 포인트(봉차트용). null 바(주말·미체결)는 제외.
+// value=close(스파크라인·라인 호환). open/high/low/close 모두 있어야 채택.
+export function parseYahooOHLC(json) {
+  const r = json?.chart?.result?.[0];
+  const ts = r?.timestamp;
+  const q = r?.indicators?.quote?.[0];
+  if (!Array.isArray(ts) || !q) {
+    if (json?.chart?.error) throw new Error(`Yahoo 오류: ${json.chart.error?.description ?? ''}`);
+    throw new Error('Yahoo 응답 형식 오류');
+  }
+  const out = [];
+  for (let i = 0; i < ts.length; i++) {
+    const o = num(q.open?.[i]);
+    const h = num(q.high?.[i]);
+    const l = num(q.low?.[i]);
+    const c = num(q.close?.[i]);
+    if (!isNum(ts[i]) || o === null || h === null || l === null || c === null) continue;
+    out.push({ date: new Date(ts[i] * 1000).toISOString().slice(0, 10), value: c, open: o, high: h, low: l, close: c });
+  }
+  return out;
+}
+
 // ECOS TIME 문자열 → 'YYYY-MM-DD'. 월(YYYYMM)·분기(YYYYQn/YYYYn)·연(YYYY) 지원.
 export function ecosTimeToDate(time) {
   const t = String(time ?? '').trim();
@@ -75,9 +115,20 @@ export function parseEcosRows(json) {
 // --- 정규화/병합 (테스트 대상) ---
 
 // 포인트 배열 정리: 유효값만, 날짜 오름차순, 최대 maxPoints개(뒤에서).
+// OHLC(open/high/low/close)가 모두 있으면 보존(봉차트용), 없으면 {date,value}만.
 export function cleanPoints(points, maxPoints = 60) {
   const arr = (points ?? [])
-    .map((p) => ({ date: String(p?.date ?? ''), value: num(p?.value) }))
+    .map((p) => {
+      const date = String(p?.date ?? '');
+      let value = num(p?.value);
+      const o = num(p?.open), h = num(p?.high), l = num(p?.low), c = num(p?.close);
+      const point = { date, value };
+      if (o !== null && h !== null && l !== null && c !== null) {
+        point.open = o; point.high = h; point.low = l; point.close = c;
+        if (point.value === null) point.value = c; // value 누락 시 종가로 보정
+      }
+      return point;
+    })
     .filter((p) => /^\d{4}-\d{2}-\d{2}$/.test(p.date) && isNum(p.value))
     .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
   return maxPoints > 0 ? arr.slice(-maxPoints) : arr;
@@ -136,9 +187,21 @@ export async function fetchFredSeries(seriesId, apiKey, { limit = 60 } = {}) {
   return parseFredObservations(await fetchJson(url)).sort((a, b) => (a.date < b.date ? -1 : 1));
 }
 
-// Stooq: 일별 종가 시계열.
+// Stooq: 일별 종가 시계열. ⚠️ 2026년 현재 Stooq는 JS 봇차단(PoW)이 걸려 서버/CI에서 실패함 → Yahoo 사용.
 export async function fetchStooqSeries(symbol) {
   return parseStooqCsv(await fetchText(`https://stooq.com/q/d/l/?s=${symbol}&i=d`));
+}
+
+// Yahoo Finance: 일별 종가 시계열(무인증). 예: 'DX-Y.NYB'(ICE 달러인덱스).
+export async function fetchYahooSeries(symbol, { range = '6mo', interval = '1d' } = {}) {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=${interval}`;
+  return parseYahooChart(await fetchJson(url));
+}
+
+// Yahoo Finance: 일별 OHLC 시계열(봉차트용). 주봉·월봉·연봉은 프런트가 일봉을 집계해 만든다.
+export async function fetchYahooOHLC(symbol, { range = '2y', interval = '1d' } = {}) {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=${interval}`;
+  return parseYahooOHLC(await fetchJson(url));
 }
 
 // ECOS StatisticSearch: 통계표코드/주기/항목코드 기준 시계열.
