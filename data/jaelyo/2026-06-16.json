@@ -75,7 +75,7 @@
       "tvToMcapPct": 11.5,
       "manual": {
         "newOrExisting": "신규",
-        "theme": "",
+        "theme": "플랜트 or 재건축",
         "material": "",
         "materialPersistence": "",
         "materialContinuity": "",
