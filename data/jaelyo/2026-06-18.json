@@ -135,7 +135,7 @@
       "tvToMcapPct": 22.19,
       "manual": {
         "newOrExisting": "기존",
-        "theme": "",
+        "theme": "메모리 설계",
         "material": "",
         "materialPersistence": "",
         "materialContinuity": "",
