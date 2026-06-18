@@ -55,7 +55,7 @@
       "tvToMcapPct": 2.15,
       "manual": {
         "newOrExisting": "기존",
-        "theme": "",
+        "theme": "mlcc",
         "material": "",
         "materialPersistence": "",
         "materialContinuity": "",
