@@ -54,7 +54,8 @@ const INDICATORS = [
     threshold: { value: 5, aboveIsBad: true, label: '경계' },
     series: [
       // 일별 OAS. FRED는 2026년부터 최근 3년만 배포 → accumulate로 매 수집마다 누적(maxPoints ~20년치).
-      { name: 'HY OAS', accumulate: true, maxPoints: 5200,
+      // valid: HY OAS 실측 역사범위(평시 ~3%, 2008 고점 ~22%) 밖은 오염 → 제외. 누적되면 영구 저장되므로 입구에서 차단.
+      { name: 'HY OAS', accumulate: true, maxPoints: 5200, valid: (v) => v >= 0 && v <= 30,
         fetch: () => fetchFredSeries('BAMLH0A0HYM2', FRED_API_KEY, { limit: 800 }) },
     ],
   },

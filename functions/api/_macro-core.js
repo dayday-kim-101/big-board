@@ -163,15 +163,16 @@ export function cleanPoints(points, maxPoints = 60) {
 // 소스가 롤링 윈도우(예: FRED 3년)만 줘도 매 수집마다 합쳐 히스토리를 쌓기 위함.
 export function mergePoints(prev, next, maxPoints = 0) {
   const byDate = new Map();
-  for (const p of prev ?? []) if (p && /^\d{4}-\d{2}-\d{2}$/.test(p.date)) byDate.set(p.date, p);
-  for (const p of next ?? []) if (p && /^\d{4}-\d{2}-\d{2}$/.test(p.date)) byDate.set(p.date, p);
+  const ok = (p) => p && /^\d{4}-\d{2}-\d{2}$/.test(p.date) && isNum(p.value); // cleanPoints와 동일한 가드
+  for (const p of prev ?? []) if (ok(p)) byDate.set(p.date, p);
+  for (const p of next ?? []) if (ok(p)) byDate.set(p.date, p);
   const arr = [...byDate.values()].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
   return maxPoints > 0 ? arr.slice(-maxPoints) : arr;
 }
 
 // 임계값 메타 정규화. value가 숫자일 때만 객체 반환, 아니면 null(필드 미포함).
 // 방향: aboveIsBad(높을수록 위험, 예: 신용스프레드) 또는 belowIsBad(낮을수록 위험, 예: ISM).
-// 방향 미지정 시 기본은 belowIsBad(하위가 나쁨). 둘 다 켤 수도 있음(밴드).
+// 방향 미지정 시 기본은 belowIsBad(하위가 나쁨). 단일 value 기준선이며 밴드(두 경계)는 아님.
 function normalizeThreshold(t) {
   const value = num(t?.value);
   if (value === null) return null;
