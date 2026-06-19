@@ -1000,6 +1000,25 @@
       }
     },
     {
+      "key": "hy_oas",
+      "label": "하이일드 신용 스프레드",
+      "unit": "%",
+      "decimals": 2,
+      "source": "ICE BofA / FRED",
+      "series": [
+        {
+          "name": "HY OAS",
+          "points": []
+        }
+      ],
+      "threshold": {
+        "value": 5,
+        "label": "경계",
+        "aboveIsBad": true
+      },
+      "category": "crisis"
+    },
+    {
       "key": "us_policy_rate",
       "label": "미국 기준금리",
       "unit": "%",
