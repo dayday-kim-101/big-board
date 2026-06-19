@@ -32,8 +32,20 @@ globalThis.document = { createElement: (t) => new FakeEl(t) };
 
 const {
   renderMacro, latestPoint, prevPoint, changeOf, fmtNum, fmtChange, changeTone, sparklinePoints,
-  aggregateOHLC, seriesHasOHLC, isoWeekKey, belowThreshold,
+  aggregateOHLC, seriesHasOHLC, isoWeekKey, belowThreshold, thresholdBreached,
 } = await import('./macro.js');
+
+// 금융위기 카드 — aboveIsBad threshold(5). 최신값을 인자로 받아 경계 케이스 구성.
+function crisisData(hyLast) {
+  return {
+    indicators: [
+      { key: 'hy_oas', label: '하이일드 신용 스프레드', unit: '%', decimals: 2, source: 'ICE BofA / FRED',
+        category: 'crisis',
+        threshold: { value: 5, aboveIsBad: true, label: '경계' },
+        series: [{ name: 'HY OAS', points: [{ date: '2026-06-01', value: 4.2 }, { date: '2026-06-02', value: hyLast }] }] },
+    ],
+  };
+}
 
 // ISM 카드 — threshold 50. 제조업/서비스업 최신값을 인자로 받아 침체 케이스 구성.
 function ismData(mfgLast, svcLast) {
@@ -227,6 +239,38 @@ test('renderMacro: 부분 침체(제조업<50, 서비스업≥50) → 배지 + �
 test('renderMacro: threshold 없는 지표는 침체 표시 전혀 없음(회귀)', () => {
   const root = new FakeEl('div');
   renderMacro(root, { data: sampleData() });
+  assert.equal(root.findByClass('macro-card-warn').length, 0);
+  assert.equal(root.findByClass('macro-badge-warn').length, 0);
+  assert.equal(root.findByClass('macro-stag').length, 0);
+});
+
+test('thresholdBreached: aboveIsBad는 값>기준에서 true, belowIsBad는 값<기준에서 true', () => {
+  const above = { value: 5, aboveIsBad: true, label: '경계' };
+  assert.equal(thresholdBreached(6.2, above), true);
+  assert.equal(thresholdBreached(5, above), false);
+  assert.equal(thresholdBreached(4.2, above), false);
+  const below = { value: 50, belowIsBad: true, label: '침체' };
+  assert.equal(thresholdBreached(48, below), true);
+  assert.equal(thresholdBreached(52, below), false);
+  assert.equal(thresholdBreached(6.2, null), false);
+});
+
+test('belowThreshold: aboveIsBad 전용 threshold엔 반응 안 함(하위호환 한정)', () => {
+  assert.equal(belowThreshold(6.2, { value: 5, aboveIsBad: true }), false);
+});
+
+test('renderMacro: 금융위기 카드 — 값>경계(aboveIsBad)면 배지·태그·값 톤', () => {
+  const root = new FakeEl('div');
+  renderMacro(root, { data: crisisData(6.4) });
+  assert.equal(root.findByClass('macro-card-warn').length, 1);
+  assert.equal(root.findByClass('macro-badge-warn').length, 1);
+  assert.ok(root.allText().includes('경계 신호'));
+  assert.equal(root.findByClass('macro-stag').length, 1);
+});
+
+test('renderMacro: 금융위기 카드 — 값≤경계면 위험 표시 없음', () => {
+  const root = new FakeEl('div');
+  renderMacro(root, { data: crisisData(3.9) });
   assert.equal(root.findByClass('macro-card-warn').length, 0);
   assert.equal(root.findByClass('macro-badge-warn').length, 0);
   assert.equal(root.findByClass('macro-stag').length, 0);

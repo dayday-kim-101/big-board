@@ -42,10 +42,16 @@ export function changeTone(n) {
   return n > 0 ? 'up' : 'down';
 }
 
-// 임계값 기준 침체(나쁨) 여부. threshold.belowIsBad일 때 value < threshold.value면 true.
+// 임계값 침범(위험) 여부 — 양방향. aboveIsBad면 value>기준, belowIsBad면 value<기준일 때 true.
+export function thresholdBreached(value, threshold) {
+  if (!isNum(value) || !threshold || !isNum(threshold.value)) return false;
+  if (threshold.aboveIsBad && value > threshold.value) return true;
+  if (threshold.belowIsBad && value < threshold.value) return true;
+  return false;
+}
+// 하위 호환: belowIsBad 임계 침체 여부(ISM 등). thresholdBreached의 특수형.
 export function belowThreshold(value, threshold) {
-  if (!isNum(value) || !threshold || !threshold.belowIsBad || !isNum(threshold.value)) return false;
-  return value < threshold.value;
+  return threshold?.belowIsBad ? thresholdBreached(value, threshold) : false;
 }
 
 // SVG 스파크라인 좌표열. points → "x,y x,y ..." (viewBox 0..w × 0..h, 값↑ → y↓).
@@ -153,7 +159,7 @@ function seriesRow(series, unit, decimals, threshold = null) {
   const row = el('div', undefined, 'macro-srow');
   const last = latestPoint(series.points);
   const chg = changeOf(series.points);
-  const warn = last && belowThreshold(last.value, threshold);
+  const warn = last && thresholdBreached(last.value, threshold);
 
   row.appendChild(el('span', series.name, 'macro-sname'));
 
@@ -182,7 +188,7 @@ function seriesRow(series, unit, decimals, threshold = null) {
 function indicatorCard(ind, onOpen) {
   const threshold = ind.threshold ?? null;
   const series = ind.series ?? [];
-  const recession = series.some((s) => belowThreshold(latestPoint(s.points)?.value, threshold));
+  const recession = series.some((s) => thresholdBreached(latestPoint(s.points)?.value, threshold));
 
   const card = el('div', undefined, 'macro-card' + (onOpen ? ' macro-card-clickable' : '') + (recession ? ' macro-card-warn' : ''));
   if (onOpen) {
