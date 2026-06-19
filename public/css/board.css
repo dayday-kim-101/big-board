@@ -273,6 +273,18 @@ select.manual-input { min-width: 0; }
 .macro-card-clickable:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .macro-cta { margin-top: 8px; font-size: 11px; color: var(--accent); text-align: right; }
 
+/* 침체 신호(threshold 미만): 카드 경고 톤 + 배지 + 값 색상/태그. 한국식 하락=파랑 계열. */
+.macro-card-warn { border-color: rgba(107, 147, 255, .55); background: rgba(107, 147, 255, .06); }
+.macro-badge-warn {
+  font-size: 10px; font-weight: 700; color: #cdd9ff; background: rgba(107, 147, 255, .22);
+  border: 1px solid rgba(107, 147, 255, .5); border-radius: 999px; padding: 1px 8px; white-space: nowrap;
+}
+.macro-svalue.warn .macro-svalue-num { color: #6b93ff; font-weight: 600; }
+.macro-stag {
+  margin-left: 6px; font-size: 10px; color: #6b93ff;
+  border: 1px solid rgba(107, 147, 255, .5); border-radius: 4px; padding: 0 4px; white-space: nowrap;
+}
+
 /* 매크로 차트 모달 범례(시리즈 여러 개) */
 .chart-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 8px; }
 .legend-item { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }

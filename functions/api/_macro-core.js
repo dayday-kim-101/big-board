@@ -8,9 +8,13 @@
 //   - 미국 기준금리: FRED (API키 필요)            series_id=DFEDTARU (정책금리 상단)
 //   - 한국 외환보유액·대외채무·단기외채: 한국은행 ECOS (API키 필요)
 //
+//   - 미국 ISM PMI(제조업·서비스업): DBnomics(무인증)  ISM/pmi/pm, ISM/nm-pmi/pm
+//     ⚠️ FRED는 ISM 시리즈를 2016년에 전량 삭제(ISM 재배포 권한 회수)했다 → DBnomics 사용.
+//
 // 정규화 스키마 (public/data/macro/macro.json):
-//   { collectedAt, indicators: [ { key,label,unit,decimals,source,
+//   { collectedAt, indicators: [ { key,label,unit,decimals,source, threshold?,
 //       series: [ { name, points: [ {date:'YYYY-MM-DD', value:number} ] } ] } ] }
+//   threshold(선택): { value:number, belowIsBad:boolean, label:string } — 기준선·침체 신호용.
 
 const isNum = (n) => typeof n === 'number' && Number.isFinite(n);
 
@@ -112,6 +116,27 @@ export function parseEcosRows(json) {
     .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
 }
 
+// DBnomics 시리즈 응답 → 오름차순 포인트. series.docs[0]의 병렬 배열
+// (period_start_day|period, value)을 짝짓는다. 결측('NA'/null/비숫자)은 제외.
+export function parseDbnomicsSeries(json) {
+  const doc = json?.series?.docs?.[0];
+  if (!doc) throw new Error('DBnomics 응답 형식 오류');
+  const days = Array.isArray(doc.period_start_day) ? doc.period_start_day : null;
+  const periods = Array.isArray(doc.period) ? doc.period : null;
+  const values = Array.isArray(doc.value) ? doc.value : null;
+  if (!values || (!days && !periods)) throw new Error('DBnomics 응답 형식 오류');
+  const out = [];
+  for (let i = 0; i < values.length; i++) {
+    const v = num(values[i]);
+    if (v === null) continue; // 'NA'·null·결측 제외
+    const raw = days?.[i] ?? (periods?.[i] ? `${periods[i]}-01` : null);
+    const date = String(raw ?? '');
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) continue;
+    out.push({ date, value: v });
+  }
+  return out.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+}
+
 // --- 정규화/병합 (테스트 대상) ---
 
 // 포인트 배열 정리: 유효값만, 날짜 오름차순, 최대 maxPoints개(뒤에서).
@@ -134,9 +159,16 @@ export function cleanPoints(points, maxPoints = 60) {
   return maxPoints > 0 ? arr.slice(-maxPoints) : arr;
 }
 
-// 지표 1개 정규화. series 각각 cleanPoints 적용.
+// 임계값 메타 정규화. value가 숫자일 때만 객체 반환, 아니면 null(필드 미포함).
+function normalizeThreshold(t) {
+  const value = num(t?.value);
+  if (value === null) return null;
+  return { value, belowIsBad: t?.belowIsBad !== false, label: String(t?.label ?? '') };
+}
+
+// 지표 1개 정규화. series 각각 cleanPoints 적용. threshold는 있을 때만 보존.
 export function normalizeIndicator(ind) {
-  return {
+  const out = {
     key: String(ind?.key ?? ''),
     label: String(ind?.label ?? ''),
     unit: String(ind?.unit ?? ''),
@@ -147,6 +179,9 @@ export function normalizeIndicator(ind) {
       points: cleanPoints(s?.points),
     })),
   };
+  const threshold = normalizeThreshold(ind?.threshold);
+  if (threshold) out.threshold = threshold;
+  return out;
 }
 
 export function normalizeMacro({ collectedAt = null, seed = false, indicators = [] }) {
@@ -214,4 +249,13 @@ export async function fetchEcosSeries(apiKey, { statCode, cycle, itemCode, start
   ];
   if (itemCode) seg.push(itemCode);
   return parseEcosRows(await fetchJson(seg.join('/')));
+}
+
+// DBnomics StatisticSearch: provider/dataset/series 한 시리즈의 관측치(무인증, 오름차순).
+// 예: ('ISM','pmi','pm') → 미국 ISM 제조업 PMI(월별).
+export async function fetchDbnomicsSeries(provider, dataset, series) {
+  const url = `https://api.db.nomics.world/v22/series/` +
+    `${encodeURIComponent(provider)}/${encodeURIComponent(dataset)}/${encodeURIComponent(series)}` +
+    `?observations=1&format=json`;
+  return parseDbnomicsSeries(await fetchJson(url));
 }

@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   parseFredObservations, parseStooqCsv, parseYahooChart, parseYahooOHLC, ecosTimeToDate, parseEcosRows,
-  cleanPoints, normalizeMacro, hasData,
+  parseDbnomicsSeries, cleanPoints, normalizeMacro, normalizeIndicator, hasData,
 } from '../functions/api/_macro-core.js';
 
 test('parseYahooOHLC: OHLC 포인트, null 바 제외', () => {
@@ -81,6 +81,36 @@ test('parseEcosRows: row → 오름차순 포인트, RESULT면 throw', () => {
   assert.throws(() => parseEcosRows({ RESULT: { CODE: 'INFO-200', MESSAGE: '해당하는 데이터가 없습니다' } }), /ECOS 오류/);
 });
 
+test('parseDbnomicsSeries: docs[0] 병렬배열 → 오름차순 포인트', () => {
+  const json = { series: { docs: [{
+    period: ['2026-02', '2026-01'],
+    period_start_day: ['2026-02-01', '2026-01-01'],
+    value: [49.5, 51.2],
+  }] } };
+  assert.deepEqual(parseDbnomicsSeries(json), [
+    { date: '2026-01-01', value: 51.2 },
+    { date: '2026-02-01', value: 49.5 },
+  ]);
+});
+
+test('parseDbnomicsSeries: NA·null·비숫자 결측 제외', () => {
+  const json = { series: { docs: [{
+    period_start_day: ['2026-01-01', '2026-02-01', '2026-03-01'],
+    value: [50.1, 'NA', null],
+  }] } };
+  assert.deepEqual(parseDbnomicsSeries(json), [{ date: '2026-01-01', value: 50.1 }]);
+});
+
+test('parseDbnomicsSeries: period_start_day 없으면 period(YYYY-MM)→-01', () => {
+  const json = { series: { docs: [{ period: ['2026-05'], value: [48.7] }] } };
+  assert.deepEqual(parseDbnomicsSeries(json), [{ date: '2026-05-01', value: 48.7 }]);
+});
+
+test('parseDbnomicsSeries: docs 없거나 비면 throw', () => {
+  assert.throws(() => parseDbnomicsSeries({ series: { docs: [] } }), /DBnomics 응답 형식 오류/);
+  assert.throws(() => parseDbnomicsSeries({}), /DBnomics 응답 형식 오류/);
+});
+
 test('cleanPoints: 유효값만, 오름차순, 최대 개수', () => {
   const pts = [{ date: '2026-02-01', value: 2 }, { date: '2026-01-01', value: 1 }, { date: 'x', value: 9 }];
   assert.deepEqual(cleanPoints(pts), [{ date: '2026-01-01', value: 1 }, { date: '2026-02-01', value: 2 }]);
@@ -90,6 +120,25 @@ test('cleanPoints: 유효값만, 오름차순, 최대 개수', () => {
 test('hasData: 포인트 있으면 true', () => {
   assert.equal(hasData({ series: [{ points: [] }, { points: [{ date: '2026-01-01', value: 1 }] }] }), true);
   assert.equal(hasData({ series: [{ points: [] }] }), false);
+});
+
+test('normalizeIndicator: threshold 있으면 보존, belowIsBad 기본 true', () => {
+  const out = normalizeIndicator({
+    key: 'ism', label: 'ISM PMI', decimals: 1,
+    threshold: { value: '50', label: '침체' },
+    series: [{ name: '제조업', points: [{ date: '2026-01-01', value: 48 }] }],
+  });
+  assert.deepEqual(out.threshold, { value: 50, belowIsBad: true, label: '침체' });
+});
+
+test('normalizeIndicator: threshold 없으면 키 자체가 없음(기존 지표 회귀 방지)', () => {
+  const out = normalizeIndicator({ key: 'dxy', label: '달러인덱스', series: [] });
+  assert.equal('threshold' in out, false);
+});
+
+test('normalizeIndicator: threshold.value 비숫자면 threshold 미포함', () => {
+  const out = normalizeIndicator({ key: 'x', label: 'x', threshold: { label: '침체' }, series: [] });
+  assert.equal('threshold' in out, false);
 });
 
 test('normalizeMacro: 스키마 정규화, seed 플래그', () => {

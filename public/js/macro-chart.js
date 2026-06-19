@@ -91,6 +91,18 @@ export function macroChart(ind) {
       lwSeries = series.map((_, i) =>
         chart.addLineSeries({ color: LINE_COLORS[i % LINE_COLORS.length], lineWidth: 2, priceFormat }));
     }
+    // 임계값 기준선(예: ISM 50=침체). 라인들은 같은 가격축을 공유하므로 첫 시리즈에 1개면 충분.
+    const t = ind?.threshold;
+    if (t && Number.isFinite(t.value) && lwSeries[0]) {
+      lwSeries[0].createPriceLine({
+        price: t.value,
+        color: '#8b94a7',
+        lineWidth: 1,
+        lineStyle: LWC.LineStyle?.Dashed ?? 2,
+        axisLabelVisible: true,
+        title: `${t.label || ''} ${t.value}`.trim(),
+      });
+    }
   }
 
   async function load(period) {

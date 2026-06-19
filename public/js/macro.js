@@ -42,6 +42,12 @@ export function changeTone(n) {
   return n > 0 ? 'up' : 'down';
 }
 
+// 임계값 기준 침체(나쁨) 여부. threshold.belowIsBad일 때 value < threshold.value면 true.
+export function belowThreshold(value, threshold) {
+  if (!isNum(value) || !threshold || !threshold.belowIsBad || !isNum(threshold.value)) return false;
+  return value < threshold.value;
+}
+
 // SVG 스파크라인 좌표열. points → "x,y x,y ..." (viewBox 0..w × 0..h, 값↑ → y↓).
 // 포인트 2개 미만이면 빈 문자열(선 없음).
 export function sparklinePoints(points, w = 116, h = 30, pad = 3) {
@@ -142,15 +148,21 @@ function svgEl(tag, attrs) {
 }
 
 // 시리즈 한 줄: 이름 · 최신값(+단위) · 전기대비 · 스파크라인.
-function seriesRow(series, unit, decimals) {
+// threshold가 있고 최신값이 침체구간이면 값에 침체 톤 + '침체' 태그.
+function seriesRow(series, unit, decimals, threshold = null) {
   const row = el('div', undefined, 'macro-srow');
   const last = latestPoint(series.points);
   const chg = changeOf(series.points);
+  const warn = last && belowThreshold(last.value, threshold);
 
   row.appendChild(el('span', series.name, 'macro-sname'));
 
+  // 값 셀: 숫자 + (침체 시) 태그. 그리드 컬럼 수를 유지하려 한 셀 안에 묶는다.
   const valText = last ? `${fmtNum(last.value, decimals)}${unit ? ` ${unit}` : ''}` : NA;
-  row.appendChild(el('span', valText, 'macro-svalue'));
+  const valCell = el('span', undefined, `macro-svalue${warn ? ' warn' : ''}`);
+  valCell.appendChild(el('span', valText, 'macro-svalue-num'));
+  if (warn) valCell.appendChild(el('span', threshold.label || '침체', 'macro-stag'));
+  row.appendChild(valCell);
 
   row.appendChild(el('span', fmtChange(chg, decimals), `macro-schange ${changeTone(chg)}`));
 
@@ -166,8 +178,13 @@ function seriesRow(series, unit, decimals) {
 }
 
 // 지표 카드: 헤더(라벨 + 출처) + 시리즈 줄들 + 기준일. 클릭 시 onOpen(ind) → 차트 모달.
+// threshold가 있고 시리즈 최신값이 하나라도 침체구간이면 카드 경고 톤 + '침체 신호' 배지.
 function indicatorCard(ind, onOpen) {
-  const card = el('div', undefined, 'macro-card' + (onOpen ? ' macro-card-clickable' : ''));
+  const threshold = ind.threshold ?? null;
+  const series = ind.series ?? [];
+  const recession = series.some((s) => belowThreshold(latestPoint(s.points)?.value, threshold));
+
+  const card = el('div', undefined, 'macro-card' + (onOpen ? ' macro-card-clickable' : '') + (recession ? ' macro-card-warn' : ''));
   if (onOpen) {
     card.tabIndex = 0;
     card.addEventListener('click', () => onOpen(ind));
@@ -178,11 +195,12 @@ function indicatorCard(ind, onOpen) {
 
   const head = el('div', undefined, 'macro-card-head');
   head.appendChild(el('span', ind.label, 'macro-label'));
+  if (recession) head.appendChild(el('span', `${threshold.label || '침체'} 신호`, 'macro-badge-warn'));
   if (ind.source) head.appendChild(el('span', ind.source, 'macro-source'));
   card.appendChild(head);
 
   const body = el('div', undefined, 'macro-series');
-  for (const s of ind.series ?? []) body.appendChild(seriesRow(s, ind.unit ?? '', ind.decimals ?? 2));
+  for (const s of series) body.appendChild(seriesRow(s, ind.unit ?? '', ind.decimals ?? 2, threshold));
   card.appendChild(body);
 
   // 기준일: 시리즈들의 최신 포인트 중 가장 최근 날짜.
