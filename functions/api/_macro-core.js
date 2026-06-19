@@ -159,11 +159,28 @@ export function cleanPoints(points, maxPoints = 60) {
   return maxPoints > 0 ? arr.slice(-maxPoints) : arr;
 }
 
+// 포인트 누적 병합: 이전 ∪ 신규(같은 날짜는 신규가 덮어씀), 오름차순, 최대 maxPoints개.
+// 소스가 롤링 윈도우(예: FRED 3년)만 줘도 매 수집마다 합쳐 히스토리를 쌓기 위함.
+export function mergePoints(prev, next, maxPoints = 0) {
+  const byDate = new Map();
+  for (const p of prev ?? []) if (p && /^\d{4}-\d{2}-\d{2}$/.test(p.date)) byDate.set(p.date, p);
+  for (const p of next ?? []) if (p && /^\d{4}-\d{2}-\d{2}$/.test(p.date)) byDate.set(p.date, p);
+  const arr = [...byDate.values()].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+  return maxPoints > 0 ? arr.slice(-maxPoints) : arr;
+}
+
 // 임계값 메타 정규화. value가 숫자일 때만 객체 반환, 아니면 null(필드 미포함).
+// 방향: aboveIsBad(높을수록 위험, 예: 신용스프레드) 또는 belowIsBad(낮을수록 위험, 예: ISM).
+// 방향 미지정 시 기본은 belowIsBad(하위가 나쁨). 둘 다 켤 수도 있음(밴드).
 function normalizeThreshold(t) {
   const value = num(t?.value);
   if (value === null) return null;
-  return { value, belowIsBad: t?.belowIsBad !== false, label: String(t?.label ?? '') };
+  const aboveIsBad = t?.aboveIsBad === true;
+  const belowIsBad = aboveIsBad ? t?.belowIsBad === true : t?.belowIsBad !== false;
+  const out = { value, label: String(t?.label ?? '') };
+  if (belowIsBad) out.belowIsBad = true;
+  if (aboveIsBad) out.aboveIsBad = true;
+  return out;
 }
 
 // 지표 1개 정규화. series 각각 cleanPoints 적용. threshold는 있을 때만 보존.
@@ -181,6 +198,7 @@ export function normalizeIndicator(ind) {
   };
   const threshold = normalizeThreshold(ind?.threshold);
   if (threshold) out.threshold = threshold;
+  if (ind?.category) out.category = String(ind.category); // 탭 분류(예: 'crisis'). 없으면 기본 탭.
   return out;
 }
 

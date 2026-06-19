@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   parseFredObservations, parseStooqCsv, parseYahooChart, parseYahooOHLC, ecosTimeToDate, parseEcosRows,
-  parseDbnomicsSeries, cleanPoints, normalizeMacro, normalizeIndicator, hasData,
+  parseDbnomicsSeries, cleanPoints, mergePoints, normalizeMacro, normalizeIndicator, hasData,
 } from '../functions/api/_macro-core.js';
 
 test('parseYahooOHLC: OHLC 포인트, null 바 제외', () => {
@@ -120,6 +120,35 @@ test('cleanPoints: 유효값만, 오름차순, 최대 개수', () => {
 test('hasData: 포인트 있으면 true', () => {
   assert.equal(hasData({ series: [{ points: [] }, { points: [{ date: '2026-01-01', value: 1 }] }] }), true);
   assert.equal(hasData({ series: [{ points: [] }] }), false);
+});
+
+test('mergePoints: 이전∪신규 누적, 같은 날짜는 신규가 덮어씀, 오름차순', () => {
+  const prev = [{ date: '2026-01-01', value: 1 }, { date: '2026-01-02', value: 2 }];
+  const next = [{ date: '2026-01-02', value: 22 }, { date: '2026-01-03', value: 3 }];
+  assert.deepEqual(mergePoints(prev, next), [
+    { date: '2026-01-01', value: 1 },
+    { date: '2026-01-02', value: 22 }, // 신규가 덮어씀
+    { date: '2026-01-03', value: 3 },
+  ]);
+});
+
+test('mergePoints: maxPoints로 뒤에서 자름, 잘못된 날짜 제외', () => {
+  const prev = [{ date: '2026-01-01', value: 1 }, { date: 'bad', value: 9 }];
+  const next = [{ date: '2026-01-02', value: 2 }, { date: '2026-01-03', value: 3 }];
+  assert.deepEqual(mergePoints(prev, next, 2), [
+    { date: '2026-01-02', value: 2 },
+    { date: '2026-01-03', value: 3 },
+  ]);
+});
+
+test('normalizeIndicator: aboveIsBad threshold 보존(belowIsBad 안 켜짐)', () => {
+  const out = normalizeIndicator({
+    key: 'hy_oas', label: '하이일드', category: 'crisis',
+    threshold: { value: 5, aboveIsBad: true, label: '경계' },
+    series: [{ name: 'HY OAS', points: [{ date: '2026-01-01', value: 6.2 }] }],
+  });
+  assert.deepEqual(out.threshold, { value: 5, aboveIsBad: true, label: '경계' });
+  assert.equal(out.category, 'crisis');
 });
 
 test('normalizeIndicator: threshold 있으면 보존, belowIsBad 기본 true', () => {
