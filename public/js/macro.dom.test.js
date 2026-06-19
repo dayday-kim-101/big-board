@@ -32,8 +32,22 @@ globalThis.document = { createElement: (t) => new FakeEl(t) };
 
 const {
   renderMacro, latestPoint, prevPoint, changeOf, fmtNum, fmtChange, changeTone, sparklinePoints,
-  aggregateOHLC, seriesHasOHLC, isoWeekKey,
+  aggregateOHLC, seriesHasOHLC, isoWeekKey, belowThreshold,
 } = await import('./macro.js');
+
+// ISM 카드 — threshold 50. 제조업/서비스업 최신값을 인자로 받아 침체 케이스 구성.
+function ismData(mfgLast, svcLast) {
+  return {
+    indicators: [
+      { key: 'ism', label: 'ISM PMI', unit: '', decimals: 1, source: 'ISM / DBnomics',
+        threshold: { value: 50, belowIsBad: true, label: '침체' },
+        series: [
+          { name: '제조업', points: [{ date: '2025-07-01', value: 50.2 }, { date: '2025-08-01', value: mfgLast }] },
+          { name: '서비스업', points: [{ date: '2025-07-01', value: 51.0 }, { date: '2025-08-01', value: svcLast }] },
+        ] },
+    ],
+  };
+}
 
 function sampleData() {
   return {
@@ -172,4 +186,48 @@ test('renderMacro: 빈 데이터 → 안내 문구', () => {
   assert.ok(root.allText().includes('데이터가 없습니다'));
   renderMacro(root, { data: null });
   assert.ok(root.allText().includes('데이터가 없습니다'));
+});
+
+test('belowThreshold: 값<임계만 true(없음·belowIsBad=false·비숫자는 false)', () => {
+  const t = { value: 50, belowIsBad: true, label: '침체' };
+  assert.equal(belowThreshold(48, t), true);
+  assert.equal(belowThreshold(50, t), false);
+  assert.equal(belowThreshold(52, t), false);
+  assert.equal(belowThreshold(48, null), false);
+  assert.equal(belowThreshold(48, { value: 50, belowIsBad: false }), false);
+  assert.equal(belowThreshold('x', t), false);
+});
+
+test('renderMacro: 침체(둘 다 <50) → 카드 경고 클래스 + 배지 + 값 톤', () => {
+  const root = new FakeEl('div');
+  renderMacro(root, { data: ismData(48.7, 49.0) });
+  assert.equal(root.findByClass('macro-card-warn').length, 1);
+  assert.equal(root.findByClass('macro-badge-warn').length, 1);
+  assert.ok(root.allText().includes('침체 신호'));
+  assert.equal(root.findByClass('warn').length, 2); // 두 값 셀 모두 침체 톤
+  assert.equal(root.findByClass('macro-stag').length, 2);
+});
+
+test('renderMacro: 정상(둘 다 ≥50) → 경고 표시 없음', () => {
+  const root = new FakeEl('div');
+  renderMacro(root, { data: ismData(51.2, 53.0) });
+  assert.equal(root.findByClass('macro-card-warn').length, 0);
+  assert.equal(root.findByClass('macro-badge-warn').length, 0);
+  assert.equal(root.findByClass('macro-stag').length, 0);
+});
+
+test('renderMacro: 부분 침체(제조업<50, 서비스업≥50) → 배지 + 제조업 행만 태그', () => {
+  const root = new FakeEl('div');
+  renderMacro(root, { data: ismData(48.7, 52.0) });
+  assert.equal(root.findByClass('macro-card-warn').length, 1);
+  assert.equal(root.findByClass('macro-badge-warn').length, 1);
+  assert.equal(root.findByClass('macro-stag').length, 1); // 제조업 한 줄만
+});
+
+test('renderMacro: threshold 없는 지표는 침체 표시 전혀 없음(회귀)', () => {
+  const root = new FakeEl('div');
+  renderMacro(root, { data: sampleData() });
+  assert.equal(root.findByClass('macro-card-warn').length, 0);
+  assert.equal(root.findByClass('macro-badge-warn').length, 0);
+  assert.equal(root.findByClass('macro-stag').length, 0);
 });
