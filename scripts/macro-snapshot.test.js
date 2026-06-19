@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   parseFredObservations, parseStooqCsv, parseYahooChart, parseYahooOHLC, ecosTimeToDate, parseEcosRows,
-  cleanPoints, normalizeMacro, hasData,
+  parseDbnomicsSeries, cleanPoints, normalizeMacro, normalizeIndicator, hasData,
 } from '../functions/api/_macro-core.js';
 
 test('parseYahooOHLC: OHLC 포인트, null 바 제외', () => {
@@ -79,6 +79,36 @@ test('parseEcosRows: row → 오름차순 포인트, RESULT면 throw', () => {
     { date: '2026-04-01', value: 4045 },
   ]);
   assert.throws(() => parseEcosRows({ RESULT: { CODE: 'INFO-200', MESSAGE: '해당하는 데이터가 없습니다' } }), /ECOS 오류/);
+});
+
+test('parseDbnomicsSeries: docs[0] 병렬배열 → 오름차순 포인트', () => {
+  const json = { series: { docs: [{
+    period: ['2026-02', '2026-01'],
+    period_start_day: ['2026-02-01', '2026-01-01'],
+    value: [49.5, 51.2],
+  }] } };
+  assert.deepEqual(parseDbnomicsSeries(json), [
+    { date: '2026-01-01', value: 51.2 },
+    { date: '2026-02-01', value: 49.5 },
+  ]);
+});
+
+test('parseDbnomicsSeries: NA·null·비숫자 결측 제외', () => {
+  const json = { series: { docs: [{
+    period_start_day: ['2026-01-01', '2026-02-01', '2026-03-01'],
+    value: [50.1, 'NA', null],
+  }] } };
+  assert.deepEqual(parseDbnomicsSeries(json), [{ date: '2026-01-01', value: 50.1 }]);
+});
+
+test('parseDbnomicsSeries: period_start_day 없으면 period(YYYY-MM)→-01', () => {
+  const json = { series: { docs: [{ period: ['2026-05'], value: [48.7] }] } };
+  assert.deepEqual(parseDbnomicsSeries(json), [{ date: '2026-05-01', value: 48.7 }]);
+});
+
+test('parseDbnomicsSeries: docs 없거나 비면 throw', () => {
+  assert.throws(() => parseDbnomicsSeries({ series: { docs: [] } }), /DBnomics 응답 형식 오류/);
+  assert.throws(() => parseDbnomicsSeries({}), /DBnomics 응답 형식 오류/);
 });
 
 test('cleanPoints: 유효값만, 오름차순, 최대 개수', () => {
