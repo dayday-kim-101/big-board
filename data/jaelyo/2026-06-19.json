@@ -1,0 +1,2007 @@
+{
+  "date": "2026-06-19",
+  "collectedAt": "2026-06-19T13:14:31.523Z",
+  "source": "naver",
+  "rows": [
+    {
+      "rank": 1,
+      "prevRank": 1,
+      "code": "000660",
+      "name": "SK하이닉스",
+      "price": 2764000,
+      "changePct": 2.94,
+      "marketCap": 1969909300000000,
+      "tradingValue": 19613614000000,
+      "tvToMcapPct": 1,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 2,
+      "prevRank": 2,
+      "code": "005930",
+      "name": "삼성전자",
+      "price": 354000,
+      "changePct": -2.34,
+      "marketCap": 2069582600000000,
+      "tradingValue": 15404259000000,
+      "tvToMcapPct": 0.74,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 3,
+      "prevRank": 3,
+      "code": "009150",
+      "name": "삼성전기",
+      "price": 2270000,
+      "changePct": 3.18,
+      "marketCap": 169554700000000,
+      "tradingValue": 3886730000000,
+      "tvToMcapPct": 2.29,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 4,
+      "prevRank": 4,
+      "code": "402340",
+      "name": "SK스퀘어",
+      "price": 1780000,
+      "changePct": 4.71,
+      "marketCap": 234885900000000,
+      "tradingValue": 2677016000000,
+      "tvToMcapPct": 1.14,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 5,
+      "prevRank": 5,
+      "code": "005935",
+      "name": "삼성전자우",
+      "price": 222000,
+      "changePct": -2.84,
+      "marketCap": 178126400000000,
+      "tradingValue": 1396678000000,
+      "tvToMcapPct": 0.78,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 6,
+      "prevRank": 30,
+      "code": "042700",
+      "name": "한미반도체",
+      "price": 295000,
+      "changePct": -6.5,
+      "marketCap": 28117100000000,
+      "tradingValue": 1254644000000,
+      "tvToMcapPct": 4.46,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 7,
+      "prevRank": 10,
+      "code": "005380",
+      "name": "현대차",
+      "price": 613000,
+      "changePct": 2,
+      "marketCap": 125516500000000,
+      "tradingValue": 1094208000000,
+      "tvToMcapPct": 0.87,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 8,
+      "prevRank": 7,
+      "code": "080220",
+      "name": "제주반도체",
+      "price": 114300,
+      "changePct": -2.89,
+      "marketCap": 3936800000000,
+      "tradingValue": 969660000000,
+      "tvToMcapPct": 24.63,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 9,
+      "prevRank": null,
+      "code": "0165X0",
+      "name": "메리츠제2호스팩",
+      "price": 1970,
+      "changePct": -1.5,
+      "marketCap": 14300000000,
+      "tradingValue": 896788000000,
+      "tvToMcapPct": 6271.24,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 10,
+      "prevRank": 6,
+      "code": "011070",
+      "name": "LG이노텍",
+      "price": 1145000,
+      "changePct": -10.76,
+      "marketCap": 27098800000000,
+      "tradingValue": 832163000000,
+      "tvToMcapPct": 3.07,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 11,
+      "prevRank": 37,
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "price": 259000,
+      "changePct": 7.02,
+      "marketCap": 38850000000000,
+      "tradingValue": 723131000000,
+      "tvToMcapPct": 1.86,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 12,
+      "prevRank": 32,
+      "code": "028260",
+      "name": "삼성물산",
+      "price": 491500,
+      "changePct": 1.24,
+      "marketCap": 79705400000000,
+      "tradingValue": 702284000000,
+      "tvToMcapPct": 0.88,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 13,
+      "prevRank": 12,
+      "code": "066570",
+      "name": "LG전자",
+      "price": 211500,
+      "changePct": -7.44,
+      "marketCap": 34450100000000,
+      "tradingValue": 616347000000,
+      "tvToMcapPct": 1.79,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 14,
+      "prevRank": 9,
+      "code": "403870",
+      "name": "HPSP",
+      "price": 56600,
+      "changePct": -4.71,
+      "marketCap": 4658200000000,
+      "tradingValue": 591213000000,
+      "tvToMcapPct": 12.69,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 15,
+      "prevRank": 25,
+      "code": "012330",
+      "name": "현대모비스",
+      "price": 612000,
+      "changePct": 1.49,
+      "marketCap": 55528300000000,
+      "tradingValue": 552233000000,
+      "tvToMcapPct": 0.99,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 16,
+      "prevRank": 34,
+      "code": "006400",
+      "name": "삼성SDI",
+      "price": 555000,
+      "changePct": 6.32,
+      "marketCap": 44725000000000,
+      "tradingValue": 527035000000,
+      "tvToMcapPct": 1.18,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 17,
+      "prevRank": 13,
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "price": 193100,
+      "changePct": -9.13,
+      "marketCap": 8975500000000,
+      "tradingValue": 524272000000,
+      "tvToMcapPct": 5.84,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 18,
+      "prevRank": 22,
+      "code": "012450",
+      "name": "한화에어로스페이스",
+      "price": 1122000,
+      "changePct": -5.63,
+      "marketCap": 57854100000000,
+      "tradingValue": 512728000000,
+      "tvToMcapPct": 0.89,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 19,
+      "prevRank": 14,
+      "code": "035420",
+      "name": "NAVER",
+      "price": 229500,
+      "changePct": -2.34,
+      "marketCap": 36005700000000,
+      "tradingValue": 488122000000,
+      "tvToMcapPct": 1.36,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 20,
+      "prevRank": 11,
+      "code": "034020",
+      "name": "두산에너빌리티",
+      "price": 97900,
+      "changePct": -1.71,
+      "marketCap": 62710900000000,
+      "tradingValue": 427653000000,
+      "tvToMcapPct": 0.68,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 21,
+      "prevRank": 20,
+      "code": "042660",
+      "name": "한화오션",
+      "price": 128400,
+      "changePct": 2.64,
+      "marketCap": 39343500000000,
+      "tradingValue": 409988000000,
+      "tvToMcapPct": 1.04,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 22,
+      "prevRank": 26,
+      "code": "329180",
+      "name": "HD현대중공업",
+      "price": 667000,
+      "changePct": -2.49,
+      "marketCap": 70009100000000,
+      "tradingValue": 359738000000,
+      "tvToMcapPct": 0.51,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 23,
+      "prevRank": 50,
+      "code": "298040",
+      "name": "효성중공업",
+      "price": 3855000,
+      "changePct": 4.39,
+      "marketCap": 35946100000000,
+      "tradingValue": 348786000000,
+      "tvToMcapPct": 0.97,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 24,
+      "prevRank": 27,
+      "code": "105560",
+      "name": "KB금융",
+      "price": 158300,
+      "changePct": -2.94,
+      "marketCap": 56147100000000,
+      "tradingValue": 344942000000,
+      "tvToMcapPct": 0.61,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 25,
+      "prevRank": 33,
+      "code": "034730",
+      "name": "SK",
+      "price": 724000,
+      "changePct": 5.39,
+      "marketCap": 52492000000000,
+      "tradingValue": 335825000000,
+      "tvToMcapPct": 0.64,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 26,
+      "prevRank": 23,
+      "code": "032830",
+      "name": "삼성생명",
+      "price": 497000,
+      "changePct": 5.97,
+      "marketCap": 99400000000000,
+      "tradingValue": 332571000000,
+      "tvToMcapPct": 0.33,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 27,
+      "prevRank": 56,
+      "code": "373220",
+      "name": "LG에너지솔루션",
+      "price": 404500,
+      "changePct": 1.13,
+      "marketCap": 94653000000000,
+      "tradingValue": 302829000000,
+      "tvToMcapPct": 0.32,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 28,
+      "prevRank": 43,
+      "code": "009155",
+      "name": "삼성전기우",
+      "price": 809000,
+      "changePct": 11.43,
+      "marketCap": 2351800000000,
+      "tradingValue": 288278000000,
+      "tvToMcapPct": 12.26,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 29,
+      "prevRank": 38,
+      "code": "347850",
+      "name": "디앤디파마텍",
+      "price": 111200,
+      "changePct": 2.68,
+      "marketCap": 4871000000000,
+      "tradingValue": 270683000000,
+      "tvToMcapPct": 5.56,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 30,
+      "prevRank": 8,
+      "code": "001820",
+      "name": "삼화콘덴서",
+      "price": 171500,
+      "changePct": -9.78,
+      "marketCap": 1782700000000,
+      "tradingValue": 247230000000,
+      "tvToMcapPct": 13.87,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 31,
+      "prevRank": 58,
+      "code": "017670",
+      "name": "SK텔레콤",
+      "price": 94900,
+      "changePct": -1.04,
+      "marketCap": 20383600000000,
+      "tradingValue": 246992000000,
+      "tvToMcapPct": 1.21,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 32,
+      "prevRank": 89,
+      "code": "046970",
+      "name": "우리로",
+      "price": 7350,
+      "changePct": -9.82,
+      "marketCap": 322100000000,
+      "tradingValue": 237756000000,
+      "tvToMcapPct": 73.81,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 33,
+      "prevRank": 24,
+      "code": "240810",
+      "name": "원익IPS",
+      "price": 156000,
+      "changePct": -4.41,
+      "marketCap": 7657100000000,
+      "tradingValue": 237429000000,
+      "tvToMcapPct": 3.1,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 34,
+      "prevRank": 45,
+      "code": "267260",
+      "name": "HD현대일렉트릭",
+      "price": 1078000,
+      "changePct": -0.83,
+      "marketCap": 38858800000000,
+      "tradingValue": 229824000000,
+      "tvToMcapPct": 0.59,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 35,
+      "prevRank": 41,
+      "code": "000270",
+      "name": "기아",
+      "price": 154900,
+      "changePct": -2.46,
+      "marketCap": 60475000000000,
+      "tradingValue": 208469000000,
+      "tvToMcapPct": 0.34,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 36,
+      "prevRank": 46,
+      "code": "196170",
+      "name": "알테오젠",
+      "price": 353500,
+      "changePct": -4.33,
+      "marketCap": 18942800000000,
+      "tradingValue": 207106000000,
+      "tvToMcapPct": 1.09,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 37,
+      "prevRank": 19,
+      "code": "047040",
+      "name": "대우건설",
+      "price": 21250,
+      "changePct": -7.41,
+      "marketCap": 8731800000000,
+      "tradingValue": 205505000000,
+      "tvToMcapPct": 2.35,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 38,
+      "prevRank": 49,
+      "code": "006800",
+      "name": "미래에셋증권",
+      "price": 48750,
+      "changePct": -3.85,
+      "marketCap": 27278900000000,
+      "tradingValue": 197676000000,
+      "tvToMcapPct": 0.72,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 39,
+      "prevRank": 88,
+      "code": "068270",
+      "name": "셀트리온",
+      "price": 170300,
+      "changePct": -1.9,
+      "marketCap": 37744200000000,
+      "tradingValue": 192902000000,
+      "tvToMcapPct": 0.51,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 40,
+      "prevRank": 44,
+      "code": "005490",
+      "name": "POSCO홀딩스",
+      "price": 356500,
+      "changePct": -2.86,
+      "marketCap": 28249600000000,
+      "tradingValue": 192204000000,
+      "tvToMcapPct": 0.68,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 41,
+      "prevRank": 54,
+      "code": "055550",
+      "name": "신한지주",
+      "price": 100900,
+      "changePct": 0.1,
+      "marketCap": 47892600000000,
+      "tradingValue": 190397000000,
+      "tvToMcapPct": 0.4,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 42,
+      "prevRank": 55,
+      "code": "000150",
+      "name": "두산",
+      "price": 1631000,
+      "changePct": -0.18,
+      "marketCap": 26412100000000,
+      "tradingValue": 171178000000,
+      "tvToMcapPct": 0.65,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 43,
+      "prevRank": 66,
+      "code": "010140",
+      "name": "삼성중공업",
+      "price": 27550,
+      "changePct": -0.54,
+      "marketCap": 24244000000000,
+      "tradingValue": 171055000000,
+      "tvToMcapPct": 0.71,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 44,
+      "prevRank": 70,
+      "code": "028050",
+      "name": "삼성E&A",
+      "price": 48650,
+      "changePct": -2.11,
+      "marketCap": 9535400000000,
+      "tradingValue": 170109000000,
+      "tvToMcapPct": 1.78,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 45,
+      "prevRank": null,
+      "code": "010690",
+      "name": "화신",
+      "price": 14330,
+      "changePct": 19.12,
+      "marketCap": 500400000000,
+      "tradingValue": 168479000000,
+      "tvToMcapPct": 33.67,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 46,
+      "prevRank": 51,
+      "code": "353200",
+      "name": "대덕전자",
+      "price": 156300,
+      "changePct": -6.74,
+      "marketCap": 7723900000000,
+      "tradingValue": 168073000000,
+      "tvToMcapPct": 2.18,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 47,
+      "prevRank": 35,
+      "code": "001440",
+      "name": "대한전선",
+      "price": 38250,
+      "changePct": -3.16,
+      "marketCap": 7496700000000,
+      "tradingValue": 166307000000,
+      "tvToMcapPct": 2.22,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 48,
+      "prevRank": 15,
+      "code": "006340",
+      "name": "대원전선",
+      "price": 11100,
+      "changePct": -3.73,
+      "marketCap": 870400000000,
+      "tradingValue": 162715000000,
+      "tvToMcapPct": 18.69,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 49,
+      "prevRank": 40,
+      "code": "085620",
+      "name": "미래에셋생명",
+      "price": 34550,
+      "changePct": 7.97,
+      "marketCap": 4670500000000,
+      "tradingValue": 160332000000,
+      "tvToMcapPct": 3.43,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 50,
+      "prevRank": 67,
+      "code": "058470",
+      "name": "리노공업",
+      "price": 92600,
+      "changePct": 0.33,
+      "marketCap": 7057200000000,
+      "tradingValue": 157877000000,
+      "tvToMcapPct": 2.24,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 51,
+      "prevRank": 16,
+      "code": "010170",
+      "name": "대한광통신",
+      "price": 16330,
+      "changePct": -7.48,
+      "marketCap": 2539100000000,
+      "tradingValue": 157544000000,
+      "tvToMcapPct": 6.2,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 52,
+      "prevRank": 79,
+      "code": "000810",
+      "name": "삼성화재",
+      "price": 700000,
+      "changePct": 0,
+      "marketCap": 31253200000000,
+      "tradingValue": 157180000000,
+      "tvToMcapPct": 0.5,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 53,
+      "prevRank": 80,
+      "code": "009540",
+      "name": "HD한국조선해양",
+      "price": 419000,
+      "changePct": -0.48,
+      "marketCap": 29653900000000,
+      "tradingValue": 155733000000,
+      "tvToMcapPct": 0.53,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 54,
+      "prevRank": 53,
+      "code": "067290",
+      "name": "JW신약",
+      "price": 2335,
+      "changePct": 13.08,
+      "marketCap": 130800000000,
+      "tradingValue": 154172000000,
+      "tvToMcapPct": 117.87,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 55,
+      "prevRank": 75,
+      "code": "247540",
+      "name": "에코프로비엠",
+      "price": 169400,
+      "changePct": -1.68,
+      "marketCap": 16572500000000,
+      "tradingValue": 151638000000,
+      "tvToMcapPct": 0.91,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 56,
+      "prevRank": 31,
+      "code": "079550",
+      "name": "LIG디펜스앤에어로스페이스",
+      "price": 852000,
+      "changePct": -3.62,
+      "marketCap": 18744000000000,
+      "tradingValue": 151578000000,
+      "tvToMcapPct": 0.81,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 57,
+      "prevRank": 83,
+      "code": "000990",
+      "name": "DB하이텍",
+      "price": 156100,
+      "changePct": 1.04,
+      "marketCap": 6791100000000,
+      "tradingValue": 143416000000,
+      "tvToMcapPct": 2.11,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 58,
+      "prevRank": 68,
+      "code": "086520",
+      "name": "에코프로",
+      "price": 116000,
+      "changePct": -1.28,
+      "marketCap": 15750000000000,
+      "tradingValue": 143327000000,
+      "tvToMcapPct": 0.91,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 59,
+      "prevRank": 85,
+      "code": "062040",
+      "name": "산일전기",
+      "price": 235500,
+      "changePct": -2.48,
+      "marketCap": 7210000000000,
+      "tradingValue": 140509000000,
+      "tvToMcapPct": 1.95,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 60,
+      "prevRank": null,
+      "code": "307950",
+      "name": "현대오토에버",
+      "price": 662000,
+      "changePct": -0.9,
+      "marketCap": 18154700000000,
+      "tradingValue": 134960000000,
+      "tvToMcapPct": 0.74,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 61,
+      "prevRank": 42,
+      "code": "207940",
+      "name": "삼성바이오로직스",
+      "price": 1374000,
+      "changePct": -3.92,
+      "marketCap": 63603800000000,
+      "tradingValue": 133512000000,
+      "tvToMcapPct": 0.21,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 62,
+      "prevRank": 28,
+      "code": "004310",
+      "name": "현대약품",
+      "price": 8150,
+      "changePct": -4.12,
+      "marketCap": 260800000000,
+      "tradingValue": 131747000000,
+      "tvToMcapPct": 50.52,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 63,
+      "prevRank": 64,
+      "code": "051910",
+      "name": "LG화학",
+      "price": 338000,
+      "changePct": -1.31,
+      "marketCap": 23860200000000,
+      "tradingValue": 128865000000,
+      "tvToMcapPct": 0.54,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 64,
+      "prevRank": 59,
+      "code": "000720",
+      "name": "현대건설",
+      "price": 128600,
+      "changePct": -3.45,
+      "marketCap": 14320400000000,
+      "tradingValue": 127748000000,
+      "tvToMcapPct": 0.89,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 65,
+      "prevRank": 84,
+      "code": "086790",
+      "name": "하나금융지주",
+      "price": 123500,
+      "changePct": -2.06,
+      "marketCap": 33884400000000,
+      "tradingValue": 126299000000,
+      "tvToMcapPct": 0.37,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 66,
+      "prevRank": null,
+      "code": "086280",
+      "name": "현대글로비스",
+      "price": 222500,
+      "changePct": 4.95,
+      "marketCap": 16687500000000,
+      "tradingValue": 125727000000,
+      "tvToMcapPct": 0.75,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 67,
+      "prevRank": 81,
+      "code": "064400",
+      "name": "LG씨엔에스",
+      "price": 85800,
+      "changePct": -4.67,
+      "marketCap": 8312800000000,
+      "tradingValue": 125517000000,
+      "tvToMcapPct": 1.51,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 68,
+      "prevRank": 18,
+      "code": "475150",
+      "name": "SK이터닉스",
+      "price": 43200,
+      "changePct": -11.29,
+      "marketCap": 1471700000000,
+      "tradingValue": 124782000000,
+      "tvToMcapPct": 8.48,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 69,
+      "prevRank": 76,
+      "code": "064350",
+      "name": "현대로템",
+      "price": 207000,
+      "changePct": -2.13,
+      "marketCap": 22592500000000,
+      "tradingValue": 121567000000,
+      "tvToMcapPct": 0.54,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 70,
+      "prevRank": 73,
+      "code": "007660",
+      "name": "이수페타시스",
+      "price": 115100,
+      "changePct": -5.19,
+      "marketCap": 8449400000000,
+      "tradingValue": 119578000000,
+      "tvToMcapPct": 1.42,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 71,
+      "prevRank": 87,
+      "code": "222800",
+      "name": "심텍",
+      "price": 124300,
+      "changePct": -2.51,
+      "marketCap": 4656800000000,
+      "tradingValue": 117877000000,
+      "tvToMcapPct": 2.53,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 72,
+      "prevRank": 74,
+      "code": "089030",
+      "name": "테크윙",
+      "price": 60200,
+      "changePct": -0.5,
+      "marketCap": 2230600000000,
+      "tradingValue": 115416000000,
+      "tvToMcapPct": 5.17,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 73,
+      "prevRank": null,
+      "code": "454910",
+      "name": "두산로보틱스",
+      "price": 101800,
+      "changePct": -0.88,
+      "marketCap": 6598700000000,
+      "tradingValue": 111338000000,
+      "tvToMcapPct": 1.69,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 74,
+      "prevRank": 17,
+      "code": "011790",
+      "name": "SKC",
+      "price": 119600,
+      "changePct": -4.78,
+      "marketCap": 5932000000000,
+      "tradingValue": 110689000000,
+      "tvToMcapPct": 1.87,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 75,
+      "prevRank": 71,
+      "code": "067310",
+      "name": "하나마이크론",
+      "price": 49000,
+      "changePct": -5.04,
+      "marketCap": 3256700000000,
+      "tradingValue": 109585000000,
+      "tvToMcapPct": 3.36,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 76,
+      "prevRank": 72,
+      "code": "018260",
+      "name": "삼성에스디에스",
+      "price": 212000,
+      "changePct": -4.07,
+      "marketCap": 16404100000000,
+      "tradingValue": 108629000000,
+      "tvToMcapPct": 0.66,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 77,
+      "prevRank": null,
+      "code": "003490",
+      "name": "대한항공",
+      "price": 27950,
+      "changePct": -3.12,
+      "marketCap": 10291800000000,
+      "tradingValue": 108396000000,
+      "tvToMcapPct": 1.05,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 78,
+      "prevRank": null,
+      "code": "095340",
+      "name": "ISC",
+      "price": 186000,
+      "changePct": -3.63,
+      "marketCap": 3942700000000,
+      "tradingValue": 106478000000,
+      "tvToMcapPct": 2.7,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 79,
+      "prevRank": 61,
+      "code": "015760",
+      "name": "한국전력",
+      "price": 37900,
+      "changePct": -3.68,
+      "marketCap": 24330400000000,
+      "tradingValue": 106444000000,
+      "tvToMcapPct": 0.44,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 80,
+      "prevRank": 98,
+      "code": "272210",
+      "name": "한화시스템",
+      "price": 91100,
+      "changePct": -5.2,
+      "marketCap": 17210600000000,
+      "tradingValue": 105266000000,
+      "tvToMcapPct": 0.61,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 81,
+      "prevRank": 92,
+      "code": "006260",
+      "name": "LS",
+      "price": 410000,
+      "changePct": -1.8,
+      "marketCap": 12792000000000,
+      "tradingValue": 105031000000,
+      "tvToMcapPct": 0.82,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 82,
+      "prevRank": 93,
+      "code": "039030",
+      "name": "이오테크닉스",
+      "price": 498500,
+      "changePct": -1.87,
+      "marketCap": 6141300000000,
+      "tradingValue": 104641000000,
+      "tvToMcapPct": 1.7,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 83,
+      "prevRank": 39,
+      "code": "204320",
+      "name": "HL만도",
+      "price": 65300,
+      "changePct": -5.09,
+      "marketCap": 3066300000000,
+      "tradingValue": 100159000000,
+      "tvToMcapPct": 3.27,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 84,
+      "prevRank": null,
+      "code": "440110",
+      "name": "파두",
+      "price": 101400,
+      "changePct": -2.5,
+      "marketCap": 5079800000000,
+      "tradingValue": 98326000000,
+      "tvToMcapPct": 1.94,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 85,
+      "prevRank": null,
+      "code": "126640",
+      "name": "화신정공",
+      "price": 5680,
+      "changePct": -1.22,
+      "marketCap": 199100000000,
+      "tradingValue": 95165000000,
+      "tvToMcapPct": 47.8,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 86,
+      "prevRank": 48,
+      "code": "278470",
+      "name": "에이피알",
+      "price": 385500,
+      "changePct": 1.98,
+      "marketCap": 14432400000000,
+      "tradingValue": 90407000000,
+      "tvToMcapPct": 0.63,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 87,
+      "prevRank": null,
+      "code": "267250",
+      "name": "HD현대",
+      "price": 230500,
+      "changePct": -3.35,
+      "marketCap": 18207900000000,
+      "tradingValue": 89736000000,
+      "tvToMcapPct": 0.49,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 88,
+      "prevRank": 100,
+      "code": "043260",
+      "name": "성호전자",
+      "price": 38150,
+      "changePct": -4.62,
+      "marketCap": 2705700000000,
+      "tradingValue": 89689000000,
+      "tvToMcapPct": 3.31,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 89,
+      "prevRank": 29,
+      "code": "093370",
+      "name": "후성",
+      "price": 16940,
+      "changePct": -10.08,
+      "marketCap": 1816900000000,
+      "tradingValue": 89495000000,
+      "tvToMcapPct": 4.93,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 90,
+      "prevRank": null,
+      "code": "047810",
+      "name": "한국항공우주",
+      "price": 146500,
+      "changePct": -3.62,
+      "marketCap": 14280100000000,
+      "tradingValue": 88934000000,
+      "tvToMcapPct": 0.62,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 91,
+      "prevRank": null,
+      "code": "316140",
+      "name": "우리금융지주",
+      "price": 31050,
+      "changePct": -1.58,
+      "marketCap": 22793100000000,
+      "tradingValue": 88540000000,
+      "tvToMcapPct": 0.39,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 92,
+      "prevRank": 60,
+      "code": "319660",
+      "name": "피에스케이",
+      "price": 165000,
+      "changePct": -4.07,
+      "marketCap": 4779500000000,
+      "tradingValue": 85072000000,
+      "tvToMcapPct": 1.78,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 93,
+      "prevRank": null,
+      "code": "011230",
+      "name": "삼화전자",
+      "price": 3845,
+      "changePct": 2.81,
+      "marketCap": 73700000000,
+      "tradingValue": 84506000000,
+      "tvToMcapPct": 114.66,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 94,
+      "prevRank": null,
+      "code": "003550",
+      "name": "LG",
+      "price": 108900,
+      "changePct": -0.91,
+      "marketCap": 16464800000000,
+      "tradingValue": 81617000000,
+      "tvToMcapPct": 0.5,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 95,
+      "prevRank": null,
+      "code": "357780",
+      "name": "솔브레인",
+      "price": 366000,
+      "changePct": -9.18,
+      "marketCap": 2847000000000,
+      "tradingValue": 80002000000,
+      "tvToMcapPct": 2.81,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 96,
+      "prevRank": null,
+      "code": "034220",
+      "name": "LG디스플레이",
+      "price": 13570,
+      "changePct": 0.3,
+      "marketCap": 6785000000000,
+      "tradingValue": 78154000000,
+      "tvToMcapPct": 1.15,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 97,
+      "prevRank": 90,
+      "code": "071050",
+      "name": "한국금융지주",
+      "price": 231000,
+      "changePct": 0.22,
+      "marketCap": 12872700000000,
+      "tradingValue": 77687000000,
+      "tvToMcapPct": 0.6,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 98,
+      "prevRank": 96,
+      "code": "178320",
+      "name": "서진시스템",
+      "price": 67500,
+      "changePct": -2.32,
+      "marketCap": 4296400000000,
+      "tradingValue": 77475000000,
+      "tvToMcapPct": 1.8,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 99,
+      "prevRank": null,
+      "code": "035720",
+      "name": "카카오",
+      "price": 37750,
+      "changePct": -3.94,
+      "marketCap": 16713600000000,
+      "tradingValue": 77036000000,
+      "tvToMcapPct": 0.46,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    },
+    {
+      "rank": 100,
+      "prevRank": 36,
+      "code": "000500",
+      "name": "가온전선",
+      "price": 337500,
+      "changePct": -12.45,
+      "marketCap": 5583300000000,
+      "tradingValue": 74358000000,
+      "tvToMcapPct": 1.33,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": ""
+      }
+    }
+  ]
+}
