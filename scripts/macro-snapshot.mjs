@@ -13,7 +13,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import {
-  fetchYahooOHLC, fetchFredSeries, fetchEcosSeries,
+  fetchYahooOHLC, fetchFredSeries, fetchEcosSeries, fetchDbnomicsSeries,
   cleanPoints, normalizeMacro,
 } from '../functions/api/_macro-core.js';
 
@@ -35,6 +35,17 @@ const INDICATORS = [
     series: [
       // 일별 OHLC 2년치 → 봉차트. 주/월/연봉은 프런트가 일봉을 집계. maxPoints는 거래일 2년(~520) 여유분.
       { name: 'DXY', maxPoints: 600, fetch: () => fetchYahooOHLC('DX-Y.NYB', { range: '2y' }) },
+    ],
+  },
+  {
+    key: 'ism', label: 'ISM PMI', unit: '', decimals: 1, source: 'ISM / DBnomics',
+    // 50 미만은 경기 수축(침체) 신호. 제조업·서비스업 둘 다 같은 기준선.
+    threshold: { value: 50, belowIsBad: true, label: '침체' },
+    series: [
+      // 월별 헤드라인 PMI(무인증). maxPoints ~10년(120개월).
+      // valid: PMI 실측 역사범위(2008 저점 ~33, 고점 ~70대) 밖은 소스 오염 → 제외(예: DBnomics에 간헐적 ~10값).
+      { name: '제조업', maxPoints: 120, valid: (v) => v >= 20 && v <= 85, fetch: () => fetchDbnomicsSeries('ISM', 'pmi', 'pm') },
+      { name: '서비스업', maxPoints: 120, valid: (v) => v >= 20 && v <= 85, fetch: () => fetchDbnomicsSeries('ISM', 'nm-pmi', 'pm') },
     ],
   },
   {
@@ -84,6 +95,8 @@ async function buildSeries(s) {
       return out;
     });
   }
+  // valid(v): 신뢰구간 밖 값 제외(소스 결측·오염 방어). 예: ISM PMI는 0~100 지표라 ~10 같은 값은 오염.
+  if (s.valid) pts = pts.filter((p) => s.valid(p.value));
   return { name: s.name, points: cleanPoints(pts, s.maxPoints ?? 60) };
 }
 
@@ -114,7 +127,10 @@ async function main() {
       }
       series.push(built);
     }
-    indicators.push({ key: cfg.key, label: cfg.label, unit: cfg.unit, decimals: cfg.decimals, source: cfg.source, series });
+    indicators.push({
+      key: cfg.key, label: cfg.label, unit: cfg.unit, decimals: cfg.decimals, source: cfg.source, series,
+      ...(cfg.threshold ? { threshold: cfg.threshold } : {}),
+    });
   }
 
   // 단 하나도 새로 못 받았고 기존이 샘플이면 '샘플' 표시 유지(시드 값을 실데이터로 오인 방지).

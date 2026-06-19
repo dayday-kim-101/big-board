@@ -159,9 +159,16 @@ export function cleanPoints(points, maxPoints = 60) {
   return maxPoints > 0 ? arr.slice(-maxPoints) : arr;
 }
 
-// 지표 1개 정규화. series 각각 cleanPoints 적용.
+// 임계값 메타 정규화. value가 숫자일 때만 객체 반환, 아니면 null(필드 미포함).
+function normalizeThreshold(t) {
+  const value = num(t?.value);
+  if (value === null) return null;
+  return { value, belowIsBad: t?.belowIsBad !== false, label: String(t?.label ?? '') };
+}
+
+// 지표 1개 정규화. series 각각 cleanPoints 적용. threshold는 있을 때만 보존.
 export function normalizeIndicator(ind) {
-  return {
+  const out = {
     key: String(ind?.key ?? ''),
     label: String(ind?.label ?? ''),
     unit: String(ind?.unit ?? ''),
@@ -172,6 +179,9 @@ export function normalizeIndicator(ind) {
       points: cleanPoints(s?.points),
     })),
   };
+  const threshold = normalizeThreshold(ind?.threshold);
+  if (threshold) out.threshold = threshold;
+  return out;
 }
 
 export function normalizeMacro({ collectedAt = null, seed = false, indicators = [] }) {

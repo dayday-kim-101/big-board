@@ -122,6 +122,25 @@ test('hasData: 포인트 있으면 true', () => {
   assert.equal(hasData({ series: [{ points: [] }] }), false);
 });
 
+test('normalizeIndicator: threshold 있으면 보존, belowIsBad 기본 true', () => {
+  const out = normalizeIndicator({
+    key: 'ism', label: 'ISM PMI', decimals: 1,
+    threshold: { value: '50', label: '침체' },
+    series: [{ name: '제조업', points: [{ date: '2026-01-01', value: 48 }] }],
+  });
+  assert.deepEqual(out.threshold, { value: 50, belowIsBad: true, label: '침체' });
+});
+
+test('normalizeIndicator: threshold 없으면 키 자체가 없음(기존 지표 회귀 방지)', () => {
+  const out = normalizeIndicator({ key: 'dxy', label: '달러인덱스', series: [] });
+  assert.equal('threshold' in out, false);
+});
+
+test('normalizeIndicator: threshold.value 비숫자면 threshold 미포함', () => {
+  const out = normalizeIndicator({ key: 'x', label: 'x', threshold: { label: '침체' }, series: [] });
+  assert.equal('threshold' in out, false);
+});
+
 test('normalizeMacro: 스키마 정규화, seed 플래그', () => {
   const out = normalizeMacro({ collectedAt: 'T', seed: true, indicators: [
     { key: 'dxy', label: '달러인덱스', series: [{ name: 'DXY', points: [{ date: '2026-01-01', value: 98.1 }] }] },
