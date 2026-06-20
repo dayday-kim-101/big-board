@@ -14,7 +14,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import {
   fetchYahooOHLC, fetchFredSeries, fetchEcosSeries, fetchDbnomicsSeries,
-  cleanPoints, normalizeMacro,
+  cleanPoints, mergePoints, normalizeMacro,
 } from '../functions/api/_macro-core.js';
 
 const OUT_PATH = process.env.MACRO_OUT || 'public/data/macro/macro.json';
@@ -46,6 +46,17 @@ const INDICATORS = [
       // valid: PMI 실측 역사범위(2008 저점 ~33, 고점 ~70대) 밖은 소스 오염 → 제외(예: DBnomics에 간헐적 ~10값).
       { name: '제조업', maxPoints: 120, valid: (v) => v >= 20 && v <= 85, fetch: () => fetchDbnomicsSeries('ISM', 'pmi', 'pm') },
       { name: '서비스업', maxPoints: 120, valid: (v) => v >= 20 && v <= 85, fetch: () => fetchDbnomicsSeries('ISM', 'nm-pmi', 'pm') },
+    ],
+  },
+  {
+    key: 'hy_oas', label: '하이일드 신용 스프레드', unit: '%', decimals: 2, source: 'ICE BofA / FRED',
+    category: 'crisis', // 금융위기 탭. 5% 초과 = 경계(높을수록 위험).
+    threshold: { value: 5, aboveIsBad: true, label: '경계' },
+    series: [
+      // 일별 OAS. FRED는 2026년부터 최근 3년만 배포 → accumulate로 매 수집마다 누적(maxPoints ~20년치).
+      // valid: HY OAS 실측 역사범위(평시 ~3%, 2008 고점 ~22%) 밖은 오염 → 제외. 누적되면 영구 저장되므로 입구에서 차단.
+      { name: 'HY OAS', accumulate: true, maxPoints: 5200, valid: (v) => v >= 0 && v <= 30,
+        fetch: () => fetchFredSeries('BAMLH0A0HYM2', FRED_API_KEY, { limit: 800 }) },
     ],
   },
   {
@@ -121,6 +132,12 @@ async function main() {
       }
       if (built.points.length > 0) {
         anyFresh = true;
+        // accumulate: 소스가 롤링 윈도우(예: FRED 3년)만 줘도 이전 히스토리와 합쳐 누적.
+        if (s.accumulate && prevSeries[s.name]?.points?.length) {
+          const merged = mergePoints(prevSeries[s.name].points, built.points, s.maxPoints ?? 0);
+          console.log(`[${cfg.key}/${s.name}] 누적: 이전 ${prevSeries[s.name].points.length} + 신규 ${built.points.length} → ${merged.length}`);
+          built = { name: s.name, points: merged };
+        }
       } else if (prevSeries[s.name]?.points?.length) {
         console.warn(`[${cfg.key}/${s.name}] 신규값 없음 — 기존값 유지`);
         built = { name: s.name, points: prevSeries[s.name].points };
@@ -130,6 +147,7 @@ async function main() {
     indicators.push({
       key: cfg.key, label: cfg.label, unit: cfg.unit, decimals: cfg.decimals, source: cfg.source, series,
       ...(cfg.threshold ? { threshold: cfg.threshold } : {}),
+      ...(cfg.category ? { category: cfg.category } : {}),
     });
   }
 

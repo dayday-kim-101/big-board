@@ -21,13 +21,21 @@ const state = {
   loading: false,
   jaelyo: { dates: [], selectedDate: null, board: null },
   macro: { data: null },
-  bottomTab: 'jaelyo', // 전광판 아래 탭: 'jaelyo' | 'macro'
+  bottomTab: 'jaelyo', // 전광판 아래 탭: 'jaelyo' | 'macro' | 'crisis'
 };
 
 const BOTTOM_TABS = [
   { key: 'jaelyo', label: '재료정리' },
   { key: 'macro', label: '매크로 지표' },
+  { key: 'crisis', label: '금융위기' },
 ];
+
+// 매크로 데이터(공용)를 탭별로 분류. category==='crisis'는 금융위기 탭, 그 외는 매크로 탭.
+function indicatorsForTab(tab) {
+  const all = Array.isArray(state.macro.data?.indicators) ? state.macro.data.indicators : [];
+  const filtered = all.filter((i) => (tab === 'crisis' ? i.category === 'crisis' : i.category !== 'crisis'));
+  return { ...state.macro.data, indicators: filtered };
+}
 
 const $app = () => document.getElementById('app');
 
@@ -131,14 +139,15 @@ function renderBottomTabs() {
 }
 
 function paintBottom() {
-  if (state.bottomTab === 'macro') paintMacro();
+  if (state.bottomTab === 'macro' || state.bottomTab === 'crisis') paintMacroTab(state.bottomTab);
   else paintJaelyo();
 }
 
-function paintMacro() {
+// 매크로/금융위기 탭은 같은 렌더(renderMacro)를 카테고리 필터만 달리해 공유.
+function paintMacroTab(tab) {
   const root = document.getElementById('bottom-content');
   if (!root) return;
-  renderMacro(root, { data: state.macro.data, onOpenChart: openMacroChart });
+  renderMacro(root, { data: indicatorsForTab(tab), onOpenChart: openMacroChart });
 }
 
 function paintJaelyo() {
