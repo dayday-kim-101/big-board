@@ -315,7 +315,7 @@
       "tvToMcapPct": 1.18,
       "manual": {
         "newOrExisting": "기존",
-        "theme": "",
+        "theme": "2차전지",
         "material": "",
         "materialPersistence": "",
         "materialContinuity": "",
