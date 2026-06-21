@@ -215,7 +215,7 @@
       "tvToMcapPct": 1.86,
       "manual": {
         "newOrExisting": "기존",
-        "theme": "",
+        "theme": "전력설비",
         "material": "",
         "materialPersistence": "",
         "materialContinuity": "",
