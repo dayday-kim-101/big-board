@@ -255,7 +255,7 @@
       "tvToMcapPct": 10.41,
       "manual": {
         "newOrExisting": "기존",
-        "theme": "",
+        "theme": "패키징",
         "material": "",
         "materialPersistence": "",
         "materialContinuity": "",
