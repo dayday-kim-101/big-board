@@ -115,6 +115,53 @@ export async function getMacro() {
   return { collectedAt: null, indicators: [] };
 }
 
+// --- 매매기록 ---
+
+// 전체 매매기록 로드. 없으면 기본값 반환.
+export async function getTrades(email) {
+  try {
+    const res = await fetch(`/api/trades?email=${encodeURIComponent(email)}`);
+    if (!res.ok) return { days: {}, updatedAt: null };
+    const data = await res.json();
+    return { days: data.days ?? {}, updatedAt: data.updatedAt ?? null };
+  } catch {
+    return { days: {}, updatedAt: null };
+  }
+}
+
+// 특정 날짜 records upsert. records = [{code,name,...}]
+export async function putTradesUpsert(email, date, records) {
+  const res = await fetch(`/api/trades?email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'upsert', records }),
+  });
+  if (!res.ok) throw new Error((await safeErr(res)) || `매매기록 저장 실패 (${res.status})`);
+  return res.json();
+}
+
+// 단일 record 수동 필드(reason/tags/holdDays) 부분 저장.
+export async function putTradeManual(email, date, code, manual) {
+  const res = await fetch(`/api/trades?email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'manual', code, manual }),
+  });
+  if (!res.ok) throw new Error((await safeErr(res)) || `수동 저장 실패 (${res.status})`);
+  return res.json();
+}
+
+// 날짜별 일지 저장.
+export async function putTradesJournal(email, date, journal) {
+  const res = await fetch(`/api/trades?email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'journal', journal }),
+  });
+  if (!res.ok) throw new Error((await safeErr(res)) || `일지 저장 실패 (${res.status})`);
+  return res.json();
+}
+
 async function safeErr(res) {
   try {
     return (await res.json())?.error;
