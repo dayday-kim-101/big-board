@@ -2,12 +2,15 @@
 import {
   getList, putList, getQuotes, getSnapshot, searchTickers, getHistory,
   getJaelyoDates, getJaelyo, putJaelyoManual, getMacro,
+  getTrades, putTradesUpsert, putTradeManual, putTradesJournal,
 } from './api.js';
 import { mergeBoard } from './format.js';
 import { renderBoard } from './board.js';
 import { renderJaelyo } from './jaelyo.js';
 import { renderMacro } from './macro.js';
 import { openMacroChart } from './macro-chart.js';
+import { renderTrades } from './trades.js';
+import { pickPrevClose } from './trades-core.js';
 
 const EMAIL_KEY = 'bigboard:email';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -21,13 +24,15 @@ const state = {
   loading: false,
   jaelyo: { dates: [], selectedDate: null, board: null },
   macro: { data: null },
-  bottomTab: 'jaelyo', // 전광판 아래 탭: 'jaelyo' | 'macro' | 'crisis'
+  trades: { data: null },
+  bottomTab: 'jaelyo', // 전광판 아래 탭: 'jaelyo' | 'macro' | 'crisis' | 'trades'
 };
 
 const BOTTOM_TABS = [
   { key: 'jaelyo', label: '재료정리' },
   { key: 'macro', label: '매크로 지표' },
   { key: 'crisis', label: '금융위기' },
+  { key: 'trades', label: '매매기록' },
 ];
 
 // 매크로 데이터(공용)를 탭별로 분류. category==='crisis'는 금융위기 탭, 그 외는 매크로 탭.
@@ -97,8 +102,8 @@ async function enterBoard(email) {
     state.quotes = snap.quotes || {};
     state.updatedAt = snap.updatedAt;
     if (!state.activeGroupId && state.list.groups[0]) state.activeGroupId = state.list.groups[0].id;
-    // 재료정리 보드 + 매크로 지표(공용) 로드 — 실패해도 전광판은 표시.
-    await Promise.allSettled([loadJaelyo(), loadMacro()]);
+    // 재료정리 보드 + 매크로 지표(공용) + 매매기록(개인) 로드 — 실패해도 전광판은 표시.
+    await Promise.allSettled([loadJaelyo(), loadMacro(), loadTrades()]);
     renderApp();
   } catch (e) {
     renderGate(`목록을 불러오지 못했습니다: ${e.message}`);
@@ -116,6 +121,10 @@ async function loadJaelyo() {
 
 async function loadMacro() {
   state.macro.data = await getMacro();
+}
+
+async function loadTrades() {
+  state.trades.data = await getTrades(state.email);
 }
 
 // 전광판 아래 탭바(재료정리 / 매크로 지표). 클릭 시 내용 영역만 교체.
@@ -140,7 +149,39 @@ function renderBottomTabs() {
 
 function paintBottom() {
   if (state.bottomTab === 'macro' || state.bottomTab === 'crisis') paintMacroTab(state.bottomTab);
+  else if (state.bottomTab === 'trades') paintTrades();
   else paintJaelyo();
+}
+
+function paintTrades() {
+  if (state.bottomTab !== 'trades') return;
+  const root = document.getElementById('bottom-content');
+  if (!root) return;
+  renderTrades(root, state.trades, {
+    onPaste: async (date, records) => {
+      await putTradesUpsert(state.email, date, records);
+      state.trades.data = await getTrades(state.email);
+      paintTrades();
+    },
+    onManual: async (date, code, manual) => {
+      try {
+        await putTradeManual(state.email, date, code, manual);
+        state.trades.data = await getTrades(state.email);
+        paintTrades();
+      } catch (e) {
+        alert(`저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
+      }
+    },
+    onJournal: async (date, journal) => {
+      try {
+        await putTradesJournal(state.email, date, journal);
+        state.trades.data = await getTrades(state.email);
+        paintTrades();
+      } catch (e) {
+        alert(`일지 저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
+      }
+    },
+  }, { getHistory, pickPrevClose });
 }
 
 // 매크로/금융위기 탭은 같은 렌더(renderMacro)를 카테고리 필터만 달리해 공유.

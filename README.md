@@ -13,6 +13,7 @@
   - `data/users/<hash>.json` — 이메일별 종목·그룹 (비공개, `/api/list`로만 접근)
   - `data/jaelyo/<YYYY-MM-DD>.json` — 일별 거래대금 상위 100(개별 종목, ETF/ETN 제외) + 수동 재료정리 (공용, `/api/jaelyo`로 접근)
   - `public/data/prices/latest.json` — 가격 스냅샷 (Pages가 정적 서빙)
+  - `data/trades/<hash>.json` — 이메일별 매매기록 (개인 비공개, `/api/trades`)
 - **스냅샷**: GitHub Action(`.github/workflows/snapshot.yml`)이 주기적으로 가격 수집·커밋
 - **재료정리 수집**: GitHub Action(`.github/workflows/jaelyo-snapshot.yml`)이 평일 장 마감 후 1회 네이버 공개 데이터로 거래대금 상위 100을 수집·커밋 (인증·시크릿 불필요, 당일 데이터만 제공)
 
