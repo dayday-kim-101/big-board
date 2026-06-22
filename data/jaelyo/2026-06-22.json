@@ -95,7 +95,7 @@
       "tvToMcapPct": 30.78,
       "manual": {
         "newOrExisting": "기존",
-        "theme": "",
+        "theme": "온디바이스ai",
         "material": "국내 반도체 수출 호조",
         "materialPersistence": "",
         "materialContinuity": "",
