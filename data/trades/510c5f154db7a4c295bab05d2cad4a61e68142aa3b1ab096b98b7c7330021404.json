@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-22T15:47:15.093Z",
+  "days": {
+    "2026-06-18": {
+      "journal": "",
+      "records": [
+        {
+          "code": "486990",
+          "name": "노타",
+          "market": "KR",
+          "buyAvg": null,
+          "sellAvg": 25310,
+          "qty": 10,
+          "buyAmount": null,
+          "sellAmount": 253100,
+          "fee": 535,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 26450,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    }
+  }
+}
