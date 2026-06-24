@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T03:46:03.340Z",
+  "updatedAt": "2026-06-24T05:10:59.432Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -17,11 +17,11 @@
       "market": "KR",
       "code": "005930",
       "name": "삼성전자",
-      "price": 324000,
-      "change": 14000,
-      "changePct": 4.52,
-      "volume": 27976784,
-      "tradingValue": 9201951000000,
+      "price": 335000,
+      "change": 25000,
+      "changePct": 8.06,
+      "volume": 33894224,
+      "tradingValue": 11142745000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -29,11 +29,11 @@
       "market": "KR",
       "code": "009150",
       "name": "삼성전기",
-      "price": 1943000,
-      "change": -47000,
-      "changePct": -2.36,
-      "volume": 750917,
-      "tradingValue": 1506644000000,
+      "price": 1988000,
+      "change": -2000,
+      "changePct": -0.1,
+      "volume": 885377,
+      "tradingValue": 1769271000000,
       "approxTradingValue": false,
       "ok": true
     },
