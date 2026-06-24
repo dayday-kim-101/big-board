@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-24T06:22:21.800Z",
+  "updatedAt": "2026-06-24T06:22:42.595Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -203,6 +203,45 @@
           "pnl": null,
           "returnPct": null,
           "prevClose": 343000,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-06-16": {
+      "journal": "",
+      "records": [
+        {
+          "code": "005930",
+          "name": "삼성전자",
+          "market": "KR",
+          "buyAvg": 347000,
+          "sellAvg": null,
+          "qty": null,
+          "buyAmount": 2082000,
+          "sellAmount": null,
+          "fee": 310,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 337000,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "010690",
+          "name": "화신",
+          "market": "KR",
+          "buyAvg": null,
+          "sellAvg": 12280,
+          "qty": 35,
+          "buyAmount": null,
+          "sellAmount": 429800,
+          "fee": 918,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 10780,
           "holdDays": 0,
           "reason": "",
           "tags": []
