@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-29T18:31:24.428Z",
+  "updatedAt": "2026-06-29T19:18:37.494Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
       "code": "AAPL",
       "name": "Apple Inc.",
-      "price": 281.65,
-      "change": -2.13,
-      "changePct": -0.75,
-      "volume": 35529875,
-      "tradingValue": 10006989294,
+      "price": 282.42,
+      "change": -1.36,
+      "changePct": -0.48,
+      "volume": 39883895,
+      "tradingValue": 11264009626,
       "approxTradingValue": true,
       "ok": true
     },
@@ -41,11 +41,11 @@
       "market": "US",
       "code": "SOXL",
       "name": "Direxion Daily Semiconductor Bu",
-      "price": 235.475,
-      "change": 19.875,
-      "changePct": 9.22,
-      "volume": 40025997,
-      "tradingValue": 9425121644,
+      "price": 234.702,
+      "change": 19.102,
+      "changePct": 8.86,
+      "volume": 42374210,
+      "tradingValue": 9945311835,
       "approxTradingValue": true,
       "ok": true
     }
