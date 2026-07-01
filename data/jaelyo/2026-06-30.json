@@ -595,7 +595,7 @@
       "tvToMcapPct": 3.32,
       "manual": {
         "newOrExisting": "기존",
-        "theme": "",
+        "theme": "pcb 주도주",
         "material": "",
         "materialPersistence": "",
         "materialContinuity": "",
