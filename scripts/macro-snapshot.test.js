@@ -4,6 +4,7 @@ import {
   parseFredObservations, parseStooqCsv, parseYahooChart, parseYahooOHLC, ecosTimeToDate, parseEcosRows,
   parseDbnomicsSeries, cleanPoints, mergePoints, normalizeMacro, normalizeIndicator, hasData,
 } from '../functions/api/_macro-core.js';
+import { INDICATORS } from './macro-snapshot.mjs';
 
 test('parseYahooOHLC: OHLC 포인트, null 바 제외', () => {
   const json = { chart: { result: [{
@@ -168,6 +169,33 @@ test('normalizeIndicator: threshold 없으면 키 자체가 없음(기존 지표
 test('normalizeIndicator: threshold.value 비숫자면 threshold 미포함', () => {
   const out = normalizeIndicator({ key: 'x', label: 'x', threshold: { label: '침체' }, series: [] });
   assert.equal('threshold' in out, false);
+});
+
+test('INDICATORS: 미국 국채금리(10년물·2년물) 지표 정의 포함', () => {
+  const ind = INDICATORS.find((i) => i.key === 'us_treasury_yield');
+  assert.ok(ind, 'us_treasury_yield 지표가 정의되어 있어야 함');
+  assert.equal(ind.label, '미국 국채금리');
+  assert.equal(ind.unit, '%');
+  assert.notEqual(ind.category, 'crisis'); // 매크로 지표 탭(금융위기 탭 아님)
+  assert.deepEqual(ind.series.map((s) => s.name), ['10년물', '2년물']);
+  assert.ok(ind.series.every((s) => typeof s.fetch === 'function'), '각 시리즈는 fetch를 가져야 함');
+});
+
+test('INDICATORS: 미국 장단기 금리차(10Y-2Y) — 0 미만 역전 threshold', () => {
+  const ind = INDICATORS.find((i) => i.key === 'us_yield_spread');
+  assert.ok(ind, 'us_yield_spread 지표가 정의되어 있어야 함');
+  assert.equal(ind.label, '미국 장단기 금리차(10Y-2Y)');
+  assert.notEqual(ind.category, 'crisis'); // 매크로 지표 탭
+  // 역전(값<0) 시 침체 신호로 뜨도록 belowIsBad=true, 기준 0.
+  assert.equal(ind.threshold.value, 0);
+  assert.equal(ind.threshold.belowIsBad, true);
+  assert.deepEqual(ind.series.map((s) => s.name), ['10Y-2Y']);
+});
+
+test('INDICATORS: 기존 미국 기준금리 지표 유지(회귀)', () => {
+  const ind = INDICATORS.find((i) => i.key === 'us_policy_rate');
+  assert.ok(ind, 'us_policy_rate 지표가 유지되어야 함');
+  assert.equal(ind.label, '미국 기준금리');
 });
 
 test('normalizeMacro: 스키마 정규화, seed 플래그', () => {

@@ -28,8 +28,8 @@ const M_END = `${Y}12`;
 const Q_START = `${Y - 4}Q1`;
 const Q_END = `${Y}Q4`;
 
-// 지표 정의. 새 지표는 여기 추가.
-const INDICATORS = [
+// 지표 정의. 새 지표는 여기 추가. (테스트에서 정의 검증용으로 export)
+export const INDICATORS = [
   {
     key: 'dxy', label: '달러인덱스', unit: '', decimals: 2, source: 'ICE / Yahoo',
     series: [
@@ -63,6 +63,27 @@ const INDICATORS = [
     key: 'us_policy_rate', label: '미국 기준금리', unit: '%', decimals: 2, source: 'FRED (DFEDTARU, 상단)',
     series: [
       { name: '정책금리 상단', fetch: () => fetchFredSeries('DFEDTARU', FRED_API_KEY, { limit: 120 }) },
+    ],
+  },
+  {
+    key: 'us_treasury_yield', label: '미국 국채금리', unit: '%', decimals: 2, source: 'FRED (DGS10, DGS2)',
+    series: [
+      // 일별 국채 수익률(연%). FRED는 최근 윈도우만 줄 수 있어 accumulate로 누적(maxPoints ~2년 거래일).
+      // valid: 미 국채 수익률 실측 역사범위(마이너스 금리 없음, 1980년대 고점 ~16%) 밖은 오염 → 제외.
+      { name: '10년물', accumulate: true, maxPoints: 520, valid: (v) => v >= 0 && v <= 20,
+        fetch: () => fetchFredSeries('DGS10', FRED_API_KEY, { limit: 250 }) },
+      { name: '2년물', accumulate: true, maxPoints: 520, valid: (v) => v >= 0 && v <= 20,
+        fetch: () => fetchFredSeries('DGS2', FRED_API_KEY, { limit: 250 }) },
+    ],
+  },
+  {
+    key: 'us_yield_spread', label: '미국 장단기 금리차(10Y-2Y)', unit: '%p', decimals: 2, source: 'FRED (T10Y2Y)',
+    // 0 미만(역전) = 경기침체 선행신호. 음수일수록 위험하므로 belowIsBad.
+    threshold: { value: 0, belowIsBad: true, label: '역전' },
+    series: [
+      // 일별 10Y-2Y 스프레드(%p). 음수 가능하므로 valid는 합리적 역사범위(-3 ~ +4%p)만 통과.
+      { name: '10Y-2Y', accumulate: true, maxPoints: 520, valid: (v) => v >= -3 && v <= 4,
+        fetch: () => fetchFredSeries('T10Y2Y', FRED_API_KEY, { limit: 250 }) },
     ],
   },
   {
