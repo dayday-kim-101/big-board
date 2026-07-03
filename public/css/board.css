@@ -211,6 +211,15 @@ body.col-resizing { cursor: col-resize; user-select: none; } /* 드래그 중 �
 .jaelyo-table td.prev { color: var(--muted); }
 .jaelyo-table tbody tr:hover { background: rgba(255,255,255,.03); }
 
+/* 종목명 → 네이버뉴스 검색(새 탭). 밑줄로 클릭 가능함을 드러냄 */
+.jaelyo-name-link {
+  color: inherit; text-decoration: underline; text-decoration-color: var(--line);
+  text-underline-offset: 2px; cursor: pointer;
+}
+.jaelyo-name-link:hover,
+.jaelyo-name-link:focus-visible { color: var(--accent); text-decoration-color: var(--accent); }
+.jaelyo-name-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
 /* 임계값 셀 배경 강조 */
 .jaelyo-table td.hot-change { background: rgba(255, 77, 79, .22); }   /* 등락률 ≥ 10% */
 .jaelyo-table td.small-cap  { background: rgba(255, 206, 77, .20); }  /* 시총 ≤ 2조 */

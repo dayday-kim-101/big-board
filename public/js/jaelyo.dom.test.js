@@ -44,7 +44,7 @@ class FakeEl {
 }
 globalThis.document = { createElement: (t) => new FakeEl(t) };
 
-const { renderJaelyo, MANUAL_COLS } = await import('./jaelyo.js');
+const { renderJaelyo, MANUAL_COLS, naverNewsSearchUrl } = await import('./jaelyo.js');
 const { MANUAL_FIELDS } = await import('../../functions/api/_jaelyo-core.js');
 
 // 서버/클라이언트 수동필드 계약 패리티 — public/은 functions/를 import할 수 없어
@@ -102,6 +102,46 @@ test('renderJaelyo: 임계값 미만은 강조 없음', () => {
   const classes = root.collectClasses();
   assert.ok(!classes.includes('hot-change'));
   assert.ok(!classes.includes('high-ratio'));
+});
+
+test('naverNewsSearchUrl: 종목명 인코딩 + 수집 날짜로 기간 제한', () => {
+  const url = naverNewsSearchUrl('삼성E&A', '2026-05-07');
+  assert.ok(url.startsWith('https://search.naver.com/search.naver?where=news'), '네이버뉴스 검색 URL');
+  // query는 인코딩되어 &가 검색어를 깨지 않음
+  assert.ok(url.includes(`query=${encodeURIComponent('삼성E&A')}`), 'query 인코딩');
+  // 날짜 파라미터: ds/de(점 형식) + nso 기간
+  assert.ok(url.includes('ds=2026.05.07'), 'ds 기간 시작');
+  assert.ok(url.includes('de=2026.05.07'), 'de 기간 끝');
+  assert.ok(url.includes(encodeURIComponent('from20260507to20260507')), 'nso from/to');
+});
+
+test('naverNewsSearchUrl: 날짜 없거나 형식 어긋나면 기간 파라미터 없음', () => {
+  const noDate = naverNewsSearchUrl('삼성전자', null);
+  assert.ok(noDate.includes(`query=${encodeURIComponent('삼성전자')}`));
+  assert.ok(!noDate.includes('ds='), '날짜 없으면 ds 없음');
+  const bad = naverNewsSearchUrl('삼성전자', '2026/05/07');
+  assert.ok(!bad.includes('ds='), '형식 어긋나면 ds 없음');
+});
+
+test('renderJaelyo: 종목명은 네이버뉴스 검색 anchor(새 탭 + 날짜 파라미터)', () => {
+  const root = new FakeEl('div');
+  renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board: sampleBoard() });
+  const anchors = root.findAll('a').filter((a) => a.className.includes('jaelyo-name-link'));
+  assert.equal(anchors.length, 2, '행마다 종목명 anchor');
+  const a = anchors.find((x) => x.textContent === '삼성E&A');
+  assert.ok(a, '종목명이 anchor 텍스트');
+  assert.ok(a.href.startsWith('https://search.naver.com/search.naver?where=news'), '네이버뉴스 검색 href');
+  assert.ok(a.href.includes(`query=${encodeURIComponent('삼성E&A')}`), 'query에 종목명');
+  assert.ok(a.href.includes('ds=2026.05.07') && a.href.includes('de=2026.05.07'), 'href에 수집 날짜');
+  assert.equal(a.target, '_blank', '새 탭');
+  assert.ok(a.rel.includes('noopener'), 'rel noopener');
+});
+
+test('renderJaelyo: selectedDate 없으면 board.date로 뉴스 기간', () => {
+  const root = new FakeEl('div');
+  renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: null, board: sampleBoard() });
+  const a = root.findAll('a').find((x) => x.className.includes('jaelyo-name-link'));
+  assert.ok(a.href.includes('ds=2026.05.07'), 'board.date(2026-05-07)로 기간 제한');
 });
 
 test('renderJaelyo: 신규/기존 select 변경 → onEditManual(code, {newOrExisting})', () => {
