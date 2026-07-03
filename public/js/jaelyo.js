@@ -67,6 +67,36 @@ const NA = '—';
 const fmtRank = (n) => (n === null || n === undefined ? NA : String(n));
 const fmtRatio = (n) => (typeof n === 'number' && Number.isFinite(n) ? n.toFixed(2) : NA);
 
+// 종목명 → 네이버뉴스 검색 URL. date(YYYY-MM-DD)가 유효하면 그 날짜 하루로 기간을 제한한다.
+// query는 항상 인코딩(공백·특수문자·& 안전). 날짜가 없거나 형식이 어긋나면 기간 없이 검색만.
+export function naverNewsSearchUrl(name, date) {
+  const query = encodeURIComponent(name ?? '');
+  let url = `https://search.naver.com/search.naver?where=news&query=${query}`;
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date || '');
+  if (m) {
+    const [, y, mo, d] = m;
+    const dot = `${y}.${mo}.${d}`;   // ds/de 형식
+    const compact = `${y}${mo}${d}`; // nso from/to 형식
+    const nso = `so:r,p:from${compact}to${compact},a:all`;
+    url += `&sm=tab_opt&sort=0&pd=3&ds=${dot}&de=${dot}&nso=${encodeURIComponent(nso)}`;
+  }
+  return url;
+}
+
+// 종목명 셀: 새 탭으로 네이버뉴스 검색을 여는 앵커. 수집 날짜로 기간을 제한.
+function nameCell(row, date) {
+  const td = cell('td', undefined, 'name');
+  const a = document.createElement('a');
+  a.className = 'jaelyo-name-link';
+  a.textContent = row.name;
+  a.href = naverNewsSearchUrl(row.name, date);
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.title = `${row.name} 네이버뉴스 검색${date ? ` (${date})` : ''}`;
+  td.appendChild(a);
+  return td;
+}
+
 // 강조 술어 true면 기본 클래스에 강조 클래스를 덧붙인다.
 function numCls(extra) {
   return extra ? `num ${extra}` : 'num';
@@ -205,13 +235,16 @@ export function renderJaelyo(container, { dates = [], selectedDate = null, board
   thead.appendChild(htr);
   table.appendChild(thead);
 
+  // 뉴스 검색 기간에 쓸 수집 날짜: 선택 날짜 우선, 없으면 보드 자체 날짜.
+  const newsDate = selectedDate || board?.date || null;
+
   const tbody = document.createElement('tbody');
   for (const r of rows) {
     const tr = document.createElement('tr');
     tr.appendChild(cell('td', fmtRank(r.rank), 'num'));
     tr.appendChild(cell('td', fmtRank(r.prevRank), 'num prev'));
     tr.appendChild(cell('td', r.code, 'code'));
-    tr.appendChild(cell('td', r.name, 'name'));
+    tr.appendChild(nameCell(r, newsDate));
     tr.appendChild(cell('td', fmtPrice(r.price, 'KR'), 'num'));
     tr.appendChild(cell('td', fmtPct(r.changePct), numCls(isHotChange(r.changePct) && 'hot-change')));
     tr.appendChild(cell('td', fmtWonKR(r.marketCap), numCls(isSmallCap(r.marketCap) && 'small-cap')));
