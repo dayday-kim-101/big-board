@@ -248,14 +248,12 @@ test('renderJaelyo: 종목코드는 클릭 가능한 버튼(code-btn)으로 렌�
   assert.equal(b.type, 'button');
 });
 
-// 팝업 편집 컨트롤(input/select/textarea)의 현재 값을 모두 모은다.
-function editorValues(overlay) {
-  return [...overlay.findAll('input'), ...overlay.findAll('select'), ...overlay.findAll('textarea')]
-    .filter((el) => (el.className || '').includes('memo-input'))
-    .map((el) => el.value);
+// 팝업의 읽기 전용 구조화 요약 값들(memo-value)을 모은다.
+function summaryValues(overlay) {
+  return overlay.findByClass('memo-value').map((el) => el.textContent);
 }
 
-test('openMemoModal: 클릭 시 dialog 열리고 종목명/코드/편집 항목 표시', () => {
+test('openMemoModal: 클릭 시 dialog 열리고 종목명/코드 + 구조화 필드 읽기 전용 요약 표시', () => {
   const { overlay } = openBoardMemo('028050');
   const dialog = overlay.findByClass('memo-modal')[0];
   assert.ok(dialog, '메모 모달 존재');
@@ -269,23 +267,28 @@ test('openMemoModal: 클릭 시 dialog 열리고 종목명/코드/편집 항목 
   const text = overlay.allText();
   assert.ok(text.includes('삼성E&A'), '종목명');
   assert.ok(text.includes('028050'), '종목코드');
-  // 요구 라벨 4종
-  for (const label of ['테마', '재료', '세계 영향력', '국내 영향력']) {
-    assert.ok(text.includes(label), `라벨 ${label}`);
+  // 표 열과 동일한 요약 라벨
+  for (const label of ['신규/기존', '테마', '재료', '재료지속성', '재료연속여부', '재무', '수급']) {
+    assert.ok(text.includes(label), `요약 라벨 ${label}`);
   }
-  // 매핑된 값은 이제 편집 컨트롤의 value에 들어간다
-  const vals = editorValues(overlay);
-  assert.ok(vals.includes('로봇'), '테마 값');
-  assert.ok(vals.includes('엑추에이터 제조'), '재료 값');
-  assert.ok(vals.includes('글로벌 로봇 수요 확대'), '세계 영향력=materialContinuity 값');
-  assert.ok(vals.includes('기관 순매수'), '국내 영향력=supplyDemand 값');
+  // 구조화 값은 읽기 전용 텍스트(memo-value)로 표시된다
+  const vals = summaryValues(overlay);
+  assert.ok(vals.includes('로봇'), '테마 값(읽기 전용)');
+  assert.ok(vals.includes('엑추에이터 제조'), '재료 값(읽기 전용)');
+  assert.ok(vals.includes('글로벌 로봇 수요 확대'), 'materialContinuity 값(읽기 전용)');
+  assert.ok(vals.includes('기관 순매수'), 'supplyDemand 값(읽기 전용)');
+  // 팝업엔 구조화 편집 컨트롤이 없다 — select 없음, 편집 input 없음(textarea만 편집 가능)
+  assert.equal(overlay.findAll('select').length, 0, '팝업에 select 없음');
+  const editableInputs = overlay.findAll('input').filter((i) => (i.className || '').includes('memo-input'));
+  assert.equal(editableInputs.length, 0, '팝업에 구조화 text input 없음');
 });
 
-test('openMemoModal: 빈 메모 필드는 빈 편집 컨트롤로 표시', () => {
+test('openMemoModal: 빈 구조화 필드는 —(NA)로 표시, notes는 빈 textarea', () => {
   const { overlay } = openBoardMemo('005930');
-  const vals = editorValues(overlay);
-  assert.ok(vals.length > 0, '편집 컨트롤 렌더');
-  assert.ok(vals.every((v) => v === ''), '빈 종목은 모든 값이 빈 문자열');
+  const vals = summaryValues(overlay);
+  assert.ok(vals.length > 0, '요약 값 렌더');
+  assert.ok(vals.every((v) => v === '—'), '빈 종목은 모든 구조화 값이 —');
+  assert.equal(notesTextarea(overlay).value, '', 'notes 비어있음');
 });
 
 test('openMemoModal: 닫기 버튼으로 닫힘 + 포커스 복원', () => {
@@ -345,7 +348,7 @@ function openMemoWithSave(codeText, onEditManual, boardOverride = null) {
   return { overlay };
 }
 
-test('openMemoModal: 자유 메모 수정 후 저장 → onEditManual(code, {notes}) 호출 + 팝업 닫힘', async () => {
+test('openMemoModal: 자유 메모 수정 후 저장 → onEditManual(code, {notes})만 호출 + 팝업 닫힘', async () => {
   let captured = null;
   const onEditManual = (code, patch) => { captured = { code, patch }; return true; };
   const { overlay } = openMemoWithSave('028050', onEditManual);
@@ -355,21 +358,22 @@ test('openMemoModal: 자유 메모 수정 후 저장 → onEditManual(code, {not
   assert.ok(saveBtn, '저장 버튼 존재');
   await saveBtn.dispatch('click');
   assert.equal(captured.code, '028050');
+  assert.deepEqual(Object.keys(captured.patch), ['notes'], 'patch 키는 notes 하나뿐');
   assert.equal(captured.patch.notes, '신규 자유 메모\n둘째 줄', 'notes 값 전달');
   assert.equal(document.body.findByClass('memo-overlay').length, 0, '저장 성공 시 팝업 닫힘');
 });
 
-test('openMemoModal: 구조화 필드 수정 후 저장 → 해당 필드가 patch에 포함', async () => {
+test('openMemoModal: 저장 patch에 구조화 필드(theme/material 등)를 절대 포함하지 않음', async () => {
   let captured = null;
   const onEditManual = (code, patch) => { captured = { code, patch }; return true; };
+  // 구조화 값이 채워진 종목(028050)으로 열어도 저장 patch엔 notes만 담긴다.
   const { overlay } = openMemoWithSave('028050', onEditManual);
-  // 테마 input(첫 memo-input) 수정
-  const themeInput = overlay.findAll('input').find((i) => (i.className || '').includes('memo-input'));
-  themeInput.value = '2차전지';
+  notesTextarea(overlay).value = '메모만 저장';
   await overlay.findByClass('memo-save')[0].dispatch('click');
-  assert.equal(captured.patch.theme, '2차전지', '구조화 필드 theme 저장');
-  // 기존 값들도 patch에 함께 포함(모든 편집 필드 전송)
-  assert.equal(captured.patch.supplyDemand, '기관 순매수', '수정 안 한 필드도 현재 값으로 포함');
+  assert.deepEqual(Object.keys(captured.patch), ['notes'], 'notes 외 키 없음');
+  for (const k of ['theme', 'material', 'materialContinuity', 'supplyDemand', 'materialPersistence', 'financials', 'newOrExisting']) {
+    assert.ok(!(k in captured.patch), `구조화 필드 ${k} 미포함`);
+  }
 });
 
 test('openMemoModal: 저장 실패(onEditManual false) 시 팝업 유지', async () => {

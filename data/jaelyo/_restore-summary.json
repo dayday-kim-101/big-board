@@ -1,0 +1,132 @@
+{
+  "oldRef": "f8fdd2b",
+  "dataDir": "data/jaelyo",
+  "dryRun": false,
+  "dateCount": 17,
+  "rowCount": 1700,
+  "filesChanged": 17,
+  "totalRowsTouched": 1700,
+  "totalFieldsRestored": 0,
+  "totalFieldsReset": 6741,
+  "perDate": [
+    {
+      "date": "2026-06-11",
+      "restored": 0,
+      "reset": 397,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-12",
+      "restored": 0,
+      "reset": 394,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-15",
+      "restored": 0,
+      "reset": 399,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-16",
+      "restored": 0,
+      "reset": 388,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-17",
+      "restored": 0,
+      "reset": 396,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-18",
+      "restored": 0,
+      "reset": 390,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-19",
+      "restored": 0,
+      "reset": 393,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-22",
+      "restored": 0,
+      "reset": 394,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-23",
+      "restored": 0,
+      "reset": 398,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-24",
+      "restored": 0,
+      "reset": 400,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-25",
+      "restored": 0,
+      "reset": 396,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-26",
+      "restored": 0,
+      "reset": 400,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-29",
+      "restored": 0,
+      "reset": 398,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-06-30",
+      "restored": 0,
+      "reset": 398,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-07-01",
+      "restored": 0,
+      "reset": 400,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-07-02",
+      "restored": 0,
+      "reset": 400,
+      "rowsTouched": 100,
+      "oldMissing": false
+    },
+    {
+      "date": "2026-07-03",
+      "restored": 0,
+      "reset": 400,
+      "rowsTouched": 100,
+      "oldMissing": false
+    }
+  ]
+}
