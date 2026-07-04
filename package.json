@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "wrangler pages dev public",
     "snapshot": "node scripts/snapshot.mjs",
+    "jaelyo:seed": "node scripts/build-jaelyo-seed.mjs",
+    "jaelyo:prefill": "node scripts/jaelyo-prefill.mjs",
     "test": "node --test"
   },
   "engines": {
