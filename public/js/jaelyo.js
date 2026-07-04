@@ -25,19 +25,17 @@ export const MANUAL_COLS = [
   { key: 'supplyDemand' },
 ];
 
-// 종목코드 클릭 시 뜨는 메모 팝업에서 편집하는 구조화 항목 — { label(표시), key(manual 필드), type?, options? }.
-// MANUAL_FIELDS엔 '세계/국내 영향력' 전용 키가 없어, 의미가 가장 가까운 기존 수동필드에 매핑한다:
-//   세계 영향력 ← materialContinuity(재료연속여부: 재료의 글로벌·지속 영향)
-//   국내 영향력 ← supplyDemand(수급: 국내 수급/영향)
-// 각 manual 키는 정확히 한 번만 노출된다. 팝업에서 직접 수정·저장 가능(자유 메모 notes는 별도 textarea).
-const MEMO_FIELDS = [
+// 종목코드 클릭 팝업에 '읽기 전용'으로 보여줄 구조화 필드 요약 — { label(표시), key(manual 필드) }.
+// 팝업은 구조화 필드를 편집하지 않는다(그 편집은 표의 inline 셀 전용). 팝업 저장 대상은 오직 notes.
+// 라벨은 표 열과 동일하게 맞춰 혼동을 없앤다.
+const SUMMARY_FIELDS = [
+  { label: '신규/기존', key: 'newOrExisting' },
   { label: '테마', key: 'theme' },
   { label: '재료', key: 'material' },
-  { label: '세계 영향력', key: 'materialContinuity' },
-  { label: '국내 영향력', key: 'supplyDemand' },
   { label: '재료지속성', key: 'materialPersistence' },
+  { label: '재료연속여부', key: 'materialContinuity' },
   { label: '재무', key: 'financials' },
-  { label: '신규/기존', key: 'newOrExisting', type: 'select', options: ['', '신규', '기존'] },
+  { label: '수급', key: 'supplyDemand' },
 ];
 
 // 자유 메모(notes) 최대 길이 — 서버 _jaelyo-core.NOTES_MAX_LEN과 일치시켜야 한다
@@ -130,27 +128,14 @@ function codeCell(row, onEditManual) {
   return td;
 }
 
-// 메모 팝업 편집 한 줄: 라벨 + 편집 컨트롤(select 또는 text input). get()으로 현재 값 조회.
-function memoField(field, manual) {
-  const wrap = cell('div', undefined, 'memo-row');
+// 구조화 필드 요약 한 줄(읽기 전용): 라벨 + 현재 값(빈 값이면 —). 편집 불가.
+// 구조화 필드 수정은 표의 inline 셀에서만 한다 — 팝업은 참고용 표시 + notes 편집 전용.
+function summaryField(field, manual) {
+  const wrap = cell('div', undefined, 'memo-row memo-summary-row');
   const label = cell('label', field.label, 'memo-label');
-  let input;
-  if (field.type === 'select') {
-    input = document.createElement('select');
-    for (const o of field.options) {
-      const opt = document.createElement('option');
-      opt.value = o;
-      opt.textContent = o || NA;
-      input.appendChild(opt);
-    }
-  } else {
-    input = document.createElement('input');
-    input.type = 'text';
-  }
-  input.className = 'memo-input';
-  input.value = manual?.[field.key] ?? '';
-  wrap.append(label, input);
-  return { wrap, key: field.key, get: () => input.value };
+  const value = cell('div', manual?.[field.key] || NA, 'memo-value');
+  wrap.append(label, value);
+  return wrap;
 }
 
 // 자유 메모 한 줄: 라벨 + 여러 줄 textarea. notes 우선, 없으면 레거시 memo/row 값으로 폴백.
@@ -167,8 +152,9 @@ function notesField(manual, row) {
   return { wrap, key: 'notes', get: () => ta.value };
 }
 
-// 종목코드 클릭 → 메모 팝업(dialog). 종목명/코드 + MEMO_FIELDS 편집 컨트롤 + 자유 메모 textarea + 저장 버튼.
-// 저장: onEditManual(code, patch) 호출 → 성공 시 팝업 닫힘(테이블은 콜백이 갱신), 실패 시 팝업 유지.
+// 종목코드 클릭 → 메모 팝업(dialog). 종목명/코드 + 구조화 필드 '읽기 전용' 요약 + 자유 메모 textarea + 저장 버튼.
+// 팝업은 구조화 필드(theme/material/…)를 편집하지 않는다 — 저장 대상은 오직 notes(자유 메모).
+// 저장: onEditManual(code, { notes }) 호출 → 성공 시 팝업 닫힘(테이블은 콜백이 갱신), 실패 시 팝업 유지.
 // 닫기: ✕ 버튼 · backdrop 클릭 · Escape. 접근성: role=dialog, aria-modal, 제목 연결, 포커스 이동.
 export function openMemoModal(row, { onEditManual } = {}) {
   const manual = row?.manual || {};
@@ -198,14 +184,10 @@ export function openMemoModal(row, { onEditManual } = {}) {
 
   const body = document.createElement('div');
   body.className = 'modal-body memo-body';
-  const editors = [];
-  for (const f of MEMO_FIELDS) {
-    const ed = memoField(f, manual);
-    editors.push(ed);
-    body.appendChild(ed.wrap);
-  }
+  // 구조화 필드는 읽기 전용 요약으로만 보여준다(편집은 표 inline 셀 전용).
+  for (const f of SUMMARY_FIELDS) body.appendChild(summaryField(f, manual));
+  // 편집·저장 대상은 자유 메모(notes) 하나뿐.
   const notes = notesField(manual, row);
-  editors.push(notes);
   body.appendChild(notes.wrap);
 
   const foot = document.createElement('div');
@@ -229,10 +211,9 @@ export function openMemoModal(row, { onEditManual } = {}) {
   closeBtn.addEventListener('click', remove);
   document.addEventListener('keydown', onKey);
 
-  // 저장: 편집한 모든 필드를 patch로 모아 onEditManual 호출. 성공 시에만 닫는다.
+  // 저장: 자유 메모(notes)만 patch로 보낸다. 구조화 필드는 절대 포함하지 않는다.
   saveBtn.addEventListener('click', async () => {
-    const patch = {};
-    for (const ed of editors) patch[ed.key] = ed.get();
+    const patch = { notes: notes.get() };
     saveBtn.disabled = true;
     const label = saveBtn.textContent;
     saveBtn.textContent = '저장 중…';
