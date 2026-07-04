@@ -208,27 +208,27 @@ button.remove:hover { color: var(--up); }
 body.col-resizing { cursor: col-resize; user-select: none; } /* 드래그 중 텍스트 선택 방지 */
 .jaelyo-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
 .jaelyo-table td.code { color: var(--muted); font-variant-numeric: tabular-nums; padding: 2px 4px; }
-/* 종목코드 → 메모 팝업 여는 버튼. 링크처럼 보이게(밑줄+포인터) */
-.code-btn {
+/* 종목명 → 메모 팝업 여는 버튼. 링크처럼 보이게(밑줄+포인터) */
+.jaelyo-name-btn {
   width: 100%; box-sizing: border-box; background: transparent; border: none;
-  color: inherit; font: inherit; font-variant-numeric: tabular-nums; text-align: left;
+  color: inherit; font: inherit; text-align: left;
   padding: 2px 3px; cursor: pointer;
   text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px;
 }
-.code-btn:hover,
-.code-btn:focus-visible { color: var(--accent); text-decoration-color: var(--accent); }
-.code-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.jaelyo-name-btn:hover,
+.jaelyo-name-btn:focus-visible { color: var(--accent); text-decoration-color: var(--accent); }
+.jaelyo-name-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .jaelyo-table td.prev { color: var(--muted); }
 .jaelyo-table tbody tr:hover { background: rgba(255,255,255,.03); }
 
-/* 종목명 → 네이버뉴스 검색(새 탭). 밑줄로 클릭 가능함을 드러냄 */
-.jaelyo-name-link {
+/* 종목코드 → 네이버뉴스 검색(새 탭, 검색어는 종목명). 밑줄로 클릭 가능함을 드러냄 */
+.jaelyo-code-link {
   color: inherit; text-decoration: underline; text-decoration-color: var(--line);
-  text-underline-offset: 2px; cursor: pointer;
+  text-underline-offset: 2px; cursor: pointer; font-variant-numeric: tabular-nums;
 }
-.jaelyo-name-link:hover,
-.jaelyo-name-link:focus-visible { color: var(--accent); text-decoration-color: var(--accent); }
-.jaelyo-name-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.jaelyo-code-link:hover,
+.jaelyo-code-link:focus-visible { color: var(--accent); text-decoration-color: var(--accent); }
+.jaelyo-code-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 
 /* 임계값 셀 배경 강조 */
 .jaelyo-table td.hot-change { background: rgba(255, 77, 79, .22); }   /* 등락률 ≥ 10% */
