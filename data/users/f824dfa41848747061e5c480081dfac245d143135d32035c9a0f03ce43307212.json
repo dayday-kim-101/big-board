@@ -3,8 +3,14 @@
     {
       "id": "g1783166410434649",
       "name": "해외",
-      "tickers": []
+      "tickers": [
+        {
+          "market": "US",
+          "code": "NVDA",
+          "name": "NVIDIA Corporation"
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-07-04T12:00:10.924Z"
+  "updatedAt": "2026-07-04T12:00:35.996Z"
 }
