@@ -100,31 +100,32 @@ export function naverNewsSearchUrl(name, date) {
   return url;
 }
 
-// 종목명 셀: 새 탭으로 네이버뉴스 검색을 여는 앵커. 수집 날짜로 기간을 제한.
-function nameCell(row, date) {
+// 종목명 셀: 클릭하면 해당 종목의 메모 팝업을 여는 버튼. (네이버뉴스는 종목코드 셀이 담당)
+// onEditManual을 팝업에 전달 → 팝업에서 직접 수정·저장.
+function nameCell(row, onEditManual) {
   const td = cell('td', undefined, 'name');
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'jaelyo-name-btn';
+  btn.textContent = row.name;
+  btn.title = `${row.name} 메모 보기·수정`;
+  btn.addEventListener('click', () => openMemoModal(row, { onEditManual }));
+  td.appendChild(btn);
+  return td;
+}
+
+// 종목코드 셀: 새 탭으로 네이버뉴스 검색을 여는 앵커. 검색어는 종목명, 표시 텍스트는 종목코드.
+// 수집 날짜로 기간을 제한. (메모 팝업은 종목명 셀이 담당)
+function codeCell(row, date) {
+  const td = cell('td', undefined, 'code');
   const a = document.createElement('a');
-  a.className = 'jaelyo-name-link';
-  a.textContent = row.name;
+  a.className = 'jaelyo-code-link';
+  a.textContent = row.code;
   a.href = naverNewsSearchUrl(row.name, date);
   a.target = '_blank';
   a.rel = 'noopener noreferrer';
   a.title = `${row.name} 네이버뉴스 검색${date ? ` (${date})` : ''}`;
   td.appendChild(a);
-  return td;
-}
-
-// 종목코드 셀: 클릭하면 해당 종목의 메모 팝업을 여는 버튼. (네이버뉴스는 종목명 셀이 담당)
-// onEditManual을 팝업에 전달 → 팝업에서 직접 수정·저장.
-function codeCell(row, onEditManual) {
-  const td = cell('td', undefined, 'code');
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'code-btn';
-  btn.textContent = row.code;
-  btn.title = `${row.code} 메모 보기·수정`;
-  btn.addEventListener('click', () => openMemoModal(row, { onEditManual }));
-  td.appendChild(btn);
   return td;
 }
 
@@ -152,7 +153,7 @@ function notesField(manual, row) {
   return { wrap, key: 'notes', get: () => ta.value };
 }
 
-// 종목코드 클릭 → 메모 팝업(dialog). 종목명/코드 + 구조화 필드 '읽기 전용' 요약 + 자유 메모 textarea + 저장 버튼.
+// 종목명 클릭 → 메모 팝업(dialog). 종목명/코드 + 구조화 필드 '읽기 전용' 요약 + 자유 메모 textarea + 저장 버튼.
 // 팝업은 구조화 필드(theme/material/…)를 편집하지 않는다 — 저장 대상은 오직 notes(자유 메모).
 // 저장: onEditManual(code, { notes }) 호출 → 성공 시 팝업 닫힘(테이블은 콜백이 갱신), 실패 시 팝업 유지.
 // 닫기: ✕ 버튼 · backdrop 클릭 · Escape. 접근성: role=dialog, aria-modal, 제목 연결, 포커스 이동.
@@ -379,8 +380,8 @@ export function renderJaelyo(container, { dates = [], selectedDate = null, board
     const tr = document.createElement('tr');
     tr.appendChild(cell('td', fmtRank(r.rank), 'num'));
     tr.appendChild(cell('td', fmtRank(r.prevRank), 'num prev'));
-    tr.appendChild(codeCell(r, onEditManual));
-    tr.appendChild(nameCell(r, newsDate));
+    tr.appendChild(codeCell(r, newsDate));
+    tr.appendChild(nameCell(r, onEditManual));
     tr.appendChild(cell('td', fmtPrice(r.price, 'KR'), 'num'));
     tr.appendChild(cell('td', fmtPct(r.changePct), numCls(isHotChange(r.changePct) && 'hot-change')));
     tr.appendChild(cell('td', fmtWonKR(r.marketCap), numCls(isSmallCap(r.marketCap) && 'small-cap')));

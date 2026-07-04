@@ -141,13 +141,14 @@ test('naverNewsSearchUrl: 날짜 없거나 형식 어긋나면 기간 파라미�
   assert.ok(!bad.includes('ds='), '형식 어긋나면 ds 없음');
 });
 
-test('renderJaelyo: 종목명은 네이버뉴스 검색 anchor(새 탭 + 날짜 파라미터)', () => {
+test('renderJaelyo: 종목코드는 네이버뉴스 검색 anchor(새 탭 + 종목명 검색 + 날짜 파라미터)', () => {
   const root = new FakeEl('div');
   renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board: sampleBoard() });
-  const anchors = root.findAll('a').filter((a) => a.className.includes('jaelyo-name-link'));
-  assert.equal(anchors.length, 2, '행마다 종목명 anchor');
-  const a = anchors.find((x) => x.textContent === '삼성E&A');
-  assert.ok(a, '종목명이 anchor 텍스트');
+  const anchors = root.findAll('a').filter((a) => a.className.includes('jaelyo-code-link'));
+  assert.equal(anchors.length, 2, '행마다 종목코드 anchor');
+  // 표시 텍스트는 종목코드, 검색어(query)는 종목명
+  const a = anchors.find((x) => x.textContent === '028050');
+  assert.ok(a, '종목코드가 anchor 텍스트');
   assert.ok(a.href.startsWith('https://search.naver.com/search.naver?where=news'), '네이버뉴스 검색 href');
   assert.ok(a.href.includes(`query=${encodeURIComponent('삼성E&A')}`), 'query에 종목명');
   assert.ok(a.href.includes('ds=2026.05.07') && a.href.includes('de=2026.05.07'), 'href에 수집 날짜');
@@ -158,7 +159,7 @@ test('renderJaelyo: 종목명은 네이버뉴스 검색 anchor(새 탭 + 날짜 
 test('renderJaelyo: selectedDate 없으면 board.date로 뉴스 기간', () => {
   const root = new FakeEl('div');
   renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: null, board: sampleBoard() });
-  const a = root.findAll('a').find((x) => x.className.includes('jaelyo-name-link'));
+  const a = root.findAll('a').find((x) => x.className.includes('jaelyo-code-link'));
   assert.ok(a.href.includes('ds=2026.05.07'), 'board.date(2026-05-07)로 기간 제한');
 });
 
@@ -212,12 +213,15 @@ test('renderJaelyo: 날짜 select 변경 → onSelectDate', () => {
 });
 
 // 메모 팝업이 붙을 신선한 body로 초기화하고, 열린 오버레이를 반환.
+// 팝업은 종목명 버튼(jaelyo-name-btn)으로 연다 — 인자는 종목코드지만 해당 행의 종목명 버튼을 찾아 클릭한다.
 function openBoardMemo(codeText = '028050', boardOverride = null) {
   document.body = new FakeEl('body');
+  const board = boardOverride || memoBoard();
   const root = new FakeEl('div');
-  renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board: boardOverride || memoBoard() });
-  const btn = root.findByClass('code-btn').find((b) => b.textContent === codeText);
-  assert.ok(btn, `종목코드 버튼(${codeText}) 존재`);
+  renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board });
+  const rowName = board.rows.find((r) => r.code === codeText)?.name;
+  const btn = root.findByClass('jaelyo-name-btn').find((b) => b.textContent === rowName);
+  assert.ok(btn, `종목명 버튼(${rowName}) 존재`);
   btn.click();
   const overlay = document.body.findByClass('memo-overlay')[0];
   assert.ok(overlay, '메모 오버레이가 body에 추가됨');
@@ -237,15 +241,26 @@ function memoBoard() {
   };
 }
 
-test('renderJaelyo: 종목코드는 클릭 가능한 버튼(code-btn)으로 렌더', () => {
+test('renderJaelyo: 종목명은 메모 팝업을 여는 클릭 가능한 버튼(jaelyo-name-btn)으로 렌더', () => {
   const root = new FakeEl('div');
   renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board: memoBoard() });
-  const btns = root.findByClass('code-btn');
-  assert.equal(btns.length, 2, '행마다 종목코드 버튼');
-  const b = btns.find((x) => x.textContent === '028050');
-  assert.ok(b, '종목코드가 버튼 텍스트');
+  const btns = root.findByClass('jaelyo-name-btn');
+  assert.equal(btns.length, 2, '행마다 종목명 버튼');
+  const b = btns.find((x) => x.textContent === '삼성E&A');
+  assert.ok(b, '종목명이 버튼 텍스트');
   assert.equal(b.tagName, 'button', 'button 요소');
   assert.equal(b.type, 'button');
+});
+
+test('renderJaelyo: 종목명 버튼 클릭 시 notes 팝업이 열린다', () => {
+  document.body = new FakeEl('body');
+  const root = new FakeEl('div');
+  renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board: memoBoard() });
+  const b = root.findByClass('jaelyo-name-btn').find((x) => x.textContent === '삼성E&A');
+  b.click();
+  const overlay = document.body.findByClass('memo-overlay')[0];
+  assert.ok(overlay, '종목명 클릭으로 메모 팝업 열림');
+  assert.ok(overlay.findAll('textarea').some((t) => (t.className || '').includes('memo-textarea')), '자유 메모 textarea 존재');
 });
 
 // 팝업의 읽기 전용 구조화 요약 값들(memo-value)을 모은다.
@@ -342,7 +357,9 @@ function openMemoWithSave(codeText, onEditManual, boardOverride = null) {
     dates: ['2026-05-07'], selectedDate: '2026-05-07', board: boardOverride || memoBoard(),
     onEditManual,
   });
-  const btn = root.findByClass('code-btn').find((b) => b.textContent === codeText);
+  const board = boardOverride || memoBoard();
+  const rowName = board.rows.find((r) => r.code === codeText)?.name;
+  const btn = root.findByClass('jaelyo-name-btn').find((b) => b.textContent === rowName);
   btn.click();
   const overlay = document.body.findByClass('memo-overlay')[0];
   return { overlay };
