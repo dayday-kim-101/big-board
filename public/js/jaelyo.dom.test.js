@@ -6,21 +6,27 @@ class FakeEl {
   constructor(tag) {
     this.tagName = tag;
     this.children = [];
+    this.parent = null;
     this.className = '';
     this.title = '';
     this.type = '';
     this.value = '';
+    this.attrs = {};
     this._text = '';
     this._listeners = {};
   }
   set textContent(v) { this._text = v == null ? '' : String(v); this.children = []; }
   get textContent() { return this._text; }
   set innerHTML(v) { this.children = []; this._text = ''; }
-  appendChild(c) { this.children.push(c); return c; }
-  append(...cs) { for (const c of cs) this.children.push(c); }
+  appendChild(c) { c.parent = this; this.children.push(c); return c; }
+  append(...cs) { for (const c of cs) { c.parent = this; this.children.push(c); } }
+  remove() { if (this.parent) { this.parent.children = this.parent.children.filter((c) => c !== this); this.parent = null; } }
+  setAttribute(k, v) { this.attrs[k] = String(v); }
+  getAttribute(k) { return this.attrs[k]; }
+  focus() { FakeEl.focused = this; }
   addEventListener(type, fn) { this._listeners[type] = fn; }
-  dispatch(type) { this._listeners[type]?.(); }
-  click() { this.dispatch('click'); }
+  dispatch(type, ev) { this._listeners[type]?.(ev); }
+  click() { this.dispatch('click', { target: this }); }
   allText() {
     let t = this._text || '';
     for (const c of this.children) t += ' ' + c.allText();
@@ -42,9 +48,19 @@ class FakeEl {
     return acc;
   }
 }
-globalThis.document = { createElement: (t) => new FakeEl(t) };
+// document 스텁 — 모달은 document.body에 붙고 Escape는 document keydown으로 닫힌다.
+const docListeners = {};
+globalThis.document = {
+  createElement: (t) => new FakeEl(t),
+  body: new FakeEl('body'),
+  activeElement: null,
+  addEventListener: (type, fn) => { docListeners[type] = fn; },
+  removeEventListener: (type) => { delete docListeners[type]; },
+  // 테스트에서 문서 레벨 키 이벤트를 발생시키는 헬퍼
+  fireKey: (key) => docListeners.keydown?.({ key }),
+};
 
-const { renderJaelyo, MANUAL_COLS, naverNewsSearchUrl } = await import('./jaelyo.js');
+const { renderJaelyo, MANUAL_COLS, naverNewsSearchUrl, openMemoModal } = await import('./jaelyo.js');
 const { MANUAL_FIELDS } = await import('../../functions/api/_jaelyo-core.js');
 
 // 서버/클라이언트 수동필드 계약 패리티 — public/은 functions/를 import할 수 없어
@@ -191,6 +207,104 @@ test('renderJaelyo: 날짜 select 변경 → onSelectDate', () => {
   dateSelect.value = '2026-05-07';
   dateSelect.dispatch('change');
   assert.equal(picked, '2026-05-07');
+});
+
+// 메모 팝업이 붙을 신선한 body로 초기화하고, 열린 오버레이를 반환.
+function openBoardMemo(codeText = '028050', boardOverride = null) {
+  document.body = new FakeEl('body');
+  const root = new FakeEl('div');
+  renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board: boardOverride || memoBoard() });
+  const btn = root.findByClass('code-btn').find((b) => b.textContent === codeText);
+  assert.ok(btn, `종목코드 버튼(${codeText}) 존재`);
+  btn.click();
+  const overlay = document.body.findByClass('memo-overlay')[0];
+  assert.ok(overlay, '메모 오버레이가 body에 추가됨');
+  return { root, btn, overlay };
+}
+
+// 메모 필드가 채워진 샘플 — 세계 영향력=materialContinuity, 국내 영향력=supplyDemand 매핑 확인용.
+function memoBoard() {
+  return {
+    date: '2026-05-07',
+    rows: [
+      { rank: 5, prevRank: 1063, code: '028050', name: '삼성E&A', price: 64900, changePct: 23.6, marketCap: 1.27e12, tradingValue: 5e11, tvToMcapPct: 25,
+        manual: { newOrExisting: '신규', theme: '로봇', material: '엑추에이터 제조', materialPersistence: '중', materialContinuity: '글로벌 로봇 수요 확대', financials: '흑자', supplyDemand: '기관 순매수' } },
+      { rank: 1, prevRank: 1, code: '005930', name: '삼성전자', price: 81000, changePct: 1.2, marketCap: 5e14, tradingValue: 1e11, tvToMcapPct: 0.02,
+        manual: { newOrExisting: '', theme: '', material: '', materialPersistence: '', materialContinuity: '', financials: '', supplyDemand: '' } },
+    ],
+  };
+}
+
+test('renderJaelyo: 종목코드는 클릭 가능한 버튼(code-btn)으로 렌더', () => {
+  const root = new FakeEl('div');
+  renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board: memoBoard() });
+  const btns = root.findByClass('code-btn');
+  assert.equal(btns.length, 2, '행마다 종목코드 버튼');
+  const b = btns.find((x) => x.textContent === '028050');
+  assert.ok(b, '종목코드가 버튼 텍스트');
+  assert.equal(b.tagName, 'button', 'button 요소');
+  assert.equal(b.type, 'button');
+});
+
+test('openMemoModal: 클릭 시 dialog 열리고 종목명/코드/메모 항목 표시', () => {
+  const { overlay } = openBoardMemo('028050');
+  const dialog = overlay.findByClass('memo-modal')[0];
+  assert.ok(dialog, '메모 모달 존재');
+  // 접근성: role=dialog + aria-modal + 제목 연결
+  assert.equal(dialog.getAttribute('role'), 'dialog');
+  assert.equal(dialog.getAttribute('aria-modal'), 'true');
+  const titleId = dialog.getAttribute('aria-labelledby');
+  const titleEl = overlay.findByClass('modal-title')[0];
+  assert.equal(titleEl.id, titleId, 'aria-labelledby가 제목 id와 연결');
+
+  const text = overlay.allText();
+  assert.ok(text.includes('삼성E&A'), '종목명');
+  assert.ok(text.includes('028050'), '종목코드');
+  // 요구 라벨 6종
+  for (const label of ['테마', '재료', '세계 영향력', '국내 영향력']) {
+    assert.ok(text.includes(label), `라벨 ${label}`);
+  }
+  // 매핑된 값
+  assert.ok(text.includes('로봇'), '테마 값');
+  assert.ok(text.includes('엑추에이터 제조'), '재료 값');
+  assert.ok(text.includes('글로벌 로봇 수요 확대'), '세계 영향력=materialContinuity 값');
+  assert.ok(text.includes('기관 순매수'), '국내 영향력=supplyDemand 값');
+});
+
+test('openMemoModal: 빈 메모 필드는 "—"로 표시', () => {
+  const { overlay } = openBoardMemo('005930');
+  const empties = overlay.findByClass('memo-empty');
+  assert.ok(empties.length > 0, '빈 필드가 memo-empty로 표시');
+  assert.ok(empties.every((e) => e.textContent === '—'), '빈 값은 —');
+});
+
+test('openMemoModal: 닫기 버튼으로 닫힘 + 포커스 복원', () => {
+  const { btn, overlay } = openBoardMemo('028050');
+  const closeBtn = overlay.findByClass('modal-close')[0];
+  assert.ok(closeBtn, '닫기 버튼');
+  assert.equal(FakeEl.focused, closeBtn, '열릴 때 닫기 버튼에 포커스');
+  closeBtn.click();
+  assert.equal(document.body.findByClass('memo-overlay').length, 0, '오버레이 제거됨');
+});
+
+test('openMemoModal: Escape 키로 닫힘', () => {
+  openBoardMemo('028050');
+  assert.equal(document.body.findByClass('memo-overlay').length, 1, '열림');
+  document.fireKey('Escape');
+  assert.equal(document.body.findByClass('memo-overlay').length, 0, 'Escape로 닫힘');
+});
+
+test('openMemoModal: backdrop(오버레이 바깥) 클릭으로 닫힘', () => {
+  const { overlay } = openBoardMemo('028050');
+  overlay.dispatch('click', { target: overlay }); // 오버레이 자신 = 바깥
+  assert.equal(document.body.findByClass('memo-overlay').length, 0, 'backdrop 클릭으로 닫힘');
+});
+
+test('openMemoModal: raw memo/notes가 있으면 함께 표시', () => {
+  const board = memoBoard();
+  board.rows[0].manual.notes = '추가 원문 메모';
+  const { overlay } = openBoardMemo('028050', board);
+  assert.ok(overlay.allText().includes('추가 원문 메모'), 'raw notes 노출');
 });
 
 test('renderJaelyo: 빈 보드 → 안내 문구', () => {

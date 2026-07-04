@@ -207,7 +207,17 @@ button.remove:hover { color: var(--up); }
 .col-resize:hover { background: var(--accent); opacity: .55; }
 body.col-resizing { cursor: col-resize; user-select: none; } /* 드래그 중 텍스트 선택 방지 */
 .jaelyo-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
-.jaelyo-table td.code { color: var(--muted); font-variant-numeric: tabular-nums; }
+.jaelyo-table td.code { color: var(--muted); font-variant-numeric: tabular-nums; padding: 2px 4px; }
+/* 종목코드 → 메모 팝업 여는 버튼. 링크처럼 보이게(밑줄+포인터) */
+.code-btn {
+  width: 100%; box-sizing: border-box; background: transparent; border: none;
+  color: inherit; font: inherit; font-variant-numeric: tabular-nums; text-align: left;
+  padding: 2px 3px; cursor: pointer;
+  text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px;
+}
+.code-btn:hover,
+.code-btn:focus-visible { color: var(--accent); text-decoration-color: var(--accent); }
+.code-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .jaelyo-table td.prev { color: var(--muted); }
 .jaelyo-table tbody tr:hover { background: rgba(255,255,255,.03); }
 
@@ -235,6 +245,19 @@ body.col-resizing { cursor: col-resize; user-select: none; } /* 드래그 중 �
 }
 select.manual-input { min-width: 0; }
 .manual-input:focus { background: var(--panel); outline: 1px solid var(--accent); }
+
+/* 종목코드 메모 팝업 — .modal 기본을 상속하되 내용만큼만 높이를 갖도록 재정의 */
+.memo-modal { width: min(480px, 100%); height: auto; max-height: min(80vh, 640px); }
+.memo-body { gap: 0; padding: 14px 16px; overflow: auto; }
+.memo-row {
+  display: grid; grid-template-columns: 96px 1fr; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid var(--line);
+}
+.memo-row:last-child { border-bottom: none; }
+.memo-label { color: var(--muted); font-size: 13px; }
+.memo-value { color: var(--text); font-size: 13px; white-space: pre-wrap; word-break: break-word; }
+.memo-empty { color: var(--muted); }
+.memo-raw .memo-value { font-size: 12px; }
 
 /* 전광판 아래 탭(재료정리 / 매크로 지표) */
 .subtabs { display: flex; gap: 6px; margin-top: 32px; border-bottom: 1px solid var(--line); }
