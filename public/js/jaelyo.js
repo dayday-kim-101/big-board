@@ -25,6 +25,21 @@ export const MANUAL_COLS = [
   { key: 'supplyDemand' },
 ];
 
+// 종목코드 클릭 시 뜨는 메모 팝업의 표시 항목 — { label(표시), key(manual 필드) }.
+// MANUAL_FIELDS엔 '세계/국내 영향력' 전용 키가 없어, 의미가 가장 가까운 기존 수동필드에 매핑한다:
+//   세계 영향력 ← materialContinuity(재료연속여부: 재료의 글로벌·지속 영향)
+//   국내 영향력 ← supplyDemand(수급: 국내 수급/영향)
+// 각 manual 키는 정확히 한 번만 노출된다. 값이 비면 렌더 시 '—'.
+const MEMO_FIELDS = [
+  { label: '테마', key: 'theme' },
+  { label: '재료', key: 'material' },
+  { label: '세계 영향력', key: 'materialContinuity' },
+  { label: '국내 영향력', key: 'supplyDemand' },
+  { label: '재료지속성', key: 'materialPersistence' },
+  { label: '재무', key: 'financials' },
+  { label: '신규/기존', key: 'newOrExisting' },
+];
+
 // 열 너비 조절(드래그) — 열별 기본 너비(px). 사용자가 끌어 조절하면 localStorage에 저장.
 const DEFAULT_COL_W = {
   '순위': 44, '전일순위': 56, '종목코드': 64, '종목명': 104, '현재가': 78, '등락률': 64,
@@ -95,6 +110,86 @@ function nameCell(row, date) {
   a.title = `${row.name} 네이버뉴스 검색${date ? ` (${date})` : ''}`;
   td.appendChild(a);
   return td;
+}
+
+// 종목코드 셀: 클릭하면 해당 종목의 메모 팝업을 여는 버튼. (네이버뉴스는 종목명 셀이 담당)
+function codeCell(row) {
+  const td = cell('td', undefined, 'code');
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'code-btn';
+  btn.textContent = row.code;
+  btn.title = `${row.code} 메모 보기`;
+  btn.addEventListener('click', () => openMemoModal(row));
+  td.appendChild(btn);
+  return td;
+}
+
+// 메모 팝업 한 줄: 라벨 + 값(빈 값이면 '—').
+function memoRow(label, value) {
+  const wrap = cell('div', undefined, 'memo-row');
+  wrap.appendChild(cell('div', label, 'memo-label'));
+  const has = value !== null && value !== undefined && String(value).trim() !== '';
+  wrap.appendChild(cell('div', has ? value : NA, has ? 'memo-value' : 'memo-value memo-empty'));
+  return wrap;
+}
+
+// 종목코드 클릭 → 메모 팝업(dialog). 종목명/코드 + MEMO_FIELDS를 보기 좋게 정리.
+// 닫기: ✕ 버튼 · backdrop 클릭 · Escape. 접근성: role=dialog, aria-modal, 제목 연결, 포커스 이동.
+export function openMemoModal(row) {
+  const manual = row?.manual || {};
+  const opener = document?.activeElement || null; // 닫을 때 포커스 복원용
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay memo-overlay';
+
+  const modal = document.createElement('div');
+  modal.className = 'modal memo-modal';
+  const titleId = `memo-title-${row?.code || 'x'}`;
+  modal.setAttribute?.('role', 'dialog');
+  modal.setAttribute?.('aria-modal', 'true');
+  modal.setAttribute?.('aria-labelledby', titleId);
+
+  const head = document.createElement('div');
+  head.className = 'modal-head';
+  const title = cell('div', `${row?.name ?? ''} · ${row?.code ?? ''}`, 'modal-title');
+  title.id = titleId;
+  const closeBtn = document.createElement('button');
+  closeBtn.type = 'button';
+  closeBtn.className = 'modal-close';
+  closeBtn.title = '닫기';
+  closeBtn.setAttribute?.('aria-label', '닫기');
+  closeBtn.textContent = '✕';
+  head.append(title, closeBtn);
+
+  const body = document.createElement('div');
+  body.className = 'modal-body memo-body';
+  for (const f of MEMO_FIELDS) body.appendChild(memoRow(f.label, manual[f.key]));
+
+  // 스키마엔 없지만 raw memo/notes가 들어오면 원문도 함께 노출.
+  const raw = manual.notes ?? manual.memo ?? row?.notes ?? row?.memo;
+  if (raw !== null && raw !== undefined && String(raw).trim() !== '') {
+    const note = memoRow('메모', raw);
+    note.className = 'memo-row memo-raw';
+    body.appendChild(note);
+  }
+
+  modal.append(head, body);
+  overlay.appendChild(modal);
+
+  const remove = () => {
+    overlay.remove();
+    document.removeEventListener('keydown', onKey);
+    if (opener && typeof opener.focus === 'function') opener.focus();
+  };
+  const onKey = (e) => { if (e.key === 'Escape') remove(); };
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) remove(); });
+  closeBtn.addEventListener('click', remove);
+  document.addEventListener('keydown', onKey);
+
+  document.body.appendChild(overlay);
+  if (typeof closeBtn.focus === 'function') closeBtn.focus();
+  return overlay;
 }
 
 // 강조 술어 true면 기본 클래스에 강조 클래스를 덧붙인다.
@@ -243,7 +338,7 @@ export function renderJaelyo(container, { dates = [], selectedDate = null, board
     const tr = document.createElement('tr');
     tr.appendChild(cell('td', fmtRank(r.rank), 'num'));
     tr.appendChild(cell('td', fmtRank(r.prevRank), 'num prev'));
-    tr.appendChild(cell('td', r.code, 'code'));
+    tr.appendChild(codeCell(r));
     tr.appendChild(nameCell(r, newsDate));
     tr.appendChild(cell('td', fmtPrice(r.price, 'KR'), 'num'));
     tr.appendChild(cell('td', fmtPct(r.changePct), numCls(isHotChange(r.changePct) && 'hot-change')));
