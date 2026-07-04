@@ -9,7 +9,8 @@
     "snapshot": "node scripts/snapshot.mjs",
     "jaelyo:seed": "node scripts/build-jaelyo-seed.mjs",
     "jaelyo:prefill": "node scripts/jaelyo-prefill.mjs",
-    "test": "node --test"
+    "test": "node --test",
+    "jaelyo:prefill-notes": "node scripts/jaelyo-prefill-notes.mjs"
   },
   "engines": {
     "node": ">=20"
