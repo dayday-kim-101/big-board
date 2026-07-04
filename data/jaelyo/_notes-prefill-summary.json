@@ -1,0 +1,18 @@
+{
+  "generatedFrom": "2026-07-03",
+  "months": 4,
+  "cutoff": "2026-03-03",
+  "dateRange": [
+    "2026-06-11",
+    "2026-07-03"
+  ],
+  "dateCount": 17,
+  "topN": 100,
+  "uniqueCodeCount": 211,
+  "seedCodeCount": 211,
+  "matchedCodeCount": 211,
+  "unmatchedCodeCount": 0,
+  "totalNotesFilled": 1700,
+  "filesChanged": 17,
+  "dryRun": false
+}
