@@ -14,7 +14,8 @@
 //   { rank, prevRank, code, name, price, changePct,
 //     marketCap(원), tradingValue(원), tvToMcapPct, manual{...} }
 
-// 사용자 수동 입력 7개 항목 (신규/기존 ~ 수급)
+// 사용자 수동 입력 항목 (신규/기존 ~ 수급) + 자유 메모(notes).
+// 앞 7개는 표의 구조화 열, 마지막 notes는 종목코드 팝업에서 편집하는 여러 줄 자유 메모.
 export const MANUAL_FIELDS = [
   'newOrExisting', // 신규/기존
   'theme', // 테마
@@ -23,7 +24,11 @@ export const MANUAL_FIELDS = [
   'materialContinuity', // 재료연속여부
   'financials', // 재무
   'supplyDemand', // 수급
+  'notes', // 자유 메모(여러 줄, 팝업 전용) — 레거시 memo와 호환
 ];
+
+// 자유 메모(notes) 최대 길이(문자). 과도한 저장 방지.
+export const NOTES_MAX_LEN = 4000;
 
 // 네이버 단위(응답의 한글 라벨로 확인): 거래대금(accumulatedTradingValue)=백만원, 시총(marketValue)=억원.
 const WON_PER_MILLION = 1_000_000; // 거래대금 백만원 → 원
@@ -117,10 +122,20 @@ export function sanitizeManual(input) {
   const out = emptyManual();
   if (input && typeof input === 'object') {
     for (const k of MANUAL_FIELDS) {
-      if (input[k] !== null && input[k] !== undefined) out[k] = String(input[k]).trim();
+      if (input[k] !== null && input[k] !== undefined) out[k] = clampField(k, input[k]);
+    }
+    // 레거시 호환: notes가 비었고 memo가 있으면 memo를 자유 메모로 승격(덮어쓰지 않음).
+    if (out.notes === '' && input.memo !== null && input.memo !== undefined) {
+      out.notes = clampField('notes', input.memo);
     }
   }
   return out;
+}
+
+// 필드 값 정제: 문자열화 + 앞뒤 공백 제거. notes는 여러 줄 유지(내부 개행 보존) + 길이 제한.
+function clampField(key, value) {
+  const s = String(value).trim();
+  return key === 'notes' && s.length > NOTES_MAX_LEN ? s.slice(0, NOTES_MAX_LEN) : s;
 }
 
 // 신규 수집행에 같은 날짜 파일의 기존 manual을 code 기준 보존(재수집 idempotent).
