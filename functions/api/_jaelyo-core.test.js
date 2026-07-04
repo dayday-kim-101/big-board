@@ -13,6 +13,7 @@ import {
   sanitizeManual,
   emptyManual,
   MANUAL_FIELDS,
+  NOTES_MAX_LEN,
 } from './_jaelyo-core.js';
 
 // --- parseNaverStocks: 네이버 모바일 시세 → 정규화 (거래대금·시총 백만원 → 원) ---
@@ -104,13 +105,40 @@ test('buildRankMap + attachPrevRank: 전일순위 부여, 없으면 null', () =>
 });
 
 // --- sanitizeManual / mergeManual ---
-test('sanitizeManual: 7개 키만 통과, 문자열 trim', () => {
+test('sanitizeManual: 화이트리스트 키만 통과, 문자열 trim', () => {
   const m = sanitizeManual({ theme: '  건설 ', bogus: 'x', material: '실적' });
   assert.deepEqual(Object.keys(m).sort(), [...MANUAL_FIELDS].sort());
   assert.equal(m.theme, '건설');
   assert.equal(m.material, '실적');
   assert.equal(m.newOrExisting, '');
+  assert.equal(m.notes, '');
   assert.equal(m.bogus, undefined);
+});
+
+test('sanitizeManual: 자유 메모 notes 허용 + 여러 줄 보존 + 앞뒤 공백 trim', () => {
+  const m = sanitizeManual({ notes: '  (로봇) 액추에이터 제조\n세계: 확대\n국내: 순매수  ' });
+  assert.equal(m.notes, '(로봇) 액추에이터 제조\n세계: 확대\n국내: 순매수'); // 내부 개행 유지, 양끝만 trim
+});
+
+test('sanitizeManual: notes 길이 제한(NOTES_MAX_LEN)으로 절단', () => {
+  const long = 'x'.repeat(NOTES_MAX_LEN + 500);
+  const m = sanitizeManual({ notes: long });
+  assert.equal(m.notes.length, NOTES_MAX_LEN);
+});
+
+test('sanitizeManual: 레거시 memo → notes 승격(notes 비었을 때만)', () => {
+  assert.equal(sanitizeManual({ memo: '  옛 메모  ' }).notes, '옛 메모'); // notes 없으면 memo 채움
+  // notes가 이미 있으면 memo로 덮어쓰지 않음
+  assert.equal(sanitizeManual({ notes: '새 메모', memo: '옛 메모' }).notes, '새 메모');
+  // memo 키는 화이트리스트가 아니므로 own 속성으로 남지 않음
+  assert.equal(Object.prototype.hasOwnProperty.call(sanitizeManual({ memo: 'x' }), 'memo'), false);
+});
+
+test('sanitizeManual: notes에도 프로토타입 오염 방어 유지', () => {
+  const m = sanitizeManual(JSON.parse('{"__proto__":{"polluted":true},"notes":"메모"}'));
+  assert.equal(m.notes, '메모');
+  assert.equal(Object.prototype.hasOwnProperty.call(m, 'polluted'), false);
+  assert.equal(({}).polluted, undefined, '전역 Object 오염 없음');
 });
 
 test('mergeManual: 기존 manual을 code 기준 보존, 신규는 빈값', () => {

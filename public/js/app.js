@@ -222,18 +222,22 @@ async function selectJaelyoDate(date) {
   paintJaelyo();
 }
 
-// 수동 필드 저장. 저장 성공 시 서버가 정규화한 보드로 갱신,
+// 수동 필드 저장. 저장 성공 시 서버가 정규화한 보드로 갱신·재렌더(테이블/팝업 반영),
 // 실패 시 직전 보드로 롤백·재렌더(app.js save() 패턴과 동일).
+// 반환: 성공 true / 실패 false — 팝업이 성공 시에만 닫도록 결과를 알린다.
 async function editManual(code, patch) {
   const date = state.jaelyo.selectedDate;
-  if (!date) return;
+  if (!date) return false;
   const previous = state.jaelyo.board;
   try {
     state.jaelyo.board = await putJaelyoManual(date, code, patch);
+    paintJaelyo(); // 서버 정규화 결과를 테이블에 반영
+    return true;
   } catch (e) {
     state.jaelyo.board = previous; // 롤백
     paintJaelyo();
     alert(`저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
+    return false;
   }
 }
 

@@ -25,11 +25,11 @@ export const MANUAL_COLS = [
   { key: 'supplyDemand' },
 ];
 
-// 종목코드 클릭 시 뜨는 메모 팝업의 표시 항목 — { label(표시), key(manual 필드) }.
+// 종목코드 클릭 시 뜨는 메모 팝업에서 편집하는 구조화 항목 — { label(표시), key(manual 필드), type?, options? }.
 // MANUAL_FIELDS엔 '세계/국내 영향력' 전용 키가 없어, 의미가 가장 가까운 기존 수동필드에 매핑한다:
 //   세계 영향력 ← materialContinuity(재료연속여부: 재료의 글로벌·지속 영향)
 //   국내 영향력 ← supplyDemand(수급: 국내 수급/영향)
-// 각 manual 키는 정확히 한 번만 노출된다. 값이 비면 렌더 시 '—'.
+// 각 manual 키는 정확히 한 번만 노출된다. 팝업에서 직접 수정·저장 가능(자유 메모 notes는 별도 textarea).
 const MEMO_FIELDS = [
   { label: '테마', key: 'theme' },
   { label: '재료', key: 'material' },
@@ -37,8 +37,12 @@ const MEMO_FIELDS = [
   { label: '국내 영향력', key: 'supplyDemand' },
   { label: '재료지속성', key: 'materialPersistence' },
   { label: '재무', key: 'financials' },
-  { label: '신규/기존', key: 'newOrExisting' },
+  { label: '신규/기존', key: 'newOrExisting', type: 'select', options: ['', '신규', '기존'] },
 ];
+
+// 자유 메모(notes) 최대 길이 — 서버 _jaelyo-core.NOTES_MAX_LEN과 일치시켜야 한다
+// (public/은 functions/를 import할 수 없어 별도 정의).
+const NOTES_MAX_LEN = 4000;
 
 // 열 너비 조절(드래그) — 열별 기본 너비(px). 사용자가 끌어 조절하면 localStorage에 저장.
 const DEFAULT_COL_W = {
@@ -113,30 +117,60 @@ function nameCell(row, date) {
 }
 
 // 종목코드 셀: 클릭하면 해당 종목의 메모 팝업을 여는 버튼. (네이버뉴스는 종목명 셀이 담당)
-function codeCell(row) {
+// onEditManual을 팝업에 전달 → 팝업에서 직접 수정·저장.
+function codeCell(row, onEditManual) {
   const td = cell('td', undefined, 'code');
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'code-btn';
   btn.textContent = row.code;
-  btn.title = `${row.code} 메모 보기`;
-  btn.addEventListener('click', () => openMemoModal(row));
+  btn.title = `${row.code} 메모 보기·수정`;
+  btn.addEventListener('click', () => openMemoModal(row, { onEditManual }));
   td.appendChild(btn);
   return td;
 }
 
-// 메모 팝업 한 줄: 라벨 + 값(빈 값이면 '—').
-function memoRow(label, value) {
+// 메모 팝업 편집 한 줄: 라벨 + 편집 컨트롤(select 또는 text input). get()으로 현재 값 조회.
+function memoField(field, manual) {
   const wrap = cell('div', undefined, 'memo-row');
-  wrap.appendChild(cell('div', label, 'memo-label'));
-  const has = value !== null && value !== undefined && String(value).trim() !== '';
-  wrap.appendChild(cell('div', has ? value : NA, has ? 'memo-value' : 'memo-value memo-empty'));
-  return wrap;
+  const label = cell('label', field.label, 'memo-label');
+  let input;
+  if (field.type === 'select') {
+    input = document.createElement('select');
+    for (const o of field.options) {
+      const opt = document.createElement('option');
+      opt.value = o;
+      opt.textContent = o || NA;
+      input.appendChild(opt);
+    }
+  } else {
+    input = document.createElement('input');
+    input.type = 'text';
+  }
+  input.className = 'memo-input';
+  input.value = manual?.[field.key] ?? '';
+  wrap.append(label, input);
+  return { wrap, key: field.key, get: () => input.value };
 }
 
-// 종목코드 클릭 → 메모 팝업(dialog). 종목명/코드 + MEMO_FIELDS를 보기 좋게 정리.
+// 자유 메모 한 줄: 라벨 + 여러 줄 textarea. notes 우선, 없으면 레거시 memo/row 값으로 폴백.
+function notesField(manual, row) {
+  const wrap = cell('div', undefined, 'memo-row memo-notes-row');
+  const label = cell('label', '메모(자유 작성)', 'memo-label');
+  const ta = document.createElement('textarea');
+  ta.className = 'memo-input memo-textarea';
+  ta.rows = 6;
+  ta.maxLength = NOTES_MAX_LEN;
+  ta.placeholder = '자유롭게 작성 (여러 줄 가능)';
+  ta.value = manual?.notes ?? manual?.memo ?? row?.notes ?? row?.memo ?? '';
+  wrap.append(label, ta);
+  return { wrap, key: 'notes', get: () => ta.value };
+}
+
+// 종목코드 클릭 → 메모 팝업(dialog). 종목명/코드 + MEMO_FIELDS 편집 컨트롤 + 자유 메모 textarea + 저장 버튼.
+// 저장: onEditManual(code, patch) 호출 → 성공 시 팝업 닫힘(테이블은 콜백이 갱신), 실패 시 팝업 유지.
 // 닫기: ✕ 버튼 · backdrop 클릭 · Escape. 접근성: role=dialog, aria-modal, 제목 연결, 포커스 이동.
-export function openMemoModal(row) {
+export function openMemoModal(row, { onEditManual } = {}) {
   const manual = row?.manual || {};
   const opener = document?.activeElement || null; // 닫을 때 포커스 복원용
 
@@ -164,17 +198,25 @@ export function openMemoModal(row) {
 
   const body = document.createElement('div');
   body.className = 'modal-body memo-body';
-  for (const f of MEMO_FIELDS) body.appendChild(memoRow(f.label, manual[f.key]));
-
-  // 스키마엔 없지만 raw memo/notes가 들어오면 원문도 함께 노출.
-  const raw = manual.notes ?? manual.memo ?? row?.notes ?? row?.memo;
-  if (raw !== null && raw !== undefined && String(raw).trim() !== '') {
-    const note = memoRow('메모', raw);
-    note.className = 'memo-row memo-raw';
-    body.appendChild(note);
+  const editors = [];
+  for (const f of MEMO_FIELDS) {
+    const ed = memoField(f, manual);
+    editors.push(ed);
+    body.appendChild(ed.wrap);
   }
+  const notes = notesField(manual, row);
+  editors.push(notes);
+  body.appendChild(notes.wrap);
 
-  modal.append(head, body);
+  const foot = document.createElement('div');
+  foot.className = 'modal-foot memo-foot';
+  const saveBtn = document.createElement('button');
+  saveBtn.type = 'button';
+  saveBtn.className = 'memo-save';
+  saveBtn.textContent = '저장';
+  foot.appendChild(saveBtn);
+
+  modal.append(head, body, foot);
   overlay.appendChild(modal);
 
   const remove = () => {
@@ -186,6 +228,24 @@ export function openMemoModal(row) {
   overlay.addEventListener('click', (e) => { if (e.target === overlay) remove(); });
   closeBtn.addEventListener('click', remove);
   document.addEventListener('keydown', onKey);
+
+  // 저장: 편집한 모든 필드를 patch로 모아 onEditManual 호출. 성공 시에만 닫는다.
+  saveBtn.addEventListener('click', async () => {
+    const patch = {};
+    for (const ed of editors) patch[ed.key] = ed.get();
+    saveBtn.disabled = true;
+    const label = saveBtn.textContent;
+    saveBtn.textContent = '저장 중…';
+    let ok = true;
+    try {
+      ok = await onEditManual?.(row.code, patch);
+    } catch {
+      ok = false;
+    }
+    saveBtn.disabled = false;
+    saveBtn.textContent = label;
+    if (ok !== false) remove(); // 성공(또는 콜백 없음) → 닫기. 실패 시 콜백이 알림·롤백, 팝업 유지.
+  });
 
   document.body.appendChild(overlay);
   if (typeof closeBtn.focus === 'function') closeBtn.focus();
@@ -338,7 +398,7 @@ export function renderJaelyo(container, { dates = [], selectedDate = null, board
     const tr = document.createElement('tr');
     tr.appendChild(cell('td', fmtRank(r.rank), 'num'));
     tr.appendChild(cell('td', fmtRank(r.prevRank), 'num prev'));
-    tr.appendChild(codeCell(r));
+    tr.appendChild(codeCell(r, onEditManual));
     tr.appendChild(nameCell(r, newsDate));
     tr.appendChild(cell('td', fmtPrice(r.price, 'KR'), 'num'));
     tr.appendChild(cell('td', fmtPct(r.changePct), numCls(isHotChange(r.changePct) && 'hot-change')));

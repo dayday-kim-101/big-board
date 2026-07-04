@@ -65,8 +65,10 @@ const { MANUAL_FIELDS } = await import('../../functions/api/_jaelyo-core.js');
 
 // 서버/클라이언트 수동필드 계약 패리티 — public/은 functions/를 import할 수 없어
 // 두 곳에 정의되므로, 키 집합·순서가 어긋나면 CI에서 잡는다.
-test('패리티: MANUAL_COLS 키가 서버 MANUAL_FIELDS와 동일(순서 포함)', () => {
-  assert.deepEqual(MANUAL_COLS.map((c) => c.key), MANUAL_FIELDS);
+// 표 열(MANUAL_COLS 7개)은 구조화 필드, 자유 메모(notes)는 표 열이 아니라 팝업 전용이므로
+// 서버 MANUAL_FIELDS = [...구조화 열 키, 'notes'] 여야 한다.
+test('패리티: MANUAL_COLS 열 키 + notes 자유메모 = 서버 MANUAL_FIELDS(순서 포함)', () => {
+  assert.deepEqual([...MANUAL_COLS.map((c) => c.key), 'notes'], MANUAL_FIELDS);
 });
 
 function sampleBoard() {
@@ -246,7 +248,14 @@ test('renderJaelyo: 종목코드는 클릭 가능한 버튼(code-btn)으로 렌�
   assert.equal(b.type, 'button');
 });
 
-test('openMemoModal: 클릭 시 dialog 열리고 종목명/코드/메모 항목 표시', () => {
+// 팝업 편집 컨트롤(input/select/textarea)의 현재 값을 모두 모은다.
+function editorValues(overlay) {
+  return [...overlay.findAll('input'), ...overlay.findAll('select'), ...overlay.findAll('textarea')]
+    .filter((el) => (el.className || '').includes('memo-input'))
+    .map((el) => el.value);
+}
+
+test('openMemoModal: 클릭 시 dialog 열리고 종목명/코드/편집 항목 표시', () => {
   const { overlay } = openBoardMemo('028050');
   const dialog = overlay.findByClass('memo-modal')[0];
   assert.ok(dialog, '메모 모달 존재');
@@ -260,22 +269,23 @@ test('openMemoModal: 클릭 시 dialog 열리고 종목명/코드/메모 항목 
   const text = overlay.allText();
   assert.ok(text.includes('삼성E&A'), '종목명');
   assert.ok(text.includes('028050'), '종목코드');
-  // 요구 라벨 6종
+  // 요구 라벨 4종
   for (const label of ['테마', '재료', '세계 영향력', '국내 영향력']) {
     assert.ok(text.includes(label), `라벨 ${label}`);
   }
-  // 매핑된 값
-  assert.ok(text.includes('로봇'), '테마 값');
-  assert.ok(text.includes('엑추에이터 제조'), '재료 값');
-  assert.ok(text.includes('글로벌 로봇 수요 확대'), '세계 영향력=materialContinuity 값');
-  assert.ok(text.includes('기관 순매수'), '국내 영향력=supplyDemand 값');
+  // 매핑된 값은 이제 편집 컨트롤의 value에 들어간다
+  const vals = editorValues(overlay);
+  assert.ok(vals.includes('로봇'), '테마 값');
+  assert.ok(vals.includes('엑추에이터 제조'), '재료 값');
+  assert.ok(vals.includes('글로벌 로봇 수요 확대'), '세계 영향력=materialContinuity 값');
+  assert.ok(vals.includes('기관 순매수'), '국내 영향력=supplyDemand 값');
 });
 
-test('openMemoModal: 빈 메모 필드는 "—"로 표시', () => {
+test('openMemoModal: 빈 메모 필드는 빈 편집 컨트롤로 표시', () => {
   const { overlay } = openBoardMemo('005930');
-  const empties = overlay.findByClass('memo-empty');
-  assert.ok(empties.length > 0, '빈 필드가 memo-empty로 표시');
-  assert.ok(empties.every((e) => e.textContent === '—'), '빈 값은 —');
+  const vals = editorValues(overlay);
+  assert.ok(vals.length > 0, '편집 컨트롤 렌더');
+  assert.ok(vals.every((v) => v === ''), '빈 종목은 모든 값이 빈 문자열');
 });
 
 test('openMemoModal: 닫기 버튼으로 닫힘 + 포커스 복원', () => {
@@ -300,11 +310,73 @@ test('openMemoModal: backdrop(오버레이 바깥) 클릭으로 닫힘', () => {
   assert.equal(document.body.findByClass('memo-overlay').length, 0, 'backdrop 클릭으로 닫힘');
 });
 
-test('openMemoModal: raw memo/notes가 있으면 함께 표시', () => {
+// 팝업 내 자유 메모 textarea 조회 헬퍼.
+function notesTextarea(overlay) {
+  return overlay.findAll('textarea').find((t) => (t.className || '').includes('memo-textarea'));
+}
+
+test('openMemoModal: 자유 메모 textarea 렌더 + 기존 notes 값 표시', () => {
   const board = memoBoard();
-  board.rows[0].manual.notes = '추가 원문 메모';
+  board.rows[0].manual.notes = '(로봇) 액추에이터 제조\n세계: 확대\n국내: 순매수';
   const { overlay } = openBoardMemo('028050', board);
-  assert.ok(overlay.allText().includes('추가 원문 메모'), 'raw notes 노출');
+  const ta = notesTextarea(overlay);
+  assert.ok(ta, '자유 메모 textarea 존재');
+  assert.equal(ta.value, '(로봇) 액추에이터 제조\n세계: 확대\n국내: 순매수', '기존 notes 값을 여러 줄로 표시');
+});
+
+test('openMemoModal: notes 없고 레거시 memo만 있으면 textarea에 memo 표시', () => {
+  const board = memoBoard();
+  board.rows[0].manual.memo = '레거시 원문 메모';
+  const { overlay } = openBoardMemo('028050', board);
+  assert.equal(notesTextarea(overlay).value, '레거시 원문 메모', 'notes 폴백으로 memo 노출');
+});
+
+// onEditManual을 주입해 팝업을 여는 헬퍼 — 저장 콜백 캡처용.
+function openMemoWithSave(codeText, onEditManual, boardOverride = null) {
+  document.body = new FakeEl('body');
+  const root = new FakeEl('div');
+  renderJaelyo(root, {
+    dates: ['2026-05-07'], selectedDate: '2026-05-07', board: boardOverride || memoBoard(),
+    onEditManual,
+  });
+  const btn = root.findByClass('code-btn').find((b) => b.textContent === codeText);
+  btn.click();
+  const overlay = document.body.findByClass('memo-overlay')[0];
+  return { overlay };
+}
+
+test('openMemoModal: 자유 메모 수정 후 저장 → onEditManual(code, {notes}) 호출 + 팝업 닫힘', async () => {
+  let captured = null;
+  const onEditManual = (code, patch) => { captured = { code, patch }; return true; };
+  const { overlay } = openMemoWithSave('028050', onEditManual);
+  const ta = notesTextarea(overlay);
+  ta.value = '신규 자유 메모\n둘째 줄';
+  const saveBtn = overlay.findByClass('memo-save')[0];
+  assert.ok(saveBtn, '저장 버튼 존재');
+  await saveBtn.dispatch('click');
+  assert.equal(captured.code, '028050');
+  assert.equal(captured.patch.notes, '신규 자유 메모\n둘째 줄', 'notes 값 전달');
+  assert.equal(document.body.findByClass('memo-overlay').length, 0, '저장 성공 시 팝업 닫힘');
+});
+
+test('openMemoModal: 구조화 필드 수정 후 저장 → 해당 필드가 patch에 포함', async () => {
+  let captured = null;
+  const onEditManual = (code, patch) => { captured = { code, patch }; return true; };
+  const { overlay } = openMemoWithSave('028050', onEditManual);
+  // 테마 input(첫 memo-input) 수정
+  const themeInput = overlay.findAll('input').find((i) => (i.className || '').includes('memo-input'));
+  themeInput.value = '2차전지';
+  await overlay.findByClass('memo-save')[0].dispatch('click');
+  assert.equal(captured.patch.theme, '2차전지', '구조화 필드 theme 저장');
+  // 기존 값들도 patch에 함께 포함(모든 편집 필드 전송)
+  assert.equal(captured.patch.supplyDemand, '기관 순매수', '수정 안 한 필드도 현재 값으로 포함');
+});
+
+test('openMemoModal: 저장 실패(onEditManual false) 시 팝업 유지', async () => {
+  const onEditManual = () => false; // 저장 실패
+  const { overlay } = openMemoWithSave('028050', onEditManual);
+  await overlay.findByClass('memo-save')[0].dispatch('click');
+  assert.equal(document.body.findByClass('memo-overlay').length, 1, '실패 시 팝업 유지');
 });
 
 test('renderJaelyo: 빈 보드 → 안내 문구', () => {
