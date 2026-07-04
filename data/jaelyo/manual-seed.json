@@ -1,0 +1,1901 @@
+{
+  "100090": {
+    "newOrExisting": "",
+    "theme": "신재생(해상풍력)",
+    "material": "SK오션플랜트 — 해상풍력 하부구조물",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "100790": {
+    "newOrExisting": "",
+    "theme": "창투(VC)",
+    "material": "미래에셋벤처투자 — 벤처투자·창투",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "105560": {
+    "newOrExisting": "",
+    "theme": "금융지주",
+    "material": "KB금융 — 은행 금융지주, 밸류업",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "108490": {
+    "newOrExisting": "",
+    "theme": "로봇",
+    "material": "로보티즈 — 액추에이터·구동모듈",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "111710": {
+    "newOrExisting": "",
+    "theme": "건설",
+    "material": "남화산업 — 골프장·건설(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "112610": {
+    "newOrExisting": "",
+    "theme": "신재생(풍력)",
+    "material": "씨에스윈드 — 풍력타워, 미국 IRA 수혜",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "122350": {
+    "newOrExisting": "",
+    "theme": "자동차부품",
+    "material": "삼기 — 자동차 변속기 부품(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "122640": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "예스티 — 열처리 장비, HBM 관련",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "126640": {
+    "newOrExisting": "",
+    "theme": "자동차부품",
+    "material": "화신정공 — 자동차·기계 부품(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "126730": {
+    "newOrExisting": "",
+    "theme": "전자부품",
+    "material": "코칩 — 콘덴서/부품(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "128940": {
+    "newOrExisting": "",
+    "theme": "제약",
+    "material": "한미약품 — 비만치료제·신약 파이프라인",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "131970": {
+    "newOrExisting": "",
+    "theme": "반도체(테스트)",
+    "material": "두산테스나 — 웨이퍼 테스트(시스템반도체)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "141080": {
+    "newOrExisting": "",
+    "theme": "바이오(ADC)",
+    "material": "리가켐바이오 — ADC 항암 기술수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "153890": {
+    "newOrExisting": "",
+    "theme": "디스플레이(장비)",
+    "material": "져스텍 — 머신비전·디스플레이 장비(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "161890": {
+    "newOrExisting": "",
+    "theme": "화장품(ODM)",
+    "material": "한국콜마 — 화장품 ODM·선크림 수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "178320": {
+    "newOrExisting": "",
+    "theme": "부품(ESS/통신)",
+    "material": "서진시스템 — 알루미늄 함체·ESS·통신장비",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "196170": {
+    "newOrExisting": "",
+    "theme": "바이오",
+    "material": "알테오젠 — 히알루로니다제(ALT-B4) SC 제형 기술수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "198440": {
+    "newOrExisting": "",
+    "theme": "전자부품",
+    "material": "강동씨앤엘 — 부품(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "204270": {
+    "newOrExisting": "",
+    "theme": "전자부품",
+    "material": "제이앤티씨 — 강화유리·커넥터(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "204320": {
+    "newOrExisting": "",
+    "theme": "자동차부품",
+    "material": "HL만도 — 제동·조향, 자율주행",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "207940": {
+    "newOrExisting": "",
+    "theme": "바이오(CDMO)",
+    "material": "삼성바이오로직스 — 항체 위탁생산 증설",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "214450": {
+    "newOrExisting": "",
+    "theme": "미용의료",
+    "material": "파마리서치 — 리쥬란·필러 수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "222800": {
+    "newOrExisting": "",
+    "theme": "반도체(PCB)",
+    "material": "심텍 — 메모리 모듈·MSAP 패키지 기판",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "226950": {
+    "newOrExisting": "",
+    "theme": "바이오",
+    "material": "올릭스 — siRNA(RNAi) 신약, 비만·안과",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "240810": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "원익IPS — 증착 장비",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "247540": {
+    "newOrExisting": "",
+    "theme": "2차전지(소재)",
+    "material": "에코프로비엠 — 하이니켈 양극재",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "259960": {
+    "newOrExisting": "",
+    "theme": "게임",
+    "material": "크래프톤 — 배틀그라운드·신작 IP",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "267250": {
+    "newOrExisting": "",
+    "theme": "지주(조선/에너지)",
+    "material": "HD현대 — HD현대그룹 지주",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "267260": {
+    "newOrExisting": "",
+    "theme": "전력기기",
+    "material": "HD현대일렉트릭 — 변압기 수출, AI데이터센터 전력",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "267270": {
+    "newOrExisting": "",
+    "theme": "건설기계",
+    "material": "HD현대건설기계 — 굴착기 수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "272210": {
+    "newOrExisting": "",
+    "theme": "방산(우주)",
+    "material": "한화시스템 — 레이더·위성·UAM",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "277810": {
+    "newOrExisting": "",
+    "theme": "로봇",
+    "material": "레인보우로보틱스 — 협동로봇·휴머노이드, 삼성 지분",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "278470": {
+    "newOrExisting": "",
+    "theme": "화장품(디바이스)",
+    "material": "에이피알 — 메디큐브 뷰티 디바이스 수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "279570": {
+    "newOrExisting": "",
+    "theme": "인터넷은행",
+    "material": "케이뱅크 — 인터넷전문은행(여수신·상장)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "281820": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "케이씨텍 — CMP 장비·슬러리",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "282330": {
+    "newOrExisting": "",
+    "theme": "유통(편의점)",
+    "material": "BGF리테일 — CU 편의점",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "290650": {
+    "newOrExisting": "",
+    "theme": "바이오",
+    "material": "엘앤씨바이오 — 인체조직 이식재",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "290690": {
+    "newOrExisting": "",
+    "theme": "조명",
+    "material": "소룩스 — LED 조명(테마 여부 확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "293490": {
+    "newOrExisting": "",
+    "theme": "게임",
+    "material": "카카오게임즈 — 게임 신작",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "295310": {
+    "newOrExisting": "",
+    "theme": "소재(특수합금)",
+    "material": "에이치브이엠 — 항공·방산용 특수합금",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "298000": {
+    "newOrExisting": "",
+    "theme": "화학",
+    "material": "효성화학 — 폴리프로필렌·특수가스(NF3)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "298040": {
+    "newOrExisting": "",
+    "theme": "전력기기",
+    "material": "효성중공업 — 변압기 수출·ESS",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "298380": {
+    "newOrExisting": "",
+    "theme": "바이오",
+    "material": "에이비엘바이오 — 이중항체·ADC 기술수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "307950": {
+    "newOrExisting": "",
+    "theme": "자동차SW",
+    "material": "현대오토에버 — 차량SW·내비·클라우드",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "316140": {
+    "newOrExisting": "",
+    "theme": "금융지주",
+    "material": "우리금융지주 — 은행 금융지주, 밸류업",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "319400": {
+    "newOrExisting": "",
+    "theme": "물류자동화",
+    "material": "현대무벡스 — 스마트물류·자동화(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "319660": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "피에스케이 — 세정·PR 스트립 장비",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "320000": {
+    "newOrExisting": "",
+    "theme": "반도체(추정)",
+    "material": "한울반도체 — 반도체 관련 추정, 확인 필요",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "322000": {
+    "newOrExisting": "",
+    "theme": "신재생(태양광)",
+    "material": "HD현대에너지솔루션 — 태양광 모듈",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "329180": {
+    "newOrExisting": "",
+    "theme": "조선",
+    "material": "HD현대중공업 — 상선·특수선·엔진",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "330860": {
+    "newOrExisting": "",
+    "theme": "반도체(테스트)",
+    "material": "네패스아크 — 시스템반도체 테스트",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "336260": {
+    "newOrExisting": "",
+    "theme": "수소(연료전지)",
+    "material": "두산퓨얼셀 — 발전용 연료전지",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "347700": {
+    "newOrExisting": "",
+    "theme": "우주(스페이스X)",
+    "material": "스피어 — 스페이스X 관련 테마(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "347850": {
+    "newOrExisting": "",
+    "theme": "바이오",
+    "material": "디앤디파마텍 — 경구용 비만치료제(GLP-1)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "352820": {
+    "newOrExisting": "",
+    "theme": "엔터",
+    "material": "하이브 — BTS 등 아티스트 IP",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "353200": {
+    "newOrExisting": "",
+    "theme": "반도체(PCB)",
+    "material": "대덕전자 — FC-BGA·패키지 기판",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "356680": {
+    "newOrExisting": "",
+    "theme": "보안(SW)",
+    "material": "엑스게이트 — 네트워크 보안(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "357780": {
+    "newOrExisting": "",
+    "theme": "반도체(소재)",
+    "material": "솔브레인 — 식각액·전해질 소재",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "373220": {
+    "newOrExisting": "",
+    "theme": "2차전지",
+    "material": "LG에너지솔루션 — 배터리 셀·ESS",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "375500": {
+    "newOrExisting": "",
+    "theme": "건설",
+    "material": "DL이앤씨 — 주택·플랜트(재건 기대)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "388790": {
+    "newOrExisting": "",
+    "theme": "광통신(AI DC)",
+    "material": "라이콤 — 광증폭기·광통신 부품",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "402340": {
+    "newOrExisting": "",
+    "theme": "지주(반도체)",
+    "material": "SK스퀘어 — SK하이닉스 지분·주주환원",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "403870": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "HPSP — 고압수소어닐링 장비 독점",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "419050": {
+    "newOrExisting": "",
+    "theme": "2차전지",
+    "material": "삼기에너지솔루션즈 — 2차전지 부품 추정(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "439960": {
+    "newOrExisting": "",
+    "theme": "로봇",
+    "material": "코스모로보틱스 — 로봇 테마(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "440110": {
+    "newOrExisting": "",
+    "theme": "반도체(팹리스)",
+    "material": "파두 — SSD 컨트롤러·eSSD, 데이터센터",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "443060": {
+    "newOrExisting": "",
+    "theme": "조선(MRO)",
+    "material": "HD현대마린솔루션 — 선박 애프터마켓·MRO",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "454910": {
+    "newOrExisting": "",
+    "theme": "로봇",
+    "material": "두산로보틱스 — 협동로봇",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "457370": {
+    "newOrExisting": "",
+    "theme": "소재",
+    "material": "한켐 — 화학소재 추정(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "475040": {
+    "newOrExisting": "",
+    "theme": "자율주행(AI)",
+    "material": "스트라드비젼 — 자율주행 인식 SW",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "475150": {
+    "newOrExisting": "",
+    "theme": "신재생",
+    "material": "SK이터닉스 — 재생에너지 개발",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "475430": {
+    "newOrExisting": "",
+    "theme": "소재",
+    "material": "키스트론 — 부품/소재 추정(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "477850": {
+    "newOrExisting": "",
+    "theme": "AI(산업)",
+    "material": "마키나락스 — 산업용 AI 솔루션",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "483650": {
+    "newOrExisting": "",
+    "theme": "화장품",
+    "material": "달바글로벌 — 달바 선크림·화장품 수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "489790": {
+    "newOrExisting": "",
+    "theme": "보안(영상)",
+    "material": "한화비전 — CCTV·영상보안·머신비전",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "000150": {
+    "newOrExisting": "",
+    "theme": "지주(로봇/에너지)",
+    "material": "두산그룹 지주 — 로보틱스·에너빌리티 등 자회사 가치",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "000250": {
+    "newOrExisting": "",
+    "theme": "바이오",
+    "material": "삼천당제약 — 아일리아 바이오시밀러·경구 제제",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "000270": {
+    "newOrExisting": "",
+    "theme": "자동차",
+    "material": "기아 — 완성차 판매·수출 실적",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "000500": {
+    "newOrExisting": "",
+    "theme": "전선(전력기기)",
+    "material": "가온전선 — 전력망 투자·전선 수요",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "000660": {
+    "newOrExisting": "",
+    "theme": "반도체(메모리)",
+    "material": "SK하이닉스 — HBM/DRAM, 엔비디아 공급, AI 메모리 수퍼사이클",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "000720": {
+    "newOrExisting": "",
+    "theme": "건설(원전/플랜트)",
+    "material": "현대건설 — 원전·플랜트·주택 수주",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "000810": {
+    "newOrExisting": "",
+    "theme": "보험",
+    "material": "삼성화재 — 손해보험 실적·밸류업",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "000890": {
+    "newOrExisting": "",
+    "theme": "주류",
+    "material": "보해양조 — 소주·주류(정치/실적 테마 여부 확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "000990": {
+    "newOrExisting": "",
+    "theme": "반도체(파운드리)",
+    "material": "DB하이텍 — 8인치 파운드리, 시스템반도체(TPU 위탁 기대 확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "001210": {
+    "newOrExisting": "",
+    "theme": "전기(조명)",
+    "material": "금호전기 — 조명·전기부품(구체 재료 확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "001440": {
+    "newOrExisting": "",
+    "theme": "전선(전력기기)",
+    "material": "대한전선 — 초고압 케이블·전력망 수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "001740": {
+    "newOrExisting": "",
+    "theme": "상사(AI)",
+    "material": "SK네트웍스 — 상사/렌탈, AI 신사업 전환",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "0017J0": {
+    "newOrExisting": "",
+    "theme": "반도체(추정)",
+    "material": "세미티에스 — 신규상장 반도체 소부장 추정, 확인 필요",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "001820": {
+    "newOrExisting": "",
+    "theme": "MLCC(전자부품)",
+    "material": "삼화콘덴서 — MLCC 가격 인상·전장용 수요",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "002780": {
+    "newOrExisting": "",
+    "theme": "건설",
+    "material": "진흥기업 — 건설(구체 재료 확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "002990": {
+    "newOrExisting": "",
+    "theme": "건설",
+    "material": "금호건설 — 주택·토목",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "003230": {
+    "newOrExisting": "",
+    "theme": "음식료(수출)",
+    "material": "삼양식품 — 불닭볶음면 글로벌 수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "003490": {
+    "newOrExisting": "",
+    "theme": "항공",
+    "material": "대한항공 — 여객·화물, 아시아나 합병",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "003550": {
+    "newOrExisting": "",
+    "theme": "지주",
+    "material": "LG — LG그룹 지주사",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "003670": {
+    "newOrExisting": "",
+    "theme": "2차전지(소재)",
+    "material": "포스코퓨처엠 — 양극재·음극재",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "0039P0": {
+    "newOrExisting": "",
+    "theme": "광고테크",
+    "material": "매드업 — 광고/마케팅(신규상장, 확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "004170": {
+    "newOrExisting": "",
+    "theme": "유통",
+    "material": "신세계 — 백화점·면세",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "004310": {
+    "newOrExisting": "",
+    "theme": "제약",
+    "material": "현대약품 — 제약(구체 재료 확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "004710": {
+    "newOrExisting": "",
+    "theme": "전자부품",
+    "material": "한솔테크닉스 — 파워모듈·부품(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "005290": {
+    "newOrExisting": "",
+    "theme": "반도체(소재)",
+    "material": "동진쎄미켐 — 포토레지스트·전해질 소재",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "005380": {
+    "newOrExisting": "",
+    "theme": "자동차",
+    "material": "현대차 — 완성차·전기차, 로봇(보스턴다이내믹스)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "005490": {
+    "newOrExisting": "",
+    "theme": "철강(2차전지)",
+    "material": "POSCO홀딩스 — 철강 + 리튬/2차전지 소재 지주",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "005930": {
+    "newOrExisting": "",
+    "theme": "반도체(종합)",
+    "material": "삼성전자 — 메모리·파운드리·HBM, 전자 종합",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "005935": {
+    "newOrExisting": "",
+    "theme": "반도체(우선주)",
+    "material": "삼성전자우 — 삼성전자 우선주",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "006220": {
+    "newOrExisting": "",
+    "theme": "은행",
+    "material": "제주은행 — 지방은행(인뱅/정치 테마 여부 확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "006260": {
+    "newOrExisting": "",
+    "theme": "지주(전력)",
+    "material": "LS — LS그룹 전선·전력 지주",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "006340": {
+    "newOrExisting": "",
+    "theme": "전선(전력기기)",
+    "material": "대원전선 — 전선·전력망",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "006360": {
+    "newOrExisting": "",
+    "theme": "건설",
+    "material": "GS건설 — 주택·플랜트",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "006400": {
+    "newOrExisting": "",
+    "theme": "2차전지",
+    "material": "삼성SDI — 각형 배터리·ESS",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "006800": {
+    "newOrExisting": "",
+    "theme": "증권",
+    "material": "미래에셋증권 — 증권 실적·밸류업",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "007610": {
+    "newOrExisting": "",
+    "theme": "전력기기",
+    "material": "선도전기 — 수배전반·전력기기(방산 테마 여부 확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "007660": {
+    "newOrExisting": "",
+    "theme": "반도체(PCB)",
+    "material": "이수페타시스 — 고다층 MLB 기판, AI 가속기용",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "009150": {
+    "newOrExisting": "",
+    "theme": "MLCC(전자부품)",
+    "material": "삼성전기 — MLCC·전장·반도체 기판(FC-BGA)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "009155": {
+    "newOrExisting": "",
+    "theme": "MLCC(우선주)",
+    "material": "삼성전기우 — 삼성전기 우선주",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "009420": {
+    "newOrExisting": "",
+    "theme": "바이오",
+    "material": "한올바이오파마 — 자가면역 항체신약",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "009470": {
+    "newOrExisting": "",
+    "theme": "전자부품",
+    "material": "삼화전기 — 전해콘덴서",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "009540": {
+    "newOrExisting": "",
+    "theme": "조선",
+    "material": "HD한국조선해양 — 조선 중간지주, 수주",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "009830": {
+    "newOrExisting": "",
+    "theme": "태양광(신재생)",
+    "material": "한화솔루션 — 큐셀 미국 태양광·화학",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "010060": {
+    "newOrExisting": "",
+    "theme": "태양광",
+    "material": "OCI홀딩스 — 폴리실리콘·태양광 소재",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "010120": {
+    "newOrExisting": "",
+    "theme": "전력기기",
+    "material": "LS ELECTRIC — 변압기·전력망 수출, AI데이터센터 전력",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "010140": {
+    "newOrExisting": "",
+    "theme": "조선",
+    "material": "삼성중공업 — LNG선·해양플랜트",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "010170": {
+    "newOrExisting": "",
+    "theme": "광통신",
+    "material": "대한광통신 — 광섬유·광케이블, AI데이터센터 수요",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "010690": {
+    "newOrExisting": "",
+    "theme": "자동차부품",
+    "material": "화신 — 자동차 섀시부품(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "010820": {
+    "newOrExisting": "",
+    "theme": "방산",
+    "material": "퍼스텍 — 유도무기 부품",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "010960": {
+    "newOrExisting": "",
+    "theme": "건설(토목)",
+    "material": "삼호개발 — 토목·조경(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "011070": {
+    "newOrExisting": "",
+    "theme": "전자부품",
+    "material": "LG이노텍 — 애플 카메라모듈·FC-BGA",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "011200": {
+    "newOrExisting": "",
+    "theme": "해운",
+    "material": "HMM — 컨테이너 해운 운임",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "011230": {
+    "newOrExisting": "",
+    "theme": "전자부품",
+    "material": "삼화전자 — 페라이트코어(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "011790": {
+    "newOrExisting": "",
+    "theme": "2차전지(동박)",
+    "material": "SKC — 동박·반도체 글라스기판",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "012200": {
+    "newOrExisting": "",
+    "theme": "전기기기",
+    "material": "계양전기 — 전동공구·부품(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "012330": {
+    "newOrExisting": "",
+    "theme": "자동차부품",
+    "material": "현대모비스 — 전장·모듈·전동화",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "012450": {
+    "newOrExisting": "",
+    "theme": "방산",
+    "material": "한화에어로스페이스 — K9·천무 수출, 항공엔진",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "013580": {
+    "newOrExisting": "",
+    "theme": "건설",
+    "material": "계룡건설 — 주택·토목(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "014950": {
+    "newOrExisting": "",
+    "theme": "제약",
+    "material": "삼익제약 — 제약(구체 재료 확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "015760": {
+    "newOrExisting": "",
+    "theme": "전력(유틸리티)",
+    "material": "한국전력 — 전기요금·원전·전력망",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "016360": {
+    "newOrExisting": "",
+    "theme": "증권",
+    "material": "삼성증권 — 증권 실적·밸류업",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "0164H0": {
+    "newOrExisting": "",
+    "theme": "스팩",
+    "material": "한국제16호스팩 — SPAC(합병대상 미정), 확인 필요",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "0165X0": {
+    "newOrExisting": "",
+    "theme": "스팩",
+    "material": "메리츠제2호스팩 — SPAC(합병대상 미정), 확인 필요",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "017670": {
+    "newOrExisting": "",
+    "theme": "통신(AI)",
+    "material": "SK텔레콤 — AI·데이터센터(보안사고 영향 확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "017900": {
+    "newOrExisting": "",
+    "theme": "반도체",
+    "material": "광전자 — 광반도체 소자(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "018260": {
+    "newOrExisting": "",
+    "theme": "IT서비스(AI)",
+    "material": "삼성에스디에스 — 클라우드·물류·생성형AI",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "018880": {
+    "newOrExisting": "",
+    "theme": "자동차부품",
+    "material": "한온시스템 — 공조·열관리(전기차 히트펌프)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "023410": {
+    "newOrExisting": "",
+    "theme": "건자재",
+    "material": "유진기업 — 레미콘·건자재(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "024110": {
+    "newOrExisting": "",
+    "theme": "은행",
+    "material": "기업은행 — 국책은행, 배당",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "024840": {
+    "newOrExisting": "",
+    "theme": "전선",
+    "material": "KBI메탈 — 전선·소재(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "026940": {
+    "newOrExisting": "",
+    "theme": "철강",
+    "material": "부국철강 — 철강 유통(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "028050": {
+    "newOrExisting": "",
+    "theme": "플랜트",
+    "material": "삼성E&A — 화공플랜트 EPC 수주",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "028260": {
+    "newOrExisting": "",
+    "theme": "지주(건설/상사)",
+    "material": "삼성물산 — 건설·상사, 삼성 지배구조",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "028300": {
+    "newOrExisting": "",
+    "theme": "바이오",
+    "material": "HLB — 리보세라닙 항암 FDA 이슈",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "030530": {
+    "newOrExisting": "",
+    "theme": "반도체(소부장)",
+    "material": "원익홀딩스 — 원익그룹 반도체 소부장 지주",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "031980": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "피에스케이홀딩스 — 반도체 장비 지주(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "032820": {
+    "newOrExisting": "",
+    "theme": "원전",
+    "material": "우리기술 — 원전 계측제어(MMIS)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "032830": {
+    "newOrExisting": "",
+    "theme": "보험",
+    "material": "삼성생명 — 생명보험, 삼성 지배구조·밸류업",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "033780": {
+    "newOrExisting": "",
+    "theme": "필수소비재",
+    "material": "KT&G — 담배·건강기능식·인삼",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "034020": {
+    "newOrExisting": "",
+    "theme": "원전",
+    "material": "두산에너빌리티 — SMR·대형원전·가스터빈",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "034220": {
+    "newOrExisting": "",
+    "theme": "디스플레이",
+    "material": "LG디스플레이 — OLED 패널",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "034730": {
+    "newOrExisting": "",
+    "theme": "지주",
+    "material": "SK — SK그룹 지주사",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "035420": {
+    "newOrExisting": "",
+    "theme": "인터넷(AI)",
+    "material": "NAVER — 검색·커머스·AI(하이퍼클로바)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "035720": {
+    "newOrExisting": "",
+    "theme": "인터넷(AI)",
+    "material": "카카오 — 메신저·AI·핀테크",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "036930": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "주성엔지니어링 — ALD 증착장비",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "037710": {
+    "newOrExisting": "",
+    "theme": "유통",
+    "material": "광주신세계 — 백화점(지역 유통)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "039030": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "이오테크닉스 — 레이저 마킹·드릴 장비",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "039490": {
+    "newOrExisting": "",
+    "theme": "증권",
+    "material": "키움증권 — 리테일 증권",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "042660": {
+    "newOrExisting": "",
+    "theme": "조선(방산)",
+    "material": "한화오션 — 잠수함·함정·상선, 미국 함정 MRO",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "042700": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "한미반도체 — HBM TC본더, SK하이닉스 공급",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "043260": {
+    "newOrExisting": "",
+    "theme": "전자부품",
+    "material": "성호전자 — 필름콘덴서(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "046940": {
+    "newOrExisting": "",
+    "theme": "건설",
+    "material": "우원개발 — 토목·건설(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "046970": {
+    "newOrExisting": "",
+    "theme": "광통신",
+    "material": "우리로 — 광부품(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "047040": {
+    "newOrExisting": "",
+    "theme": "건설",
+    "material": "대우건설 — 주택·플랜트·해외(재건 기대)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "047050": {
+    "newOrExisting": "",
+    "theme": "상사(에너지)",
+    "material": "포스코인터내셔널 — 가스전·식량·상사",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "047810": {
+    "newOrExisting": "",
+    "theme": "방산(항공)",
+    "material": "한국항공우주(KAI) — FA-50·KF-21 수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "051910": {
+    "newOrExisting": "",
+    "theme": "2차전지(화학)",
+    "material": "LG화학 — 양극재·석유화학",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "052690": {
+    "newOrExisting": "",
+    "theme": "원전",
+    "material": "한전기술 — 원전 설계엔지니어링",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "052710": {
+    "newOrExisting": "",
+    "theme": "전자부품",
+    "material": "아모텍 — 세라믹 부품·안테나(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "055550": {
+    "newOrExisting": "",
+    "theme": "금융지주",
+    "material": "신한지주 — 은행 금융지주, 밸류업",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "058430": {
+    "newOrExisting": "",
+    "theme": "철강",
+    "material": "포스코스틸리온 — 컬러/도금강판(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "058470": {
+    "newOrExisting": "",
+    "theme": "반도체(테스트)",
+    "material": "리노공업 — 테스트 소켓/리노핀",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "058730": {
+    "newOrExisting": "",
+    "theme": "신재생(태양광)",
+    "material": "다스코 — 태양광 구조물·도로안전시설",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "062040": {
+    "newOrExisting": "",
+    "theme": "전력기기",
+    "material": "산일전기 — 변압기 수출(미국)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "064290": {
+    "newOrExisting": "",
+    "theme": "반도체(검사)",
+    "material": "인텍플러스 — 외관검사 장비",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "064350": {
+    "newOrExisting": "",
+    "theme": "방산(철도)",
+    "material": "현대로템 — K2전차 수출, 철도·수소",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "064400": {
+    "newOrExisting": "",
+    "theme": "IT서비스(AI)",
+    "material": "LG씨엔에스 — 클라우드·DX(신규상장)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "066570": {
+    "newOrExisting": "",
+    "theme": "가전(전자)",
+    "material": "LG전자 — 가전·전장·AI홈",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "066970": {
+    "newOrExisting": "",
+    "theme": "2차전지(소재)",
+    "material": "엘앤에프 — 하이니켈 양극재",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "067290": {
+    "newOrExisting": "",
+    "theme": "제약",
+    "material": "JW신약 — 탈모치료제 테마",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "067310": {
+    "newOrExisting": "",
+    "theme": "반도체(패키징)",
+    "material": "하나마이크론 — OSAT 후공정 패키징",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "068270": {
+    "newOrExisting": "",
+    "theme": "바이오",
+    "material": "셀트리온 — 바이오시밀러·짐펜트라",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "069540": {
+    "newOrExisting": "",
+    "theme": "광통신",
+    "material": "빛과전자 — 광트랜시버 부품(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "071050": {
+    "newOrExisting": "",
+    "theme": "증권/금융",
+    "material": "한국금융지주 — 한국투자증권 지주",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "073240": {
+    "newOrExisting": "",
+    "theme": "자동차부품(타이어)",
+    "material": "금호타이어 — 타이어 수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "079550": {
+    "newOrExisting": "",
+    "theme": "방산",
+    "material": "LIG넥스원(디펜스앤에어로스페이스) — 유도무기(천궁) 수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동",
+    "financials": "",
+    "supplyDemand": "국내 대형 주도주, 기관·외국인 수급 중심"
+  },
+  "079650": {
+    "newOrExisting": "",
+    "theme": "건설",
+    "material": "서산 — 건설·개발(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "확인 필요",
+    "financials": "",
+    "supplyDemand": "확인 필요"
+  },
+  "080220": {
+    "newOrExisting": "",
+    "theme": "반도체(팹리스)",
+    "material": "제주반도체 — 저전력 메모리, IoT/온디바이스AI",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "082740": {
+    "newOrExisting": "",
+    "theme": "조선(엔진)",
+    "material": "한화엔진 — 선박용 엔진",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "082920": {
+    "newOrExisting": "",
+    "theme": "전지(특수)",
+    "material": "비츠로셀 — 리튬일차전지",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "084370": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "유진테크 — 증착(ALD/LPCVD) 장비",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "085620": {
+    "newOrExisting": "",
+    "theme": "보험",
+    "material": "미래에셋생명 — 생명보험",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "086280": {
+    "newOrExisting": "",
+    "theme": "물류",
+    "material": "현대글로비스 — 완성차 물류·해운",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "086520": {
+    "newOrExisting": "",
+    "theme": "2차전지(소재)",
+    "material": "에코프로 — 양극재 소재 지주",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "086790": {
+    "newOrExisting": "",
+    "theme": "금융지주",
+    "material": "하나금융지주 — 은행 금융지주, 밸류업",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "087010": {
+    "newOrExisting": "",
+    "theme": "바이오",
+    "material": "펩트론 — 약효지속 플랫폼, 비만치료제 제휴",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "088350": {
+    "newOrExisting": "",
+    "theme": "보험",
+    "material": "한화생명 — 생명보험",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "089030": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "테크윙 — 핸들러·큐브프로버(HBM 검사)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "089970": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "브이엠(구 에이피티씨) — 식각장비(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "090360": {
+    "newOrExisting": "",
+    "theme": "로봇",
+    "material": "로보스타 — 산업용 로봇(현대차 계열)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "090430": {
+    "newOrExisting": "",
+    "theme": "화장품",
+    "material": "아모레퍼시픽 — K뷰티 수출",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "090710": {
+    "newOrExisting": "",
+    "theme": "로봇",
+    "material": "휴림로봇 — 지능형·협동 로봇(확인 필요)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "093370": {
+    "newOrExisting": "",
+    "theme": "소재(불소)",
+    "material": "후성 — 냉매·2차전지 전해질·반도체 불산",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "095340": {
+    "newOrExisting": "",
+    "theme": "반도체(테스트)",
+    "material": "ISC — 실리콘러버 테스트 소켓",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  },
+  "095610": {
+    "newOrExisting": "",
+    "theme": "반도체(장비)",
+    "material": "테스 — 증착·식각 장비",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향력은 제한적/확인 필요",
+    "financials": "",
+    "supplyDemand": "테마 순환매 수급에 민감(중소형), 국내 관심 위주"
+  },
+  "098460": {
+    "newOrExisting": "",
+    "theme": "검사장비",
+    "material": "고영 — 3D 납도포/외관검사(SPI·AOI)",
+    "materialPersistence": "",
+    "materialContinuity": "글로벌 영향은 제한적(내수·수출 혼재), 확인 필요",
+    "financials": "",
+    "supplyDemand": "국내 대형주, 지수·수급 영향 큼"
+  }
+}
