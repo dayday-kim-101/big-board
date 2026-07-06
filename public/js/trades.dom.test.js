@@ -30,8 +30,12 @@ class FakeEl {
     if (!this._listeners[type]) this._listeners[type] = [];
     this._listeners[type].push(fn);
   }
+  removeEventListener(type, fn) {
+    if (!this._listeners[type]) return;
+    this._listeners[type] = this._listeners[type].filter((f) => f !== fn);
+  }
   dispatch(type, event) {
-    for (const fn of (this._listeners[type] || [])) fn(event);
+    for (const fn of (this._listeners[type] || []).slice()) fn(event);
   }
   allText() {
     let t = this._text || '';
@@ -58,7 +62,31 @@ class FakeEl {
 // Date.prototype.toISOString 스텁 (붙여넣기 모달 오늘 날짜 기본값 생성에 필요)
 globalThis.document = { createElement: (t) => new FakeEl(t) };
 
+// 컬럼 리사이즈 드래그는 window에 mousemove/mouseup를 붙인다 → fake window 제공.
+globalThis.window = new FakeEl('window');
+
+// localStorage 스텁 — 컬럼 폭 저장/복원 검증용.
+function makeFakeStorage() {
+  const map = new Map();
+  return {
+    getItem: (k) => (map.has(k) ? map.get(k) : null),
+    setItem: (k, v) => { map.set(k, String(v)); },
+    removeItem: (k) => { map.delete(k); },
+    clear: () => { map.clear(); },
+  };
+}
+globalThis.localStorage = makeFakeStorage();
+
 const { renderTrades } = await import('./trades.js');
+
+// 헬퍼: 특정 헤더 텍스트의 th 찾기.
+function findHeader(root, text) {
+  return root.findAll('th').find((t) => t._text === text);
+}
+// 헬퍼: th에 붙은 리사이즈 핸들 찾기.
+function resizeHandleOf(th) {
+  return th ? th.children.find((c) => (c.className || '').split(/\s+/).includes('col-resize-handle')) : undefined;
+}
 
 // 샘플 state
 function sampleState() {
@@ -229,4 +257,76 @@ test('renderTrades: state.data null이면 빈 상태', () => {
   renderTrades(root, { data: null }, {});
   const text = root.allText();
   assert.ok(text.includes('매매기록이 없습니다'), 'null data 빈 상태');
+});
+
+// ---------- 컬럼 리사이즈 ----------
+
+test('renderTrades: 보유일 이후 컬럼 헤더에 resize handle 렌더', () => {
+  globalThis.localStorage.clear();
+  const root = new FakeEl('div');
+  renderTrades(root, sampleState(), {});
+  for (const h of ['보유일', '매매이유', '테마태그']) {
+    const th = findHeader(root, h);
+    assert.ok(th, `${h} 헤더 존재`);
+    assert.ok((th.className || '').split(/\s+/).includes('resizable'), `${h} 헤더 resizable 클래스`);
+    assert.ok(resizeHandleOf(th), `${h} 헤더에 resize handle`);
+  }
+});
+
+test('renderTrades: 보유일 이전 컬럼에는 resize handle 없음', () => {
+  globalThis.localStorage.clear();
+  const root = new FakeEl('div');
+  renderTrades(root, sampleState(), {});
+  for (const h of ['코드', '종목명', '매수평균', '매도평균', '수량', '손익', '수익률', '전날종가']) {
+    const th = findHeader(root, h);
+    assert.ok(th, `${h} 헤더 존재`);
+    assert.ok(!(th.className || '').split(/\s+/).includes('resizable'), `${h} 헤더 non-resizable`);
+    assert.ok(!resizeHandleOf(th), `${h} 헤더에 handle 없음`);
+  }
+});
+
+test('renderTrades: handle 드래그 → 컬럼 width 변경 + localStorage 저장', () => {
+  globalThis.localStorage.clear();
+  const root = new FakeEl('div');
+  renderTrades(root, sampleState(), {});
+  const th = findHeader(root, '보유일');
+  const handle = resizeHandleOf(th);
+  assert.ok(handle, '보유일 handle 존재');
+
+  // 초기 폭 미설정 → 기본 fallback(120px)에서 +80px 드래그
+  let prevented = false;
+  handle.dispatch('mousedown', { clientX: 200, preventDefault: () => { prevented = true; } });
+  assert.ok(prevented, 'mousedown에서 preventDefault 호출');
+  globalThis.window.dispatch('mousemove', { clientX: 280 });
+  globalThis.window.dispatch('mouseup', { clientX: 280 });
+
+  assert.equal(th.style.width, '200px', 'th width 200px (120 + 80)');
+  const saved = JSON.parse(globalThis.localStorage.getItem('bigboard.trades.colWidths.v1'));
+  assert.equal(saved['보유일'], 200, 'localStorage에 보유일 폭 저장');
+});
+
+test('renderTrades: 저장된 width가 다음 renderTrades에서 적용', () => {
+  globalThis.localStorage.clear();
+  globalThis.localStorage.setItem('bigboard.trades.colWidths.v1', JSON.stringify({ 매매이유: 320 }));
+  const root = new FakeEl('div');
+  renderTrades(root, sampleState(), {});
+  // 여러 날짜 테이블 모두 동일 저장 폭 적용되어야 함
+  const ths = root.findAll('th').filter((t) => t._text === '매매이유');
+  assert.ok(ths.length >= 2, '매매이유 헤더가 날짜별로 존재');
+  for (const th of ths) {
+    assert.equal(th.style.width, '320px', '저장된 폭 적용');
+    assert.equal(th.style.minWidth, '320px', 'minWidth도 적용');
+  }
+});
+
+test('renderTrades: 드래그 최소 폭 클램프(60px 미만 방지)', () => {
+  globalThis.localStorage.clear();
+  const root = new FakeEl('div');
+  renderTrades(root, sampleState(), {});
+  const th = findHeader(root, '테마태그');
+  const handle = resizeHandleOf(th);
+  // 기본 120px에서 -400px 드래그 → 최소 60px로 클램프
+  handle.dispatch('mousedown', { clientX: 500, preventDefault: () => {} });
+  globalThis.window.dispatch('mouseup', { clientX: 100 });
+  assert.equal(th.style.width, '60px', '최소 폭 60px 클램프');
 });
