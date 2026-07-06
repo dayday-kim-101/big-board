@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-24T06:22:42.595Z",
+  "updatedAt": "2026-07-06T13:42:38.550Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -242,6 +242,28 @@
           "pnl": null,
           "returnPct": null,
           "prevClose": 10780,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-06-15": {
+      "journal": "",
+      "records": [
+        {
+          "code": "010690",
+          "name": "화신",
+          "market": "KR",
+          "buyAvg": 10710,
+          "sellAvg": 11040,
+          "qty": 15,
+          "buyAmount": 535500,
+          "sellAmount": 165600,
+          "fee": 430,
+          "pnl": 4520,
+          "returnPct": 2.81,
+          "prevClose": 12510,
           "holdDays": 0,
           "reason": "",
           "tags": []
