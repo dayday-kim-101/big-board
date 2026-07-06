@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T13:42:38.550Z",
+  "updatedAt": "2026-07-06T13:43:12.687Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -264,6 +264,79 @@
           "pnl": 4520,
           "returnPct": 2.81,
           "prevClose": 12510,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-06-12": {
+      "journal": "",
+      "records": [
+        {
+          "code": "000990",
+          "name": "DB하이텍",
+          "market": "KR",
+          "buyAvg": 165900,
+          "sellAvg": 177614,
+          "qty": 7,
+          "buyAmount": 1161300,
+          "sellAmount": 1243300,
+          "fee": 2830,
+          "pnl": 79170,
+          "returnPct": 6.82,
+          "prevClose": 155200,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "035720",
+          "name": "카카오",
+          "market": "KR",
+          "buyAvg": null,
+          "sellAvg": 41100,
+          "qty": 15,
+          "buyAmount": null,
+          "sellAmount": 616500,
+          "fee": 1322,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 39300,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "399720",
+          "name": "가온칩스",
+          "market": "KR",
+          "buyAvg": 56000,
+          "sellAvg": 60605,
+          "qty": 20,
+          "buyAmount": 1120000,
+          "sellAmount": 1212100,
+          "fee": 2753,
+          "pnl": 89347,
+          "returnPct": 7.98,
+          "prevClose": 50200,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "486990",
+          "name": "노타",
+          "market": "KR",
+          "buyAvg": 28200,
+          "sellAvg": 29050,
+          "qty": 4,
+          "buyAmount": 394800,
+          "sellAmount": 116200,
+          "fee": 292,
+          "pnl": 3108,
+          "returnPct": 2.76,
+          "prevClose": 27250,
           "holdDays": 0,
           "reason": "",
           "tags": []
