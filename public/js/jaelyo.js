@@ -239,6 +239,22 @@ function numCls(extra) {
   return extra ? `num ${extra}` : 'num';
 }
 
+// 현재가 셀: onChart 있으면 클릭 시 차트를 여는 버튼(재료정리는 한국 종목만),
+// 없으면 일반 텍스트. 버튼은 {market:'KR', code, name}을 onChart에 넘긴다.
+function priceCell(row, onChart) {
+  const text = fmtPrice(row.price, 'KR');
+  if (!onChart) return cell('td', text, 'num');
+  const td = cell('td', undefined, 'num');
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'jaelyo-price-btn';
+  btn.textContent = text;
+  btn.title = `${row.name} 차트 보기`;
+  btn.addEventListener('click', () => onChart({ market: 'KR', code: row.code, name: row.name }));
+  td.appendChild(btn);
+  return td;
+}
+
 // 수동 입력 셀: select 또는 text input. 변경(blur) 시 onEditManual(code, {key:value}).
 function manualCell(row, col, onEditManual) {
   const td = cell('td', undefined, 'manual');
@@ -303,8 +319,8 @@ function startResize(e, label, colEl, ctx) {
 }
 
 // container에 재료정리 보드를 그린다.
-// opts: { dates[], selectedDate, board:{rows[]}, onSelectDate(date), onEditManual(code, patch) }
-export function renderJaelyo(container, { dates = [], selectedDate = null, board = null, onSelectDate, onEditManual } = {}) {
+// opts: { dates[], selectedDate, board:{rows[]}, onSelectDate(date), onEditManual(code, patch), onChart({market,code,name}) }
+export function renderJaelyo(container, { dates = [], selectedDate = null, board = null, onSelectDate, onEditManual, onChart } = {}) {
   container.innerHTML = '';
 
   const section = document.createElement('section');
@@ -382,7 +398,7 @@ export function renderJaelyo(container, { dates = [], selectedDate = null, board
     tr.appendChild(cell('td', fmtRank(r.prevRank), 'num prev'));
     tr.appendChild(codeCell(r, newsDate));
     tr.appendChild(nameCell(r, onEditManual));
-    tr.appendChild(cell('td', fmtPrice(r.price, 'KR'), 'num'));
+    tr.appendChild(priceCell(r, onChart));
     tr.appendChild(cell('td', fmtPct(r.changePct), numCls(isHotChange(r.changePct) && 'hot-change')));
     tr.appendChild(cell('td', fmtWonKR(r.marketCap), numCls(isSmallCap(r.marketCap) && 'small-cap')));
     tr.appendChild(cell('td', fmtWonKR(r.tradingValue), numCls(isHighTradingValue(r.tradingValue) && 'high-tv')));

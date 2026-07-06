@@ -12,7 +12,7 @@ function cell(tag, text, className) {
 
 // group: {id, name, rows:[{market, code, name, quote}]}
 // onRemove(ticker): 종목 삭제 콜백 (옵션). 없으면 삭제 버튼 미표시.
-// onChart(ticker): 차트 열기 콜백 (옵션). 있으면 종목명이 클릭 가능.
+// onChart(ticker): 차트 열기 콜백 (옵션). 있으면 종목명·현재가가 클릭 가능.
 export function renderBoard(container, group, { onRemove, onChart } = {}) {
   container.innerHTML = '';
 
@@ -55,7 +55,19 @@ export function renderBoard(container, group, { onRemove, onChart } = {}) {
     nameTd.appendChild(nameInner);
     tr.appendChild(nameTd);
 
-    tr.appendChild(cell('td', fmtPrice(q?.price, row.market), 'num price'));
+    // 현재가 셀 (onChart 있으면 클릭 시 차트 — 종목명 클릭과 동일 동작)
+    const priceTd = cell('td', undefined, 'num price');
+    const priceText = fmtPrice(q?.price, row.market);
+    if (onChart) {
+      const priceBtn = cell('button', priceText, 'price-chart-btn');
+      priceBtn.type = 'button';
+      priceBtn.title = '차트 보기';
+      priceBtn.addEventListener('click', () => onChart(row));
+      priceTd.appendChild(priceBtn);
+    } else {
+      priceTd.textContent = priceText;
+    }
+    tr.appendChild(priceTd);
     tr.appendChild(cell('td', fmtSigned(q?.change, row.market), `num ${tone}`));
     tr.appendChild(cell('td', fmtPct(q?.changePct), `num ${tone}`));
     tr.appendChild(cell('td', fmtVolume(q?.volume), 'num'));
