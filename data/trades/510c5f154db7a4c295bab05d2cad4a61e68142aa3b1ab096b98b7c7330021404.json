@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T13:52:34.117Z",
+  "updatedAt": "2026-07-06T13:52:53.222Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -1016,6 +1016,45 @@
           "pnl": -49895,
           "returnPct": -10.15,
           "prevClose": 18960,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-06-29": {
+      "journal": "",
+      "records": [
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "market": "KR",
+          "buyAvg": 78000,
+          "sellAvg": 85729,
+          "qty": 7,
+          "buyAmount": 546000,
+          "sellAmount": 600100,
+          "fee": 1369,
+          "pnl": 52731,
+          "returnPct": 9.66,
+          "prevClose": 77700,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "451760",
+          "name": "컨텍",
+          "market": "KR",
+          "buyAvg": 8900,
+          "sellAvg": 9632,
+          "qty": 57,
+          "buyAmount": 507300,
+          "sellAmount": 549030,
+          "fee": 1236,
+          "pnl": 40494,
+          "returnPct": 7.98,
+          "prevClose": 8900,
           "holdDays": 0,
           "reason": "",
           "tags": []
