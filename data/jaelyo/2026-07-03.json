@@ -161,7 +161,7 @@
       "tradingValue": 410176000000,
       "tvToMcapPct": 40.08,
       "manual": {
-        "newOrExisting": "",
+        "newOrExisting": "기존",
         "theme": "",
         "material": "",
         "materialPersistence": "",
