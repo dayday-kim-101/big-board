@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T13:51:52.888Z",
+  "updatedAt": "2026-07-06T13:52:18.617Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -921,6 +921,28 @@
           "pnl": null,
           "returnPct": null,
           "prevClose": 190900,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-06-24": {
+      "journal": "",
+      "records": [
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "market": "KR",
+          "buyAvg": null,
+          "sellAvg": 139500,
+          "qty": 3,
+          "buyAmount": null,
+          "sellAmount": 418500,
+          "fee": 896,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 140400,
           "holdDays": 0,
           "reason": "",
           "tags": []
