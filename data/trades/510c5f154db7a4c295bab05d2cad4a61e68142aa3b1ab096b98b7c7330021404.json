@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T13:43:47.545Z",
+  "updatedAt": "2026-07-06T13:44:06.360Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -415,6 +415,79 @@
           "pnl": 6180,
           "returnPct": 2.76,
           "prevClose": 60000,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-06-09": {
+      "journal": "",
+      "records": [
+        {
+          "code": "018260",
+          "name": "삼성에스디에스",
+          "market": "KR",
+          "buyAvg": 267500,
+          "sellAvg": 240500,
+          "qty": 4,
+          "buyAmount": 1070000,
+          "sellAmount": 962000,
+          "fee": 2224,
+          "pnl": -110224,
+          "returnPct": -10.3,
+          "prevClose": 208500,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "035720",
+          "name": "카카오",
+          "market": "KR",
+          "buyAvg": 39800,
+          "sellAvg": null,
+          "qty": null,
+          "buyAmount": 597000,
+          "sellAmount": null,
+          "fee": 80,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 36800,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "039980",
+          "name": "폴라리스AI",
+          "market": "KR",
+          "buyAvg": 6300,
+          "sellAvg": 6873,
+          "qty": 95,
+          "buyAmount": 598500,
+          "sellAmount": 652910,
+          "fee": 1469,
+          "pnl": 52941,
+          "returnPct": 8.85,
+          "prevClose": 5270,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "064400",
+          "name": "LG씨엔에스",
+          "market": "KR",
+          "buyAvg": 111000,
+          "sellAvg": 99800,
+          "qty": 9,
+          "buyAmount": 999000,
+          "sellAmount": 898200,
+          "fee": 2066,
+          "pnl": -102866,
+          "returnPct": -10.3,
+          "prevClose": 89500,
           "holdDays": 0,
           "reason": "",
           "tags": []
