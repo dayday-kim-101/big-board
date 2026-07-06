@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T14:20:57.675Z",
+  "updatedAt": "2026-07-06T14:24:17.306Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -905,7 +905,7 @@
           "returnPct": -10.5,
           "prevClose": 118100,
           "holdDays": 0,
-          "reason": "",
+          "reason": "PCB 강세 예상했지만 해당 종목은 손절됨",
           "tags": []
         },
         {
