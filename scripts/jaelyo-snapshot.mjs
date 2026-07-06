@@ -38,10 +38,20 @@ export function isTradingDay(tradedDate, today) {
   return Boolean(tradedDate) && tradedDate === today;
 }
 
-// 오늘치가 이미 수집됐는가 — 재시도 창(cron 분산)에서 중복 수집·커밋을 막는 멱등 가드.
+// 해당 거래일이 이미 수집됐는가 — 재시도 창(cron 분산)에서 중복 수집·커밋을 막는 멱등 가드.
 // 행이 하나라도 있으면 수집 완료로 본다. (manual 입력은 API가 갱신하므로 이 스크립트와 무관)
 export function alreadyCollected(board) {
   return Array.isArray(board?.rows) && board.rows.length > 0;
+}
+
+// 수집 대상 날짜 결정 — 파일명은 today가 아니라 네이버가 보고한 거래일(tradedDate)을 쓴다.
+// 예약 실행이 KST 자정을 조금 넘겨 지연돼도(today가 하루 넘어가도) 직전 거래일 파일을 채운다.
+//   - 거래일 미확인(응답 이상) → null
+//   - 해당 거래일 파일에 이미 rows가 있으면 → null (휴장일 재실행·재시도 창 중복 가드)
+//   - 그 외 → 그 거래일 문자열(작성 대상)
+export function resolveTargetDate(tradedDate, existingBoard) {
+  if (!tradedDate) return null;
+  return alreadyCollected(existingBoard) ? null : tradedDate;
 }
 
 // --- 파일 IO ---
@@ -84,20 +94,26 @@ async function main() {
     console.log('수집 결과 없음 — 파일 미작성');
     return;
   }
-  // 공휴일 가드: 네이버 거래일이 오늘이 아니면 휴장 → 미작성(주말·공휴일 공통).
-  if (!isTradingDay(tradedDate, today)) {
-    console.log(`휴장 추정(네이버 거래일 ${tradedDate ?? '없음'} ≠ 오늘 ${today}) — 파일 미작성`);
+
+  // 파일명·전일순위 기준은 today가 아니라 네이버가 보고한 거래일(tradedDate)이다.
+  // 지연 실행(예약이 KST 자정을 조금 넘겨 today가 하루 넘어감)이어도 직전 거래일 파일을 채운다.
+  // 이미 그 거래일 파일에 rows가 있으면(휴장일 재실행·재시도 창) 대상이 null → 미작성.
+  const date = tradedDate;
+  const existing = await readBoard(OUT_DIR, date);
+  const target = resolveTargetDate(tradedDate, existing);
+  if (!target) {
+    if (!tradedDate) console.log('네이버 거래일 미확인 — 파일 미작성');
+    else console.log(`이미 수집됨(거래일 ${tradedDate}, ${existing.rows.length}종목) — 생략`);
     return;
   }
-  const date = today;
 
-  // 전일순위(직전 개장일 파일)를 읽는다. 같은 날짜 manual 보존은 위에서 읽은 existingToday 재사용
+  // 전일순위(직전 개장일 파일)를 읽는다. 같은 날짜 manual 보존은 위에서 읽은 existing 재사용
   // (행 없는 빈 파일일 수 있어 가드를 통과했더라도 manual 병합 입력으로는 안전).
   const dates = await listDates(OUT_DIR);
   const prevDate = pickPrevDate(dates, date);
   const prevBoard = await readBoard(OUT_DIR, prevDate);
   let rows = attachPrevRank(ranked, buildRankMap(prevBoard?.rows));
-  rows = mergeManual(rows, existingToday?.rows);
+  rows = mergeManual(rows, existing?.rows);
 
   const board = normalizeBoard({ date, collectedAt: new Date().toISOString(), source: 'naver', rows });
   await mkdir(OUT_DIR, { recursive: true });
