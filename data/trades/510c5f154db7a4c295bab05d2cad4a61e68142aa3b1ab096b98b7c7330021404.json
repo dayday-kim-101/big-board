@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T14:24:17.306Z",
+  "updatedAt": "2026-07-06T14:24:26.437Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -922,7 +922,7 @@
           "returnPct": null,
           "prevClose": 190900,
           "holdDays": 0,
-          "reason": "",
+          "reason": "PCB 강세 예상",
           "tags": []
         }
       ]
