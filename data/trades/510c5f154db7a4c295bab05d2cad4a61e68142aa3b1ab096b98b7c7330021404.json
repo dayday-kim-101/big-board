@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T14:17:21.342Z",
+  "updatedAt": "2026-07-06T14:20:57.675Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -888,7 +888,7 @@
           "returnPct": null,
           "prevClose": 100600,
           "holdDays": 0,
-          "reason": "",
+          "reason": "스페이스X 재료 지속을 기대했고, 재료 소멸로 손절 될 것 같아서, 손익이 되는순간 바로 익절하였음",
           "tags": []
         },
         {
