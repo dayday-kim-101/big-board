@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T13:52:53.222Z",
+  "updatedAt": "2026-07-06T13:53:09.601Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -1055,6 +1055,28 @@
           "pnl": 40494,
           "returnPct": 7.98,
           "prevClose": 8900,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-06-30": {
+      "journal": "",
+      "records": [
+        {
+          "code": "001820",
+          "name": "삼화콘덴서",
+          "market": "KR",
+          "buyAvg": null,
+          "sellAvg": 150000,
+          "qty": 2,
+          "buyAmount": null,
+          "sellAmount": 300000,
+          "fee": 640,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 133000,
           "holdDays": 0,
           "reason": "",
           "tags": []
