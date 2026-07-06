@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T14:29:35.330Z",
+  "updatedAt": "2026-07-06T22:34:26.691Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -832,7 +832,7 @@
           "returnPct": 2.75,
           "prevClose": 98500,
           "holdDays": 0,
-          "reason": "",
+          "reason": "9시 정규장 전에 익절했으면 평균 4% 익절 가능했던 날이였다.",
           "tags": []
         },
         {
