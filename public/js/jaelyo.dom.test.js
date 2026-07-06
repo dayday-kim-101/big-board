@@ -212,6 +212,40 @@ test('renderJaelyo: 날짜 select 변경 → onSelectDate', () => {
   assert.equal(picked, '2026-05-07');
 });
 
+test('renderJaelyo: onChart 있으면 현재가가 클릭 가능한 버튼(jaelyo-price-btn) + title', () => {
+  const root = new FakeEl('div');
+  renderJaelyo(root, {
+    dates: ['2026-05-07'], selectedDate: '2026-05-07', board: sampleBoard(),
+    onChart: () => {},
+  });
+  const btns = root.findByClass('jaelyo-price-btn');
+  assert.equal(btns.length, 2, '행마다 현재가 버튼');
+  assert.equal(btns[0].tagName, 'button', 'button 요소');
+  assert.equal(btns[0].type, 'button');
+  assert.ok(btns[0].title.includes('차트'), '버튼 title에 차트');
+});
+
+test('renderJaelyo: 현재가 클릭 시 {market:"KR", code, name} 전달', () => {
+  const root = new FakeEl('div');
+  let arg = null;
+  renderJaelyo(root, {
+    dates: ['2026-05-07'], selectedDate: '2026-05-07', board: sampleBoard(),
+    onChart: (r) => { arg = r; },
+  });
+  // 삼성E&A(64,900) 행의 현재가 버튼
+  const btn = root.findByClass('jaelyo-price-btn').find((b) => b.textContent.includes('64,900'));
+  assert.ok(btn, '현재가 버튼 존재');
+  btn.click();
+  assert.deepEqual(arg, { market: 'KR', code: '028050', name: '삼성E&A' });
+});
+
+test('renderJaelyo: onChart 없으면 현재가는 plain 텍스트 (버튼 없음)', () => {
+  const root = new FakeEl('div');
+  renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board: sampleBoard() });
+  assert.equal(root.findByClass('jaelyo-price-btn').length, 0, '현재가 버튼 없음');
+  assert.ok(root.allText().includes('64,900'), '현재가 텍스트는 표시');
+});
+
 // 메모 팝업이 붙을 신선한 body로 초기화하고, 열린 오버레이를 반환.
 // 팝업은 종목명 버튼(jaelyo-name-btn)으로 연다 — 인자는 종목코드지만 해당 행의 종목명 버튼을 찾아 클릭한다.
 function openBoardMemo(codeText = '028050', boardOverride = null) {

@@ -201,6 +201,7 @@ function paintJaelyo() {
     board: state.jaelyo.board,
     onSelectDate: selectJaelyoDate,
     onEditManual: editManual,
+    onChart: (row) => openChart(row), // 현재가 클릭 → 차트 (재료정리는 한국 종목)
   });
 }
 

@@ -117,3 +117,27 @@ test('renderBoard: onChart 없으면 name-plain (클릭 불가)', () => {
   assert.ok(!root.find('name-link'), 'name-link 없음');
   assert.ok(root.find('name-plain'), 'name-plain 사용');
 });
+
+test('renderBoard: onChart 있으면 현재가가 클릭 가능한 버튼(price-chart-btn) + 클릭 시 row 콜백', () => {
+  const root = new FakeEl('div');
+  let clicked = null;
+  const row = { market: 'KR', code: '005930', name: '삼성',
+    quote: { price: 349000, change: 32000, changePct: 10, volume: 1, tradingValue: 1, approxTradingValue: false } };
+  renderBoard(root, { id: 'g', name: 'x', rows: [row] }, { onChart: (r) => { clicked = r; } });
+  const btn = root.find('price-chart-btn');
+  assert.ok(btn, 'onChart 있으면 price-chart-btn 버튼 생성');
+  assert.equal(btn.title, '차트 보기', '버튼 title');
+  assert.ok(btn.allText().includes('349,000'), '버튼에 현재가 표시');
+  btn.click();
+  assert.equal(clicked, row, '현재가 클릭 시 해당 종목으로 콜백');
+});
+
+test('renderBoard: onChart 없으면 현재가는 plain td (버튼 없음)', () => {
+  const root = new FakeEl('div');
+  renderBoard(root, { id: 'g', name: 'x', rows: [
+    { market: 'KR', code: '005930', name: '삼성',
+      quote: { price: 349000, change: 1, changePct: 1, volume: 1, tradingValue: 1, approxTradingValue: false } },
+  ] }, {});
+  assert.ok(!root.find('price-chart-btn'), 'price-chart-btn 없음');
+  assert.ok(root.allText().includes('349,000'), '현재가는 plain 텍스트로 표시');
+});
