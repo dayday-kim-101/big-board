@@ -6,11 +6,120 @@ import { computeStats, parseKiwoomClipboard } from './trades-core.js';
 
 const NA = '—';
 
+// 매매기록 테이블 헤더. 인덱스 순서가 곧 컬럼 순서.
+const TABLE_HEADERS = ['코드', '종목명', '매수평균', '매도평균', '수량', '손익', '수익률', '전날종가', '보유일', '매매이유', '테마태그'];
+// "보유일"(인덱스 8)부터 오른쪽 컬럼은 사용자가 폭을 조절할 수 있다.
+const RESIZE_FROM_INDEX = TABLE_HEADERS.indexOf('보유일');
+const COL_MIN_W = 60;   // 최소 폭(px) — 이보다 좁아지면 셀이 깨진다.
+const COL_MAX_W = 640;  // 최대 폭(px) — 과도하게 늘어나 화면을 벗어나는 것 방지.
+const COL_WIDTHS_KEY = 'bigboard.trades.colWidths.v1';
+
+function clampWidth(w) {
+  if (!Number.isFinite(w)) return COL_MIN_W;
+  return Math.min(COL_MAX_W, Math.max(COL_MIN_W, Math.round(w)));
+}
+
+// SSR/테스트 등 localStorage가 없거나 접근이 막힌 환경에서도 안전하게 동작.
+function safeStorage() {
+  try {
+    if (typeof localStorage !== 'undefined' && localStorage) return localStorage;
+  } catch { /* 접근 거부(private mode 등) */ }
+  return null;
+}
+
+// 저장된 컬럼 폭 맵 { [헤더명]: px } 로드. 실패 시 빈 객체.
+function loadColWidths() {
+  const ls = safeStorage();
+  if (!ls) return {};
+  try {
+    const raw = ls.getItem(COL_WIDTHS_KEY);
+    if (!raw) return {};
+    const obj = JSON.parse(raw);
+    return obj && typeof obj === 'object' ? obj : {};
+  } catch { return {}; }
+}
+
+// 단일 컬럼 폭 저장(다른 컬럼 값은 보존). 저장 불가 환경이면 조용히 무시.
+function saveColWidth(key, width) {
+  const ls = safeStorage();
+  if (!ls) return;
+  try {
+    const widths = loadColWidths();
+    widths[key] = clampWidth(width);
+    ls.setItem(COL_WIDTHS_KEY, JSON.stringify(widths));
+  } catch { /* quota/거부 */ }
+}
+
+// mousemove/mouseup를 붙일 전역 타깃. 브라우저는 window, 없으면 null.
+function dragTarget() {
+  if (typeof window !== 'undefined' && window && typeof window.addEventListener === 'function') return window;
+  return null;
+}
+
+function applyColWidth(th, width) {
+  const w = clampWidth(width);
+  th.style.width = `${w}px`;
+  th.style.minWidth = `${w}px`;
+  th.style.maxWidth = `${w}px`;
+}
+
 function cell(tag, text, className) {
   const el = document.createElement(tag);
   if (text !== undefined) el.textContent = text;
   if (className) el.className = className;
   return el;
+}
+
+// 리사이즈 가능한 헤더 셀(th)에 드래그 핸들을 붙인다.
+// key: 저장 키(헤더명), colWidths: 현재 렌더의 저장된 폭 맵.
+function attachResizeHandle(th, key, colWidths) {
+  th.className = th.className ? `${th.className} resizable` : 'resizable';
+  if (colWidths[key] != null) applyColWidth(th, colWidths[key]);
+
+  const handle = document.createElement('div');
+  handle.className = 'col-resize-handle';
+  handle.title = '드래그하여 컬럼 폭 조절';
+
+  handle.addEventListener('mousedown', (e) => {
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+    const target = dragTarget();
+    const startX = e && e.clientX != null ? e.clientX : 0;
+    const startW = th.style.width ? parseInt(th.style.width, 10) : (th.offsetWidth || COL_MIN_W * 2);
+    handle.className = 'col-resize-handle active';
+
+    const widthAt = (ev) => {
+      const x = ev && ev.clientX != null ? ev.clientX : startX;
+      return clampWidth(startW + (x - startX));
+    };
+    const onMove = (ev) => { applyColWidth(th, widthAt(ev)); };
+    const onUp = (ev) => {
+      const w = widthAt(ev);
+      applyColWidth(th, w);
+      saveColWidth(key, w);
+      handle.className = 'col-resize-handle';
+      if (target) {
+        target.removeEventListener('mousemove', onMove);
+        target.removeEventListener('mouseup', onUp);
+      }
+    };
+    if (target) {
+      target.addEventListener('mousemove', onMove);
+      target.addEventListener('mouseup', onUp);
+    }
+  });
+
+  th.appendChild(handle);
+}
+
+// thead 행 생성 — 보유일부터 리사이즈 핸들 부착.
+function buildHeaderRow(colWidths) {
+  const hr = document.createElement('tr');
+  for (let i = 0; i < TABLE_HEADERS.length; i++) {
+    const th = cell('th', TABLE_HEADERS[i]);
+    if (i >= RESIZE_FROM_INDEX) attachResizeHandle(th, TABLE_HEADERS[i], colWidths);
+    hr.appendChild(th);
+  }
+  return hr;
 }
 
 // 손익/수익률 값에 priceTone 색 클래스 적용한 td.
@@ -214,7 +323,7 @@ function renderPasteSection(date, handlers, getHistory, pickPrevClose) {
 }
 
 // 날짜별 테이블 (최신순).
-function renderDayTable(date, dayData, handlers) {
+function renderDayTable(date, dayData, handlers, colWidths = {}) {
   const section = document.createElement('section');
   section.className = 'trades-day';
 
@@ -229,11 +338,7 @@ function renderDayTable(date, dayData, handlers) {
     tbl.className = 'trades-table';
 
     const thead = document.createElement('thead');
-    const hr = document.createElement('tr');
-    for (const h of ['코드', '종목명', '매수평균', '매도평균', '수량', '손익', '수익률', '전날종가', '보유일', '매매이유', '테마태그']) {
-      hr.appendChild(cell('th', h));
-    }
-    thead.appendChild(hr);
+    thead.appendChild(buildHeaderRow(colWidths));
     tbl.appendChild(thead);
 
     const tbody = document.createElement('tbody');
@@ -341,6 +446,7 @@ export function renderTrades(container, state, handlers, deps = {}) {
   const days = state?.data?.days ?? {};
   const records = allRecords(days);
   const stats = computeStats(records);
+  const colWidths = loadColWidths(); // 저장된 컬럼 폭을 렌더당 1회 로드
 
   // 누적 통계 카드
   section.appendChild(renderStatsCards(stats));
@@ -359,7 +465,7 @@ export function renderTrades(container, state, handlers, deps = {}) {
 
   // 날짜별 테이블 (최신순)
   for (const date of dates) {
-    section.appendChild(renderDayTable(date, days[date], handlers));
+    section.appendChild(renderDayTable(date, days[date], handlers, colWidths));
   }
 
   container.appendChild(section);

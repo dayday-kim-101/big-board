@@ -411,6 +411,50 @@ select.manual-input { min-width: 0; }
   position: sticky; top: 0; z-index: 2;
   background: var(--panel-2); color: var(--muted);
 }
+
+/* 리사이즈 가능한 헤더 셀 + 드래그 핸들 (보유일부터) */
+.trades-table thead th.resizable {
+  position: sticky; /* sticky 유지 + 핸들 절대배치 기준 */
+  padding-right: 14px; /* 핸들 영역 확보 */
+}
+.trades-table thead th.resizable::after {
+  /* 리사이즈 가능 컬럼임을 알리는 은은한 오른쪽 경계 */
+  content: ''; position: absolute; top: 4px; bottom: 4px; right: 11px;
+  width: 1px; background: var(--line);
+}
+.col-resize-handle {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: 12px;
+  cursor: col-resize;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 3;
+  touch-action: none;
+}
+/* 그립 점 3개 — 리사이즈 affordance를 눈에 보이게 */
+.col-resize-handle::before {
+  content: ''; display: block;
+  width: 3px; height: 14px;
+  border-radius: 2px;
+  background: var(--muted);
+  opacity: .45;
+  box-shadow: -3px 0 0 -1px var(--muted), 3px 0 0 -1px var(--muted);
+  transition: opacity .12s ease, background-color .12s ease;
+}
+.trades-table thead th.resizable:hover .col-resize-handle::before,
+.col-resize-handle:hover::before,
+.col-resize-handle:focus::before {
+  opacity: 1; background: var(--accent);
+  box-shadow: -3px 0 0 -1px var(--accent), 3px 0 0 -1px var(--accent);
+}
+.col-resize-handle.active::before {
+  opacity: 1; background: var(--accent);
+  box-shadow: -3px 0 0 -1px var(--accent), 3px 0 0 -1px var(--accent);
+}
+/* 드래그 중 헤더 강조 */
+.trades-table thead th.resizable:has(.col-resize-handle.active) {
+  background: var(--panel);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
 .trades-table td.num { text-align: right; font-variant-numeric: tabular-nums; font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; }
 .trades-table td.code { color: var(--muted); font-variant-numeric: tabular-nums; }
 .trades-table td.manual { padding: 2px; }
