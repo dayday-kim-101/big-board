@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T13:51:36.513Z",
+  "updatedAt": "2026-07-06T13:51:52.888Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -848,6 +848,79 @@
           "pnl": -62774,
           "returnPct": -10.23,
           "prevClose": 40000,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-06-01": {
+      "journal": "",
+      "records": [
+        {
+          "code": "007660",
+          "name": "이수페타시스",
+          "market": "KR",
+          "buyAvg": 129200,
+          "sellAvg": 138650,
+          "qty": 6,
+          "buyAmount": 775200,
+          "sellAmount": 831900,
+          "fee": 1890,
+          "pnl": 54810,
+          "returnPct": 7.07,
+          "prevClose": 129200,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "017670",
+          "name": "SK텔레콤",
+          "market": "KR",
+          "buyAvg": null,
+          "sellAvg": 103000,
+          "qty": 6,
+          "buyAmount": null,
+          "sellAmount": 618000,
+          "fee": 1326,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 100600,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "222800",
+          "name": "심텍",
+          "market": "KR",
+          "buyAvg": 118500,
+          "sellAvg": 106300,
+          "qty": 11,
+          "buyAmount": 1303500,
+          "sellAmount": 1169300,
+          "fee": 2698,
+          "pnl": -136898,
+          "returnPct": -10.5,
+          "prevClose": 118100,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "353200",
+          "name": "대덕전자",
+          "market": "KR",
+          "buyAvg": null,
+          "sellAvg": 195600,
+          "qty": 2,
+          "buyAmount": null,
+          "sellAmount": 391200,
+          "fee": 831,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 190900,
           "holdDays": 0,
           "reason": "",
           "tags": []
