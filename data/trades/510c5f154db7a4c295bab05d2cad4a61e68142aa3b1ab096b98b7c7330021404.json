@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T13:43:28.139Z",
+  "updatedAt": "2026-07-06T13:43:47.545Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -376,6 +376,45 @@
           "pnl": null,
           "returnPct": null,
           "prevClose": 53100,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-06-10": {
+      "journal": "",
+      "records": [
+        {
+          "code": "001820",
+          "name": "삼화콘덴서",
+          "market": "KR",
+          "buyAvg": 115300,
+          "sellAvg": 118800,
+          "qty": 2,
+          "buyAmount": 922400,
+          "sellAmount": 237600,
+          "fee": 634,
+          "pnl": 6366,
+          "returnPct": 2.76,
+          "prevClose": 167000,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "403870",
+          "name": "HPSP",
+          "market": "KR",
+          "buyAvg": 55900,
+          "sellAvg": 57600,
+          "qty": 4,
+          "buyAmount": 894400,
+          "sellAmount": 230400,
+          "fee": 620,
+          "pnl": 6180,
+          "returnPct": 2.76,
+          "prevClose": 60000,
           "holdDays": 0,
           "reason": "",
           "tags": []
