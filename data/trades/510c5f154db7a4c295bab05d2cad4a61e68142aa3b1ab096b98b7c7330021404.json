@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T14:29:04.994Z",
+  "updatedAt": "2026-07-06T14:29:16.125Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -815,7 +815,7 @@
           "returnPct": -10.16,
           "prevClose": 127900,
           "holdDays": 0,
-          "reason": "",
+          "reason": "정규장 전에 좋았다가 정규장부터 지수 미끄러짐",
           "tags": []
         },
         {
