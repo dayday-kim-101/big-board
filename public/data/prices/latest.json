@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-03T22:45:55.446Z",
+  "updatedAt": "2026-07-06T02:48:09.152Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -8,8 +8,8 @@
       "price": 308.63,
       "change": 14.25,
       "changePct": 4.84,
-      "volume": 71900726,
-      "tradingValue": 22190721065,
+      "volume": 75400626,
+      "tradingValue": 23270895202,
       "approxTradingValue": true,
       "ok": true
     },
@@ -17,11 +17,11 @@
       "market": "KR",
       "code": "005930",
       "name": "삼성전자",
-      "price": 309500,
-      "change": 23500,
-      "changePct": 8.22,
-      "volume": 31498600,
-      "tradingValue": 9448214000000,
+      "price": 305000,
+      "change": -4500,
+      "changePct": -1.45,
+      "volume": 12808626,
+      "tradingValue": 4055581000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -29,11 +29,11 @@
       "market": "KR",
       "code": "009150",
       "name": "삼성전기",
-      "price": 1989000,
-      "change": 63000,
-      "changePct": 3.27,
-      "volume": 1179987,
-      "tradingValue": 2217718000000,
+      "price": 1786000,
+      "change": -203000,
+      "changePct": -10.21,
+      "volume": 445329,
+      "tradingValue": 841309000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -46,6 +46,18 @@
       "changePct": -16.58,
       "volume": 90486680,
       "tradingValue": 16420617820,
+      "approxTradingValue": true,
+      "ok": true
+    },
+    "US:NVDA": {
+      "market": "US",
+      "code": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 194.83,
+      "change": -2.75,
+      "changePct": -1.39,
+      "volume": 142385548,
+      "tradingValue": 27740976317,
       "approxTradingValue": true,
       "ok": true
     }
