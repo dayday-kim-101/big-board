@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T22:34:26.691Z",
+  "updatedAt": "2026-07-06T22:34:59.915Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -657,7 +657,7 @@
           "returnPct": null,
           "prevClose": 360500,
           "holdDays": 0,
-          "reason": "",
+          "reason": "예수금 확보를 위한 빠른 매도",
           "tags": []
         },
         {
