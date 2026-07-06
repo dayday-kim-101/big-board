@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-06T13:44:06.360Z",
+  "updatedAt": "2026-07-06T13:44:35.944Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -488,6 +488,79 @@
           "pnl": -102866,
           "returnPct": -10.3,
           "prevClose": 89500,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-06-08": {
+      "journal": "",
+      "records": [
+        {
+          "code": "009420",
+          "name": "한올바이오파마",
+          "market": "KR",
+          "buyAvg": null,
+          "sellAvg": 52300,
+          "qty": 7,
+          "buyAmount": null,
+          "sellAmount": 366100,
+          "fee": 782,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 57900,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "market": "KR",
+          "buyAvg": null,
+          "sellAvg": 199000,
+          "qty": 3,
+          "buyAmount": null,
+          "sellAmount": 597000,
+          "fee": 1273,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 221000,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "087010",
+          "name": "펩트론",
+          "market": "KR",
+          "buyAvg": null,
+          "sellAvg": 243000,
+          "qty": 3,
+          "buyAmount": null,
+          "sellAmount": 729000,
+          "fee": 1558,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 253500,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "347850",
+          "name": "디앤디파마텍",
+          "market": "KR",
+          "buyAvg": null,
+          "sellAvg": 83800,
+          "qty": 5,
+          "buyAmount": null,
+          "sellAmount": 419000,
+          "fee": 898,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 92300,
           "holdDays": 0,
           "reason": "",
           "tags": []
