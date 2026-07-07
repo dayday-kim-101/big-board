@@ -6,7 +6,7 @@
 //       data/jaelyo/manual-by-code.json 을 만든다(최신 non-empty 우선, seed는 폴백).
 //
 // 동작:
-//   1) data/jaelyo/*.json dated 보드 + manual-seed.json + notes-seed.json 을 읽는다.
+//   1) data/jaelyo/*.json dated 보드 + notes-seed.json 을 읽는다.
 //   2) buildGlobalManualByCodeFromBoards 로 code별 정본 manual 을 만든다.
 //   3) manual-by-code.json 을 쓴다(--dry-run 이면 미기록).
 //   4) --fill=DATE[,DATE...] 로 지정한 dated 파일의 '빈' manual 필드를 글로벌 폴백으로 채워
@@ -74,10 +74,12 @@ async function main() {
     const b = await readJsonFile(path.join(dataDir, `${d}.json`));
     if (b) boards.push(b);
   }
-  const manualSeed = (await readJsonFile(path.join(dataDir, 'manual-seed.json'), {})) || {};
   const notesSeed = (await readJsonFile(path.join(dataDir, 'notes-seed.json'), {})) || {};
 
-  const globalByCode = buildGlobalManualByCodeFromBoards(boards, { manualSeed, notesSeed });
+  // 중요: manual-seed의 구조화 필드(theme/material/수급 등)는 자동으로 표 칸을 채우지 않는다.
+  // 사용자가 수정하지 않은 종목에는 popup 자유 메모(notes)만 prefill한다.
+  // 구조화 필드는 dated board에 실제로 남아 있는 사용자 수정값만 code-level 정본에 포함된다.
+  const globalByCode = buildGlobalManualByCodeFromBoards(boards, { notesSeed });
   const codeCount = Object.keys(globalByCode).length;
 
   if (!dryRun) {
