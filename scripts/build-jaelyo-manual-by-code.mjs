@@ -13,18 +13,22 @@
 //      되돌린다(예: 비어버린 2026-07-07 복구). 사용자가 채운 값은 절대 덮지 않는다.
 //
 // 옵션:
-//   --data-dir=<dir>  데이터 디렉터리(기본 data/jaelyo)
-//   --fill=<dates>    폴백 병합할 dated 파일(쉼표 구분). 기본 없음(빌드만).
-//   --dry-run         파일 미기록, 요약만 출력
-//   --summary=<path>  요약 JSON 기록 경로(선택)
+//   --data-dir=<dir>            데이터 디렉터리(기본 data/jaelyo)
+//   --fill=<dates>|all         폴백 병합할 dated 파일(쉼표 구분, all=전체). 기본 없음(빌드만).
+//   --generate-missing-notes   dated 보드 전체 code 중 notes가 없는 code에 보수적 기본 notes 생성.
+//                              notes-seed+dated/global notes가 있으면 우선, 없을 때만 기본 notes.
+//                              구조화 7필드는 건드리지 않음(notes만 채움).
+//   --dry-run                  파일 미기록, 요약만 출력
+//   --summary=<path>           요약 JSON 기록 경로(선택)
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import {
   buildGlobalManualByCodeFromBoards,
-  mergeRowsWithGlobalManual,
   normalizeBoard,
+  sanitizeManual,
   MANUAL_FIELDS,
 } from '../functions/api/_jaelyo-core.js';
+import { buildDefaultNoteForRow, applyNotesToBoard } from './jaelyo-notes-core.js';
 
 const MANUAL_BY_CODE_FILE = 'manual-by-code.json';
 
@@ -34,9 +38,12 @@ function parseArgs(argv) {
     return hit ? hit.slice(name.length + 3) : def;
   };
   const fill = get('fill', '');
+  const fillAll = fill === 'all';
   return {
     dataDir: get('data-dir', 'data/jaelyo'),
-    fillDates: fill ? fill.split(',').map((s) => s.trim()).filter(Boolean) : [],
+    fillAll,
+    fillDates: fillAll || !fill ? [] : fill.split(',').map((s) => s.trim()).filter(Boolean),
+    generateMissingNotes: argv.includes('--generate-missing-notes'),
     dryRun: argv.includes('--dry-run'),
     summaryPath: get('summary', null),
   };
@@ -66,7 +73,8 @@ function hasNotes(manual) {
 }
 
 async function main() {
-  const { dataDir, fillDates, dryRun, summaryPath } = parseArgs(process.argv.slice(2));
+  const { dataDir, fillAll, fillDates, generateMissingNotes, dryRun, summaryPath } =
+    parseArgs(process.argv.slice(2));
 
   const dates = await listDates(dataDir);
   const boards = [];
@@ -80,6 +88,29 @@ async function main() {
   // 사용자가 수정하지 않은 종목에는 popup 자유 메모(notes)만 prefill한다.
   // 구조화 필드는 dated board에 실제로 남아 있는 사용자 수정값만 code-level 정본에 포함된다.
   const globalByCode = buildGlobalManualByCodeFromBoards(boards, { notesSeed });
+
+  // 대표 행(날짜 오름차순 최신 name) — 기본 notes 생성용. dated 보드에 등장한 모든 code.
+  const rowByCode = {};
+  const sortedBoards = [...boards].sort((a, b) => String(a?.date ?? '').localeCompare(String(b?.date ?? '')));
+  for (const b of sortedBoards) {
+    for (const r of b?.rows ?? []) {
+      const code = String(r?.code ?? '').trim();
+      if (code) rowByCode[code] = r;
+    }
+  }
+
+  // notes가 없는(seed·dated·global 어디에도 없는) code에만 보수적 기본 notes 생성.
+  // notes만 채우고 구조화 7필드는 그대로 둔다(대량 seed 채움 금지).
+  let generatedNotes = 0;
+  if (generateMissingNotes) {
+    for (const code of Object.keys(rowByCode)) {
+      const cur = globalByCode[code];
+      if (cur && String(cur.notes ?? '').trim() !== '') continue; // 기존 notes 우선 → 불변
+      const note = buildDefaultNoteForRow(rowByCode[code]);
+      globalByCode[code] = { ...sanitizeManual(cur), notes: note };
+      generatedNotes += 1;
+    }
+  }
   const codeCount = Object.keys(globalByCode).length;
 
   if (!dryRun) {
@@ -89,33 +120,48 @@ async function main() {
     );
   }
 
-  // 지정 dated 파일 복구(빈 manual → 글로벌 폴백).
+  // dated 파일의 '빈 notes'만 code-level 글로벌 notes로 채운다. --fill=all 이면 전체 dated 파일.
+  // 구조화 7필드는 절대 건드리지 않고(applyNotesToBoard), 기존 non-empty notes도 덮지 않는다.
+  const notesByCode = notesMapFromGlobal(globalByCode);
+  const targetFillDates = fillAll ? dates : fillDates;
   const filled = [];
-  for (const d of fillDates) {
+  for (const d of targetFillDates) {
     const filePath = path.join(dataDir, `${d}.json`);
     const board = await readJsonFile(filePath);
     if (!board) {
       filled.push({ date: d, error: '파일 없음' });
       continue;
     }
-    const merged = normalizeBoard(mergeBoardRows(board, globalByCode));
+    const { board: applied, filledCount } = applyNotesToBoard(board, notesByCode);
+    const merged = normalizeBoard(applied);
     const notesCount = merged.rows.filter((r) => hasNotes(r.manual)).length;
     const manualCount = merged.rows.filter((r) => hasAnyManual(r.manual)).length;
     if (!dryRun) await writeFile(filePath, JSON.stringify(merged, null, 2) + '\n');
-    filled.push({ date: d, rows: merged.rows.length, notesNonEmpty: notesCount, manualNonEmpty: manualCount });
+    filled.push({
+      date: d,
+      rows: merged.rows.length,
+      notesFilled: filledCount,
+      notesNonEmpty: notesCount,
+      manualNonEmpty: manualCount,
+    });
   }
 
-  const summary = { dataDir, dryRun, dateCount: dates.length, codeCount, fill: filled };
+  const summary = { dataDir, dryRun, dateCount: dates.length, codeCount, generatedNotes, fill: filled };
   console.log(JSON.stringify(summary, null, 2));
   if (!dryRun && summaryPath) {
     await writeFile(summaryPath, JSON.stringify(summary, null, 2) + '\n');
   }
 }
 
-// 보드 rows에 글로벌 폴백을 적용한 새 보드.
-function mergeBoardRows(board, globalByCode) {
-  const rows = Array.isArray(board?.rows) ? board.rows : [];
-  return { ...board, rows: mergeRowsWithGlobalManual(rows, globalByCode) };
+// code-level 글로벌 manual에서 notes만 뽑아 code→notes 맵으로. 빈 notes는 제외.
+// applyNotesToBoard가 이 맵으로 dated 보드의 '빈 notes'에만 채운다(구조화 필드 불변).
+function notesMapFromGlobal(globalByCode) {
+  const out = {};
+  for (const code of Object.keys(globalByCode || {})) {
+    const notes = String(globalByCode[code]?.notes ?? '').trim();
+    if (notes !== '') out[code] = notes;
+  }
+  return out;
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
