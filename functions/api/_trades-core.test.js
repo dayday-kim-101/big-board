@@ -5,6 +5,7 @@ import {
   tradesPath,
   emptyTrades,
   sanitizeRecordManual,
+  sanitizeResultTag,
   normalizeTrades,
   mergeDayRecords,
   applyRecordManual,
@@ -66,6 +67,23 @@ test('sanitizeRecordManual: null/비객체 입력은 빈 객체 반환', () => {
   assert.deepEqual(sanitizeRecordManual('string'), {});
 });
 
+// --- sanitizeResultTag ---
+
+test('sanitizeResultTag: 허용값 success/failure 통과', () => {
+  assert.equal(sanitizeResultTag('success'), 'success');
+  assert.equal(sanitizeResultTag('failure'), 'failure');
+});
+
+test('sanitizeResultTag: 이상값/빈값/nullish → ""', () => {
+  assert.equal(sanitizeResultTag(''), '');
+  assert.equal(sanitizeResultTag('win'), '');
+  assert.equal(sanitizeResultTag('SUCCESS'), '');
+  assert.equal(sanitizeResultTag(undefined), '');
+  assert.equal(sanitizeResultTag(null), '');
+  assert.equal(sanitizeResultTag(1), '');
+  assert.equal(sanitizeResultTag({}), '');
+});
+
 // --- normalizeTrades ---
 
 const sampleRecord = {
@@ -103,6 +121,38 @@ test('normalizeTrades: 유효한 데이터 통과', () => {
   assert.equal(out.days['2026-06-19'].journal, '테스트 일지');
   assert.equal(out.days['2026-06-19'].records[0].code, '001820');
   assert.equal(out.days['2026-06-19'].records[0].buyAvg, 183700);
+});
+
+test('normalizeTrades: resultTag 허용값 보존', () => {
+  const input = {
+    version: 1,
+    updatedAt: null,
+    days: {
+      '2026-06-19': { journal: '', resultTag: 'success', records: [sampleRecord] },
+      '2026-06-18': { journal: '', resultTag: 'failure', records: [] },
+    },
+  };
+  const out = normalizeTrades(input);
+  assert.equal(out.days['2026-06-19'].resultTag, 'success');
+  assert.equal(out.days['2026-06-18'].resultTag, 'failure');
+});
+
+test('normalizeTrades: resultTag 이상값은 "" 로 정규화', () => {
+  const out = normalizeTrades({
+    version: 1,
+    updatedAt: null,
+    days: { '2026-06-19': { journal: '', resultTag: 'win', records: [] } },
+  });
+  assert.equal(out.days['2026-06-19'].resultTag, '');
+});
+
+test('normalizeTrades: resultTag 없는 기존 day는 "" 기본값', () => {
+  const out = normalizeTrades({
+    version: 1,
+    updatedAt: null,
+    days: { '2026-06-19': { journal: '테스트', records: [sampleRecord] } },
+  });
+  assert.equal(out.days['2026-06-19'].resultTag, '');
 });
 
 test('normalizeTrades: 숫자 필드에 NaN/Infinity → throw', () => {

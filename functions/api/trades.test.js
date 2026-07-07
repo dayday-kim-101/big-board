@@ -28,10 +28,15 @@ test('isValidDate: 경로 탈출 형태 거부', () => {
 
 function validateOp(body) {
   const op = body?.op;
-  if (!op) return { ok: false, status: 422, error: 'op 필드 필요 (upsert|manual|journal)' };
+  if (!op) return { ok: false, status: 422, error: 'op 필드 필요 (upsert|manual|journal|resultTag)' };
   if (op === 'upsert') {
     if (!Array.isArray(body.records))
       return { ok: false, status: 422, error: 'upsert op: records 배열 필요' };
+    return { ok: true, op };
+  }
+  if (op === 'resultTag') {
+    if (body.resultTag === undefined)
+      return { ok: false, status: 422, error: 'resultTag op: resultTag 필드 필요' };
     return { ok: true, op };
   }
   if (op === 'manual') {
@@ -114,6 +119,25 @@ test('op 검증: journal + journal 누락 → 422', () => {
   const r = validateOp({ op: 'journal' });
   assert.equal(r.ok, false);
   assert.match(r.error, /journal 필드/);
+});
+
+test('op 검증: resultTag + resultTag 필드 → ok', () => {
+  const r = validateOp({ op: 'resultTag', resultTag: 'success' });
+  assert.equal(r.ok, true);
+  assert.equal(r.op, 'resultTag');
+});
+
+test('op 검증: resultTag + 빈 문자열도 ok (태그 해제)', () => {
+  const r = validateOp({ op: 'resultTag', resultTag: '' });
+  assert.equal(r.ok, true);
+  assert.equal(r.op, 'resultTag');
+});
+
+test('op 검증: resultTag + resultTag 누락 → 422', () => {
+  const r = validateOp({ op: 'resultTag' });
+  assert.equal(r.ok, false);
+  assert.equal(r.status, 422);
+  assert.match(r.error, /resultTag 필드/);
 });
 
 test('op 검증: 알 수 없는 op → 422', () => {

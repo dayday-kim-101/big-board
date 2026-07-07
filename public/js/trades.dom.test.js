@@ -96,6 +96,7 @@ function sampleState() {
       days: {
         '2026-06-19': {
           journal: '오늘은 좋았다',
+          resultTag: 'success',
           records: [
             {
               code: '001820', name: '삼화콘덴서', market: 'KR',
@@ -117,6 +118,7 @@ function sampleState() {
         },
         '2026-06-18': {
           journal: '',
+          resultTag: 'failure',
           records: [
             {
               code: '000660', name: 'SK하이닉스', market: 'KR',
@@ -235,6 +237,67 @@ test('renderTrades: 일지 textarea 존재 및 onJournal 호출', () => {
   assert.equal(captured.length, 1);
   assert.equal(captured[0].date, '2026-06-19');
   assert.equal(captured[0].journal, '수정된 일지');
+});
+
+// ---------- 날짜별 성공/실패 태그 ----------
+
+test('renderTrades: 날짜 옆 결과 태그 select 렌더 (없음/성공/실패)', () => {
+  const root = new FakeEl('div');
+  renderTrades(root, sampleState(), {});
+  const selects = root.findAll('select').filter((s) => (s.className || '').split(/\s+/).includes('trades-result-tag'));
+  // 날짜 2개 → 태그 select 2개
+  assert.equal(selects.length, 2, '날짜별 결과 태그 select 존재');
+  // 옵션 텍스트에 없음/성공/실패 포함
+  const optText = selects[0].allText();
+  assert.ok(optText.includes('없음'), '없음 옵션');
+  assert.ok(optText.includes('성공'), '성공 옵션');
+  assert.ok(optText.includes('실패'), '실패 옵션');
+});
+
+test('renderTrades: 현재 resultTag가 select 값/클래스에 반영', () => {
+  const root = new FakeEl('div');
+  renderTrades(root, sampleState(), {});
+  const selects = root.findAll('select').filter((s) => (s.className || '').split(/\s+/).includes('trades-result-tag'));
+  const successSel = selects.find((s) => s.value === 'success');
+  const failureSel = selects.find((s) => s.value === 'failure');
+  assert.ok(successSel, 'success 값 select 존재');
+  assert.ok((successSel.className || '').split(/\s+/).includes('success'), 'success 클래스 적용');
+  assert.ok(failureSel, 'failure 값 select 존재');
+  assert.ok((failureSel.className || '').split(/\s+/).includes('failure'), 'failure 클래스 적용');
+});
+
+test('renderTrades: 태그 변경 → onResultTag(date, value) 호출 + 클래스 갱신', () => {
+  const root = new FakeEl('div');
+  const captured = [];
+  renderTrades(root, sampleState(), {
+    onResultTag: (date, resultTag) => captured.push({ date, resultTag }),
+  });
+  const selects = root.findAll('select').filter((s) => (s.className || '').split(/\s+/).includes('trades-result-tag'));
+  const successSel = selects.find((s) => s.value === 'success'); // 2026-06-19
+  successSel.value = 'failure';
+  successSel.dispatch('change');
+  assert.equal(captured.length, 1);
+  assert.equal(captured[0].date, '2026-06-19');
+  assert.equal(captured[0].resultTag, 'failure');
+  // 변경된 값의 클래스가 갱신됨(success 제거, failure 부여)
+  const cls = (successSel.className || '').split(/\s+/);
+  assert.ok(cls.includes('failure'), 'failure 클래스로 갱신');
+  assert.ok(!cls.includes('success'), 'success 클래스 제거');
+});
+
+test('renderTrades: 태그 없음("") 선택 → 중립(색 클래스 없음)', () => {
+  const root = new FakeEl('div');
+  const captured = [];
+  renderTrades(root, sampleState(), {
+    onResultTag: (date, resultTag) => captured.push({ date, resultTag }),
+  });
+  const selects = root.findAll('select').filter((s) => (s.className || '').split(/\s+/).includes('trades-result-tag'));
+  const successSel = selects.find((s) => s.value === 'success');
+  successSel.value = '';
+  successSel.dispatch('change');
+  assert.equal(captured[0].resultTag, '');
+  const cls = (successSel.className || '').split(/\s+/);
+  assert.ok(!cls.includes('success') && !cls.includes('failure'), '색 클래스 없음(중립)');
 });
 
 test('renderTrades: 붙여넣기 버튼 존재', () => {

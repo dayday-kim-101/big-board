@@ -1,6 +1,6 @@
 // 매매기록 탭 렌더링 (DOM). 전광판 아래 영역.
 // state.trades = { data: { days:{}, updatedAt } | null }
-// handlers = { onPaste(date,records), onManual(date,code,manual), onJournal(date,journal) }
+// handlers = { onPaste(date,records), onManual(date,code,manual), onJournal(date,journal), onResultTag(date,resultTag) }
 import { priceTone, fmtPrice, fmtPct } from './format.js';
 import { computeStats, parseKiwoomClipboard } from './trades-core.js';
 
@@ -322,6 +322,39 @@ function renderPasteSection(date, handlers, getHistory, pickPrevClose) {
   return wrap;
 }
 
+// 날짜 결과 태그 값 → 표시 텍스트.
+const RESULT_TAG_OPTIONS = [
+  { value: '', label: '없음' },
+  { value: 'success', label: '성공' },
+  { value: 'failure', label: '실패' },
+];
+
+// 날짜 옆 성공/실패 태그 선택 컨트롤(select). 현재 선택값에 따라 pill 색을 입힌다.
+// 변경 시 handlers.onResultTag(date, value) 호출.
+function renderResultTag(date, current, handlers) {
+  const value = current === 'success' || current === 'failure' ? current : '';
+  const select = document.createElement('select');
+  const applyClass = (v) => {
+    select.className = `trades-result-tag${v ? ` ${v}` : ''}`;
+  };
+  applyClass(value);
+  select.title = '이 날짜의 매매 성공/실패 표시';
+  for (const opt of RESULT_TAG_OPTIONS) {
+    const o = document.createElement('option');
+    o.value = opt.value;
+    o.textContent = opt.label;
+    if (opt.value === value) o.selected = true;
+    select.appendChild(o);
+  }
+  select.value = value;
+  select.addEventListener('change', () => {
+    const v = select.value === 'success' || select.value === 'failure' ? select.value : '';
+    applyClass(v);
+    handlers?.onResultTag?.(date, v);
+  });
+  return select;
+}
+
 // 날짜별 테이블 (최신순).
 function renderDayTable(date, dayData, handlers, colWidths = {}) {
   const section = document.createElement('section');
@@ -330,6 +363,7 @@ function renderDayTable(date, dayData, handlers, colWidths = {}) {
   const head = document.createElement('div');
   head.className = 'trades-day-head';
   head.appendChild(cell('h3', date, 'trades-day-date'));
+  head.appendChild(renderResultTag(date, dayData?.resultTag, handlers));
   section.appendChild(head);
 
   const records = dayData?.records ?? [];
@@ -428,7 +462,7 @@ function renderDayTable(date, dayData, handlers, colWidths = {}) {
  * renderTrades(container, state, handlers, { getHistory, pickPrevClose })
  * container: DOM 요소
  * state: { data: { days:{...}, updatedAt } | null }
- * handlers: { onPaste(date,records), onManual(date,code,manual), onJournal(date,journal) }
+ * handlers: { onPaste(date,records), onManual(date,code,manual), onJournal(date,journal), onResultTag(date,resultTag) }
  * deps: { getHistory, pickPrevClose } — 선택적 주입(비차단 enrich용)
  */
 export function renderTrades(container, state, handlers, deps = {}) {

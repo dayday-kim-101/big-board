@@ -151,6 +151,17 @@ export async function putTradeManual(email, date, code, manual) {
   return res.json();
 }
 
+// 날짜별 성공/실패 태그 저장. resultTag = "" | "success" | "failure"
+export async function putTradesResultTag(email, date, resultTag) {
+  const res = await fetch(`/api/trades?email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'resultTag', resultTag }),
+  });
+  if (!res.ok) throw new Error((await safeErr(res)) || `태그 저장 실패 (${res.status})`);
+  return res.json();
+}
+
 // 날짜별 일지 저장.
 export async function putTradesJournal(email, date, journal) {
   const res = await fetch(`/api/trades?email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}`, {
