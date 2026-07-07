@@ -8,6 +8,9 @@ import {
   prefillNotes,
   applyNotesToBoard,
   structuredEqual,
+  buildDefaultNoteForRow,
+  ensureNotesForRows,
+  fillMissingNotes,
 } from './jaelyo-notes-core.js';
 
 test('notes prefill: 최근 4개월 + 날짜별 top100 + code 중복 제거', () => {
@@ -63,4 +66,53 @@ test('applyNotesToBoard: seed가 없는 code는 manual 객체 자체를 유지',
   const { board: out, filledCount } = applyNotesToBoard(board, { A: 'notes' });
   assert.equal(filledCount, 0);
   assert.equal(out.rows[0].manual, manual);
+});
+
+test('buildDefaultNoteForRow: 종목명 기반 보수적 기본 메모(5줄, 구체 재료 미단정)', () => {
+  const note = buildDefaultNoteForRow({ code: '010950', name: 'S-Oil' });
+  const lines = note.split('\n');
+  assert.equal(lines.length, 5);
+  assert.equal(lines[0], '(테마) 확인 필요');
+  assert.equal(lines[1], '재료: S-Oil — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요');
+  assert.equal(lines[2], '세계: 확인 필요');
+  assert.equal(lines[3], '국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요');
+  assert.equal(lines[4], '체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요');
+});
+
+test('buildDefaultNoteForRow: 종목명 없으면 code 사용', () => {
+  assert.match(buildDefaultNoteForRow({ code: '399720', name: '' }), /재료: 399720 —/);
+  assert.match(buildDefaultNoteForRow({ code: '399720' }), /재료: 399720 —/);
+});
+
+test('ensureNotesForRows: seed 있으면 우선, 없으면 기본 메모, code 없으면 제외', () => {
+  const rows = [
+    { code: 'A', name: '에이' },
+    { code: 'B', name: '비' },
+    { code: '', name: '무코드' },
+  ];
+  const map = ensureNotesForRows(rows, { A: '시드 메모', B: '   ' });
+  assert.equal(map.A, '시드 메모'); // seed non-empty 우선
+  assert.match(map.B, /재료: 비 —/); // seed 공백 → 기본 메모
+  assert.ok(!('' in map)); // code 없는 행 제외
+});
+
+test('fillMissingNotes: 빈 notes만 기본 메모로 채우고 기존 notes/구조화는 불변', () => {
+  const kept = { theme: '테마유지', notes: '기존 메모' };
+  const rows = [
+    { code: 'A', name: '에이', manual: { theme: '사용자테마', notes: '' } },
+    { code: 'B', name: '비', manual: kept },
+    { code: 'C', name: '씨' },
+  ];
+  const { rows: out, generated } = fillMissingNotes(rows);
+  // A: 빈 notes → 기본 메모 채움, 구조화 유지
+  assert.match(out[0].manual.notes, /재료: 에이 —/);
+  assert.equal(out[0].manual.theme, '사용자테마');
+  // B: 기존 notes 불변 → 원본 객체 그대로 반환
+  assert.equal(out[1], rows[1]);
+  assert.equal(out[1].manual, kept);
+  // C: manual 없음 → 기본 메모 생성
+  assert.match(out[2].manual.notes, /재료: 씨 —/);
+  // generated: 새로 채운 code만
+  assert.deepEqual(Object.keys(generated).sort(), ['A', 'C']);
+  assert.match(generated.A, /재료: 에이 —/);
 });

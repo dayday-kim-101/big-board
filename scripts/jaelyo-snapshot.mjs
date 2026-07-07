@@ -13,8 +13,10 @@ import {
   attachPrevRank,
   mergeManual,
   mergeRowsWithGlobalManual,
+  updateGlobalManual,
   normalizeBoard,
 } from '../functions/api/_jaelyo-core.js';
+import { fillMissingNotes } from './jaelyo-notes-core.js';
 
 const OUT_DIR = process.env.JAELYO_DIR || 'data/jaelyo';
 const TOP_N = Number(process.env.JAELYO_TOP_N || 100);
@@ -132,10 +134,31 @@ async function main() {
   const globalByCode = await readGlobalManual(OUT_DIR);
   rows = mergeRowsWithGlobalManual(rows, globalByCode);
 
+  // same-date/user manual 우선 + 글로벌 폴백 이후에도 notes가 빈 신규 code는
+  // 보수적 기본 notes를 생성해 빈 notes로 남지 않게 한다(기존 notes는 절대 덮지 않음).
+  // 생성분은 manual-by-code.json에도 저장 → 다음 거래일에도 code 기반으로 메모가 이어진다.
+  const { rows: notedRows, generated } = fillMissingNotes(rows);
+  rows = notedRows;
+  const generatedCodes = Object.keys(generated);
+  if (generatedCodes.length) {
+    let nextGlobal = globalByCode;
+    for (const code of generatedCodes) {
+      nextGlobal = updateGlobalManual(nextGlobal, code, { notes: generated[code] });
+    }
+    await mkdir(OUT_DIR, { recursive: true });
+    await writeFile(
+      path.join(OUT_DIR, MANUAL_BY_CODE_FILE),
+      JSON.stringify(nextGlobal, null, 2) + '\n',
+    );
+  }
+
   const board = normalizeBoard({ date, collectedAt: new Date().toISOString(), source: 'naver', rows });
   await mkdir(OUT_DIR, { recursive: true });
   await writeFile(path.join(OUT_DIR, `${date}.json`), JSON.stringify(board, null, 2) + '\n');
-  console.log(`재료정리 기록: ${board.rows.length}종목 → ${date}.json (전일=${prevDate ?? '없음'})`);
+  console.log(
+    `재료정리 기록: ${board.rows.length}종목 → ${date}.json (전일=${prevDate ?? '없음'}` +
+      `${generatedCodes.length ? `, 기본메모 ${generatedCodes.length}종목 생성` : ''})`,
+  );
 }
 
 // 직접 실행될 때만 main() (테스트 import 시에는 실행 안 함)
