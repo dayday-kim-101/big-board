@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-07T13:05:58.787Z",
+  "updatedAt": "2026-07-07T13:06:06.446Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -742,7 +742,7 @@
           "returnPct": 5.43,
           "prevClose": 7530,
           "holdDays": 0,
-          "reason": "",
+          "reason": "(장전매매 성공) 마벨 기업 관련주라고 생각해서 매매함",
           "tags": []
         },
         {
