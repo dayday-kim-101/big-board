@@ -24,6 +24,14 @@ function num(v) {
   return Number.isFinite(n) ? n : null;
 }
 
+// --- 날짜별 결과 태그 정제 ---
+
+// 날짜별 매매 성공/실패 표시. 허용값: "" | "success" | "failure".
+// 그 외 값(이상값/undefined/null)은 모두 "" 로 정규화.
+export function sanitizeResultTag(v) {
+  return v === 'success' || v === 'failure' ? v : '';
+}
+
 // --- 수동 필드 정제 ---
 
 // reason, tags, holdDays 세 수동 필드만 받아 정제.
@@ -163,6 +171,7 @@ export function normalizeTrades(input) {
     if (!dayVal || typeof dayVal !== 'object') continue;
 
     const journal = typeof dayVal.journal === 'string' ? dayVal.journal.slice(0, 10000) : '';
+    const resultTag = sanitizeResultTag(dayVal.resultTag);
     const recordsIn = Array.isArray(dayVal.records) ? dayVal.records : [];
 
     const records = [];
@@ -203,7 +212,7 @@ export function normalizeTrades(input) {
       });
     }
 
-    days[date] = { journal, records };
+    days[date] = { journal, resultTag, records };
   }
 
   return { version, updatedAt, days };

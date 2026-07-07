@@ -2,7 +2,7 @@
 import {
   getList, putList, getQuotes, getSnapshot, searchTickers, getHistory,
   getJaelyoDates, getJaelyo, putJaelyoManual, getMacro,
-  getTrades, putTradesUpsert, putTradeManual, putTradesJournal,
+  getTrades, putTradesUpsert, putTradeManual, putTradesJournal, putTradesResultTag,
 } from './api.js';
 import { mergeBoard } from './format.js';
 import { renderBoard } from './board.js';
@@ -179,6 +179,15 @@ function paintTrades() {
         paintTrades();
       } catch (e) {
         alert(`일지 저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
+      }
+    },
+    onResultTag: async (date, resultTag) => {
+      try {
+        await putTradesResultTag(state.email, date, resultTag);
+        state.trades.data = await getTrades(state.email);
+        paintTrades();
+      } catch (e) {
+        alert(`태그 저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
       }
     },
   }, { getHistory, pickPrevClose });

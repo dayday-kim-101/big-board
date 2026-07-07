@@ -418,8 +418,22 @@ select.manual-input { min-width: 0; }
 
 /* 날짜별 섹션 */
 .trades-day { margin-bottom: 24px; }
-.trades-day-head { margin-bottom: 8px; }
+.trades-day-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .trades-day-date { font-size: 14px; font-weight: 600; color: var(--accent); margin: 0; }
+
+/* 날짜별 성공/실패 태그 (select를 pill 형태로) */
+.trades-result-tag {
+  font-size: 12px; font-weight: 600; line-height: 1.4;
+  padding: 2px 10px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--panel-2);
+  color: var(--muted); cursor: pointer; appearance: none;
+}
+.trades-result-tag.success {
+  color: #fff; background: #16a34a; border-color: #16a34a;   /* 성공=초록 */
+}
+.trades-result-tag.failure {
+  color: #fff; background: var(--up); border-color: var(--up); /* 실패=빨강 */
+}
 
 /* 매매기록 테이블 */
 .trades-table { border-collapse: collapse; width: 100%; font-size: 12px; white-space: nowrap; }

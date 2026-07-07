@@ -1,8 +1,9 @@
 // GET  /api/trades?email=          → { days, updatedAt }  (없으면 emptyTrades 모양)
 // PUT  /api/trades?email=&date=YYYY-MM-DD  body: { op, ...} → op별 분기 저장
-//   op:"upsert"  + records:[...]     → 해당일 mergeDayRecords
-//   op:"manual"  + code + manual:{…} → 단일 record 부분 병합
-//   op:"journal" + journal:"…"       → 해당일 일지 설정
+//   op:"upsert"    + records:[...]     → 해당일 mergeDayRecords
+//   op:"manual"    + code + manual:{…} → 단일 record 부분 병합
+//   op:"journal"   + journal:"…"       → 해당일 일지 설정
+//   op:"resultTag" + resultTag:"…"     → 해당일 성공/실패 태그 설정 (""|"success"|"failure")
 //
 // 데이터는 data/trades/<emailhash>.json (public/ 밖).
 import { emailKey, readJson, writeJson, normalizeEmail } from './_github.js';
@@ -11,6 +12,7 @@ import {
   emptyTrades,
   mergeDayRecords,
   applyRecordManual,
+  sanitizeResultTag,
   normalizeTrades,
 } from './_trades-core.js';
 
@@ -72,7 +74,7 @@ export async function onRequestPut({ request, env }) {
   }
 
   const op = body?.op;
-  if (!op) return err('op 필드 필요 (upsert|manual|journal)', 422);
+  if (!op) return err('op 필드 필요 (upsert|manual|journal|resultTag)', 422);
 
   try {
     const hash = await emailKey(email);
@@ -80,7 +82,7 @@ export async function onRequestPut({ request, env }) {
     const current = data || emptyTrades();
 
     // 해당 날짜의 day 객체 (없으면 초기화)
-    const existingDay = current.days[date] ?? { journal: '', records: [] };
+    const existingDay = current.days[date] ?? { journal: '', resultTag: '', records: [] };
 
     let nextDay;
 
@@ -89,7 +91,16 @@ export async function onRequestPut({ request, env }) {
       if (!Array.isArray(body.records)) return err('upsert op: records 배열 필요', 422);
       nextDay = {
         journal: existingDay.journal ?? '',
+        resultTag: existingDay.resultTag ?? '',
         records: mergeDayRecords(existingDay.records, body.records),
+      };
+    } else if (op === 'resultTag') {
+      // resultTag 필드 필수 ("" | "success" | "failure")
+      if (body.resultTag === undefined) return err('resultTag op: resultTag 필드 필요', 422);
+      nextDay = {
+        journal: existingDay.journal ?? '',
+        resultTag: sanitizeResultTag(body.resultTag),
+        records: existingDay.records ?? [],
       };
     } else if (op === 'manual') {
       // code + manual 객체 필수
@@ -108,6 +119,7 @@ export async function onRequestPut({ request, env }) {
       if (body.journal === undefined) return err('journal op: journal 필드 필요', 422);
       nextDay = {
         journal: String(body.journal ?? '').slice(0, 10000),
+        resultTag: existingDay.resultTag ?? '',
         records: existingDay.records ?? [],
       };
     } else {
