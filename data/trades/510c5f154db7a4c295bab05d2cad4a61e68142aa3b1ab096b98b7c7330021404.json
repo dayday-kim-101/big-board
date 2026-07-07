@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-07T13:05:48.333Z",
+  "updatedAt": "2026-07-07T13:05:58.787Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -725,7 +725,7 @@
           "returnPct": 2.86,
           "prevClose": 225000,
           "holdDays": 0,
-          "reason": "",
+          "reason": "데이터센터 재료에서 산일전기가 눌림차트라고 생각하였음",
           "tags": []
         },
         {
