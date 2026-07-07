@@ -9,6 +9,9 @@ import {
   normalizeTrades,
   mergeDayRecords,
   applyRecordManual,
+  autoFillHoldDaysForUpsert,
+  isBuyRecord,
+  isSellRecord,
 } from './_trades-core.js';
 
 // --- tradesPath ---
@@ -364,4 +367,123 @@ test('applyRecordManual: sanitizeRecordManual 통과 — tags 중복 제거', ()
   const day = { journal: '', records: [{ code: 'A', reason: '', tags: [], holdDays: 0 }] };
   const next = applyRecordManual(day, 'A', { tags: ['X', 'X', 'Y'] });
   assert.deepEqual(next.records[0].tags, ['X', 'Y']);
+});
+
+// --- isBuyRecord / isSellRecord ---
+
+test('isBuyRecord: buyAvg/buyAmount 양수면 true', () => {
+  assert.equal(isBuyRecord({ buyAvg: 1000 }), true);
+  assert.equal(isBuyRecord({ buyAmount: 5000 }), true);
+  assert.equal(isBuyRecord({ buyAvg: 0 }), false);
+  assert.equal(isBuyRecord({ sellAvg: 1000 }), false);
+  assert.equal(isBuyRecord({}), false);
+  assert.equal(isBuyRecord(null), false);
+});
+
+test('isSellRecord: sellAvg/sellAmount/qty 양수 또는 returnPct 유효 숫자면 true', () => {
+  assert.equal(isSellRecord({ sellAvg: 1000 }), true);
+  assert.equal(isSellRecord({ sellAmount: 5000 }), true);
+  assert.equal(isSellRecord({ qty: 3 }), true); // qty는 매도수량(청산 수량)
+  assert.equal(isSellRecord({ returnPct: -10.5 }), true); // 음수 수익률도 청산
+  assert.equal(isSellRecord({ returnPct: 0 }), true);
+  assert.equal(isSellRecord({ buyAvg: 1000 }), false); // 매수-only는 청산 아님
+  assert.equal(isSellRecord({}), false);
+  assert.equal(isSellRecord(null), false);
+});
+
+// --- autoFillHoldDaysForUpsert ---
+
+test('autoFillHoldDaysForUpsert: (a) 같은 record 안 매수+매도 → holdDays 0', () => {
+  const incoming = [{ code: '001820', buyAvg: 100, sellAvg: 110, returnPct: 10 }];
+  const out = autoFillHoldDaysForUpsert({}, '2026-06-19', incoming);
+  assert.equal(out[0].holdDays, 0);
+});
+
+test('autoFillHoldDaysForUpsert: (b) 전날 매수, 다음날 매도 → holdDays 1', () => {
+  const days = {
+    '2026-06-18': { records: [{ code: '001820', buyAvg: 100 }] },
+  };
+  const incoming = [{ code: '001820', sellAvg: 110, returnPct: 10 }];
+  const out = autoFillHoldDaysForUpsert(days, '2026-06-19', incoming);
+  assert.equal(out[0].holdDays, 1);
+});
+
+test('autoFillHoldDaysForUpsert: (c) 여러 이전 매수일 → 가장 최근 매수일 기준', () => {
+  const days = {
+    '2026-06-10': { records: [{ code: '001820', buyAvg: 90 }] },
+    '2026-06-17': { records: [{ code: '001820', buyAvg: 100 }] },
+    // 다른 종목은 무시
+    '2026-06-18': { records: [{ code: '005930', buyAvg: 70000 }] },
+  };
+  const incoming = [{ code: '001820', sellAvg: 110, returnPct: 10 }];
+  const out = autoFillHoldDaysForUpsert(days, '2026-06-19', incoming);
+  // 가장 최근 매수일 2026-06-17 기준 → 2일
+  assert.equal(out[0].holdDays, 2);
+});
+
+test('autoFillHoldDaysForUpsert: (d) 같은 날짜 기존 매수, incoming 매도 → 0', () => {
+  const days = {
+    '2026-06-19': { records: [{ code: '001820', buyAvg: 100 }] },
+  };
+  const incoming = [{ code: '001820', sellAvg: 110, returnPct: 10 }];
+  const out = autoFillHoldDaysForUpsert(days, '2026-06-19', incoming);
+  assert.equal(out[0].holdDays, 0);
+});
+
+test('autoFillHoldDaysForUpsert: (e) 참조 매수일 없으면 incoming holdDays 보존', () => {
+  const incoming = [{ code: '001820', sellAvg: 110, returnPct: 10, holdDays: 5 }];
+  const out = autoFillHoldDaysForUpsert({}, '2026-06-19', incoming);
+  assert.equal(out[0].holdDays, 5);
+});
+
+test('autoFillHoldDaysForUpsert: (e2) 참조 매수일 없고 holdDays 없으면 0', () => {
+  const incoming = [{ code: '001820', sellAvg: 110, returnPct: 10 }];
+  const out = autoFillHoldDaysForUpsert({}, '2026-06-19', incoming);
+  assert.equal(out[0].holdDays, 0);
+});
+
+test('autoFillHoldDaysForUpsert: (f) 매수-only incoming은 자동 증가하지 않음', () => {
+  const days = {
+    '2026-06-10': { records: [{ code: '001820', buyAvg: 90 }] },
+  };
+  // 이전 매수 기록이 있어도 매수-only는 청산이 아니므로 홀드일 계산 대상 아님
+  const incoming = [{ code: '001820', buyAvg: 100 }];
+  const out = autoFillHoldDaysForUpsert(days, '2026-06-19', incoming);
+  assert.equal(out[0].holdDays, 0);
+});
+
+test('autoFillHoldDaysForUpsert: qty만 있는 매도 row도 이전 매수일 기준 계산', () => {
+  const days = {
+    '2026-06-18': { records: [{ code: '001820', buyAvg: 100 }] },
+  };
+  const incoming = [{ code: '001820', qty: 3 }];
+  const out = autoFillHoldDaysForUpsert(days, '2026-06-19', incoming);
+  assert.equal(out[0].holdDays, 1);
+});
+
+test('autoFillHoldDaysForUpsert: 매수-only는 기존 rec.holdDays 정제값 유지', () => {
+  const incoming = [{ code: '001820', buyAvg: 100, holdDays: 4 }];
+  const out = autoFillHoldDaysForUpsert({}, '2026-06-19', incoming);
+  assert.equal(out[0].holdDays, 4);
+});
+
+test('autoFillHoldDaysForUpsert: 이후 날짜 매수는 참조하지 않음', () => {
+  const days = {
+    '2026-06-20': { records: [{ code: '001820', buyAvg: 100 }] }, // 매도일 이후
+  };
+  const incoming = [{ code: '001820', sellAvg: 110, returnPct: 10, holdDays: 7 }];
+  const out = autoFillHoldDaysForUpsert(days, '2026-06-19', incoming);
+  // 참조 매수일 없음 → 기존 holdDays 보존
+  assert.equal(out[0].holdDays, 7);
+});
+
+test('autoFillHoldDaysForUpsert: 원본 incoming 불변(순수 함수)', () => {
+  const incoming = [{ code: '001820', sellAvg: 110, returnPct: 10, holdDays: 5 }];
+  autoFillHoldDaysForUpsert({}, '2026-06-19', incoming);
+  assert.equal(incoming[0].holdDays, 5);
+});
+
+test('autoFillHoldDaysForUpsert: 비배열 incoming → 빈 배열', () => {
+  assert.deepEqual(autoFillHoldDaysForUpsert({}, '2026-06-19', null), []);
+  assert.deepEqual(autoFillHoldDaysForUpsert({}, '2026-06-19', undefined), []);
 });

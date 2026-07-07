@@ -14,6 +14,7 @@ import {
   applyRecordManual,
   sanitizeResultTag,
   normalizeTrades,
+  autoFillHoldDaysForUpsert,
 } from './_trades-core.js';
 
 const JSON_HEADERS = {
@@ -89,10 +90,12 @@ export async function onRequestPut({ request, env }) {
     if (op === 'upsert') {
       // records 배열 필수
       if (!Array.isArray(body.records)) return err('upsert op: records 배열 필요', 422);
+      // 매도 기록의 보유일을 이전/당일 매수 기록 기준으로 자동 계산해 채운 뒤 병합.
+      const filledRecords = autoFillHoldDaysForUpsert(current.days, date, body.records);
       nextDay = {
         journal: existingDay.journal ?? '',
         resultTag: existingDay.resultTag ?? '',
-        records: mergeDayRecords(existingDay.records, body.records),
+        records: mergeDayRecords(existingDay.records, filledRecords),
       };
     } else if (op === 'resultTag') {
       // resultTag 필드 필수 ("" | "success" | "failure")
