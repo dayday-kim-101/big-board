@@ -41,6 +41,12 @@ function positive(v) {
   return n !== null && n > 0;
 }
 
+// 유효한 양수면 그 숫자를, 아니면 null.
+function positiveNum(v) {
+  const n = num(v);
+  return n !== null && n > 0 ? n : null;
+}
+
 // 매수 기록: buyAvg/buyAmount 중 하나라도 유효한 양수면 true.
 export function isBuyRecord(rec) {
   return !!rec && (positive(rec.buyAvg) || positive(rec.buyAmount));
@@ -65,6 +71,18 @@ function calendarDayDiff(fromDate, toDate) {
   return diff > 0 ? diff : 0;
 }
 
+// records 배열에서 code 매수 기록의 buyAvg(양수)를 반환. 없으면 null.
+function findBuyAvgInRecords(records, code) {
+  if (!Array.isArray(records)) return null;
+  for (const r of records) {
+    if (String(r.code ?? '').trim() === code && isBuyRecord(r)) {
+      const v = positiveNum(r.buyAvg);
+      if (v !== null) return v;
+    }
+  }
+  return null;
+}
+
 // days 맵에서 sellDate 이전(<) 날짜 중 code 매수 기록이 있는 가장 최근 날짜를 반환. 없으면 null.
 function findMostRecentBuyDate(daysMap, code, sellDate) {
   let best = null;
@@ -79,53 +97,92 @@ function findMostRecentBuyDate(daysMap, code, sellDate) {
   return best;
 }
 
-// --- 보유일 자동 계산 ---
+// --- 파생 필드 자동 계산 (보유일 + 수익률) ---
 
-// upsert 직전 incoming records의 holdDays를 자동 계산해 채운다. 순수함수.
-// 규칙(매도/청산 기록에만 적용):
-//   1. incoming record 자체에 매수+매도가 모두 있으면 holdDays=0 (당일 청산).
-//   2. 같은 date 기존 records에 같은 code 매수 기록이 있으면 holdDays=0.
-//   3. 이전 날짜들에서 같은 code의 가장 최근 매수일을 찾아 (매도일 - 매수일) 차이.
-//   4. 참조 매수일을 못 찾으면 기존 rec.holdDays 정제(없으면 0).
-// 매수-only 등 청산이 아닌 기록은 자동 증가하지 않고 rec.holdDays 정제값만 유지.
-export function autoFillHoldDaysForUpsert(days, date, incomingRecords) {
+// upsert 직전 incoming records의 파생 필드(holdDays, returnPct, buyAvg)를 자동 보정. 순수함수.
+//
+// 참조 매수 기록 결정(매도/청산 기록에만 적용):
+//   1. incoming record 자체에 매수+매도가 모두 있으면 그 record의 buyAvg 참조, holdDays=0 (당일 청산).
+//   2. 같은 date 기존 records에 같은 code 매수 기록이 있으면 그 buyAvg 참조, holdDays=0.
+//   3. 이전 날짜들에서 같은 code의 가장 최근 매수일을 찾아 그 buyAvg 참조, holdDays=(매도일-매수일).
+//   4. 참조 매수 기록을 못 찾으면 기존 rec.holdDays 정제(없으면 0), 참조 buyAvg는 null.
+//
+// returnPct 규칙:
+//   - rec.returnPct가 이미 유효 숫자면 그대로 보존(키움 제공값 덮어쓰기 금지).
+//   - 없고 sellAvg(양수)와 참조 buyAvg가 있으면 ((sellAvg-buyAvg)/buyAvg)*100, 소수 2자리 반올림.
+//   - 참조 buyAvg가 없으면 기존 returnPct 유지(계산 안 함).
+//
+// buyAvg 보정: incoming buyAvg가 비어있고 참조 buyAvg가 있으면 표시/계산 일관성을 위해 채움.
+//   incoming buyAvg가 이미 있으면 덮어쓰지 않음.
+//
+// 매수-only 등 청산이 아닌 기록은 파생 계산 대상 아님(holdDays 정제값만 유지).
+export function autoFillDerivedFieldsForUpsert(days, date, incomingRecords) {
   const daysMap = days && typeof days === 'object' && !Array.isArray(days) ? days : {};
   const incoming = Array.isArray(incomingRecords) ? incomingRecords : [];
 
   return incoming.map((rec) => {
     if (!rec || typeof rec !== 'object') return rec;
 
-    // 청산이 아니면 자동 계산 대상 아님.
+    // 청산이 아니면 파생 계산 대상 아님.
     if (!isSellRecord(rec)) {
       return { ...rec, holdDays: cleanHoldDays(rec.holdDays) };
     }
 
-    // 1. 같은 record 안에 매수+매도가 모두 → 당일 청산.
-    if (isBuyRecord(rec)) {
-      return { ...rec, holdDays: 0 };
-    }
-
     const code = String(rec.code ?? '').trim();
 
-    // 2. 같은 date 기존 records에 같은 code 매수 → 당일 청산.
-    const sameDay = daysMap[date];
-    if (sameDay && Array.isArray(sameDay.records)) {
-      const hasBuySameDay = sameDay.records.some(
-        (r) => String(r.code ?? '').trim() === code && isBuyRecord(r)
-      );
-      if (hasBuySameDay) return { ...rec, holdDays: 0 };
+    // --- 참조 매수 기록(holdDays 계산일 + buyAvg) 결정 ---
+    let holdDays;
+    let refBuyAvg = null;
+
+    if (isBuyRecord(rec)) {
+      // 1. 같은 record 안에 매수+매도 → 당일 청산, 자체 buyAvg 참조.
+      holdDays = 0;
+      refBuyAvg = positiveNum(rec.buyAvg);
+    } else {
+      const sameDay = daysMap[date];
+      const sameDayHasBuy =
+        sameDay && Array.isArray(sameDay.records)
+          ? sameDay.records.some((r) => String(r.code ?? '').trim() === code && isBuyRecord(r))
+          : false;
+
+      if (sameDayHasBuy) {
+        // 2. 같은 date 기존 records에 같은 code 매수 → 당일 청산.
+        holdDays = 0;
+        refBuyAvg = findBuyAvgInRecords(sameDay.records, code);
+      } else {
+        // 3. 이전 날짜들의 가장 최근 매수일 기준.
+        const buyDate = code ? findMostRecentBuyDate(daysMap, code, date) : null;
+        if (buyDate) {
+          holdDays = calendarDayDiff(buyDate, date);
+          refBuyAvg = findBuyAvgInRecords(daysMap[buyDate].records, code);
+        } else {
+          // 4. 참조 매수 기록 없음 → 기존 holdDays 정제 or 0.
+          holdDays = cleanHoldDays(rec.holdDays);
+        }
+      }
     }
 
-    // 3. 이전 날짜들의 가장 최근 매수일 기준.
-    const buyDate = code ? findMostRecentBuyDate(daysMap, code, date) : null;
-    if (buyDate) {
-      return { ...rec, holdDays: calendarDayDiff(buyDate, date) };
+    const next = { ...rec, holdDays };
+
+    // returnPct: 유효 숫자면 보존, 없고 sellAvg+참조 buyAvg가 있으면 계산.
+    if (num(rec.returnPct) === null) {
+      const sellAvg = positiveNum(rec.sellAvg);
+      if (sellAvg !== null && refBuyAvg !== null) {
+        next.returnPct = Math.round(((sellAvg - refBuyAvg) / refBuyAvg) * 100 * 100) / 100;
+      }
     }
 
-    // 4. 참조 매수일 없음 → 기존 holdDays 정제 or 0.
-    return { ...rec, holdDays: cleanHoldDays(rec.holdDays) };
+    // buyAvg 보정: incoming에 없고 참조 buyAvg가 있으면 채움(덮어쓰기 금지).
+    if (num(rec.buyAvg) === null && refBuyAvg !== null) {
+      next.buyAvg = refBuyAvg;
+    }
+
+    return next;
   });
 }
+
+// 하위호환 별칭 — 기존 호출부/테스트가 쓰던 이름. 내부에서 returnPct/buyAvg도 함께 보정한다.
+export { autoFillDerivedFieldsForUpsert as autoFillHoldDaysForUpsert };
 
 // --- 날짜별 결과 태그 정제 ---
 

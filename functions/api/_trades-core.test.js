@@ -10,6 +10,7 @@ import {
   mergeDayRecords,
   applyRecordManual,
   autoFillHoldDaysForUpsert,
+  autoFillDerivedFieldsForUpsert,
   isBuyRecord,
   isSellRecord,
 } from './_trades-core.js';
@@ -486,4 +487,102 @@ test('autoFillHoldDaysForUpsert: 원본 incoming 불변(순수 함수)', () => {
 test('autoFillHoldDaysForUpsert: 비배열 incoming → 빈 배열', () => {
   assert.deepEqual(autoFillHoldDaysForUpsert({}, '2026-06-19', null), []);
   assert.deepEqual(autoFillHoldDaysForUpsert({}, '2026-06-19', undefined), []);
+});
+
+// --- autoFillDerivedFieldsForUpsert: returnPct 자동 계산 ---
+// autoFillHoldDaysForUpsert는 이 함수의 별칭이므로 holdDays 동작은 위에서 이미 커버됨.
+
+test('autoFillDerivedFieldsForUpsert: 별칭이 동일 함수', () => {
+  assert.equal(autoFillHoldDaysForUpsert, autoFillDerivedFieldsForUpsert);
+});
+
+test('autoFillDerivedFieldsForUpsert: (a) 전날 buyAvg=100, 다음날 sellAvg=110, returnPct 없음 → 10', () => {
+  const days = { '2026-06-18': { records: [{ code: '001820', buyAvg: 100 }] } };
+  const out = autoFillDerivedFieldsForUpsert(days, '2026-06-19', [{ code: '001820', sellAvg: 110 }]);
+  assert.equal(out[0].returnPct, 10);
+  assert.equal(out[0].holdDays, 1);
+});
+
+test('autoFillDerivedFieldsForUpsert: (b) 전날 buyAvg=100, 다음날 sellAvg=95 → -5', () => {
+  const days = { '2026-06-18': { records: [{ code: '001820', buyAvg: 100 }] } };
+  const out = autoFillDerivedFieldsForUpsert(days, '2026-06-19', [{ code: '001820', sellAvg: 95 }]);
+  assert.equal(out[0].returnPct, -5);
+});
+
+test('autoFillDerivedFieldsForUpsert: (b2) 소수 2자리 반올림', () => {
+  const days = { '2026-06-18': { records: [{ code: '001820', buyAvg: 200 }] } };
+  const out = autoFillDerivedFieldsForUpsert(days, '2026-06-19', [{ code: '001820', sellAvg: 189.5 }]);
+  // ((189.5 - 200) / 200) * 100 = -5.25
+  assert.equal(out[0].returnPct, -5.25);
+});
+
+test('autoFillDerivedFieldsForUpsert: (c) 같은 incoming buyAvg=100/sellAvg=110 → returnPct 10, holdDays 0', () => {
+  const out = autoFillDerivedFieldsForUpsert({}, '2026-06-19', [
+    { code: '001820', buyAvg: 100, sellAvg: 110 },
+  ]);
+  assert.equal(out[0].returnPct, 10);
+  assert.equal(out[0].holdDays, 0);
+});
+
+test('autoFillDerivedFieldsForUpsert: (d) 같은 date 기존 buyAvg=100, incoming sellAvg=110 → returnPct 10', () => {
+  const days = { '2026-06-19': { records: [{ code: '001820', buyAvg: 100 }] } };
+  const out = autoFillDerivedFieldsForUpsert(days, '2026-06-19', [{ code: '001820', sellAvg: 110 }]);
+  assert.equal(out[0].returnPct, 10);
+  assert.equal(out[0].holdDays, 0);
+});
+
+test('autoFillDerivedFieldsForUpsert: (e) incoming returnPct 이미 7.77 → 보존', () => {
+  const days = { '2026-06-18': { records: [{ code: '001820', buyAvg: 100 }] } };
+  const out = autoFillDerivedFieldsForUpsert(days, '2026-06-19', [
+    { code: '001820', sellAvg: 110, returnPct: 7.77 },
+  ]);
+  // 참조 buyAvg=100으로 10이 계산 가능하지만, 기존 값 보존이 우선.
+  assert.equal(out[0].returnPct, 7.77);
+});
+
+test('autoFillDerivedFieldsForUpsert: (f) 참조 buyAvg 없으면 returnPct 미설정', () => {
+  const out = autoFillDerivedFieldsForUpsert({}, '2026-06-19', [{ code: '001820', sellAvg: 110 }]);
+  assert.equal(out[0].returnPct, undefined);
+});
+
+test('autoFillDerivedFieldsForUpsert: (g) 여러 이전 매수 → 가장 최근 buyAvg 기준', () => {
+  const days = {
+    '2026-06-10': { records: [{ code: '001820', buyAvg: 90 }] },
+    '2026-06-17': { records: [{ code: '001820', buyAvg: 100 }] },
+  };
+  const out = autoFillDerivedFieldsForUpsert(days, '2026-06-19', [{ code: '001820', sellAvg: 110 }]);
+  // 가장 최근 매수 buyAvg=100 기준 → ((110-100)/100)*100 = 10
+  assert.equal(out[0].returnPct, 10);
+});
+
+test('autoFillDerivedFieldsForUpsert: (h) incoming buyAvg 비어있으면 참조 buyAvg로 채움', () => {
+  const days = { '2026-06-18': { records: [{ code: '001820', buyAvg: 100 }] } };
+  const out = autoFillDerivedFieldsForUpsert(days, '2026-06-19', [{ code: '001820', sellAvg: 110 }]);
+  assert.equal(out[0].buyAvg, 100);
+  assert.equal(out[0].returnPct, 10);
+});
+
+test('autoFillDerivedFieldsForUpsert: (h2) incoming buyAvg 있으면 참조로 덮어쓰지 않음', () => {
+  const days = { '2026-06-18': { records: [{ code: '001820', buyAvg: 100 }] } };
+  const out = autoFillDerivedFieldsForUpsert(days, '2026-06-19', [
+    { code: '001820', buyAvg: 105, sellAvg: 110 },
+  ]);
+  // 같은 record에 buyAvg가 있으므로 그 값(105) 기준으로 계산, 덮어쓰기 없음.
+  assert.equal(out[0].buyAvg, 105);
+  assert.equal(out[0].returnPct, Math.round(((110 - 105) / 105) * 100 * 100) / 100);
+});
+
+test('autoFillDerivedFieldsForUpsert: 매수-only는 returnPct/buyAvg 보정 안 함', () => {
+  const days = { '2026-06-18': { records: [{ code: '001820', buyAvg: 90 }] } };
+  const out = autoFillDerivedFieldsForUpsert(days, '2026-06-19', [{ code: '001820', buyAvg: 100 }]);
+  assert.equal(out[0].returnPct, undefined);
+  assert.equal(out[0].buyAvg, 100);
+});
+
+test('autoFillDerivedFieldsForUpsert: 원본 incoming 불변(순수 함수)', () => {
+  const days = { '2026-06-18': { records: [{ code: '001820', buyAvg: 100 }] } };
+  const incoming = [{ code: '001820', sellAvg: 110 }];
+  autoFillDerivedFieldsForUpsert(days, '2026-06-19', incoming);
+  assert.equal(incoming[0].returnPct, undefined);
+  assert.equal(incoming[0].buyAvg, undefined);
 });
