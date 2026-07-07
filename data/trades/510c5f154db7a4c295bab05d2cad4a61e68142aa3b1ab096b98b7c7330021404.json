@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-07T14:17:59.663Z",
+  "updatedAt": "2026-07-07T14:18:15.773Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -328,7 +328,7 @@
           "returnPct": 7.98,
           "prevClose": 50200,
           "holdDays": 0,
-          "reason": "",
+          "reason": "가온칩스는 ASIC 하면 바로 생각나는 기업이라서 매매 도전했다. 결과는 매우 성공적이였다.",
           "tags": []
         },
         {
