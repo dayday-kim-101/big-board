@@ -1988,7 +1988,7 @@
       "tradingValue": 58856000000,
       "tvToMcapPct": 10.16,
       "manual": {
-        "newOrExisting": "",
+        "newOrExisting": "기존",
         "theme": "",
         "material": "ARM과 공급체결 소식",
         "materialPersistence": "",
