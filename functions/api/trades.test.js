@@ -4,7 +4,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { isValidDate } from './trades.js';
-import { autoFillHoldDaysForUpsert, mergeDayRecords } from './_trades-core.js';
+import { autoFillDerivedFieldsForUpsert, mergeDayRecords } from './_trades-core.js';
 
 // --- isValidDate ---
 
@@ -160,7 +160,7 @@ test('op 검증: 알 수 없는 op (null) → 422', () => {
 
 function upsertRecords(days, date, incomingRecords) {
   const existingDay = days[date] ?? { journal: '', resultTag: '', records: [] };
-  const filled = autoFillHoldDaysForUpsert(days, date, incomingRecords);
+  const filled = autoFillDerivedFieldsForUpsert(days, date, incomingRecords);
   return mergeDayRecords(existingDay.records, filled);
 }
 
@@ -199,4 +199,25 @@ test('upsert 경로: 당일 매수+매도 새 row → holdDays 0 저장', () => 
     { code: '005930', buyAvg: 70000, sellAvg: 71000, returnPct: 1.4 },
   ]);
   assert.equal(records[0].holdDays, 0);
+});
+
+test('upsert 경로: 다음날 매도 row는 자동 계산된 returnPct로 저장', () => {
+  const days = {
+    '2026-06-18': { journal: '', resultTag: '', records: [{ code: '001820', buyAvg: 100 }] },
+  };
+  const records = upsertRecords(days, '2026-06-19', [{ code: '001820', sellAvg: 110 }]);
+  assert.equal(records.length, 1);
+  assert.equal(records[0].returnPct, 10); // ((110-100)/100)*100
+  assert.equal(records[0].buyAvg, 100); // 참조 buyAvg 보정
+  assert.equal(records[0].holdDays, 1);
+});
+
+test('upsert 경로: incoming returnPct 존재 시 보존(자동 계산 덮어쓰기 금지)', () => {
+  const days = {
+    '2026-06-18': { journal: '', resultTag: '', records: [{ code: '001820', buyAvg: 100 }] },
+  };
+  const records = upsertRecords(days, '2026-06-19', [
+    { code: '001820', sellAvg: 110, returnPct: 7.77 },
+  ]);
+  assert.equal(records[0].returnPct, 7.77);
 });
