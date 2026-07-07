@@ -1,8 +1,8 @@
 // jaelyo Function 순수 헬퍼 테스트 — node --test
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseDirDates, applyManualPatch, isValidDate } from './jaelyo.js';
-import { normalizeBoard } from './_jaelyo-core.js';
+import { parseDirDates, applyManualPatch, isValidDate, mergeBoardWithGlobal } from './jaelyo.js';
+import { normalizeBoard, sanitizeManual } from './_jaelyo-core.js';
 
 test('isValidDate: YYYY-MM-DD만 통과', () => {
   assert.equal(isValidDate('2026-05-07'), true);
@@ -68,6 +68,22 @@ test('applyManualPatch: 프로토타입 오염 키는 sanitize에서 제거', ()
   assert.equal(Object.prototype.hasOwnProperty.call(m, 'polluted'), false);
   assert.equal(Object.prototype.hasOwnProperty.call(m, 'constructor'), false);
   assert.equal(({}).polluted, undefined, '전역 Object 오염 없음');
+});
+
+test('mergeBoardWithGlobal: GET 시 빈 필드에 code-level 글로벌 폴백(사용자 값 보존)', () => {
+  const board = {
+    date: '2026-07-07',
+    rows: [
+      { code: '005930', manual: sanitizeManual({ theme: '메모리', notes: '' }) }, // notes 빈값
+      { code: '111111', manual: sanitizeManual({}) }, // 글로벌에 없음 → 그대로
+    ],
+  };
+  const global = { '005930': sanitizeManual({ theme: 'SEED', material: 'HBM', notes: '이어진 메모' }) };
+  const merged = mergeBoardWithGlobal(board, global);
+  assert.equal(merged.rows[0].manual.theme, '메모리'); // 행 값 우선
+  assert.equal(merged.rows[0].manual.material, 'HBM'); // 빈 필드 폴백
+  assert.equal(merged.rows[0].manual.notes, '이어진 메모'); // 빈 notes 폴백
+  assert.equal(merged.rows[1].manual.theme, ''); // 글로벌 없음 → 빈값 유지
 });
 
 test('PUT 라운드트립(applyManualPatch→normalizeBoard): 패치 행 manual 유지·타 행 불변', () => {
