@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-07T13:54:58.019Z",
+  "updatedAt": "2026-07-07T13:54:58.852Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -555,7 +555,7 @@
           "pnl": null,
           "returnPct": null,
           "prevClose": 253500,
-          "holdDays": 1,
+          "holdDays": 0,
           "reason": "",
           "tags": []
         },
@@ -572,7 +572,7 @@
           "pnl": null,
           "returnPct": null,
           "prevClose": 92300,
-          "holdDays": 0,
+          "holdDays": 1,
           "reason": "",
           "tags": []
         }
