@@ -24,6 +24,109 @@ function num(v) {
   return Number.isFinite(n) ? n : null;
 }
 
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+// holdDays 정수 정제(음수/비유효 → 0, undefined/null → 0).
+function cleanHoldDays(v) {
+  if (v === undefined || v === null) return 0;
+  const hd = Math.trunc(Number(v));
+  return Number.isFinite(hd) && hd >= 0 ? hd : 0;
+}
+
+// --- 매수/매도 판정 ---
+
+// 유효한 양수인지.
+function positive(v) {
+  const n = num(v);
+  return n !== null && n > 0;
+}
+
+// 매수 기록: buyAvg/buyAmount 중 하나라도 유효한 양수면 true.
+export function isBuyRecord(rec) {
+  return !!rec && (positive(rec.buyAvg) || positive(rec.buyAmount));
+}
+
+// 매도/청산 기록: sellAvg/sellAmount/qty가 유효한 양수이거나 returnPct가 유효 숫자면 true.
+// (returnPct만으로도 키움 당일매매 청산행으로 인정 — 0/음수 수익률도 청산.)
+// 이 스키마의 qty는 키움 당일매매의 매도수량(청산 수량)이다.
+export function isSellRecord(rec) {
+  return (
+    !!rec && (positive(rec.sellAvg) || positive(rec.sellAmount) || positive(rec.qty) || num(rec.returnPct) !== null)
+  );
+}
+
+// YYYY-MM-DD 두 날짜의 calendar day 차이(to - from). 같은 날 0, 다음날 1.
+// 음수/비유효는 0으로 clamp.
+function calendarDayDiff(fromDate, toDate) {
+  const a = Date.parse(`${fromDate}T00:00:00Z`);
+  const b = Date.parse(`${toDate}T00:00:00Z`);
+  if (!Number.isFinite(a) || !Number.isFinite(b)) return 0;
+  const diff = Math.round((b - a) / 86400000);
+  return diff > 0 ? diff : 0;
+}
+
+// days 맵에서 sellDate 이전(<) 날짜 중 code 매수 기록이 있는 가장 최근 날짜를 반환. 없으면 null.
+function findMostRecentBuyDate(daysMap, code, sellDate) {
+  let best = null;
+  for (const [d, day] of Object.entries(daysMap)) {
+    if (!DATE_RE.test(d) || d >= sellDate) continue;
+    if (!day || !Array.isArray(day.records)) continue;
+    const hasBuy = day.records.some(
+      (r) => String(r.code ?? '').trim() === code && isBuyRecord(r)
+    );
+    if (hasBuy && (best === null || d > best)) best = d;
+  }
+  return best;
+}
+
+// --- 보유일 자동 계산 ---
+
+// upsert 직전 incoming records의 holdDays를 자동 계산해 채운다. 순수함수.
+// 규칙(매도/청산 기록에만 적용):
+//   1. incoming record 자체에 매수+매도가 모두 있으면 holdDays=0 (당일 청산).
+//   2. 같은 date 기존 records에 같은 code 매수 기록이 있으면 holdDays=0.
+//   3. 이전 날짜들에서 같은 code의 가장 최근 매수일을 찾아 (매도일 - 매수일) 차이.
+//   4. 참조 매수일을 못 찾으면 기존 rec.holdDays 정제(없으면 0).
+// 매수-only 등 청산이 아닌 기록은 자동 증가하지 않고 rec.holdDays 정제값만 유지.
+export function autoFillHoldDaysForUpsert(days, date, incomingRecords) {
+  const daysMap = days && typeof days === 'object' && !Array.isArray(days) ? days : {};
+  const incoming = Array.isArray(incomingRecords) ? incomingRecords : [];
+
+  return incoming.map((rec) => {
+    if (!rec || typeof rec !== 'object') return rec;
+
+    // 청산이 아니면 자동 계산 대상 아님.
+    if (!isSellRecord(rec)) {
+      return { ...rec, holdDays: cleanHoldDays(rec.holdDays) };
+    }
+
+    // 1. 같은 record 안에 매수+매도가 모두 → 당일 청산.
+    if (isBuyRecord(rec)) {
+      return { ...rec, holdDays: 0 };
+    }
+
+    const code = String(rec.code ?? '').trim();
+
+    // 2. 같은 date 기존 records에 같은 code 매수 → 당일 청산.
+    const sameDay = daysMap[date];
+    if (sameDay && Array.isArray(sameDay.records)) {
+      const hasBuySameDay = sameDay.records.some(
+        (r) => String(r.code ?? '').trim() === code && isBuyRecord(r)
+      );
+      if (hasBuySameDay) return { ...rec, holdDays: 0 };
+    }
+
+    // 3. 이전 날짜들의 가장 최근 매수일 기준.
+    const buyDate = code ? findMostRecentBuyDate(daysMap, code, date) : null;
+    if (buyDate) {
+      return { ...rec, holdDays: calendarDayDiff(buyDate, date) };
+    }
+
+    // 4. 참조 매수일 없음 → 기존 holdDays 정제 or 0.
+    return { ...rec, holdDays: cleanHoldDays(rec.holdDays) };
+  });
+}
+
 // --- 날짜별 결과 태그 정제 ---
 
 // 날짜별 매매 성공/실패 표시. 허용값: "" | "success" | "failure".
