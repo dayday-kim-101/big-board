@@ -9,6 +9,9 @@ import {
   buildRankMap,
   attachPrevRank,
   mergeManual,
+  mergeRowsWithGlobalManual,
+  updateGlobalManual,
+  buildGlobalManualByCodeFromBoards,
   normalizeBoard,
   sanitizeManual,
   emptyManual,
@@ -153,6 +156,91 @@ test('mergeManual: prevRows에 없는 code는 자신의 manual을 보존(재실�
   const merged = mergeManual([{ code: '028050', rank: 5, manual: { theme: '바이오' } }], []);
   assert.equal(merged[0].manual.theme, '바이오');
   assert.equal(merged[0].manual.material, '');
+});
+
+// --- mergeRowsWithGlobalManual: 행 값 우선 + 빈 필드 글로벌 폴백 ---
+test('mergeRowsWithGlobalManual: 행 non-empty 우선, 빈 필드만 글로벌로 폴백', () => {
+  const global = {
+    '005930': sanitizeManual({ theme: '반도체', material: 'HBM', notes: '글로벌 메모' }),
+  };
+  const rows = [
+    { code: '005930', manual: sanitizeManual({ theme: '메모리', notes: '' }) },
+  ];
+  const merged = mergeRowsWithGlobalManual(rows, global);
+  assert.equal(merged[0].manual.theme, '메모리'); // 행 값 우선(덮지 않음)
+  assert.equal(merged[0].manual.material, 'HBM'); // 빈 필드 → 글로벌 폴백
+  assert.equal(merged[0].manual.notes, '글로벌 메모'); // notes도 빈값이면 폴백
+});
+
+test('mergeRowsWithGlobalManual: 글로벌에 없는 code는 행 manual 그대로(8키 정제)', () => {
+  const merged = mergeRowsWithGlobalManual([{ code: '111111', manual: { theme: '바이오' } }], {});
+  assert.equal(merged[0].manual.theme, '바이오');
+  assert.equal(merged[0].manual.material, '');
+  assert.deepEqual(Object.keys(merged[0].manual).sort(), [...MANUAL_FIELDS].sort());
+});
+
+test('mergeRowsWithGlobalManual: 프로토타입 오염 code는 폴백 안 함', () => {
+  const merged = mergeRowsWithGlobalManual([{ code: '__proto__', manual: {} }], {});
+  assert.deepEqual(merged[0].manual, emptyManual());
+  assert.equal(({}).theme, undefined);
+});
+
+// --- updateGlobalManual: patch만 code-level map 갱신 ---
+test('updateGlobalManual: patch 필드만 갱신, 나머지 기존 글로벌 유지', () => {
+  const g0 = { '005930': sanitizeManual({ theme: '반도체', material: 'HBM', notes: '메모' }) };
+  const g1 = updateGlobalManual(g0, '005930', { material: 'DDR5' });
+  assert.equal(g1['005930'].material, 'DDR5'); // patch 반영
+  assert.equal(g1['005930'].theme, '반도체'); // 미포함 필드 보존
+  assert.equal(g1['005930'].notes, '메모'); // notes 보존
+  assert.equal(g0['005930'].material, 'HBM'); // 입력 불변
+});
+
+test('updateGlobalManual: 없던 code는 새로 추가', () => {
+  const g1 = updateGlobalManual({}, '000660', { theme: '반도체' });
+  assert.equal(g1['000660'].theme, '반도체');
+  assert.deepEqual(Object.keys(g1['000660']).sort(), [...MANUAL_FIELDS].sort());
+});
+
+test('updateGlobalManual: 빈 문자열로도 필드를 비울 수 있음', () => {
+  const g0 = { '005930': sanitizeManual({ theme: '반도체' }) };
+  const g1 = updateGlobalManual(g0, '005930', { theme: '' });
+  assert.equal(g1['005930'].theme, ''); // 명시적 빈값 갱신
+});
+
+test('updateGlobalManual: 프로토타입 오염 방어(code·필드)', () => {
+  const g1 = updateGlobalManual({}, '__proto__', { theme: 'x' });
+  assert.equal(Object.prototype.hasOwnProperty.call(g1, '__proto__'), false);
+  const g2 = updateGlobalManual({}, '005930', JSON.parse('{"__proto__":{"polluted":true},"theme":"건설"}'));
+  assert.equal(g2['005930'].theme, '건설');
+  assert.equal(({}).polluted, undefined);
+});
+
+// --- buildGlobalManualByCodeFromBoards: dated non-empty 우선, seed 폴백 ---
+test('buildGlobalManualByCodeFromBoards: 최신 dated non-empty가 seed보다 우선', () => {
+  const boards = [
+    { date: '2026-07-01', rows: [{ code: '005930', manual: sanitizeManual({ theme: '반도체' }) }] },
+    { date: '2026-07-06', rows: [{ code: '005930', manual: sanitizeManual({ theme: '메모리(HBM)' }) }] },
+  ];
+  const seeds = { manualSeed: { '005930': { theme: 'SEED테마', material: 'SEED재료' } }, notesSeed: { '005930': 'SEED메모' } };
+  const g = buildGlobalManualByCodeFromBoards(boards, seeds);
+  assert.equal(g['005930'].theme, '메모리(HBM)'); // 최신 dated non-empty 우선
+  assert.equal(g['005930'].material, 'SEED재료'); // dated에 없던 필드 → seed 폴백
+  assert.equal(g['005930'].notes, 'SEED메모'); // notes seed 폴백
+});
+
+test('buildGlobalManualByCodeFromBoards: 빈 dated 필드는 이전 non-empty를 덮지 않음', () => {
+  const boards = [
+    { date: '2026-07-01', rows: [{ code: '005930', manual: sanitizeManual({ theme: '반도체', notes: '옛 메모' }) }] },
+    { date: '2026-07-07', rows: [{ code: '005930', manual: emptyManual() }] }, // 전부 빈 최신 파일
+  ];
+  const g = buildGlobalManualByCodeFromBoards(boards);
+  assert.equal(g['005930'].theme, '반도체'); // 빈 최신 파일이 덮지 않음
+  assert.equal(g['005930'].notes, '옛 메모');
+});
+
+test('buildGlobalManualByCodeFromBoards: notes-seed만 있는 code도 포함', () => {
+  const g = buildGlobalManualByCodeFromBoards([], { notesSeed: { '000150': '(테마) 지주' } });
+  assert.equal(g['000150'].notes, '(테마) 지주');
 });
 
 // --- normalizeBoard ---

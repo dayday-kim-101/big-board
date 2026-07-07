@@ -12,11 +12,14 @@ import {
   buildRankMap,
   attachPrevRank,
   mergeManual,
+  mergeRowsWithGlobalManual,
   normalizeBoard,
 } from '../functions/api/_jaelyo-core.js';
 
 const OUT_DIR = process.env.JAELYO_DIR || 'data/jaelyo';
 const TOP_N = Number(process.env.JAELYO_TOP_N || 100);
+// code-level 글로벌 manual(종목별 메모 영속) — 새 거래일에도 code별 메모가 이어지게 폴백.
+const MANUAL_BY_CODE_FILE = 'manual-by-code.json';
 
 // --- 순수 헬퍼 (테스트 대상) ---
 
@@ -75,6 +78,16 @@ async function readBoard(dir, date) {
   }
 }
 
+// code-level 글로벌 manual map. 파일 없으면 {} (신규 배포·최초 수집 시).
+async function readGlobalManual(dir) {
+  try {
+    const obj = JSON.parse(await readFile(path.join(dir, MANUAL_BY_CODE_FILE), 'utf8'));
+    return obj && typeof obj === 'object' ? obj : {};
+  } catch {
+    return {};
+  }
+}
+
 // --- 메인 ---
 
 async function main() {
@@ -114,6 +127,10 @@ async function main() {
   const prevBoard = await readBoard(OUT_DIR, prevDate);
   let rows = attachPrevRank(ranked, buildRankMap(prevBoard?.rows));
   rows = mergeManual(rows, existing?.rows);
+  // 같은 날짜 manual을 우선 보존한 뒤, 남은 빈 필드는 code-level 글로벌 메모로 폴백.
+  // → 새 거래일에도 같은 종목이면 예전에 입력한 메모/수동정보가 따라온다.
+  const globalByCode = await readGlobalManual(OUT_DIR);
+  rows = mergeRowsWithGlobalManual(rows, globalByCode);
 
   const board = normalizeBoard({ date, collectedAt: new Date().toISOString(), source: 'naver', rows });
   await mkdir(OUT_DIR, { recursive: true });

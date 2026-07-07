@@ -10,7 +10,8 @@
     "jaelyo:seed": "node scripts/build-jaelyo-seed.mjs",
     "jaelyo:prefill": "node scripts/jaelyo-prefill.mjs",
     "test": "node --test",
-    "jaelyo:prefill-notes": "node scripts/jaelyo-prefill-notes.mjs"
+    "jaelyo:prefill-notes": "node scripts/jaelyo-prefill-notes.mjs",
+    "jaelyo:manual-by-code": "node scripts/build-jaelyo-manual-by-code.mjs"
   },
   "engines": {
     "node": ">=20"

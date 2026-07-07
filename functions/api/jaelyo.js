@@ -4,10 +4,17 @@
 //
 // 데이터는 data/jaelyo/<date>.json (public/ 밖). Function이 GitHub에서 직접 read/write.
 import { readJson, writeJson, listDir } from './_github.js';
-import { sanitizeManual, normalizeBoard } from './_jaelyo-core.js';
+import {
+  sanitizeManual,
+  normalizeBoard,
+  mergeRowsWithGlobalManual,
+  updateGlobalManual,
+} from './_jaelyo-core.js';
 
 const DIR = 'data/jaelyo';
 const filePath = (date) => `${DIR}/${date}.json`;
+// code-level 글로벌 manual(종목별 메모 영속). 날짜 무관하게 code로 메모를 이어준다.
+const MANUAL_BY_CODE_PATH = `${DIR}/manual-by-code.json`;
 
 const JSON_HEADERS = {
   'Content-Type': 'application/json; charset=utf-8',
@@ -48,6 +55,12 @@ export function applyManualPatch(board, code, manual) {
   return { ...board, rows: nextRows };
 }
 
+// 보드 rows의 빈 manual 필드를 code-level 글로벌 값으로 폴백 채운다(사용자 값은 보존).
+export function mergeBoardWithGlobal(board, globalByCode) {
+  const rows = Array.isArray(board?.rows) ? board.rows : [];
+  return { ...board, rows: mergeRowsWithGlobalManual(rows, globalByCode) };
+}
+
 // --- HTTP 핸들러 ---
 
 function envReady(env) {
@@ -76,8 +89,13 @@ export async function onRequestGet({ request, env }) {
 
   if (!isValidDate(date)) return err('date 형식은 YYYY-MM-DD');
   try {
-    const { data } = await readJson(env, filePath(date));
-    return new Response(JSON.stringify(data || emptyBoard(date)), { headers: BOARD_HEADERS });
+    const [{ data }, { data: globalByCode }] = await Promise.all([
+      readJson(env, filePath(date)),
+      readJson(env, MANUAL_BY_CODE_PATH), // 없으면 data:null → {} 취급
+    ]);
+    const board = data || emptyBoard(date);
+    const merged = mergeBoardWithGlobal(board, globalByCode || {});
+    return new Response(JSON.stringify(merged), { headers: BOARD_HEADERS });
   } catch (e) {
     return err(`보드 읽기 실패: ${e.message}`, 502);
   }
@@ -99,7 +117,10 @@ export async function onRequestPut({ request, env }) {
   if (!body?.manual || typeof body.manual !== 'object') return err('manual 객체 필요');
 
   try {
-    const { data } = await readJson(env, filePath(date));
+    const [{ data }, { data: globalData }] = await Promise.all([
+      readJson(env, filePath(date)),
+      readJson(env, MANUAL_BY_CODE_PATH),
+    ]);
     if (!data) return err('해당 날짜 보드가 없습니다(아직 수집 전)', 404);
     let next;
     try {
@@ -108,8 +129,18 @@ export async function onRequestPut({ request, env }) {
       return err(e.message, 404);
     }
     const saved = normalizeBoard(next);
+
+    // 1) 날짜 파일 저장.
     await writeJson(env, filePath(date), saved, `chore: 재료정리 ${date} ${code} 수동입력 갱신`);
-    return new Response(JSON.stringify(saved), { headers: JSON_HEADERS });
+
+    // 2) code-level 글로벌 map에도 같은 patch 반영(종목별 메모 영속). 저장은 실패해도
+    //    날짜 파일은 이미 반영됐으므로 사용자 입력이 유실되지 않도록 별도로 처리.
+    const nextGlobal = updateGlobalManual(globalData || {}, code, body.manual);
+    await writeJson(env, MANUAL_BY_CODE_PATH, nextGlobal, `chore: 재료정리 ${code} 종목 메모 갱신`);
+
+    // 3) 응답은 글로벌 폴백까지 반영된 보드.
+    const merged = mergeBoardWithGlobal(saved, nextGlobal);
+    return new Response(JSON.stringify(merged), { headers: JSON_HEADERS });
   } catch (e) {
     return err(`저장 실패: ${e.message}`, 502);
   }

@@ -150,6 +150,93 @@ export function mergeManual(newRows, prevRows = []) {
   }));
 }
 
+// --- code-level 글로벌 manual (종목별 메모 영속) ---
+//
+// 배경: 재료정리 메모/수동정보는 '날짜'가 아니라 '종목'에 귀속되어야 한다. 새 거래일 파일이
+//       생겨도 같은 code면 기존 메모가 따라오고, 사용자가 수정한 것만 종목 정보로 갱신된다.
+//       실체는 data/jaelyo/manual-by-code.json — { "005930": { ...manual 8키... }, ... }.
+//
+// 프로토타입 오염 방어: code 키 자체(__proto__ 등)를 map에 쓰지 않고, 값은 sanitizeManual로 정제.
+function isUnsafeKey(key) {
+  return key === '__proto__' || key === 'constructor' || key === 'prototype';
+}
+
+// 행별 manual에 code-level 글로벌 값을 빈 필드 폴백으로 채운다.
+// 우선순위: row.manual의 non-empty 값 > globalByCode[code]. 사용자가 채운 값은 절대 덮지 않는다.
+export function mergeRowsWithGlobalManual(rows, globalByCode = {}) {
+  const g = globalByCode || {};
+  return (rows ?? []).map((r) => {
+    const code = String(r?.code ?? '');
+    const fallback = !isUnsafeKey(code) && Object.prototype.hasOwnProperty.call(g, code) ? g[code] : null;
+    return { ...r, manual: fillEmptyManual(r?.manual, fallback) };
+  });
+}
+
+// base(행) manual을 기준으로 빈 필드만 fallback(글로벌)으로 채운 8키 manual 반환.
+function fillEmptyManual(baseManual, fallbackManual) {
+  const base = sanitizeManual(baseManual);
+  const fb = sanitizeManual(fallbackManual);
+  const out = { ...base };
+  for (const k of MANUAL_FIELDS) {
+    if (out[k] === '') out[k] = fb[k];
+  }
+  return out;
+}
+
+// 사용자가 수정한 patch만 code-level map에 반영한 '새' map을 반환(입력 불변).
+// patch에 있는 키만 갱신되고 나머지는 기존 글로벌 값을 유지한다. 빈 문자열로도 갱신 가능
+// (필드를 명시적으로 비울 수 있음). sanitizeManual로 화이트리스트·프로토타입 오염 방어 유지.
+export function updateGlobalManual(globalByCode, code, patch) {
+  const src = globalByCode || {};
+  const next = { ...src };
+  const key = String(code ?? '').trim();
+  if (!key || isUnsafeKey(key)) return next;
+  const existing = Object.prototype.hasOwnProperty.call(src, key) ? src[key] : {};
+  next[key] = sanitizeManual({ ...sanitizeManual(existing), ...patch });
+  return next;
+}
+
+// 여러 dated 보드 + 선택적 seed로 code-level 글로벌 manual map을 구성한다(순수 함수).
+// 우선순위(낮음→높음): manualSeed/notesSeed < 오래된 dated 보드 < 최신 dated 보드.
+//   - 필드별로 non-empty 값만 채택하고, 더 최신 날짜의 non-empty가 이전 값을 덮는다.
+//   - 따라서 사용자가 수정한 최신 dated 값이 seed보다 항상 우선된다.
+// seeds: { manualSeed?: {code: {구조화필드...}}, notesSeed?: {code: notes문자열} }.
+export function buildGlobalManualByCodeFromBoards(boards = [], seeds = {}) {
+  const manualSeed = seeds?.manualSeed || {};
+  const notesSeed = seeds?.notesSeed || {};
+  const acc = {}; // code -> { field: non-empty value }
+
+  // 소스의 non-empty 필드만 누적(뒤에 오는 소스가 앞을 덮음).
+  const apply = (code, manual) => {
+    const key = String(code ?? '').trim();
+    if (!key || isUnsafeKey(key)) return;
+    const clean = sanitizeManual(manual);
+    if (!Object.prototype.hasOwnProperty.call(acc, key)) acc[key] = {};
+    for (const k of MANUAL_FIELDS) {
+      if (clean[k] !== '') acc[key][k] = clean[k];
+    }
+  };
+
+  // 1) seed (최저 우선순위)
+  for (const code of Object.keys(manualSeed)) apply(code, manualSeed[code]);
+  for (const code of Object.keys(notesSeed)) apply(code, { notes: notesSeed[code] });
+
+  // 2) dated 보드 — 날짜 오름차순으로 적용해 '최신 non-empty' 우선.
+  const sorted = [...(boards ?? [])].sort((a, b) => {
+    const da = String(a?.date ?? '');
+    const db = String(b?.date ?? '');
+    return da < db ? -1 : da > db ? 1 : 0;
+  });
+  for (const b of sorted) {
+    for (const r of b?.rows ?? []) apply(r?.code, r?.manual);
+  }
+
+  // 8키 manual로 정제해 반환.
+  const out = {};
+  for (const key of Object.keys(acc)) out[key] = sanitizeManual(acc[key]);
+  return out;
+}
+
 // 최종 스키마로 정규화 — 알 수 없는 필드 제거, manual 항상 7키 존재.
 export function normalizeBoard({ date, rows = [], collectedAt = null, source = 'naver' }) {
   return {
