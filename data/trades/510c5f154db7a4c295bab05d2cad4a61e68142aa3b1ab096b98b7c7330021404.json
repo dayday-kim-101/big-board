@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-07T14:17:48.415Z",
+  "updatedAt": "2026-07-07T14:17:59.663Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -311,7 +311,7 @@
           "returnPct": null,
           "prevClose": 39300,
           "holdDays": 0,
-          "reason": "",
+          "reason": "카카오는 욕심내지않고 예수금 확보를 위해 매도하였다.",
           "tags": []
         },
         {
