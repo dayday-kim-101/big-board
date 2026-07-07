@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-07T14:16:36.547Z",
+  "updatedAt": "2026-07-07T14:16:39.584Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -385,7 +385,7 @@
           "returnPct": null,
           "prevClose": 53100,
           "holdDays": 1,
-          "reason": "",
+          "reason": "HPSP가 재료가 이어지지않고 하락하여 자동손절되었다.",
           "tags": []
         }
       ]
