@@ -125,6 +125,21 @@ function codeCell(row, date) {
   a.target = '_blank';
   a.rel = 'noopener noreferrer';
   a.title = `${row.name} 네이버뉴스 검색${date ? ` (${date})` : ''}`;
+  // 명시적으로 새 탭/새 창을 우선 시도 — 일부 환경에서 target="_blank"만으론
+  // 현재 페이지가 대체돼 주식전광판으로 돌아오기 불편하다는 피드백 반영.
+  // window.open이 성공(팝업 허용)했을 때만 기본 이동을 막고, 없거나 차단/테스트
+  // 환경이면 anchor 기본 target="_blank" 이동으로 안전하게 폴백한다.
+  a.addEventListener('click', (ev) => {
+    const opener = typeof window !== 'undefined' && typeof window.open === 'function' ? window.open : null;
+    if (!opener) return; // window.open 없음 → anchor 기본 새 탭 폴백
+    let opened = null;
+    try {
+      opened = opener(a.href, '_blank', 'noopener,noreferrer');
+    } catch {
+      opened = null; // 팝업 차단 등 예외 → 기본 동작으로 폴백
+    }
+    if (opened) ev.preventDefault?.();
+  });
   td.appendChild(a);
   return td;
 }
