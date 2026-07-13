@@ -199,6 +199,9 @@ test('renderBoard: onMoveRow — stock/memo 모두 위/아래 버튼, 경계 dis
     { type: 'memo', id: 'm', text: '' },
     { market: 'KR', code: 'B', name: 'b', quote: null },
   ] }, { onMoveRow: (i, d) => calls.push([i, d]) });
+  const memoCell = root.find('memo-cell');
+  assert.equal(memoCell.colSpan, 7, 'memo row는 actions 열까지 포함해 한 행 전체를 채움');
+  assert.ok(root.find('board-memo-line'), 'full-width memo line wrapper');
   const ups = root.findAll('move-up');
   const downs = root.findAll('move-down');
   assert.equal(ups.length, 3, '모든 행(stock+memo)에 위 버튼');

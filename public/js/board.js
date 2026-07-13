@@ -10,30 +10,39 @@ function cell(tag, text, className) {
   return el;
 }
 
-// 행 공통 액션 셀: 위/아래 이동(onMoveRow) + 삭제(onRemove).
+// 행 공통 액션 버튼: 위/아래 이동(onMoveRow) + 삭제(onRemove).
 // 첫 행의 위, 마지막 행의 아래 버튼은 disabled.
-function actionsCell(row, i, total, onRemove, onMoveRow) {
-  const td = cell('td', undefined, 'actions');
+function actionButtons(row, i, total, onRemove, onMoveRow) {
+  const wrap = document.createElement('div');
+  wrap.className = 'actions';
   if (onMoveRow) {
     const up = cell('button', '▲', 'move-up');
     up.type = 'button';
     up.title = '위로 이동';
     up.disabled = i === 0;
     up.addEventListener('click', () => onMoveRow(i, -1));
-    td.appendChild(up);
+    wrap.appendChild(up);
     const down = cell('button', '▼', 'move-down');
     down.type = 'button';
     down.title = '아래로 이동';
     down.disabled = i === total - 1;
     down.addEventListener('click', () => onMoveRow(i, 1));
-    td.appendChild(down);
+    wrap.appendChild(down);
   }
   if (onRemove) {
     const btn = cell('button', '✕', 'remove');
     btn.type = 'button';
     btn.title = row.type === 'memo' ? '메모 삭제' : '종목 삭제';
     btn.addEventListener('click', () => onRemove(row, i));
-    td.appendChild(btn);
+    wrap.appendChild(btn);
+  }
+  return wrap;
+}
+
+function actionsCell(row, i, total, onRemove, onMoveRow) {
+  const td = cell('td', undefined, 'actions');
+  for (const child of Array.from(actionButtons(row, i, total, onRemove, onMoveRow).children)) {
+    td.appendChild(child);
   }
   return td;
 }
@@ -70,25 +79,28 @@ export function renderBoard(container, group, { onRemove, onChart, onMoveRow, on
   const tbody = document.createElement('tbody');
   const total = group.rows.length;
   group.rows.forEach((row, i) => {
-    // memo row: 시세 컬럼을 하나로 합쳐 한 줄 메모(빈칸 포함) 표시.
+    // memo row: 액션 열까지 포함해 한 행 전체를 채우는 메모 줄.
     if (row.type === 'memo') {
       const tr = document.createElement('tr');
       tr.className = 'memo-row';
       const td = cell('td', undefined, 'memo-cell');
-      td.colSpan = COLS.length;
+      td.colSpan = COLS.length + (showActions ? 1 : 0);
+      const line = document.createElement('div');
+      line.className = 'board-memo-line';
       if (onEditMemo) {
         const input = document.createElement('input');
         input.type = 'text';
-        input.className = 'memo-input';
+        input.className = 'memo-input board-memo-input';
         input.placeholder = '메모 입력…';
         input.value = row.text ?? '';
         input.addEventListener('change', () => onEditMemo(row, i, input.value));
-        td.appendChild(input);
+        line.appendChild(input);
       } else {
-        td.appendChild(cell('span', row.text ?? '', 'memo-text'));
+        line.appendChild(cell('span', row.text ?? '', 'memo-text board-memo-text'));
       }
+      if (showActions) line.appendChild(actionButtons(row, i, total, onRemove, onMoveRow));
+      td.appendChild(line);
       tr.appendChild(td);
-      if (showActions) tr.appendChild(actionsCell(row, i, total, onRemove, onMoveRow));
       tbody.appendChild(tr);
       return;
     }
