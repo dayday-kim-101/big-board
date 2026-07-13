@@ -17,6 +17,17 @@ test('사용자 0명 → 빈 배열', () => {
   assert.deepEqual(collectTickers([]), []);
 });
 
+test('memo row 무시 — 시세 수집 대상 아님', () => {
+  const users = [
+    { groups: [{ name: 'x', tickers: [
+      { type: 'memo', id: 'm1', text: '반도체' },
+      { type: 'memo', id: 'm2', text: '' },
+      { market: 'KR', code: '005930' },
+    ] }] },
+  ];
+  assert.deepEqual(collectTickers(users), [{ market: 'KR', code: '005930' }]);
+});
+
 test('빈 그룹/누락 필드 안전 처리', () => {
   const users = [
     { groups: [] },

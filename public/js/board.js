@@ -10,10 +10,40 @@ function cell(tag, text, className) {
   return el;
 }
 
-// group: {id, name, rows:[{market, code, name, quote}]}
-// onRemove(ticker): 종목 삭제 콜백 (옵션). 없으면 삭제 버튼 미표시.
+// 행 공통 액션 셀: 위/아래 이동(onMoveRow) + 삭제(onRemove).
+// 첫 행의 위, 마지막 행의 아래 버튼은 disabled.
+function actionsCell(row, i, total, onRemove, onMoveRow) {
+  const td = cell('td', undefined, 'actions');
+  if (onMoveRow) {
+    const up = cell('button', '▲', 'move-up');
+    up.type = 'button';
+    up.title = '위로 이동';
+    up.disabled = i === 0;
+    up.addEventListener('click', () => onMoveRow(i, -1));
+    td.appendChild(up);
+    const down = cell('button', '▼', 'move-down');
+    down.type = 'button';
+    down.title = '아래로 이동';
+    down.disabled = i === total - 1;
+    down.addEventListener('click', () => onMoveRow(i, 1));
+    td.appendChild(down);
+  }
+  if (onRemove) {
+    const btn = cell('button', '✕', 'remove');
+    btn.type = 'button';
+    btn.title = row.type === 'memo' ? '메모 삭제' : '종목 삭제';
+    btn.addEventListener('click', () => onRemove(row, i));
+    td.appendChild(btn);
+  }
+  return td;
+}
+
+// group: {id, name, rows:[{market, code, name, quote} | {type:'memo', id, text}]}
+// onRemove(row, index): 행 삭제 콜백 (옵션). 없으면 삭제 버튼 미표시.
 // onChart(ticker): 차트 열기 콜백 (옵션). 있으면 종목명·현재가가 클릭 가능.
-export function renderBoard(container, group, { onRemove, onChart } = {}) {
+// onMoveRow(index, delta): 행 위/아래 이동 콜백 (옵션). 있으면 이동 버튼 표시.
+// onEditMemo(row, index, text): memo row 텍스트 수정 콜백 (옵션). 있으면 inline input.
+export function renderBoard(container, group, { onRemove, onChart, onMoveRow, onEditMemo } = {}) {
   container.innerHTML = '';
 
   if (!group) {
@@ -25,18 +55,44 @@ export function renderBoard(container, group, { onRemove, onChart } = {}) {
     return;
   }
 
+  const showActions = Boolean(onRemove || onMoveRow);
+
   const table = document.createElement('table');
   table.className = 'board';
 
   const thead = document.createElement('thead');
   const htr = document.createElement('tr');
   for (const c of COLS) htr.appendChild(cell('th', c));
-  if (onRemove) htr.appendChild(cell('th', ''));
+  if (showActions) htr.appendChild(cell('th', ''));
   thead.appendChild(htr);
   table.appendChild(thead);
 
   const tbody = document.createElement('tbody');
-  for (const row of group.rows) {
+  const total = group.rows.length;
+  group.rows.forEach((row, i) => {
+    // memo row: 시세 컬럼을 하나로 합쳐 한 줄 메모(빈칸 포함) 표시.
+    if (row.type === 'memo') {
+      const tr = document.createElement('tr');
+      tr.className = 'memo-row';
+      const td = cell('td', undefined, 'memo-cell');
+      td.colSpan = COLS.length;
+      if (onEditMemo) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'memo-input';
+        input.placeholder = '메모 입력…';
+        input.value = row.text ?? '';
+        input.addEventListener('change', () => onEditMemo(row, i, input.value));
+        td.appendChild(input);
+      } else {
+        td.appendChild(cell('span', row.text ?? '', 'memo-text'));
+      }
+      tr.appendChild(td);
+      if (showActions) tr.appendChild(actionsCell(row, i, total, onRemove, onMoveRow));
+      tbody.appendChild(tr);
+      return;
+    }
+
     const q = row.quote;
     const tone = priceTone(q?.change);
     const tr = document.createElement('tr');
@@ -82,16 +138,9 @@ export function renderBoard(container, group, { onRemove, onChart } = {}) {
     }
     tr.appendChild(tvTd);
 
-    if (onRemove) {
-      const td = cell('td', undefined, 'actions');
-      const btn = cell('button', '✕', 'remove');
-      btn.title = '종목 삭제';
-      btn.addEventListener('click', () => onRemove(row));
-      td.appendChild(btn);
-      tr.appendChild(td);
-    }
+    if (showActions) tr.appendChild(actionsCell(row, i, total, onRemove, onMoveRow));
     tbody.appendChild(tr);
-  }
+  });
   table.appendChild(tbody);
   container.appendChild(table);
 }

@@ -35,6 +35,12 @@ class FakeEl {
     }
     return null;
   }
+  // className으로 모든 노드 찾기 (문서 순서)
+  findAll(cls, acc = []) {
+    if (this.className.split(/\s+/).includes(cls)) acc.push(this);
+    for (const c of this.children) c.findAll(cls, acc);
+    return acc;
+  }
 }
 globalThis.document = { createElement: (t) => new FakeEl(t) };
 
@@ -140,4 +146,103 @@ test('renderBoard: onChart 없으면 현재가는 plain td (버튼 없음)', () 
   ] }, {});
   assert.ok(!root.find('price-chart-btn'), 'price-chart-btn 없음');
   assert.ok(root.allText().includes('349,000'), '현재가는 plain 텍스트로 표시');
+});
+
+// --- memo row ---
+
+test('renderBoard: memo row — colspan 셀 + inline input, change 시 (row, index, text) 콜백', () => {
+  const root = new FakeEl('div');
+  let edited = null;
+  const memo = { type: 'memo', id: 'm1', text: '반도체' };
+  renderBoard(root, { id: 'g', name: 'x', rows: [
+    { market: 'KR', code: '005930', name: '삼성', quote: null },
+    memo,
+  ] }, { onEditMemo: (row, i, text) => { edited = { row, i, text }; } });
+  assert.ok(root.find('memo-row'), 'memo-row tr 생성');
+  const td = root.find('memo-cell');
+  assert.equal(td.colSpan, 6, '시세 컬럼 전체를 colspan으로 합침');
+  const input = root.find('memo-input');
+  assert.ok(input, 'inline input 생성');
+  assert.equal(input.value, '반도체', '기존 텍스트 표시');
+  input.value = '수정된 메모';
+  input._listeners.change();
+  assert.deepEqual(edited, { row: memo, i: 1, text: '수정된 메모' }, 'change 시 콜백');
+});
+
+test('renderBoard: 빈 text memo row도 렌더 (input 빈값)', () => {
+  const root = new FakeEl('div');
+  renderBoard(root, { id: 'g', name: 'x', rows: [
+    { type: 'memo', id: 'm1', text: '' },
+  ] }, { onEditMemo: () => {} });
+  const input = root.find('memo-input');
+  assert.ok(input, '빈 memo도 행 렌더');
+  assert.equal(input.value, '');
+});
+
+test('renderBoard: onEditMemo 없으면 memo는 읽기 전용 텍스트', () => {
+  const root = new FakeEl('div');
+  renderBoard(root, { id: 'g', name: 'x', rows: [
+    { type: 'memo', id: 'm1', text: '표시만' },
+  ] }, {});
+  assert.ok(!root.find('memo-input'), 'input 없음');
+  assert.ok(root.find('memo-text'), '읽기 전용 span');
+  assert.ok(root.allText().includes('표시만'));
+});
+
+// --- 행 이동/삭제 ---
+
+test('renderBoard: onMoveRow — stock/memo 모두 위/아래 버튼, 경계 disabled, 클릭 시 (index, delta)', () => {
+  const root = new FakeEl('div');
+  const calls = [];
+  renderBoard(root, { id: 'g', name: 'x', rows: [
+    { market: 'KR', code: 'A', name: 'a', quote: null },
+    { type: 'memo', id: 'm', text: '' },
+    { market: 'KR', code: 'B', name: 'b', quote: null },
+  ] }, { onMoveRow: (i, d) => calls.push([i, d]) });
+  const ups = root.findAll('move-up');
+  const downs = root.findAll('move-down');
+  assert.equal(ups.length, 3, '모든 행(stock+memo)에 위 버튼');
+  assert.equal(downs.length, 3, '모든 행(stock+memo)에 아래 버튼');
+  assert.equal(ups[0].disabled, true, '첫 행 위 버튼 disabled');
+  assert.equal(downs[2].disabled, true, '마지막 행 아래 버튼 disabled');
+  assert.equal(ups[1].disabled, false);
+  assert.equal(downs[1].disabled, false);
+  ups[1].click();   // memo 행 위로
+  downs[0].click(); // 첫 stock 행 아래로
+  assert.deepEqual(calls, [[1, -1], [0, 1]], '(index, delta) 콜백');
+});
+
+test('renderBoard: onMoveRow만 있어도 actions 헤더 열 추가', () => {
+  const root = new FakeEl('div');
+  renderBoard(root, { id: 'g', name: 'x', rows: [
+    { market: 'KR', code: 'A', name: 'a', quote: null },
+  ] }, { onMoveRow: () => {} });
+  assert.ok(root.find('actions'), 'actions 셀 존재');
+  assert.ok(!root.find('remove'), 'onRemove 없으면 삭제 버튼 없음');
+});
+
+test('renderBoard: onRemove — stock/memo 행 모두 삭제 버튼, 클릭 시 (row, index)', () => {
+  const root = new FakeEl('div');
+  const removed = [];
+  const memo = { type: 'memo', id: 'm', text: '' };
+  const stock = { market: 'KR', code: 'A', name: 'a', quote: null };
+  renderBoard(root, { id: 'g', name: 'x', rows: [stock, memo] },
+    { onRemove: (row, i) => removed.push({ row, i }) });
+  const btns = root.findAll('remove');
+  assert.equal(btns.length, 2, 'stock+memo 모두 삭제 버튼');
+  btns[1].click();
+  btns[0].click();
+  assert.deepEqual(removed, [{ row: memo, i: 1 }, { row: stock, i: 0 }], '(row, index) 콜백');
+});
+
+test('renderBoard: 기존 onChart 흐름 유지 — memo 행 섞여도 stock 행 차트 클릭 동작', () => {
+  const root = new FakeEl('div');
+  let clicked = null;
+  const stock = { market: 'KR', code: '005930', name: '삼성', quote: null };
+  renderBoard(root, { id: 'g', name: 'x', rows: [
+    { type: 'memo', id: 'm', text: '메모' },
+    stock,
+  ] }, { onChart: (r) => { clicked = r; } });
+  root.find('name-link').click();
+  assert.equal(clicked, stock, 'memo가 있어도 stock 차트 콜백 유지');
 });

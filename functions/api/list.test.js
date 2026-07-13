@@ -46,6 +46,50 @@ test('잘못된 종목 market/code 시 throw', () => {
   assert.throws(() => normalizeList({ groups: [{ name: 'x', tickers: [{ market: 'KR' }] }] }), /market\/code/);
 });
 
+test('memo row 정규화: stock+memo 혼합 순서 보존, 빈 text 유지, id 자동 생성', () => {
+  const out = normalizeList({
+    groups: [{ name: 'x', tickers: [
+      { market: 'KR', code: '005930', name: '삼성전자' },
+      { type: 'memo', id: 'm1', text: '── 반도체 ──' },
+      { type: 'memo', text: '' },
+      { market: 'US', code: 'AAPL' },
+    ] }],
+  });
+  const t = out.groups[0].tickers;
+  assert.equal(t.length, 4, 'stock 2 + memo 2 모두 보존');
+  assert.equal(t[0].code, '005930');
+  assert.deepEqual(t[1], { type: 'memo', id: 'm1', text: '── 반도체 ──' });
+  assert.equal(t[2].type, 'memo');
+  assert.equal(t[2].text, '', '빈 text 보존');
+  assert.ok(t[2].id, 'id 누락 시 자동 생성');
+  assert.equal(t[3].code, 'AAPL', '혼합 순서 보존');
+});
+
+test('memo row 방어: 알 수 없는 type 제거, 비문자열 text는 빈 문자열', () => {
+  const out = normalizeList({
+    groups: [{ name: 'x', tickers: [
+      { type: 'divider', text: '버림' },
+      { type: 'memo', text: 123 },
+      { type: 'memo', text: null },
+    ] }],
+  });
+  const t = out.groups[0].tickers;
+  assert.equal(t.length, 2, '알 수 없는 type만 제거');
+  assert.equal(t[0].text, '');
+  assert.equal(t[1].text, '');
+  assert.notEqual(t[0].id, t[1].id, '자동 생성 id는 서로 다름');
+});
+
+test('memo row는 중복 제거 대상 아님 — 같은 text여도 모두 보존', () => {
+  const out = normalizeList({
+    groups: [{ name: 'x', tickers: [
+      { type: 'memo', id: 'a', text: '' },
+      { type: 'memo', id: 'b', text: '' },
+    ] }],
+  });
+  assert.equal(out.groups[0].tickers.length, 2);
+});
+
 test('emptyList 모양', () => {
   assert.deepEqual(emptyList(), { groups: [], updatedAt: null });
 });

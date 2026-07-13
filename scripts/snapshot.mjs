@@ -15,6 +15,7 @@ export function collectTickers(userObjects) {
   for (const user of userObjects) {
     for (const group of user?.groups ?? []) {
       for (const t of group?.tickers ?? []) {
+        if (t?.type === 'memo') continue; // memo row는 시세 대상 아님
         if (!t?.market || !t?.code) continue;
         const key = `${t.market}:${t.code}`;
         if (!seen.has(key)) seen.set(key, { market: t.market, code: t.code });

@@ -30,6 +30,13 @@ export function normalizeList(input) {
     const tickers = [];
     for (const t of tickersIn) {
       if (!t || typeof t !== 'object') continue;
+      // memo row: 종목 사이 구분/메모 한 줄. 빈 text도 보존. 알 수 없는 type은 버린다.
+      if (t.type !== undefined) {
+        if (t.type !== 'memo') continue;
+        const id = String(t.id ?? '').trim() || `m${gi}-${tickers.length}`;
+        tickers.push({ type: 'memo', id, text: typeof t.text === 'string' ? t.text : '' });
+        continue;
+      }
       const tMarket = MARKETS.has(t.market) ? t.market : null;
       const code = String(t.code ?? '').trim();
       if (!tMarket || !code) throw new Error(`그룹[${gi}] 종목의 market/code 오류`);

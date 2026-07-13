@@ -116,6 +116,22 @@ test('mergeBoard: 그룹·종목에 시세 병합, 없으면 null', () => {
   assert.equal(out[0].rows[1].quote, null, '시세 없는 종목은 null');
 });
 
+test('mergeBoard: memo row는 그대로 보존, quote lookup 안 함', () => {
+  const list = { groups: [{ id: 'g0', name: 'x', tickers: [
+    { market: 'KR', code: '005930', name: '삼성전자' },
+    { type: 'memo', id: 'm1', text: '반도체' },
+    { type: 'memo', id: 'm2', text: '' },
+  ] }] };
+  // memo row가 quote 맵을 조회하면 이 오염 키가 붙어버림 → 미조회 검증
+  const quotes = { 'KR:005930': { price: 349000 }, 'undefined:undefined': { price: 999 } };
+  const out = mergeBoard(list, quotes);
+  assert.equal(out[0].rows.length, 3, '순서·개수 보존');
+  assert.deepEqual(out[0].rows[1], { type: 'memo', id: 'm1', text: '반도체' });
+  assert.deepEqual(out[0].rows[2], { type: 'memo', id: 'm2', text: '' }, '빈 text 보존');
+  assert.equal(out[0].rows[1].quote, undefined, 'memo row는 quote 없음');
+  assert.equal(out[0].rows[0].quote.price, 349000, 'stock row 병합은 그대로');
+});
+
 test('mergeBoard: 빈 목록 안전', () => {
   assert.deepEqual(mergeBoard({ groups: [] }, {}), []);
   assert.deepEqual(mergeBoard(null, null), []);
