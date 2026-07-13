@@ -10,14 +10,14 @@
           "name": "HPSP"
         },
         {
-          "market": "US",
-          "code": "TSLA",
-          "name": "Tesla, Inc."
-        },
-        {
           "type": "memo",
           "id": "m1783947983863941",
           "text": "테라팹"
+        },
+        {
+          "market": "US",
+          "code": "TSLA",
+          "name": "Tesla, Inc."
         },
         {
           "market": "KR",
@@ -37,5 +37,5 @@
       ]
     }
   ],
-  "updatedAt": "2026-07-13T13:06:41.886Z"
+  "updatedAt": "2026-07-13T13:06:44.350Z"
 }
