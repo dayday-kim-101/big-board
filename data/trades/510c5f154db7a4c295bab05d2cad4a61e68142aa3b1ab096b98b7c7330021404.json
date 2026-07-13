@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-13T12:45:29.049Z",
+  "updatedAt": "2026-07-13T12:45:50.298Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -1196,6 +1196,29 @@
           "buyAmount": 333000,
           "sellAmount": null,
           "fee": 40,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 132900,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-07-07": {
+      "journal": "",
+      "resultTag": "",
+      "records": [
+        {
+          "code": "007660",
+          "name": "이수페타시스",
+          "market": "KR",
+          "buyAvg": 102500,
+          "sellAvg": null,
+          "qty": null,
+          "buyAmount": 512500,
+          "sellAmount": null,
+          "fee": 70,
           "pnl": null,
           "returnPct": null,
           "prevClose": 132900,
