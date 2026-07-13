@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-07T14:34:06.495Z",
+  "updatedAt": "2026-07-13T12:44:56.421Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -1096,6 +1096,29 @@
           "pnl": null,
           "returnPct": null,
           "prevClose": 133000,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-07-01": {
+      "journal": "",
+      "resultTag": "",
+      "records": [
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "market": "KR",
+          "buyAvg": 16200,
+          "sellAvg": null,
+          "qty": null,
+          "buyAmount": 291600,
+          "sellAmount": null,
+          "fee": 40,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 16620,
           "holdDays": 0,
           "reason": "",
           "tags": []
