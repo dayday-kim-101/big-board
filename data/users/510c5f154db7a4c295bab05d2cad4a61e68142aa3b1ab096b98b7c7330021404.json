@@ -10,14 +10,14 @@
           "text": "테라팹"
         },
         {
-          "market": "KR",
-          "code": "403870",
-          "name": "HPSP"
-        },
-        {
           "market": "US",
           "code": "TSLA",
           "name": "Tesla, Inc."
+        },
+        {
+          "market": "KR",
+          "code": "403870",
+          "name": "HPSP"
         },
         {
           "market": "KR",
@@ -42,5 +42,5 @@
       ]
     }
   ],
-  "updatedAt": "2026-07-13T13:45:58.261Z"
+  "updatedAt": "2026-07-13T22:18:00.723Z"
 }
