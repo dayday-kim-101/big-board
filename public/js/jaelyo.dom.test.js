@@ -154,6 +154,49 @@ test('renderJaelyo: 종목코드는 네이버뉴스 검색 anchor(새 탭 + 종�
   assert.ok(a.href.includes('ds=2026.05.07') && a.href.includes('de=2026.05.07'), 'href에 수집 날짜');
   assert.equal(a.target, '_blank', '새 탭');
   assert.ok(a.rel.includes('noopener'), 'rel noopener');
+  assert.ok(a.rel.includes('noreferrer'), 'rel noreferrer');
+});
+
+// 해당 행의 종목코드 anchor를 찾는 헬퍼.
+function codeAnchor(codeText = '028050') {
+  const root = new FakeEl('div');
+  renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board: sampleBoard() });
+  return root.findAll('a').find((x) => x.className.includes('jaelyo-code-link') && x.textContent === codeText);
+}
+
+test('종목코드 클릭: preventDefault + window.open이 _blank(noopener,noreferrer)로 호출', () => {
+  const a = codeAnchor('028050');
+  assert.ok(a, '종목코드 anchor 존재');
+  let openArgs = null;
+  const prevWindow = globalThis.window;
+  // window.open이 새 창을 성공적으로 연 상황(truthy 반환) 재현
+  globalThis.window = { open: (...args) => { openArgs = args; return {}; } };
+  let prevented = false;
+  try {
+    a.dispatch('click', { preventDefault: () => { prevented = true; } });
+  } finally {
+    globalThis.window = prevWindow;
+  }
+  assert.ok(prevented, '기본 이동 preventDefault 호출');
+  assert.ok(openArgs, 'window.open 호출됨');
+  assert.equal(openArgs[0], a.href, '동일한 뉴스 URL로 오픈');
+  assert.equal(openArgs[1], '_blank', '새 탭/새 창 타깃');
+  assert.equal(openArgs[2], 'noopener,noreferrer', 'noopener,noreferrer 기능');
+});
+
+test('종목코드 클릭: window.open 없는 환경이면 예외 없이 기본 target=_blank 폴백', () => {
+  const a = codeAnchor('028050');
+  const prevWindow = globalThis.window;
+  globalThis.window = {}; // window.open 미제공
+  let prevented = false;
+  try {
+    assert.doesNotThrow(() => {
+      a.dispatch('click', { preventDefault: () => { prevented = true; } });
+    }, 'window.open 없어도 예외 없음');
+  } finally {
+    globalThis.window = prevWindow;
+  }
+  assert.equal(prevented, false, 'window.open 없으면 기본 이동을 막지 않음(anchor target=_blank 폴백)');
 });
 
 test('renderJaelyo: selectedDate 없으면 board.date로 뉴스 기간', () => {
