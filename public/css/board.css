@@ -114,22 +114,34 @@ tr.tone-down .price { color: var(--down); }
 button.remove { padding: 2px 8px; background: transparent; color: var(--muted); border: none; }
 button.remove:hover { color: var(--up); }
 
-/* 행 위/아래 이동 버튼 */
-button.move-up, button.move-down { padding: 2px 6px; background: transparent; color: var(--muted); border: none; font-size: 11px; }
-button.move-up:hover:not(:disabled), button.move-down:hover:not(:disabled) { color: var(--accent); }
-button.move-up:disabled, button.move-down:disabled { opacity: .25; cursor: default; }
-
-/* 메모 행 (키움 관심종목식 빈칸/구분 한 줄) */
-tr.memo-row td { background: var(--panel-2); padding-top: 6px; padding-bottom: 6px; }
-td.memo-cell { text-align: left; }
-.memo-input {
-  width: 100%; padding: 4px 8px; font-size: 12px;
-  background: transparent; color: var(--accent);
-  border: 1px dashed var(--line); border-radius: 6px;
+/* 드래그앤드랍 순서 변경 */
+tr[draggable="true"] { cursor: grab; }
+tr.dragging { opacity: .55; }
+tr.drag-over td { box-shadow: inset 0 2px 0 var(--accent); }
+.drag-handle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; color: var(--muted); cursor: grab;
+  border: 1px solid var(--line); border-radius: 6px; background: transparent;
 }
-.memo-input::placeholder { color: var(--muted); opacity: .6; }
-.memo-input:focus { border-style: solid; border-color: var(--accent); }
-.memo-text { color: var(--accent); font-size: 12px; }
+.drag-handle:hover { color: var(--accent); border-color: var(--accent); }
+
+/* 메모 행 (키움 관심종목식 빈칸/구분 한 줄) — 일반 행과 같은 높이/톤으로 한 행 전체 사용 */
+tr.memo-row td { background: var(--panel); padding: 11px 12px; }
+td.memo-cell { text-align: left; }
+.board-memo-line { display: flex; align-items: center; gap: 8px; width: 100%; }
+.board-memo-line > .actions { flex: 0 0 auto; margin-left: auto; }
+.board .board-memo-input {
+  flex: 1 1 auto; min-width: 0; width: 100%; box-sizing: border-box;
+  padding: 0; font: inherit; font-size: 13px; line-height: 1.4;
+  background: transparent; color: var(--text);
+  border: 0; border-radius: 0;
+}
+.board .board-memo-input::placeholder { color: var(--muted); opacity: .75; }
+.board .board-memo-input:focus {
+  outline: none;
+  box-shadow: inset 0 -1px 0 var(--accent);
+}
+.board-memo-text { flex: 1 1 auto; min-width: 0; color: var(--text); font-size: 13px; }
 
 .empty { color: var(--muted); text-align: center; padding: 40px 0; }
 
