@@ -56,12 +56,16 @@ export function mergeBoard(list, quotes) {
     id: g.id,
     name: g.name,
     market: g.market ?? null,
-    rows: (g.tickers ?? []).map((t) => ({
-      market: t.market,
-      code: t.code,
-      name: t.name || code(t),
-      quote: q[`${t.market}:${t.code}`] ?? null,
-    })),
+    rows: (g.tickers ?? []).map((t) => {
+      // memo row는 시세 조회 없이 그대로 통과.
+      if (t.type === 'memo') return { type: 'memo', id: t.id, text: t.text ?? '' };
+      return {
+        market: t.market,
+        code: t.code,
+        name: t.name || code(t),
+        quote: q[`${t.market}:${t.code}`] ?? null,
+      };
+    }),
   }));
   return groups;
 }

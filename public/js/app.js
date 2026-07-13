@@ -346,7 +346,7 @@ function renderTabs() {
   for (const g of state.list.groups) {
     const tab = document.createElement('button');
     tab.className = 'tab' + (g.id === activeGroup()?.id ? ' active' : '');
-    tab.textContent = `${g.name} (${g.tickers.length})`;
+    tab.textContent = `${g.name} (${g.tickers.filter((t) => t.type !== 'memo').length})`; // memo row 제외한 종목 수
     tab.addEventListener('click', () => {
       state.activeGroupId = g.id;
       renderApp();
@@ -377,8 +377,14 @@ function renderControls() {
   del.textContent = '그룹 삭제';
   del.addEventListener('click', () => deleteGroup(g));
 
+  // 빈칸 메모 한 줄 추가 (키움 관심종목식 구분/메모 행)
+  const addMemo = document.createElement('button');
+  addMemo.className = 'ghost';
+  addMemo.textContent = '＋ 빈칸 메모';
+  addMemo.addEventListener('click', () => addMemoRow(g));
+
   // 종목 검색 + 자동완성 (실제 검색 결과에서 선택해야만 추가 → 잘못된 코드 방지)
-  bar.append(rename, del, renderTickerSearch(g));
+  bar.append(rename, del, addMemo, renderTickerSearch(g));
   return bar;
 }
 
@@ -465,8 +471,10 @@ function paintBoard() {
   const g = activeGroup();
   const merged = g ? mergeBoard({ groups: [g] }, state.quotes)[0] : null;
   renderBoard(root, merged, {
-    onRemove: (row) => removeTicker(g, row),
+    onRemove: (row, index) => removeRow(g, index),
     onChart: (row) => openChart(row),
+    onMoveRow: (index, delta) => moveRow(g, index, delta),
+    onEditMemo: (row, index, text) => editMemoRow(g, index, text),
   });
 }
 
@@ -670,9 +678,37 @@ function addTicker(g, market, code, name) {
   save(prev);
 }
 
-function removeTicker(g, row) {
+// 행(종목/메모) 삭제 — 렌더 행과 g.tickers 는 1:1 인덱스 대응.
+function removeRow(g, index) {
+  if (!g.tickers[index]) return;
   const prev = clone();
-  g.tickers = g.tickers.filter((t) => !(t.market === row.market && t.code === row.code));
+  g.tickers.splice(index, 1);
+  save(prev);
+}
+
+// 빈칸 메모 행 추가: 그룹 끝에 빈 text로 추가 후 저장.
+function addMemoRow(g) {
+  const prev = clone();
+  g.tickers.push({ type: 'memo', id: `m${Date.now()}${Math.floor(Math.random() * 1000)}`, text: '' });
+  save(prev);
+}
+
+// 행 위/아래 이동 (delta: -1 위, +1 아래). 경계 밖이면 무시.
+function moveRow(g, index, delta) {
+  const to = index + delta;
+  if (index < 0 || index >= g.tickers.length || to < 0 || to >= g.tickers.length) return;
+  const prev = clone();
+  const [row] = g.tickers.splice(index, 1);
+  g.tickers.splice(to, 0, row);
+  save(prev);
+}
+
+// memo row 텍스트 inline 수정. 빈 문자열도 그대로 저장.
+function editMemoRow(g, index, text) {
+  const row = g.tickers[index];
+  if (!row || row.type !== 'memo') return;
+  const prev = clone();
+  row.text = text;
   save(prev);
 }
 
@@ -680,11 +716,12 @@ function removeTicker(g, row) {
 
 async function refresh() {
   const g = activeGroup();
-  if (!g || !g.tickers.length) return;
+  const stocks = g ? g.tickers.filter((t) => t.type !== 'memo') : []; // memo row는 시세 조회 제외
+  if (!stocks.length) return;
   state.loading = true;
   renderApp();
   try {
-    const { updatedAt, quotes } = await getQuotes(g.tickers.map((t) => ({ market: t.market, code: t.code })));
+    const { updatedAt, quotes } = await getQuotes(stocks.map((t) => ({ market: t.market, code: t.code })));
     state.quotes = { ...state.quotes, ...quotes };
     state.updatedAt = updatedAt;
   } catch (e) {
