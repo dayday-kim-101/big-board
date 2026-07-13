@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-13T21:27:39.888Z",
+  "updatedAt": "2026-07-13T22:28:16.482Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -49,18 +49,6 @@
       "approxTradingValue": true,
       "ok": true
     },
-    "KR:403870": {
-      "market": "KR",
-      "code": "403870",
-      "name": "HPSP",
-      "price": 41900,
-      "change": -2500,
-      "changePct": -5.63,
-      "volume": 3371367,
-      "tradingValue": 151123000000,
-      "approxTradingValue": false,
-      "ok": true
-    },
     "US:TSLA": {
       "market": "US",
       "code": "TSLA",
@@ -71,6 +59,18 @@
       "volume": 32685743,
       "tradingValue": 12903023907,
       "approxTradingValue": true,
+      "ok": true
+    },
+    "KR:403870": {
+      "market": "KR",
+      "code": "403870",
+      "name": "HPSP",
+      "price": 41900,
+      "change": -2500,
+      "changePct": -5.63,
+      "volume": 3371367,
+      "tradingValue": 151123000000,
+      "approxTradingValue": false,
       "ok": true
     },
     "KR:036930": {
