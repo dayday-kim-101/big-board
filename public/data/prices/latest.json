@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-07-13T09:18:08.788Z",
+  "updatedAt": "2026-07-13T15:44:20.583Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
       "code": "AAPL",
       "name": "Apple Inc.",
-      "price": 315.32,
-      "change": -0.9,
-      "changePct": -0.28,
-      "volume": 34132321,
-      "tradingValue": 10762603458,
+      "price": 316.425,
+      "change": 1.105,
+      "changePct": 0.35,
+      "volume": 17147791,
+      "tradingValue": 5425989767,
       "approxTradingValue": true,
       "ok": true
     },
@@ -41,11 +41,11 @@
       "market": "US",
       "code": "SOXL",
       "name": "Direxion Daily Semiconductor Bu",
-      "price": 192.26,
-      "change": -0.19,
-      "changePct": -0.1,
-      "volume": 37037907,
-      "tradingValue": 7120908000,
+      "price": 172.5,
+      "change": -19.76,
+      "changePct": -10.28,
+      "volume": 23294234,
+      "tradingValue": 4018255365,
       "approxTradingValue": true,
       "ok": true
     },
@@ -61,6 +61,18 @@
       "approxTradingValue": false,
       "ok": true
     },
+    "US:TSLA": {
+      "market": "US",
+      "code": "TSLA",
+      "name": "Tesla, Inc.",
+      "price": 397.43,
+      "change": -10.33,
+      "changePct": -2.53,
+      "volume": 14238769,
+      "tradingValue": 5658913964,
+      "approxTradingValue": true,
+      "ok": true
+    },
     "KR:036930": {
       "market": "KR",
       "code": "036930",
@@ -71,18 +83,6 @@
       "volume": 2471963,
       "tradingValue": 490069000000,
       "approxTradingValue": false,
-      "ok": true
-    },
-    "US:TSLA": {
-      "market": "US",
-      "code": "TSLA",
-      "name": "Tesla, Inc.",
-      "price": 407.76,
-      "change": 1.21,
-      "changePct": 0.3,
-      "volume": 33409995,
-      "tradingValue": 13623259561,
-      "approxTradingValue": true,
       "ok": true
     },
     "KR:347850": {
@@ -113,11 +113,11 @@
       "market": "US",
       "code": "NVDA",
       "name": "NVIDIA Corporation",
-      "price": 210.96,
-      "change": 8.18,
-      "changePct": 4.03,
-      "volume": 148421001,
-      "tradingValue": 31310894371,
+      "price": 207.27,
+      "change": -3.69,
+      "changePct": -1.75,
+      "volume": 42858639,
+      "tradingValue": 8883310106,
       "approxTradingValue": true,
       "ok": true
     }
