@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-13T12:44:56.421Z",
+  "updatedAt": "2026-07-13T12:45:11.379Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -1119,6 +1119,63 @@
           "pnl": null,
           "returnPct": null,
           "prevClose": 16620,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-07-02": {
+      "journal": "",
+      "resultTag": "",
+      "records": [
+        {
+          "code": "108490",
+          "name": "로보티즈",
+          "market": "KR",
+          "buyAvg": 236000,
+          "sellAvg": null,
+          "qty": null,
+          "buyAmount": 708000,
+          "sellAmount": null,
+          "fee": 100,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 251500,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "222800",
+          "name": "심텍",
+          "market": "KR",
+          "buyAvg": 145500,
+          "sellAvg": null,
+          "qty": null,
+          "buyAmount": 436500,
+          "sellAmount": null,
+          "fee": 60,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 157300,
+          "holdDays": 0,
+          "reason": "",
+          "tags": []
+        },
+        {
+          "code": "356680",
+          "name": "엑스게이트",
+          "market": "KR",
+          "buyAvg": 15000,
+          "sellAvg": null,
+          "qty": null,
+          "buyAmount": 210000,
+          "sellAmount": null,
+          "fee": 30,
+          "pnl": null,
+          "returnPct": null,
+          "prevClose": 15500,
           "holdDays": 0,
           "reason": "",
           "tags": []
