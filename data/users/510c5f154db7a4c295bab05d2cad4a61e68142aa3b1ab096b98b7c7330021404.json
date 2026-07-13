@@ -6,13 +6,13 @@
       "tickers": [
         {
           "market": "KR",
-          "code": "403870",
-          "name": "HPSP"
+          "code": "036930",
+          "name": "주성엔지니어링"
         },
         {
           "market": "KR",
-          "code": "036930",
-          "name": "주성엔지니어링"
+          "code": "403870",
+          "name": "HPSP"
         },
         {
           "market": "US",
@@ -32,5 +32,5 @@
       ]
     }
   ],
-  "updatedAt": "2026-07-13T08:49:58.593Z"
+  "updatedAt": "2026-07-13T13:05:49.245Z"
 }
