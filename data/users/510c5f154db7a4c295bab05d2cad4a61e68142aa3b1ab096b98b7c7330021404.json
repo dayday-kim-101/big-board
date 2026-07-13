@@ -5,14 +5,14 @@
       "name": "7.13 재료가 좋고 눌림 살펴보기",
       "tickers": [
         {
-          "market": "KR",
-          "code": "403870",
-          "name": "HPSP"
-        },
-        {
           "type": "memo",
           "id": "m1783947983863941",
           "text": "테라팹"
+        },
+        {
+          "market": "KR",
+          "code": "403870",
+          "name": "HPSP"
         },
         {
           "market": "US",
@@ -37,5 +37,5 @@
       ]
     }
   ],
-  "updatedAt": "2026-07-13T13:06:44.350Z"
+  "updatedAt": "2026-07-13T13:06:47.047Z"
 }
