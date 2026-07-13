@@ -13,9 +13,14 @@
           "market": "KR",
           "code": "036930",
           "name": "주성엔지니어링"
+        },
+        {
+          "market": "US",
+          "code": "TSLA",
+          "name": "Tesla, Inc."
         }
       ]
     }
   ],
-  "updatedAt": "2026-07-13T08:46:36.696Z"
+  "updatedAt": "2026-07-13T08:46:51.864Z"
 }
