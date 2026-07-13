@@ -120,7 +120,19 @@ export function renderBoard(container, group, { onRemove, onChart, onReorderRow,
         input.className = 'memo-input board-memo-input';
         input.placeholder = '메모 입력…';
         input.value = row.text ?? '';
-        input.addEventListener('change', () => onEditMemo(row, i, input.value));
+        let lastSavedValue = input.value;
+        const commitMemo = () => {
+          if (input.value === lastSavedValue) return;
+          lastSavedValue = input.value;
+          onEditMemo(row, i, input.value);
+        };
+        input.addEventListener('blur', commitMemo);
+        input.addEventListener('keydown', (ev) => {
+          if (ev.key !== 'Enter') return;
+          ev.preventDefault?.();
+          commitMemo();
+          input.blur?.();
+        });
         line.appendChild(input);
       } else {
         line.appendChild(cell('span', row.text ?? '', 'memo-text board-memo-text'));

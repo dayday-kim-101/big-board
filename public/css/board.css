@@ -125,13 +125,19 @@ tr.drag-over td { box-shadow: inset 0 2px 0 var(--accent); }
 }
 .drag-handle:hover { color: var(--accent); border-color: var(--accent); }
 
-/* 메모 행 (키움 관심종목식 빈칸/구분 한 줄) — 일반 행과 같은 높이/톤으로 한 행 전체 사용 */
-tr.memo-row td { background: var(--panel); padding: 11px 12px; }
+/* 메모 행 (키움 관심종목식 빈칸/구분 한 줄) — 텍스트 길이가 아니라 행 전체 영역을 채움 */
+tr.memo-row td { background: var(--panel); padding: 0; }
 td.memo-cell { text-align: left; }
-.board-memo-line { display: flex; align-items: center; gap: 8px; width: 100%; }
+.board-memo-line {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; min-height: 44px; box-sizing: border-box; padding: 11px 12px;
+  background: var(--panel); box-shadow: inset 0 0 0 1px transparent;
+}
+tr.memo-row:hover .board-memo-line,
+tr.memo-row:focus-within .board-memo-line { box-shadow: inset 0 0 0 1px var(--line); }
 .board-memo-line > .actions { flex: 0 0 auto; margin-left: auto; }
 .board .board-memo-input {
-  flex: 1 1 auto; min-width: 0; width: 100%; box-sizing: border-box;
+  display: block; flex: 1 1 auto; align-self: stretch; min-width: 0; width: 100%; box-sizing: border-box;
   padding: 0; font: inherit; font-size: 13px; line-height: 1.4;
   background: transparent; color: var(--text);
   border: 0; border-radius: 0;
@@ -141,7 +147,7 @@ td.memo-cell { text-align: left; }
   outline: none;
   box-shadow: inset 0 -1px 0 var(--accent);
 }
-.board-memo-text { flex: 1 1 auto; min-width: 0; color: var(--text); font-size: 13px; }
+.board-memo-text { display: flex; align-items: center; align-self: stretch; flex: 1 1 auto; min-width: 0; color: var(--text); font-size: 13px; }
 
 .empty { color: var(--muted); text-align: center; padding: 40px 0; }
 
