@@ -473,7 +473,7 @@ function paintBoard() {
   renderBoard(root, merged, {
     onRemove: (row, index) => removeRow(g, index),
     onChart: (row) => openChart(row),
-    onMoveRow: (index, delta) => moveRow(g, index, delta),
+    onReorderRow: (fromIndex, toIndex) => reorderRow(g, fromIndex, toIndex),
     onEditMemo: (row, index, text) => editMemoRow(g, index, text),
   });
 }
@@ -693,13 +693,16 @@ function addMemoRow(g) {
   save(prev);
 }
 
-// 행 위/아래 이동 (delta: -1 위, +1 아래). 경계 밖이면 무시.
-function moveRow(g, index, delta) {
-  const to = index + delta;
-  if (index < 0 || index >= g.tickers.length || to < 0 || to >= g.tickers.length) return;
+// 드래그앤드랍 순서 변경. 경계 밖/동일 위치는 무시.
+function reorderRow(g, fromIndex, toIndex) {
+  if (
+    fromIndex === toIndex ||
+    fromIndex < 0 || fromIndex >= g.tickers.length ||
+    toIndex < 0 || toIndex >= g.tickers.length
+  ) return;
   const prev = clone();
-  const [row] = g.tickers.splice(index, 1);
-  g.tickers.splice(to, 0, row);
+  const [row] = g.tickers.splice(fromIndex, 1);
+  g.tickers.splice(toIndex, 0, row);
   save(prev);
 }
 

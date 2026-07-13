@@ -10,24 +10,24 @@ function cell(tag, text, className) {
   return el;
 }
 
-// 행 공통 액션 버튼: 위/아래 이동(onMoveRow) + 삭제(onRemove).
-// 첫 행의 위, 마지막 행의 아래 버튼은 disabled.
-function actionButtons(row, i, total, onRemove, onMoveRow) {
+function addClass(el, cls) {
+  const parts = new Set(String(el.className || '').split(/\s+/).filter(Boolean));
+  parts.add(cls);
+  el.className = [...parts].join(' ');
+}
+
+function removeClass(el, cls) {
+  el.className = String(el.className || '').split(/\s+/).filter((x) => x && x !== cls).join(' ');
+}
+
+// 행 공통 액션 버튼: 드래그 핸들 + 삭제(onRemove).
+function actionButtons(row, i, onRemove, draggable) {
   const wrap = document.createElement('div');
   wrap.className = 'actions';
-  if (onMoveRow) {
-    const up = cell('button', '▲', 'move-up');
-    up.type = 'button';
-    up.title = '위로 이동';
-    up.disabled = i === 0;
-    up.addEventListener('click', () => onMoveRow(i, -1));
-    wrap.appendChild(up);
-    const down = cell('button', '▼', 'move-down');
-    down.type = 'button';
-    down.title = '아래로 이동';
-    down.disabled = i === total - 1;
-    down.addEventListener('click', () => onMoveRow(i, 1));
-    wrap.appendChild(down);
+  if (draggable) {
+    const handle = cell('span', '↕', 'drag-handle');
+    handle.title = '드래그해서 순서 변경';
+    wrap.appendChild(handle);
   }
   if (onRemove) {
     const btn = cell('button', '✕', 'remove');
@@ -39,20 +39,46 @@ function actionButtons(row, i, total, onRemove, onMoveRow) {
   return wrap;
 }
 
-function actionsCell(row, i, total, onRemove, onMoveRow) {
+function actionsCell(row, i, onRemove, draggable) {
   const td = cell('td', undefined, 'actions');
-  for (const child of Array.from(actionButtons(row, i, total, onRemove, onMoveRow).children)) {
+  for (const child of Array.from(actionButtons(row, i, onRemove, draggable).children)) {
     td.appendChild(child);
   }
   return td;
 }
 
+function makeDraggable(tr, i, onReorderRow) {
+  if (!onReorderRow) return;
+  tr.draggable = true;
+  tr.addEventListener('dragstart', (ev) => {
+    addClass(tr, 'dragging');
+    ev.dataTransfer?.setData?.('text/plain', String(i));
+    if (ev.dataTransfer) ev.dataTransfer.effectAllowed = 'move';
+  });
+  tr.addEventListener('dragover', (ev) => {
+    ev.preventDefault?.();
+    addClass(tr, 'drag-over');
+    if (ev.dataTransfer) ev.dataTransfer.dropEffect = 'move';
+  });
+  tr.addEventListener('dragleave', () => removeClass(tr, 'drag-over'));
+  tr.addEventListener('drop', (ev) => {
+    ev.preventDefault?.();
+    removeClass(tr, 'drag-over');
+    const from = Number(ev.dataTransfer?.getData?.('text/plain'));
+    if (Number.isInteger(from) && from !== i) onReorderRow(from, i);
+  });
+  tr.addEventListener('dragend', () => {
+    removeClass(tr, 'dragging');
+    removeClass(tr, 'drag-over');
+  });
+}
+
 // group: {id, name, rows:[{market, code, name, quote} | {type:'memo', id, text}]}
 // onRemove(row, index): 행 삭제 콜백 (옵션). 없으면 삭제 버튼 미표시.
 // onChart(ticker): 차트 열기 콜백 (옵션). 있으면 종목명·현재가가 클릭 가능.
-// onMoveRow(index, delta): 행 위/아래 이동 콜백 (옵션). 있으면 이동 버튼 표시.
+// onReorderRow(fromIndex, toIndex): 드래그앤드랍 순서 변경 콜백 (옵션). 있으면 행 drag 가능.
 // onEditMemo(row, index, text): memo row 텍스트 수정 콜백 (옵션). 있으면 inline input.
-export function renderBoard(container, group, { onRemove, onChart, onMoveRow, onEditMemo } = {}) {
+export function renderBoard(container, group, { onRemove, onChart, onReorderRow, onEditMemo } = {}) {
   container.innerHTML = '';
 
   if (!group) {
@@ -64,7 +90,7 @@ export function renderBoard(container, group, { onRemove, onChart, onMoveRow, on
     return;
   }
 
-  const showActions = Boolean(onRemove || onMoveRow);
+  const showActions = Boolean(onRemove || onReorderRow);
 
   const table = document.createElement('table');
   table.className = 'board';
@@ -82,7 +108,8 @@ export function renderBoard(container, group, { onRemove, onChart, onMoveRow, on
     // memo row: 액션 열까지 포함해 한 행 전체를 채우는 메모 줄.
     if (row.type === 'memo') {
       const tr = document.createElement('tr');
-      tr.className = 'memo-row';
+      tr.className = 'board-row memo-row';
+      makeDraggable(tr, i, onReorderRow);
       const td = cell('td', undefined, 'memo-cell');
       td.colSpan = COLS.length + (showActions ? 1 : 0);
       const line = document.createElement('div');
@@ -98,7 +125,7 @@ export function renderBoard(container, group, { onRemove, onChart, onMoveRow, on
       } else {
         line.appendChild(cell('span', row.text ?? '', 'memo-text board-memo-text'));
       }
-      if (showActions) line.appendChild(actionButtons(row, i, total, onRemove, onMoveRow));
+      if (showActions) line.appendChild(actionButtons(row, i, onRemove, Boolean(onReorderRow)));
       td.appendChild(line);
       tr.appendChild(td);
       tbody.appendChild(tr);
@@ -108,7 +135,8 @@ export function renderBoard(container, group, { onRemove, onChart, onMoveRow, on
     const q = row.quote;
     const tone = priceTone(q?.change);
     const tr = document.createElement('tr');
-    tr.className = `tone-${tone}`;
+    tr.className = `board-row tone-${tone}`;
+    makeDraggable(tr, i, onReorderRow);
 
     // 종목명 + 코드/시장 (onChart 있으면 클릭 시 차트)
     const nameTd = cell('td', undefined, 'name');
@@ -150,7 +178,7 @@ export function renderBoard(container, group, { onRemove, onChart, onMoveRow, on
     }
     tr.appendChild(tvTd);
 
-    if (showActions) tr.appendChild(actionsCell(row, i, total, onRemove, onMoveRow));
+    if (showActions) tr.appendChild(actionsCell(row, i, onRemove, Boolean(onReorderRow)));
     tbody.appendChild(tr);
   });
   table.appendChild(tbody);

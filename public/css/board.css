@@ -114,10 +114,16 @@ tr.tone-down .price { color: var(--down); }
 button.remove { padding: 2px 8px; background: transparent; color: var(--muted); border: none; }
 button.remove:hover { color: var(--up); }
 
-/* 행 위/아래 이동 버튼 */
-button.move-up, button.move-down { padding: 2px 6px; background: transparent; color: var(--muted); border: none; font-size: 11px; }
-button.move-up:hover:not(:disabled), button.move-down:hover:not(:disabled) { color: var(--accent); }
-button.move-up:disabled, button.move-down:disabled { opacity: .25; cursor: default; }
+/* 드래그앤드랍 순서 변경 */
+tr[draggable="true"] { cursor: grab; }
+tr.dragging { opacity: .55; }
+tr.drag-over td { box-shadow: inset 0 2px 0 var(--accent); }
+.drag-handle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; color: var(--muted); cursor: grab;
+  border: 1px solid var(--line); border-radius: 6px; background: transparent;
+}
+.drag-handle:hover { color: var(--accent); border-color: var(--accent); }
 
 /* 메모 행 (키움 관심종목식 빈칸/구분 한 줄) — 일반 행과 같은 높이/톤으로 한 행 전체 사용 */
 tr.memo-row td { background: var(--panel); padding: 11px 12px; }

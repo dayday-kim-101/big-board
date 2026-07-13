@@ -15,6 +15,7 @@ class FakeEl {
   set innerHTML(v) { this.children = []; this._text = ''; }
   appendChild(c) { this.children.push(c); return c; }
   addEventListener(type, fn) { (this._listeners ||= {})[type] = fn; }
+  dispatch(type, ev = {}) { this._listeners?.[type]?.(ev); }
   click() { this._listeners?.click?.(); }
   allText() {
     let t = this._text || '';
@@ -191,36 +192,40 @@ test('renderBoard: onEditMemo 없으면 memo는 읽기 전용 텍스트', () => 
 
 // --- 행 이동/삭제 ---
 
-test('renderBoard: onMoveRow — stock/memo 모두 위/아래 버튼, 경계 disabled, 클릭 시 (index, delta)', () => {
+test('renderBoard: onReorderRow — stock/memo 모두 drag 가능, drop 시 (fromIndex, toIndex)', () => {
   const root = new FakeEl('div');
   const calls = [];
   renderBoard(root, { id: 'g', name: 'x', rows: [
     { market: 'KR', code: 'A', name: 'a', quote: null },
     { type: 'memo', id: 'm', text: '' },
     { market: 'KR', code: 'B', name: 'b', quote: null },
-  ] }, { onMoveRow: (i, d) => calls.push([i, d]) });
+  ] }, { onReorderRow: (from, to) => calls.push([from, to]) });
   const memoCell = root.find('memo-cell');
   assert.equal(memoCell.colSpan, 7, 'memo row는 actions 열까지 포함해 한 행 전체를 채움');
   assert.ok(root.find('board-memo-line'), 'full-width memo line wrapper');
-  const ups = root.findAll('move-up');
-  const downs = root.findAll('move-down');
-  assert.equal(ups.length, 3, '모든 행(stock+memo)에 위 버튼');
-  assert.equal(downs.length, 3, '모든 행(stock+memo)에 아래 버튼');
-  assert.equal(ups[0].disabled, true, '첫 행 위 버튼 disabled');
-  assert.equal(downs[2].disabled, true, '마지막 행 아래 버튼 disabled');
-  assert.equal(ups[1].disabled, false);
-  assert.equal(downs[1].disabled, false);
-  ups[1].click();   // memo 행 위로
-  downs[0].click(); // 첫 stock 행 아래로
-  assert.deepEqual(calls, [[1, -1], [0, 1]], '(index, delta) 콜백');
+  const handles = root.findAll('drag-handle');
+  assert.equal(handles.length, 3, '모든 행(stock+memo)에 drag handle');
+  const rows = root.findAll('board-row');
+  const store = {};
+  const dataTransfer = {
+    setData: (k, v) => { store[k] = v; },
+    getData: (k) => store[k],
+  };
+  rows[0].dispatch('dragstart', { dataTransfer });
+  rows[2].dispatch('dragover', { preventDefault: () => { store.prevented = true; }, dataTransfer });
+  rows[2].dispatch('drop', { preventDefault: () => { store.dropPrevented = true; }, dataTransfer });
+  assert.equal(store.prevented, true, 'dragover preventDefault');
+  assert.equal(store.dropPrevented, true, 'drop preventDefault');
+  assert.deepEqual(calls, [[0, 2]], '(fromIndex, toIndex) 콜백');
 });
 
-test('renderBoard: onMoveRow만 있어도 actions 헤더 열 추가', () => {
+test('renderBoard: onReorderRow만 있어도 actions 헤더 열 + drag handle 추가', () => {
   const root = new FakeEl('div');
   renderBoard(root, { id: 'g', name: 'x', rows: [
     { market: 'KR', code: 'A', name: 'a', quote: null },
-  ] }, { onMoveRow: () => {} });
+  ] }, { onReorderRow: () => {} });
   assert.ok(root.find('actions'), 'actions 셀 존재');
+  assert.ok(root.find('drag-handle'), 'drag handle 존재');
   assert.ok(!root.find('remove'), 'onRemove 없으면 삭제 버튼 없음');
 });
 
