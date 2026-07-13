@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-13T05:51:45.799Z",
+  "updatedAt": "2026-07-13T09:18:08.788Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -17,11 +17,11 @@
       "market": "KR",
       "code": "005930",
       "name": "삼성전자",
-      "price": 259000,
-      "change": -26000,
-      "changePct": -9.12,
-      "volume": 24503807,
-      "tradingValue": 6567689000000,
+      "price": 254500,
+      "change": -30500,
+      "changePct": -10.7,
+      "volume": 31882652,
+      "tradingValue": 8455131000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -29,11 +29,11 @@
       "market": "KR",
       "code": "009150",
       "name": "삼성전기",
-      "price": 1296000,
-      "change": -288000,
-      "changePct": -18.18,
-      "volume": 1161254,
-      "tradingValue": 1586098000000,
+      "price": 1289000,
+      "change": -295000,
+      "changePct": -18.62,
+      "volume": 1321644,
+      "tradingValue": 1793843000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -47,6 +47,66 @@
       "volume": 37037907,
       "tradingValue": 7120908000,
       "approxTradingValue": true,
+      "ok": true
+    },
+    "KR:403870": {
+      "market": "KR",
+      "code": "403870",
+      "name": "HPSP",
+      "price": 41900,
+      "change": -2500,
+      "changePct": -5.63,
+      "volume": 3371367,
+      "tradingValue": 151123000000,
+      "approxTradingValue": false,
+      "ok": true
+    },
+    "KR:036930": {
+      "market": "KR",
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "price": 182500,
+      "change": -9400,
+      "changePct": -4.9,
+      "volume": 2471963,
+      "tradingValue": 490069000000,
+      "approxTradingValue": false,
+      "ok": true
+    },
+    "US:TSLA": {
+      "market": "US",
+      "code": "TSLA",
+      "name": "Tesla, Inc.",
+      "price": 407.76,
+      "change": 1.21,
+      "changePct": 0.3,
+      "volume": 33409995,
+      "tradingValue": 13623259561,
+      "approxTradingValue": true,
+      "ok": true
+    },
+    "KR:347850": {
+      "market": "KR",
+      "code": "347850",
+      "name": "디앤디파마텍",
+      "price": 77000,
+      "change": -7300,
+      "changePct": -8.66,
+      "volume": 1410825,
+      "tradingValue": 114423000000,
+      "approxTradingValue": false,
+      "ok": true
+    },
+    "KR:093370": {
+      "market": "KR",
+      "code": "093370",
+      "name": "후성",
+      "price": 12340,
+      "change": -1400,
+      "changePct": -10.19,
+      "volume": 3566261,
+      "tradingValue": 46829000000,
+      "approxTradingValue": false,
       "ok": true
     },
     "US:NVDA": {
