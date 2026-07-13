@@ -18,9 +18,14 @@
           "market": "US",
           "code": "TSLA",
           "name": "Tesla, Inc."
+        },
+        {
+          "market": "KR",
+          "code": "093370",
+          "name": "후성"
         }
       ]
     }
   ],
-  "updatedAt": "2026-07-13T08:46:51.864Z"
+  "updatedAt": "2026-07-13T08:49:01.672Z"
 }
