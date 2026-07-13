@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-13T12:46:23.454Z",
+  "updatedAt": "2026-07-13T12:46:48.639Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -1348,6 +1348,29 @@
           "returnPct": -21.93,
           "prevClose": 12720,
           "holdDays": 6,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-07-09": {
+      "journal": "",
+      "resultTag": "",
+      "records": [
+        {
+          "code": "036930",
+          "name": "주성엔지니어링",
+          "market": "KR",
+          "buyAvg": 162000,
+          "sellAvg": 166100,
+          "qty": 2,
+          "buyAmount": null,
+          "sellAmount": 332200,
+          "fee": 704,
+          "pnl": null,
+          "returnPct": 2.53,
+          "prevClose": 175600,
+          "holdDays": 1,
           "reason": "",
           "tags": []
         }
