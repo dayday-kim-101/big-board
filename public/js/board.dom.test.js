@@ -16,6 +16,7 @@ class FakeEl {
   appendChild(c) { this.children.push(c); return c; }
   addEventListener(type, fn) { (this._listeners ||= {})[type] = fn; }
   dispatch(type, ev = {}) { this._listeners?.[type]?.(ev); }
+  blur() { this._listeners?.blur?.(); }
   click() { this._listeners?.click?.(); }
   allText() {
     let t = this._text || '';
@@ -151,7 +152,7 @@ test('renderBoard: onChart 없으면 현재가는 plain td (버튼 없음)', () 
 
 // --- memo row ---
 
-test('renderBoard: memo row — colspan 셀 + inline input, change 시 (row, index, text) 콜백', () => {
+test('renderBoard: memo row — colspan 셀 + inline input, blur 시 (row, index, text) 저장 콜백', () => {
   const root = new FakeEl('div');
   let edited = null;
   const memo = { type: 'memo', id: 'm1', text: '반도체' };
@@ -166,8 +167,23 @@ test('renderBoard: memo row — colspan 셀 + inline input, change 시 (row, ind
   assert.ok(input, 'inline input 생성');
   assert.equal(input.value, '반도체', '기존 텍스트 표시');
   input.value = '수정된 메모';
-  input._listeners.change();
-  assert.deepEqual(edited, { row: memo, i: 1, text: '수정된 메모' }, 'change 시 콜백');
+  input.blur();
+  assert.deepEqual(edited, { row: memo, i: 1, text: '수정된 메모' }, 'blur 시 콜백');
+});
+
+test('renderBoard: memo row — Enter 입력 완료 시 저장하고 같은 값은 중복 저장하지 않음', () => {
+  const root = new FakeEl('div');
+  const edits = [];
+  const memo = { type: 'memo', id: 'm1', text: '기존' };
+  renderBoard(root, { id: 'g', name: 'x', rows: [memo] }, {
+    onEditMemo: (row, i, text) => edits.push({ row, i, text }),
+  });
+  const input = root.find('memo-input');
+  input.value = '엔터 저장';
+  input.dispatch('keydown', { key: 'Enter', preventDefault: () => { input.prevented = true; } });
+  input.blur();
+  assert.equal(input.prevented, true, 'Enter 기본 동작 방지');
+  assert.deepEqual(edits, [{ row: memo, i: 0, text: '엔터 저장' }], 'Enter 저장 후 blur 중복 저장 없음');
 });
 
 test('renderBoard: 빈 text memo row도 렌더 (input 빈값)', () => {
