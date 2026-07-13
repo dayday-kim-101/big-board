@@ -10,14 +10,14 @@
           "name": "HPSP"
         },
         {
-          "market": "KR",
-          "code": "036930",
-          "name": "주성엔지니어링"
-        },
-        {
           "market": "US",
           "code": "TSLA",
           "name": "Tesla, Inc."
+        },
+        {
+          "market": "KR",
+          "code": "036930",
+          "name": "주성엔지니어링"
         },
         {
           "market": "KR",
@@ -32,5 +32,5 @@
       ]
     }
   ],
-  "updatedAt": "2026-07-13T13:06:15.745Z"
+  "updatedAt": "2026-07-13T13:06:19.200Z"
 }
