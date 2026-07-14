@@ -1,0 +1,2331 @@
+{
+  "date": "2026-07-14",
+  "collectedAt": "2026-07-14T14:42:14.913Z",
+  "source": "naver",
+  "dailyTheme": {
+    "text": "반도체/HBM 35.5조(76.9%) · 금융/증권 1.9조(4%) · 전력/전선 1.2조(2.6%) · 원전/에너지 9703억(2.1%)",
+    "source": "auto",
+    "generatedAt": "2026-07-14T14:42:14.913Z",
+    "updatedAt": "",
+    "items": [
+      {
+        "theme": "반도체/HBM",
+        "tradingValue": 35541504000000,
+        "sharePct": 76.9,
+        "count": 19,
+        "topStocks": [
+          {
+            "code": "000660",
+            "name": "SK하이닉스",
+            "rank": 1,
+            "tradingValue": 19062902000000
+          },
+          {
+            "code": "005930",
+            "name": "삼성전자",
+            "rank": 2,
+            "tradingValue": 10390330000000
+          },
+          {
+            "code": "009150",
+            "name": "삼성전기",
+            "rank": 3,
+            "tradingValue": 1676370000000
+          },
+          {
+            "code": "402340",
+            "name": "SK스퀘어",
+            "rank": 4,
+            "tradingValue": 1266250000000
+          },
+          {
+            "code": "005935",
+            "name": "삼성전자우",
+            "rank": 5,
+            "tradingValue": 957351000000
+          }
+        ]
+      },
+      {
+        "theme": "금융/증권",
+        "tradingValue": 1866959000000,
+        "sharePct": 4,
+        "count": 12,
+        "topStocks": [
+          {
+            "code": "105560",
+            "name": "KB금융",
+            "rank": 7,
+            "tradingValue": 421621000000
+          },
+          {
+            "code": "028260",
+            "name": "삼성물산",
+            "rank": 15,
+            "tradingValue": 262078000000
+          },
+          {
+            "code": "034730",
+            "name": "SK",
+            "rank": 22,
+            "tradingValue": 197576000000
+          },
+          {
+            "code": "086790",
+            "name": "하나금융지주",
+            "rank": 26,
+            "tradingValue": 186094000000
+          },
+          {
+            "code": "032830",
+            "name": "삼성생명",
+            "rank": 27,
+            "tradingValue": 181772000000
+          }
+        ]
+      },
+      {
+        "theme": "전력/전선",
+        "tradingValue": 1213254000000,
+        "sharePct": 2.6,
+        "count": 8,
+        "topStocks": [
+          {
+            "code": "006340",
+            "name": "대원전선",
+            "rank": 9,
+            "tradingValue": 416012000000
+          },
+          {
+            "code": "010120",
+            "name": "LS ELECTRIC",
+            "rank": 21,
+            "tradingValue": 198751000000
+          },
+          {
+            "code": "267260",
+            "name": "HD현대일렉트릭",
+            "rank": 31,
+            "tradingValue": 167668000000
+          },
+          {
+            "code": "298040",
+            "name": "효성중공업",
+            "rank": 37,
+            "tradingValue": 137305000000
+          },
+          {
+            "code": "015760",
+            "name": "한국전력",
+            "rank": 63,
+            "tradingValue": 85639000000
+          }
+        ]
+      },
+      {
+        "theme": "원전/에너지",
+        "tradingValue": 970284000000,
+        "sharePct": 2.1,
+        "count": 7,
+        "topStocks": [
+          {
+            "code": "034020",
+            "name": "두산에너빌리티",
+            "rank": 13,
+            "tradingValue": 287999000000
+          },
+          {
+            "code": "475150",
+            "name": "SK이터닉스",
+            "rank": 18,
+            "tradingValue": 209820000000
+          },
+          {
+            "code": "024060",
+            "name": "흥구석유",
+            "rank": 30,
+            "tradingValue": 173641000000
+          },
+          {
+            "code": "000150",
+            "name": "두산",
+            "rank": 55,
+            "tradingValue": 97131000000
+          },
+          {
+            "code": "096770",
+            "name": "SK이노베이션",
+            "rank": 65,
+            "tradingValue": 85352000000
+          }
+        ]
+      },
+      {
+        "theme": "자동차/부품",
+        "tradingValue": 900715000000,
+        "sharePct": 1.9,
+        "count": 3,
+        "topStocks": [
+          {
+            "code": "005380",
+            "name": "현대차",
+            "rank": 6,
+            "tradingValue": 543745000000
+          },
+          {
+            "code": "012330",
+            "name": "현대모비스",
+            "rank": 24,
+            "tradingValue": 196765000000
+          },
+          {
+            "code": "000270",
+            "name": "기아",
+            "rank": 32,
+            "tradingValue": 160205000000
+          }
+        ]
+      },
+      {
+        "theme": "바이오/헬스케어",
+        "tradingValue": 840515000000,
+        "sharePct": 1.8,
+        "count": 7,
+        "topStocks": [
+          {
+            "code": "196170",
+            "name": "알테오젠",
+            "rank": 10,
+            "tradingValue": 365617000000
+          },
+          {
+            "code": "068270",
+            "name": "셀트리온",
+            "rank": 44,
+            "tradingValue": 122832000000
+          },
+          {
+            "code": "207940",
+            "name": "삼성바이오로직스",
+            "rank": 60,
+            "tradingValue": 87674000000
+          },
+          {
+            "code": "028300",
+            "name": "HLB",
+            "rank": 71,
+            "tradingValue": 75075000000
+          },
+          {
+            "code": "141080",
+            "name": "리가켐바이오",
+            "rank": 73,
+            "tradingValue": 73836000000
+          }
+        ]
+      }
+    ]
+  },
+  "rows": [
+    {
+      "rank": 1,
+      "prevRank": 1,
+      "code": "000660",
+      "name": "SK하이닉스",
+      "price": 1913000,
+      "changePct": 3.69,
+      "marketCap": 1363399600000000,
+      "tradingValue": 19062902000000,
+      "tvToMcapPct": 1.4,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(메모리)\n재료: SK하이닉스 — HBM/DRAM, 엔비디아 공급, AI 메모리 수퍼사이클\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 2,
+      "prevRank": 2,
+      "code": "005930",
+      "name": "삼성전자",
+      "price": 263000,
+      "changePct": 3.34,
+      "marketCap": 1537571300000000,
+      "tradingValue": 10390330000000,
+      "tvToMcapPct": 0.68,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(종합)\n재료: 삼성전자 — 메모리·파운드리·HBM, 전자 종합\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 3,
+      "prevRank": 3,
+      "code": "009150",
+      "name": "삼성전기",
+      "price": 1260000,
+      "changePct": -2.25,
+      "marketCap": 94114100000000,
+      "tradingValue": 1676370000000,
+      "tvToMcapPct": 1.78,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "mlcc",
+        "material": "mlcc 가격 인상",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) MLCC(전자부품)\n재료: 삼성전기 — MLCC·전장·반도체 기판(FC-BGA)\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 4,
+      "prevRank": 4,
+      "code": "402340",
+      "name": "SK스퀘어",
+      "price": 1190000,
+      "changePct": 2.5,
+      "marketCap": 157030500000000,
+      "tradingValue": 1266250000000,
+      "tvToMcapPct": 0.81,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "삼전닉스",
+        "material": "지분보유",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 지주(반도체)\n재료: SK스퀘어 — SK하이닉스 지분·주주환원\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 5,
+      "prevRank": 5,
+      "code": "005935",
+      "name": "삼성전자우",
+      "price": 182200,
+      "changePct": 3,
+      "marketCap": 146192000000000,
+      "tradingValue": 957351000000,
+      "tvToMcapPct": 0.65,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(우선주)\n재료: 삼성전자우 — 삼성전자 우선주\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 6,
+      "prevRank": 12,
+      "code": "005380",
+      "name": "현대차",
+      "price": 424500,
+      "changePct": -4.39,
+      "marketCap": 86919700000000,
+      "tradingValue": 543745000000,
+      "tvToMcapPct": 0.63,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 자동차\n재료: 현대차 — 완성차·전기차, 로봇(보스턴다이내믹스)\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 7,
+      "prevRank": 9,
+      "code": "105560",
+      "name": "KB금융",
+      "price": 180000,
+      "changePct": -3.33,
+      "marketCap": 63843800000000,
+      "tradingValue": 421621000000,
+      "tvToMcapPct": 0.66,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 금융지주\n재료: KB금융 — 은행 금융지주, 밸류업\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 8,
+      "prevRank": 8,
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "price": 192600,
+      "changePct": 5.53,
+      "marketCap": 8952300000000,
+      "tradingValue": 418076000000,
+      "tvToMcapPct": 4.67,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(장비)\n재료: 주성엔지니어링 — ALD 증착장비\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 9,
+      "prevRank": 79,
+      "code": "006340",
+      "name": "대원전선",
+      "price": 12750,
+      "changePct": 17.84,
+      "marketCap": 999800000000,
+      "tradingValue": 416012000000,
+      "tvToMcapPct": 41.61,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 전선(전력기기)\n재료: 대원전선 — 전선·전력망\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 10,
+      "prevRank": 33,
+      "code": "196170",
+      "name": "알테오젠",
+      "price": 279500,
+      "changePct": -11.69,
+      "marketCap": 14977400000000,
+      "tradingValue": 365617000000,
+      "tvToMcapPct": 2.44,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 바이오\n재료: 알테오젠 — 히알루로니다제(ALT-B4) SC 제형 기술수출\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 11,
+      "prevRank": 7,
+      "code": "066570",
+      "name": "LG전자",
+      "price": 185400,
+      "changePct": -0.11,
+      "marketCap": 30198800000000,
+      "tradingValue": 335327000000,
+      "tvToMcapPct": 1.11,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 가전(전자)\n재료: LG전자 — 가전·전장·AI홈\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 12,
+      "prevRank": 13,
+      "code": "006400",
+      "name": "삼성SDI",
+      "price": 427500,
+      "changePct": -2.84,
+      "marketCap": 34450300000000,
+      "tradingValue": 302495000000,
+      "tvToMcapPct": 0.88,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "2차전지",
+        "material": "AI데이터센터 예비전력 ESS 기대감?",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 2차전지\n재료: 삼성SDI — 각형 배터리·ESS\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 13,
+      "prevRank": 16,
+      "code": "034020",
+      "name": "두산에너빌리티",
+      "price": 70900,
+      "changePct": -3.14,
+      "marketCap": 45415800000000,
+      "tradingValue": 287999000000,
+      "tvToMcapPct": 0.63,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 원전\n재료: 두산에너빌리티 — SMR·대형원전·가스터빈\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 14,
+      "prevRank": 10,
+      "code": "240810",
+      "name": "원익IPS",
+      "price": 127100,
+      "changePct": 1.84,
+      "marketCap": 6238600000000,
+      "tradingValue": 280172000000,
+      "tvToMcapPct": 4.49,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(장비)\n재료: 원익IPS — 증착 장비\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 15,
+      "prevRank": 18,
+      "code": "028260",
+      "name": "삼성물산",
+      "price": 354000,
+      "changePct": -1.94,
+      "marketCap": 57407300000000,
+      "tradingValue": 262078000000,
+      "tvToMcapPct": 0.46,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 지주(건설/상사)\n재료: 삼성물산 — 건설·상사, 삼성 지배구조\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 16,
+      "prevRank": 14,
+      "code": "011070",
+      "name": "LG이노텍",
+      "price": 641000,
+      "changePct": -3.03,
+      "marketCap": 15170600000000,
+      "tradingValue": 250381000000,
+      "tvToMcapPct": 1.65,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 전자부품\n재료: LG이노텍 — 애플 카메라모듈·FC-BGA\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 17,
+      "prevRank": 35,
+      "code": "329180",
+      "name": "HD현대중공업",
+      "price": 466000,
+      "changePct": -4.41,
+      "marketCap": 48911900000000,
+      "tradingValue": 238615000000,
+      "tvToMcapPct": 0.49,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 조선\n재료: HD현대중공업 — 상선·특수선·엔진\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 18,
+      "prevRank": 11,
+      "code": "475150",
+      "name": "SK이터닉스",
+      "price": 48800,
+      "changePct": 1.56,
+      "marketCap": 1662500000000,
+      "tradingValue": 209820000000,
+      "tvToMcapPct": 12.62,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "신재생에너지",
+        "material": "친환경에너지 발전사업, 미국 유럽에 태양광 발전사업 확대 움직임 영향? 그게 어디나온 재료일까?",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 신재생\n재료: SK이터닉스 — 재생에너지 개발\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 19,
+      "prevRank": 38,
+      "code": "012450",
+      "name": "한화에어로스페이스",
+      "price": 872000,
+      "changePct": -6.84,
+      "marketCap": 44963300000000,
+      "tradingValue": 204947000000,
+      "tvToMcapPct": 0.46,
+      "manual": {
+        "newOrExisting": "신규",
+        "theme": "방산",
+        "material": "전쟁 종료 = 방산주 매도 틀림, RPO가 37조규모 남았고 전쟁통해 천궁 등 성능확인되어 인기가 더 높아질 기대감",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 방산\n재료: 한화에어로스페이스 — K9·천무 수출, 항공엔진\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 20,
+      "prevRank": 74,
+      "code": "089030",
+      "name": "테크윙",
+      "price": 48450,
+      "changePct": 10.49,
+      "marketCap": 1795200000000,
+      "tradingValue": 201987000000,
+      "tvToMcapPct": 11.25,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(장비)\n재료: 테크윙 — 핸들러·큐브프로버(HBM 검사)\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 21,
+      "prevRank": 19,
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "price": 187700,
+      "changePct": 1.73,
+      "marketCap": 28155000000000,
+      "tradingValue": 198751000000,
+      "tvToMcapPct": 0.71,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "전력설비",
+        "material": "사조그룹 등 대기업 계약수주 기대감",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 전력기기\n재료: LS ELECTRIC — 변압기·전력망 수출, AI데이터센터 전력\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 22,
+      "prevRank": 32,
+      "code": "034730",
+      "name": "SK",
+      "price": 562000,
+      "changePct": -3.6,
+      "marketCap": 40746500000000,
+      "tradingValue": 197576000000,
+      "tvToMcapPct": 0.48,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 지주\n재료: SK — SK그룹 지주사\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 23,
+      "prevRank": 15,
+      "code": "319660",
+      "name": "피에스케이",
+      "price": 203500,
+      "changePct": 10.24,
+      "marketCap": 5894700000000,
+      "tradingValue": 197460000000,
+      "tvToMcapPct": 3.35,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(장비)\n재료: 피에스케이 — 세정·PR 스트립 장비\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 24,
+      "prevRank": 22,
+      "code": "012330",
+      "name": "현대모비스",
+      "price": 466000,
+      "changePct": -4.41,
+      "marketCap": 42281400000000,
+      "tradingValue": 196765000000,
+      "tvToMcapPct": 0.47,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 자동차부품\n재료: 현대모비스 — 전장·모듈·전동화\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 25,
+      "prevRank": 36,
+      "code": "042700",
+      "name": "한미반도체",
+      "price": 207500,
+      "changePct": 0.97,
+      "marketCap": 19777300000000,
+      "tradingValue": 190462000000,
+      "tvToMcapPct": 0.96,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "스페이스X 투자성공",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(장비)\n재료: 한미반도체 — HBM TC본더, SK하이닉스 공급\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 26,
+      "prevRank": 21,
+      "code": "086790",
+      "name": "하나금융지주",
+      "price": 134000,
+      "changePct": 1.06,
+      "marketCap": 36765300000000,
+      "tradingValue": 186094000000,
+      "tvToMcapPct": 0.51,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 금융지주\n재료: 하나금융지주 — 은행 금융지주, 밸류업\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 27,
+      "prevRank": 37,
+      "code": "032830",
+      "name": "삼성생명",
+      "price": 317000,
+      "changePct": -2.76,
+      "marketCap": 63400000000000,
+      "tradingValue": 181772000000,
+      "tvToMcapPct": 0.29,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 보험\n재료: 삼성생명 — 생명보험, 삼성 지배구조·밸류업\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 28,
+      "prevRank": 20,
+      "code": "095610",
+      "name": "테스",
+      "price": 217500,
+      "changePct": 16.68,
+      "marketCap": 4210800000000,
+      "tradingValue": 178642000000,
+      "tvToMcapPct": 4.24,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(장비)\n재료: 테스 — 증착·식각 장비\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 29,
+      "prevRank": 31,
+      "code": "035420",
+      "name": "NAVER",
+      "price": 183200,
+      "changePct": -2.55,
+      "marketCap": 28752200000000,
+      "tradingValue": 174308000000,
+      "tvToMcapPct": 0.61,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 인터넷(AI)\n재료: NAVER — 검색·커머스·AI(하이퍼클로바)\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 30,
+      "prevRank": 23,
+      "code": "024060",
+      "name": "흥구석유",
+      "price": 12680,
+      "changePct": 8.93,
+      "marketCap": 190200000000,
+      "tradingValue": 173641000000,
+      "tvToMcapPct": 91.29,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: 흥구석유 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 31,
+      "prevRank": 34,
+      "code": "267260",
+      "name": "HD현대일렉트릭",
+      "price": 797000,
+      "changePct": 1.14,
+      "marketCap": 28729600000000,
+      "tradingValue": 167668000000,
+      "tvToMcapPct": 0.58,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 전력기기\n재료: HD현대일렉트릭 — 변압기 수출, AI데이터센터 전력\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 32,
+      "prevRank": 39,
+      "code": "000270",
+      "name": "기아",
+      "price": 139600,
+      "changePct": -2.72,
+      "marketCap": 54501700000000,
+      "tradingValue": 160205000000,
+      "tvToMcapPct": 0.29,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 자동차\n재료: 기아 — 완성차 판매·수출 실적\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 33,
+      "prevRank": 29,
+      "code": "055550",
+      "name": "신한지주",
+      "price": 106500,
+      "changePct": -1.93,
+      "marketCap": 50550700000000,
+      "tradingValue": 153879000000,
+      "tvToMcapPct": 0.3,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 금융지주\n재료: 신한지주 — 은행 금융지주, 밸류업\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 34,
+      "prevRank": 17,
+      "code": "353200",
+      "name": "대덕전자",
+      "price": 117400,
+      "changePct": 3.16,
+      "marketCap": 5801500000000,
+      "tradingValue": 149743000000,
+      "tvToMcapPct": 2.58,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(PCB)\n재료: 대덕전자 — FC-BGA·패키지 기판\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 35,
+      "prevRank": 26,
+      "code": "080220",
+      "name": "제주반도체",
+      "price": 73700,
+      "changePct": -4.66,
+      "marketCap": 2538400000000,
+      "tradingValue": 138643000000,
+      "tvToMcapPct": 5.46,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "온디바이스ai",
+        "material": "국내 반도체 수출 호조, 글로벌 빅테크 수주 기대",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(팹리스)\n재료: 제주반도체 — 저전력 메모리, IoT/온디바이스AI\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 36,
+      "prevRank": 6,
+      "code": "387690",
+      "name": "레메디",
+      "price": 17460,
+      "changePct": -20.64,
+      "marketCap": 133100000000,
+      "tradingValue": 138375000000,
+      "tvToMcapPct": 103.96,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "초소형Xray",
+        "material": "방사선기슐",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: 레메디 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 37,
+      "prevRank": 51,
+      "code": "298040",
+      "name": "효성중공업",
+      "price": 2677000,
+      "changePct": 0.41,
+      "marketCap": 24961800000000,
+      "tradingValue": 137305000000,
+      "tvToMcapPct": 0.55,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 전력기기\n재료: 효성중공업 — 변압기 수출·ESS\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 38,
+      "prevRank": 45,
+      "code": "347850",
+      "name": "디앤디파마텍",
+      "price": 71600,
+      "changePct": -7.01,
+      "marketCap": 3282000000000,
+      "tradingValue": 136363000000,
+      "tvToMcapPct": 4.15,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "비만치료제",
+        "material": "먹는 비만치료제 미국 전임상 결과 공개",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 바이오\n재료: 디앤디파마텍 — 경구용 비만치료제(GLP-1)\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 39,
+      "prevRank": 55,
+      "code": "037070",
+      "name": "파세코",
+      "price": 7370,
+      "changePct": -15.87,
+      "marketCap": 147400000000,
+      "tradingValue": 135464000000,
+      "tvToMcapPct": 91.9,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "폭염",
+        "material": "창문형 에어컨 판매",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: 파세코 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 40,
+      "prevRank": 27,
+      "code": "042660",
+      "name": "한화오션",
+      "price": 76800,
+      "changePct": -2.54,
+      "marketCap": 23532500000000,
+      "tradingValue": 131184000000,
+      "tvToMcapPct": 0.56,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 조선(방산)\n재료: 한화오션 — 잠수함·함정·상선, 미국 함정 MRO\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 41,
+      "prevRank": 48,
+      "code": "089970",
+      "name": "브이엠",
+      "price": 114700,
+      "changePct": 18.98,
+      "marketCap": 3019700000000,
+      "tradingValue": 124917000000,
+      "tvToMcapPct": 4.14,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(장비)\n재료: 브이엠(구 에이피티씨) — 식각장비(확인 필요)\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 42,
+      "prevRank": 25,
+      "code": "002990",
+      "name": "금호건설",
+      "price": 13570,
+      "changePct": -2.86,
+      "marketCap": 505600000000,
+      "tradingValue": 123454000000,
+      "tvToMcapPct": 24.42,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "호남권 반도체 클러스터",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "반도체 클러스터 조성에 삼성전자 실적 좋아서 낙수효과?"
+      }
+    },
+    {
+      "rank": 43,
+      "prevRank": 46,
+      "code": "079550",
+      "name": "LIG디펜스앤에어로스페이스",
+      "price": 665000,
+      "changePct": -8.28,
+      "marketCap": 14630000000000,
+      "tradingValue": 123383000000,
+      "tvToMcapPct": 0.84,
+      "manual": {
+        "newOrExisting": "신규",
+        "theme": "방산",
+        "material": "전쟁 종료 = 방산주 매도 틀림, RPO가 26조규모 남았고 전쟁통해 천궁 등 성능확인되어 인기가 더 높아질 기대감",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 방산\n재료: LIG넥스원(디펜스앤에어로스페이스) — 유도무기(천궁) 수출\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 44,
+      "prevRank": 44,
+      "code": "068270",
+      "name": "셀트리온",
+      "price": 172800,
+      "changePct": -1.31,
+      "marketCap": 40185300000000,
+      "tradingValue": 122832000000,
+      "tvToMcapPct": 0.31,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 바이오\n재료: 셀트리온 — 바이오시밀러·짐펜트라\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 45,
+      "prevRank": 30,
+      "code": "403870",
+      "name": "HPSP",
+      "price": 42000,
+      "changePct": 0.24,
+      "marketCap": 3456600000000,
+      "tradingValue": 118983000000,
+      "tvToMcapPct": 3.44,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "테라팹",
+        "material": "미국장 상승, 국내 지수 상승이 있었지만 오늘도 지속되지는 않았다.",
+        "materialPersistence": "테라팹은 AI 사이클에 적합한 재료로 시장이 광기로 판단 될 수 있는 좋은 재료임",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(장비)\n재료: HPSP — 고압수소어닐링 장비 독점\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동, 테라팹\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 46,
+      "prevRank": 53,
+      "code": "373220",
+      "name": "LG에너지솔루션",
+      "price": 322000,
+      "changePct": -1.98,
+      "marketCap": 75348000000000,
+      "tradingValue": 118429000000,
+      "tvToMcapPct": 0.16,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 2차전지\n재료: LG에너지솔루션 — 배터리 셀·ESS\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 47,
+      "prevRank": 66,
+      "code": "009540",
+      "name": "HD한국조선해양",
+      "price": 327000,
+      "changePct": -4.25,
+      "marketCap": 23142800000000,
+      "tradingValue": 114136000000,
+      "tvToMcapPct": 0.49,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 조선\n재료: HD한국조선해양 — 조선 중간지주, 수주\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 48,
+      "prevRank": 60,
+      "code": "003490",
+      "name": "대한항공",
+      "price": 26500,
+      "changePct": 2.51,
+      "marketCap": 9757800000000,
+      "tradingValue": 110727000000,
+      "tvToMcapPct": 1.13,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 항공\n재료: 대한항공 — 여객·화물, 아시아나 합병\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 49,
+      "prevRank": 52,
+      "code": "005490",
+      "name": "POSCO홀딩스",
+      "price": 303500,
+      "changePct": -1.46,
+      "marketCap": 24049800000000,
+      "tradingValue": 103275000000,
+      "tvToMcapPct": 0.43,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 철강(2차전지)\n재료: POSCO홀딩스 — 철강 + 리튬/2차전지 소재 지주\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 50,
+      "prevRank": 50,
+      "code": "003680",
+      "name": "한성기업",
+      "price": 11170,
+      "changePct": 20.11,
+      "marketCap": 69400000000,
+      "tradingValue": 102691000000,
+      "tvToMcapPct": 147.97,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: 한성기업 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 51,
+      "prevRank": 41,
+      "code": "007660",
+      "name": "이수페타시스",
+      "price": 97900,
+      "changePct": -1.71,
+      "marketCap": 7186800000000,
+      "tradingValue": 100086000000,
+      "tvToMcapPct": 1.39,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(PCB)\n재료: 이수페타시스 — 고다층 MLB 기판, AI 가속기용\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 52,
+      "prevRank": 28,
+      "code": "010170",
+      "name": "대한광통신",
+      "price": 11050,
+      "changePct": 1.28,
+      "marketCap": 1718100000000,
+      "tradingValue": 99936000000,
+      "tvToMcapPct": 5.82,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 광통신\n재료: 대한광통신 — 광섬유·광케이블, AI데이터센터 수요\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 53,
+      "prevRank": 67,
+      "code": "028050",
+      "name": "삼성E&A",
+      "price": 40150,
+      "changePct": -2.31,
+      "marketCap": 7869400000000,
+      "tradingValue": 99409000000,
+      "tvToMcapPct": 1.26,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 플랜트\n재료: 삼성E&A — 화공플랜트 EPC 수주\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 54,
+      "prevRank": 92,
+      "code": "477850",
+      "name": "마키나락스",
+      "price": 27950,
+      "changePct": 13.62,
+      "marketCap": 496200000000,
+      "tradingValue": 98515000000,
+      "tvToMcapPct": 19.85,
+      "manual": {
+        "newOrExisting": "신규",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: 마키나락스 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 55,
+      "prevRank": 40,
+      "code": "000150",
+      "name": "두산",
+      "price": 1217000,
+      "changePct": -1.7,
+      "marketCap": 19707900000000,
+      "tradingValue": 97131000000,
+      "tvToMcapPct": 0.49,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 지주(로봇/에너지)\n재료: 두산그룹 지주 — 로보틱스·에너빌리티 등 자회사 가치\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 56,
+      "prevRank": 61,
+      "code": "006800",
+      "name": "미래에셋증권",
+      "price": 38750,
+      "changePct": -3.12,
+      "marketCap": 21683200000000,
+      "tradingValue": 93586000000,
+      "tvToMcapPct": 0.43,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 증권\n재료: 미래에셋증권 — 증권 실적·밸류업\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 57,
+      "prevRank": 85,
+      "code": "071050",
+      "name": "한국금융지주",
+      "price": 216500,
+      "changePct": -8.65,
+      "marketCap": 12064700000000,
+      "tradingValue": 92959000000,
+      "tvToMcapPct": 0.77,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 증권/금융\n재료: 한국금융지주 — 한국투자증권 지주\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 58,
+      "prevRank": 69,
+      "code": "064350",
+      "name": "현대로템",
+      "price": 165400,
+      "changePct": -2.71,
+      "marketCap": 18052100000000,
+      "tradingValue": 90096000000,
+      "tvToMcapPct": 0.5,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 방산(철도)\n재료: 현대로템 — K2전차 수출, 철도·수소\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 59,
+      "prevRank": null,
+      "code": "004170",
+      "name": "신세계",
+      "price": 561000,
+      "changePct": -5.08,
+      "marketCap": 5298700000000,
+      "tradingValue": 89414000000,
+      "tvToMcapPct": 1.69,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 유통\n재료: 신세계 — 백화점·면세\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 60,
+      "prevRank": 77,
+      "code": "207940",
+      "name": "삼성바이오로직스",
+      "price": 1368000,
+      "changePct": -2.29,
+      "marketCap": 63326000000000,
+      "tradingValue": 87674000000,
+      "tvToMcapPct": 0.14,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 바이오(CDMO)\n재료: 삼성바이오로직스 — 항체 위탁생산 증설\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 61,
+      "prevRank": 57,
+      "code": "010140",
+      "name": "삼성중공업",
+      "price": 21250,
+      "changePct": -3.63,
+      "marketCap": 18700000000000,
+      "tradingValue": 86643000000,
+      "tvToMcapPct": 0.46,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 조선\n재료: 삼성중공업 — LNG선·해양플랜트\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 62,
+      "prevRank": 54,
+      "code": "086520",
+      "name": "에코프로",
+      "price": 79100,
+      "changePct": -5.38,
+      "marketCap": 10739900000000,
+      "tradingValue": 86186000000,
+      "tvToMcapPct": 0.8,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 2차전지(소재)\n재료: 에코프로 — 양극재 소재 지주\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 63,
+      "prevRank": 82,
+      "code": "015760",
+      "name": "한국전력",
+      "price": 33950,
+      "changePct": -0.88,
+      "marketCap": 21794700000000,
+      "tradingValue": 85639000000,
+      "tvToMcapPct": 0.39,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 전력(유틸리티)\n재료: 한국전력 — 전기요금·원전·전력망\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 64,
+      "prevRank": 58,
+      "code": "278470",
+      "name": "에이피알",
+      "price": 375000,
+      "changePct": -1.32,
+      "marketCap": 14039300000000,
+      "tradingValue": 85526000000,
+      "tvToMcapPct": 0.61,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 화장품(디바이스)\n재료: 에이피알 — 메디큐브 뷰티 디바이스 수출\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 65,
+      "prevRank": 24,
+      "code": "096770",
+      "name": "SK이노베이션",
+      "price": 104900,
+      "changePct": -4.81,
+      "marketCap": 17733600000000,
+      "tradingValue": 85352000000,
+      "tvToMcapPct": 0.48,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: SK이노베이션 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 66,
+      "prevRank": 64,
+      "code": "316140",
+      "name": "우리금융지주",
+      "price": 30700,
+      "changePct": -1.6,
+      "marketCap": 22352400000000,
+      "tradingValue": 85032000000,
+      "tvToMcapPct": 0.38,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 금융지주\n재료: 우리금융지주 — 은행 금융지주, 밸류업\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 67,
+      "prevRank": null,
+      "code": "000500",
+      "name": "가온전선",
+      "price": 215000,
+      "changePct": -13.13,
+      "marketCap": 3556800000000,
+      "tradingValue": 83340000000,
+      "tvToMcapPct": 2.34,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 전선(전력기기)\n재료: 가온전선 — 전력망 투자·전선 수요\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 68,
+      "prevRank": 80,
+      "code": "003280",
+      "name": "흥아해운",
+      "price": 1825,
+      "changePct": 4.46,
+      "marketCap": 438800000000,
+      "tradingValue": 82648000000,
+      "tvToMcapPct": 18.84,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: 흥아해운 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 69,
+      "prevRank": null,
+      "code": "950160",
+      "name": "코오롱티슈진",
+      "price": 72900,
+      "changePct": -4.83,
+      "marketCap": 6194300000000,
+      "tradingValue": 75429000000,
+      "tvToMcapPct": 1.22,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: 코오롱티슈진 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 70,
+      "prevRank": 83,
+      "code": "000810",
+      "name": "삼성화재",
+      "price": 628000,
+      "changePct": -1.72,
+      "marketCap": 28038600000000,
+      "tradingValue": 75406000000,
+      "tvToMcapPct": 0.27,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 보험\n재료: 삼성화재 — 손해보험 실적·밸류업\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 71,
+      "prevRank": 42,
+      "code": "028300",
+      "name": "HLB",
+      "price": 26700,
+      "changePct": 4.09,
+      "marketCap": 3556400000000,
+      "tradingValue": 75075000000,
+      "tvToMcapPct": 2.11,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 바이오\n재료: HLB — 리보세라닙 항암 FDA 이슈\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 72,
+      "prevRank": 56,
+      "code": "064400",
+      "name": "LG씨엔에스",
+      "price": 66000,
+      "changePct": -3.23,
+      "marketCap": 6394500000000,
+      "tradingValue": 74312000000,
+      "tvToMcapPct": 1.16,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) IT서비스(AI)\n재료: LG씨엔에스 — 클라우드·DX(신규상장)\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 73,
+      "prevRank": 95,
+      "code": "141080",
+      "name": "리가켐바이오",
+      "price": 104300,
+      "changePct": -7.94,
+      "marketCap": 3861100000000,
+      "tradingValue": 73836000000,
+      "tvToMcapPct": 1.91,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 바이오(ADC)\n재료: 리가켐바이오 — ADC 항암 기술수출\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 74,
+      "prevRank": 63,
+      "code": "009830",
+      "name": "한화솔루션",
+      "price": 29850,
+      "changePct": -6.72,
+      "marketCap": 5131000000000,
+      "tradingValue": 73808000000,
+      "tvToMcapPct": 1.44,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 태양광(신재생)\n재료: 한화솔루션 — 큐셀 미국 태양광·화학\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 75,
+      "prevRank": 43,
+      "code": "069540",
+      "name": "빛과전자",
+      "price": 2490,
+      "changePct": 8.73,
+      "marketCap": 280600000000,
+      "tradingValue": 72815000000,
+      "tvToMcapPct": 25.95,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 광통신\n재료: 빛과전자 — 광트랜시버 부품(확인 필요)\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 76,
+      "prevRank": 87,
+      "code": "035720",
+      "name": "카카오",
+      "price": 33850,
+      "changePct": -2.59,
+      "marketCap": 14994900000000,
+      "tradingValue": 72729000000,
+      "tvToMcapPct": 0.49,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 인터넷(AI)\n재료: 카카오 — 메신저·AI·핀테크\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 77,
+      "prevRank": 84,
+      "code": "051910",
+      "name": "LG화학",
+      "price": 255000,
+      "changePct": -2.11,
+      "marketCap": 18001000000000,
+      "tradingValue": 66286000000,
+      "tvToMcapPct": 0.37,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 2차전지(화학)\n재료: LG화학 — 양극재·석유화학\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 78,
+      "prevRank": null,
+      "code": "062040",
+      "name": "산일전기",
+      "price": 168600,
+      "changePct": -0.71,
+      "marketCap": 5161800000000,
+      "tradingValue": 65812000000,
+      "tvToMcapPct": 1.27,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 전력기기\n재료: 산일전기 — 변압기 수출(미국)\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 79,
+      "prevRank": null,
+      "code": "003230",
+      "name": "삼양식품",
+      "price": 1072000,
+      "changePct": -3.42,
+      "marketCap": 8075400000000,
+      "tradingValue": 64804000000,
+      "tvToMcapPct": 0.8,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 음식료(수출)\n재료: 삼양식품 — 불닭볶음면 글로벌 수출\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 80,
+      "prevRank": 90,
+      "code": "017670",
+      "name": "SK텔레콤",
+      "price": 83900,
+      "changePct": -2.1,
+      "marketCap": 18020900000000,
+      "tradingValue": 61908000000,
+      "tvToMcapPct": 0.34,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 통신(AI)\n재료: SK텔레콤 — AI·데이터센터(보안사고 영향 확인 필요)\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 81,
+      "prevRank": 68,
+      "code": "047040",
+      "name": "대우건설",
+      "price": 15830,
+      "changePct": -1.12,
+      "marketCap": 6504700000000,
+      "tradingValue": 61573000000,
+      "tvToMcapPct": 0.95,
+      "manual": {
+        "newOrExisting": "신규",
+        "theme": "플랜트 or 재건축",
+        "material": "종전으로 자재확보 수월해져서 재건관련주 관심 받았나보다. 그치만 재료가 너무 약하다 시니어주택건설하는건데 너무 약하다",
+        "materialPersistence": "당일로 본다",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 건설\n재료: 대우건설 — 주택·플랜트·해외(재건 기대)\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 82,
+      "prevRank": 47,
+      "code": "010950",
+      "name": "S-Oil",
+      "price": 131400,
+      "changePct": -5.81,
+      "marketCap": 14793400000000,
+      "tradingValue": 61407000000,
+      "tvToMcapPct": 0.42,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "에너지주",
+        "material": "유가상승수혜",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: S-Oil — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 83,
+      "prevRank": null,
+      "code": "006660",
+      "name": "삼성공조",
+      "price": 10980,
+      "changePct": 8.93,
+      "marketCap": 89200000000,
+      "tradingValue": 60552000000,
+      "tvToMcapPct": 67.88,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: 삼성공조 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 84,
+      "prevRank": 96,
+      "code": "016360",
+      "name": "삼성증권",
+      "price": 101900,
+      "changePct": -6.34,
+      "marketCap": 9099700000000,
+      "tradingValue": 60323000000,
+      "tvToMcapPct": 0.66,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 증권\n재료: 삼성증권 — 증권 실적·밸류업\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 85,
+      "prevRank": 65,
+      "code": "222800",
+      "name": "심텍",
+      "price": 108000,
+      "changePct": -0.09,
+      "marketCap": 4046100000000,
+      "tradingValue": 59839000000,
+      "tvToMcapPct": 1.48,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "pcb 주도주",
+        "material": "d램 모듈, 엔비디아 최대공급",
+        "materialPersistence": "크다",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(PCB)\n재료: 심텍 — 메모리 모듈·MSAP 패키지 기판\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 86,
+      "prevRank": 81,
+      "code": "047810",
+      "name": "한국항공우주",
+      "price": 141100,
+      "changePct": -1.67,
+      "marketCap": 13753700000000,
+      "tradingValue": 59615000000,
+      "tvToMcapPct": 0.43,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 방산(항공)\n재료: 한국항공우주(KAI) — FA-50·KF-21 수출\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 87,
+      "prevRank": null,
+      "code": "128940",
+      "name": "한미약품",
+      "price": 356500,
+      "changePct": -6.55,
+      "marketCap": 4567100000000,
+      "tradingValue": 59184000000,
+      "tvToMcapPct": 1.3,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 제약\n재료: 한미약품 — 비만치료제·신약 파이프라인\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 88,
+      "prevRank": 86,
+      "code": "001440",
+      "name": "대한전선",
+      "price": 28000,
+      "changePct": -1.06,
+      "marketCap": 5487800000000,
+      "tradingValue": 58727000000,
+      "tvToMcapPct": 1.07,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 전선(전력기기)\n재료: 대한전선 — 초고압 케이블·전력망 수출\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 89,
+      "prevRank": null,
+      "code": "131290",
+      "name": "티에스이",
+      "price": 277000,
+      "changePct": 10.58,
+      "marketCap": 3064000000000,
+      "tradingValue": 58453000000,
+      "tvToMcapPct": 1.91,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: 티에스이 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 90,
+      "prevRank": 75,
+      "code": "001820",
+      "name": "삼화콘덴서",
+      "price": 89300,
+      "changePct": -2.51,
+      "marketCap": 928300000000,
+      "tradingValue": 57154000000,
+      "tvToMcapPct": 6.16,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "mlcc",
+        "material": "삼성전기 자율주행용 mlcc 양산 -> 이게 예전에도 그랬다며? 신선한건지 오랜만이라 신선한건지",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) MLCC(전자부품)\n재료: 삼화콘덴서 — MLCC 가격 인상·전장용 수요\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 91,
+      "prevRank": null,
+      "code": "000990",
+      "name": "DB하이텍",
+      "price": 113500,
+      "changePct": 2.53,
+      "marketCap": 4937800000000,
+      "tradingValue": 57124000000,
+      "tvToMcapPct": 1.16,
+      "manual": {
+        "newOrExisting": "기존",
+        "theme": "시스템반도체",
+        "material": "구글 TPU 생산 삼성이 맡을 기대감",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(파운드리)\n재료: DB하이텍 — 8인치 파운드리, 시스템반도체(TPU 위탁 기대 확인 필요)\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 92,
+      "prevRank": 91,
+      "code": "005830",
+      "name": "DB손해보험",
+      "price": 161000,
+      "changePct": 1.19,
+      "marketCap": 10545600000000,
+      "tradingValue": 56633000000,
+      "tvToMcapPct": 0.54,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: DB손해보험 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 93,
+      "prevRank": null,
+      "code": "0126Z0",
+      "name": "삼성에피스홀딩스",
+      "price": 384500,
+      "changePct": 1.72,
+      "marketCap": 9567500000000,
+      "tradingValue": 56380000000,
+      "tvToMcapPct": 0.59,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: 삼성에피스홀딩스 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 94,
+      "prevRank": null,
+      "code": "365660",
+      "name": "레몬헬스케어",
+      "price": 7100,
+      "changePct": 1.72,
+      "marketCap": 94800000000,
+      "tradingValue": 56297000000,
+      "tvToMcapPct": 59.39,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 확인 필요\n재료: 레몬헬스케어 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 95,
+      "prevRank": 76,
+      "code": "058470",
+      "name": "리노공업",
+      "price": 73100,
+      "changePct": 1.11,
+      "marketCap": 5571100000000,
+      "tradingValue": 56095000000,
+      "tvToMcapPct": 1.01,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(테스트)\n재료: 리노공업 — 테스트 소켓/리노핀\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 96,
+      "prevRank": null,
+      "code": "000720",
+      "name": "현대건설",
+      "price": 98000,
+      "changePct": -3.45,
+      "marketCap": 10912900000000,
+      "tradingValue": 54934000000,
+      "tvToMcapPct": 0.5,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 건설(원전/플랜트)\n재료: 현대건설 — 원전·플랜트·주택 수주\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 97,
+      "prevRank": 93,
+      "code": "018260",
+      "name": "삼성에스디에스",
+      "price": 193000,
+      "changePct": 1.47,
+      "marketCap": 14933900000000,
+      "tradingValue": 54841000000,
+      "tvToMcapPct": 0.37,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) IT서비스(AI)\n재료: 삼성에스디에스 — 클라우드·물류·생성형AI\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 98,
+      "prevRank": 72,
+      "code": "247540",
+      "name": "에코프로비엠",
+      "price": 112600,
+      "changePct": -6.01,
+      "marketCap": 11015700000000,
+      "tradingValue": 54617000000,
+      "tvToMcapPct": 0.5,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 2차전지(소재)\n재료: 에코프로비엠 — 하이니켈 양극재\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 99,
+      "prevRank": null,
+      "code": "033780",
+      "name": "KT&G",
+      "price": 171000,
+      "changePct": -1.89,
+      "marketCap": 17751600000000,
+      "tradingValue": 54355000000,
+      "tvToMcapPct": 0.31,
+      "manual": {
+        "newOrExisting": "",
+        "theme": "",
+        "material": "",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 필수소비재\n재료: KT&G — 담배·건강기능식·인삼\n세계: 글로벌 영향은 제한적(내수·수출 혼재), 확인 필요\n국내: 국내 대형주, 지수·수급 영향 큼\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    },
+    {
+      "rank": 100,
+      "prevRank": 71,
+      "code": "067310",
+      "name": "하나마이크론",
+      "price": 38250,
+      "changePct": 0.13,
+      "marketCap": 2542900000000,
+      "tradingValue": 52929000000,
+      "tvToMcapPct": 2.08,
+      "manual": {
+        "newOrExisting": "신규",
+        "theme": "",
+        "material": "소부장 주목",
+        "materialPersistence": "",
+        "materialContinuity": "",
+        "financials": "",
+        "supplyDemand": "",
+        "notes": "(테마) 반도체(패키징)\n재료: 하나마이크론 — OSAT 후공정 패키징\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+      }
+    }
+  ]
+}
