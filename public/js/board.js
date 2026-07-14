@@ -105,43 +105,39 @@ export function renderBoard(container, group, { onRemove, onChart, onReorderRow,
   const tbody = document.createElement('tbody');
   const total = group.rows.length;
   group.rows.forEach((row, i) => {
-    // memo row: 일반 종목처럼 여러 컬럼이 채워진 한 행으로 보이게 렌더한다.
+    // memo row: 키움 관심종목의 빈칸메모처럼 quote 영역 전체를 차지하는 한 줄.
+    // 실제 입력 영역은 전체 폭으로 펴고, CSS 배경으로 컬럼 구분선을 보여준다.
     if (row.type === 'memo') {
       const tr = document.createElement('tr');
       tr.className = 'board-row memo-row';
       makeDraggable(tr, i, onReorderRow);
+      const td = cell('td', undefined, 'memo-cell memo-grid-cell');
+      td.colSpan = COLS.length;
       const memoValue = row.text ?? '';
-      COLS.forEach((_, colIndex) => {
-        const td = cell('td', undefined, `memo-cell memo-segment memo-segment-${colIndex}`);
-        if (colIndex === 0) {
-          if (onEditMemo) {
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.className = 'memo-input board-memo-input';
-            input.placeholder = '메모 입력…';
-            input.value = memoValue;
-            let lastSavedValue = input.value;
-            const commitMemo = () => {
-              if (input.value === lastSavedValue) return;
-              lastSavedValue = input.value;
-              onEditMemo(row, i, input.value);
-            };
-            input.addEventListener('blur', commitMemo);
-            input.addEventListener('keydown', (ev) => {
-              if (ev.key !== 'Enter') return;
-              ev.preventDefault?.();
-              commitMemo();
-              input.blur?.();
-            });
-            td.appendChild(input);
-          } else {
-            td.appendChild(cell('span', memoValue, 'memo-text board-memo-text'));
-          }
-        } else {
-          td.appendChild(cell('span', '', 'memo-empty-cell'));
-        }
-        tr.appendChild(td);
-      });
+      if (onEditMemo) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'memo-input board-memo-input';
+        input.placeholder = '메모 입력…';
+        input.value = memoValue;
+        let lastSavedValue = input.value;
+        const commitMemo = () => {
+          if (input.value === lastSavedValue) return;
+          lastSavedValue = input.value;
+          onEditMemo(row, i, input.value);
+        };
+        input.addEventListener('blur', commitMemo);
+        input.addEventListener('keydown', (ev) => {
+          if (ev.key !== 'Enter') return;
+          ev.preventDefault?.();
+          commitMemo();
+          input.blur?.();
+        });
+        td.appendChild(input);
+      } else {
+        td.appendChild(cell('span', memoValue, 'memo-text board-memo-text'));
+      }
+      tr.appendChild(td);
       if (showActions) tr.appendChild(actionsCell(row, i, onRemove, Boolean(onReorderRow)));
       tbody.appendChild(tr);
       return;

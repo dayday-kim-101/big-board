@@ -152,7 +152,7 @@ test('renderBoard: onChart 없으면 현재가는 plain td (버튼 없음)', () 
 
 // --- memo row ---
 
-test('renderBoard: memo row — 여러 컬럼 셀 + inline input, blur 시 (row, index, text) 저장 콜백', () => {
+test('renderBoard: memo row — 키움 빈칸메모처럼 quote 영역 전체 셀 + inline input, blur 저장 콜백', () => {
   const root = new FakeEl('div');
   let edited = null;
   const memo = { type: 'memo', id: 'm1', text: '반도체' };
@@ -161,9 +161,9 @@ test('renderBoard: memo row — 여러 컬럼 셀 + inline input, blur 시 (row,
     memo,
   ] }, { onEditMemo: (row, i, text) => { edited = { row, i, text }; } });
   assert.ok(root.find('memo-row'), 'memo-row tr 생성');
-  const memoCells = root.findAll('memo-cell');
-  assert.equal(memoCells.length, 6, '종목 행처럼 6개 컬럼 셀을 렌더');
-  assert.equal(memoCells[0].colSpan ?? undefined, undefined, 'colspan 한 칸으로 합치지 않음');
+  const td = root.find('memo-cell');
+  assert.equal(td.colSpan, 6, 'quote 컬럼 전체 영역을 차지');
+  assert.ok(root.find('memo-grid-cell'), '컬럼 구분선이 있는 키움식 memo grid cell');
   const input = root.find('memo-input');
   assert.ok(input, 'inline input 생성');
   assert.equal(input.value, '반도체', '기존 텍스트 표시');
@@ -217,9 +217,9 @@ test('renderBoard: onReorderRow — stock/memo 모두 drag 가능, drop 시 (fro
     { type: 'memo', id: 'm', text: '' },
     { market: 'KR', code: 'B', name: 'b', quote: null },
   ] }, { onReorderRow: (from, to) => calls.push([from, to]) });
-  const memoCells = root.findAll('memo-cell');
-  assert.equal(memoCells.length, 6, 'memo row는 종목 행처럼 6개 시세 컬럼을 모두 채움');
-  assert.ok(!root.find('board-memo-line'), 'colspan wrapper가 아니라 컬럼별 셀로 렌더');
+  const memoCell = root.find('memo-cell');
+  assert.equal(memoCell.colSpan, 6, 'memo row는 quote 영역 전체를 차지');
+  assert.ok(root.find('memo-grid-cell'), '키움식 컬럼 구분선 cell');
   const handles = root.findAll('drag-handle');
   assert.equal(handles.length, 3, '모든 행(stock+memo)에 drag handle');
   const rows = root.findAll('board-row');
