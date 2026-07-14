@@ -125,29 +125,23 @@ tr.drag-over td { box-shadow: inset 0 2px 0 var(--accent); }
 }
 .drag-handle:hover { color: var(--accent); border-color: var(--accent); }
 
-/* 메모 행 (키움 관심종목식 빈칸/구분 한 줄) — 텍스트 길이가 아니라 행 전체 영역을 채움 */
-tr.memo-row td { background: var(--panel); padding: 0; }
-td.memo-cell { text-align: left; }
-.board-memo-line {
-  display: flex; align-items: center; gap: 8px;
-  width: 100%; min-height: 44px; box-sizing: border-box; padding: 11px 12px;
-  background: var(--panel); box-shadow: inset 0 0 0 1px transparent;
-}
-tr.memo-row:hover .board-memo-line,
-tr.memo-row:focus-within .board-memo-line { box-shadow: inset 0 0 0 1px var(--line); }
-.board-memo-line > .actions { flex: 0 0 auto; margin-left: auto; }
+/* 메모 행 (키움 관심종목식 빈칸/구분 한 줄) — 종목 행처럼 모든 컬럼이 채워진 한 행 */
+tr.memo-row td { background: var(--panel); }
+td.memo-cell { text-align: center; vertical-align: middle; }
+.memo-segment { color: var(--text); }
+.memo-empty-cell { display: block; min-height: 18px; }
 .board .board-memo-input {
-  display: block; flex: 1 1 auto; align-self: stretch; min-width: 0; width: 100%; box-sizing: border-box;
+  display: block; width: 100%; min-width: 0; box-sizing: border-box;
   padding: 0; font: inherit; font-size: 13px; line-height: 1.4;
-  background: transparent; color: var(--text);
+  background: transparent; color: var(--text); text-align: center;
   border: 0; border-radius: 0;
 }
-.board .board-memo-input::placeholder { color: var(--muted); opacity: .75; }
+.board .board-memo-input::placeholder { color: var(--muted); opacity: .75; text-align: center; }
 .board .board-memo-input:focus {
   outline: none;
   box-shadow: inset 0 -1px 0 var(--accent);
 }
-.board-memo-text { display: flex; align-items: center; align-self: stretch; flex: 1 1 auto; min-width: 0; color: var(--text); font-size: 13px; }
+.board-memo-text { display: block; width: 100%; min-width: 0; color: var(--text); font-size: 13px; text-align: center; }
 
 .empty { color: var(--muted); text-align: center; padding: 40px 0; }
 
