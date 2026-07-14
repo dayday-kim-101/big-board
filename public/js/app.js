@@ -1,7 +1,7 @@
 // 진입·상태·그룹/종목 관리·새로고침 오케스트레이션.
 import {
   getList, putList, getQuotes, getSnapshot, searchTickers, getHistory,
-  getJaelyoDates, getJaelyo, putJaelyoManual, getMacro,
+  getJaelyoDates, getJaelyo, putJaelyoManual, putJaelyoDailyTheme, getMacro,
   getTrades, putTradesUpsert, putTradeManual, putTradesJournal, putTradesResultTag,
 } from './api.js';
 import { mergeBoard } from './format.js';
@@ -210,6 +210,7 @@ function paintJaelyo() {
     board: state.jaelyo.board,
     onSelectDate: selectJaelyoDate,
     onEditManual: editManual,
+    onEditDailyTheme: editDailyTheme,
     onChart: (row) => openChart(row), // 현재가 클릭 → 차트 (재료정리는 한국 종목)
   });
 }
@@ -247,6 +248,22 @@ async function editManual(code, patch) {
     state.jaelyo.board = previous; // 롤백
     paintJaelyo();
     alert(`저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
+    return false;
+  }
+}
+
+async function editDailyTheme(dailyTheme) {
+  const date = state.jaelyo.selectedDate;
+  if (!date) return false;
+  const previous = state.jaelyo.board;
+  try {
+    state.jaelyo.board = await putJaelyoDailyTheme(date, dailyTheme);
+    paintJaelyo();
+    return true;
+  } catch (e) {
+    state.jaelyo.board = previous;
+    paintJaelyo();
+    alert(`오늘의 테마 저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
     return false;
   }
 }

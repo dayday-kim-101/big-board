@@ -1,7 +1,7 @@
 // jaelyo Function 순수 헬퍼 테스트 — node --test
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseDirDates, applyManualPatch, isValidDate, mergeBoardWithGlobal } from './jaelyo.js';
+import { parseDirDates, applyManualPatch, isValidDate, mergeBoardWithGlobal, applyDailyThemeToBoard } from './jaelyo.js';
 import { normalizeBoard, sanitizeManual } from './_jaelyo-core.js';
 
 test('isValidDate: YYYY-MM-DD만 통과', () => {
@@ -101,4 +101,12 @@ test('PUT 라운드트립(applyManualPatch→normalizeBoard): 패치 행 manual 
   assert.equal(saved.rows[1].manual.theme, '반도체'); // 다른 행 불변
   assert.equal(saved.rows[0].tradingValue, 5e11); // API 필드 보존
   assert.equal(saved.collectedAt, '2026-05-07T06:40:00Z');
+});
+
+test('applyDailyThemeToBoard: 날짜 단위 오늘의 테마만 갱신하고 rows는 보존', () => {
+  const board = { date: '2026-07-13', rows: [{ code: '005930', manual: sanitizeManual({ theme: '반도체' }) }] };
+  const saved = normalizeBoard(applyDailyThemeToBoard(board, { text: '반도체/HBM 70%' }));
+  assert.equal(saved.dailyTheme.text, '반도체/HBM 70%');
+  assert.equal(saved.dailyTheme.source, 'manual');
+  assert.equal(saved.rows[0].manual.theme, '반도체');
 });

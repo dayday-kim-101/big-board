@@ -11,7 +11,8 @@
     "jaelyo:prefill": "node scripts/jaelyo-prefill.mjs",
     "test": "node --test",
     "jaelyo:prefill-notes": "node scripts/jaelyo-prefill-notes.mjs",
-    "jaelyo:manual-by-code": "node scripts/build-jaelyo-manual-by-code.mjs"
+    "jaelyo:manual-by-code": "node scripts/build-jaelyo-manual-by-code.mjs",
+    "jaelyo:daily-themes": "node scripts/build-jaelyo-daily-themes.mjs"
   },
   "engines": {
     "node": ">=20"

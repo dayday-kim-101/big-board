@@ -6,9 +6,11 @@
 import { readJson, writeJson, listDir } from './_github.js';
 import {
   sanitizeManual,
+  sanitizeDailyTheme,
   normalizeBoard,
   mergeRowsWithGlobalManual,
   updateGlobalManual,
+  applyDailyThemePatch,
 } from './_jaelyo-core.js';
 
 const DIR = 'data/jaelyo';
@@ -59,6 +61,10 @@ export function applyManualPatch(board, code, manual) {
 export function mergeBoardWithGlobal(board, globalByCode) {
   const rows = Array.isArray(board?.rows) ? board.rows : [];
   return { ...board, rows: mergeRowsWithGlobalManual(rows, globalByCode) };
+}
+
+export function applyDailyThemeToBoard(board, dailyTheme) {
+  return applyDailyThemePatch(board, sanitizeDailyTheme(dailyTheme));
 }
 
 // --- HTTP 핸들러 ---
@@ -112,9 +118,12 @@ export async function onRequestPut({ request, env }) {
   } catch {
     return err('잘못된 JSON 본문');
   }
+  const isDailyThemePatch = body?.op === 'dailyTheme' || body?.dailyTheme !== undefined;
   const code = String(body?.code ?? '').trim();
-  if (!code) return err('code 필요');
-  if (!body?.manual || typeof body.manual !== 'object') return err('manual 객체 필요');
+  if (!isDailyThemePatch) {
+    if (!code) return err('code 필요');
+    if (!body?.manual || typeof body.manual !== 'object') return err('manual 객체 필요');
+  }
 
   try {
     const [{ data }, { data: globalData }] = await Promise.all([
@@ -123,15 +132,29 @@ export async function onRequestPut({ request, env }) {
     ]);
     if (!data) return err('해당 날짜 보드가 없습니다(아직 수집 전)', 404);
     let next;
-    try {
-      next = applyManualPatch(data, code, body.manual);
-    } catch (e) {
-      return err(e.message, 404);
+    if (isDailyThemePatch) {
+      next = applyDailyThemeToBoard(data, body.dailyTheme ?? { text: body.text });
+    } else {
+      try {
+        next = applyManualPatch(data, code, body.manual);
+      } catch (e) {
+        return err(e.message, 404);
+      }
     }
     const saved = normalizeBoard(next);
 
     // 1) 날짜 파일 저장.
-    await writeJson(env, filePath(date), saved, `chore: 재료정리 ${date} ${code} 수동입력 갱신`);
+    await writeJson(
+      env,
+      filePath(date),
+      saved,
+      isDailyThemePatch ? `chore: 재료정리 ${date} 오늘의 테마 갱신` : `chore: 재료정리 ${date} ${code} 수동입력 갱신`,
+    );
+
+    if (isDailyThemePatch) {
+      const merged = mergeBoardWithGlobal(saved, globalData || {});
+      return new Response(JSON.stringify(merged), { headers: JSON_HEADERS });
+    }
 
     // 2) code-level 글로벌 map에도 같은 patch 반영(종목별 메모 영속). 저장은 실패해도
     //    날짜 파일은 이미 반영됐으므로 사용자 입력이 유실되지 않도록 별도로 처리.

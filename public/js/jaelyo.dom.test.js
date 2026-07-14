@@ -74,6 +74,11 @@ test('패리티: MANUAL_COLS 열 키 + notes 자유메모 = 서버 MANUAL_FIELDS
 function sampleBoard() {
   return {
     date: '2026-05-07',
+    dailyTheme: {
+      text: '반도체/HBM 70% · 건설 20%',
+      source: 'auto',
+      items: [{ theme: '반도체/HBM', sharePct: 70, topStocks: [] }],
+    },
     rows: [
       { rank: 5, prevRank: 1063, code: '028050', name: '삼성E&A', price: 64900, changePct: 23.6, marketCap: 1.27e12, tradingValue: 5e11, tvToMcapPct: 25, manual: { newOrExisting: '', theme: '건설', material: '', materialPersistence: '', materialContinuity: '', financials: '', supplyDemand: '' } },
       { rank: 1, prevRank: 1, code: '005930', name: '삼성전자', price: 81000, changePct: 1.2, marketCap: 5e14, tradingValue: 1e11, tvToMcapPct: 0.02, manual: { newOrExisting: '기존', theme: '', material: '', materialPersistence: '', materialContinuity: '', financials: '', supplyDemand: '' } },
@@ -90,6 +95,22 @@ test('renderJaelyo: 16열 헤더 렌더', () => {
   }
   const ths = root.findAll('th');
   assert.equal(ths.length, 16);
+});
+
+test('renderJaelyo: 오늘의 테마 패널 렌더 + 저장 콜백', async () => {
+  const root = new FakeEl('div');
+  let saved = null;
+  renderJaelyo(root, {
+    dates: ['2026-05-07'], selectedDate: '2026-05-07', board: sampleBoard(),
+    onEditDailyTheme: async (theme) => { saved = theme; return true; },
+  });
+  assert.ok(root.findByClass('jaelyo-theme-panel')[0], '오늘의 테마 패널');
+  assert.ok(root.allText().includes('거래대금 기준 자동'));
+  assert.ok(root.allText().includes('반도체/HBM 70.0%'));
+  const ta = root.findByClass('jaelyo-theme-text')[0];
+  ta.value = '수정한 오늘의 테마';
+  await root.findByClass('jaelyo-theme-save')[0]._listeners.click();
+  assert.equal(saved.text, '수정한 오늘의 테마');
 });
 
 test('renderJaelyo: 등락률 내림차순 표시 (데이터 rank와 무관)', () => {
