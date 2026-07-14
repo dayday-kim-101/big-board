@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-13T13:29:27.471Z",
+  "updatedAt": "2026-07-14T13:27:19.309Z",
   "days": {
     "2026-06-18": {
       "journal": "",
@@ -1371,6 +1371,29 @@
           "returnPct": 2.53,
           "prevClose": 175600,
           "holdDays": 1,
+          "reason": "",
+          "tags": []
+        }
+      ]
+    },
+    "2026-07-14": {
+      "journal": "",
+      "resultTag": "",
+      "records": [
+        {
+          "code": "062040",
+          "name": "산일전기",
+          "market": "KR",
+          "buyAvg": 161000,
+          "sellAvg": 168600,
+          "qty": 1,
+          "buyAmount": 966000,
+          "sellAmount": 168600,
+          "fee": 496,
+          "pnl": 7104,
+          "returnPct": 4.41,
+          "prevClose": 178200,
+          "holdDays": 0,
           "reason": "",
           "tags": []
         }
