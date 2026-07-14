@@ -30,6 +30,8 @@ export const MANUAL_FIELDS = [
 // 자유 메모(notes) 최대 길이(문자). 과도한 저장 방지.
 export const NOTES_MAX_LEN = 4000;
 export const DAILY_THEME_MAX_LEN = 2000;
+export const DAILY_THEME_TOP_RANK_LIMIT = 30;
+export const DAILY_THEME_MIN_TRADING_VALUE = 400_000_000_000;
 
 // 네이버 단위(응답의 한글 라벨로 확인): 거래대금(accumulatedTradingValue)=백만원, 시총(marketValue)=억원.
 const WON_PER_MILLION = 1_000_000; // 거래대금 백만원 → 원
@@ -205,18 +207,38 @@ function fmtThemeWonKR(value) {
   return `${n}원`;
 }
 
-export function buildDailyTheme(rows = [], { now = new Date().toISOString(), source = 'auto' } = {}) {
-  const total = (rows ?? []).reduce((s, r) => s + (num(r?.tradingValue) || 0), 0);
-  const buckets = new Map();
-  for (const r of rows ?? []) {
+export function dailyThemeEligibleRows(
+  rows = [],
+  { rankLimit = DAILY_THEME_TOP_RANK_LIMIT, minTradingValue = DAILY_THEME_MIN_TRADING_VALUE } = {},
+) {
+  return (rows ?? []).filter((r) => {
+    const rank = num(r?.rank);
+    const changePct = num(r?.changePct);
     const tradingValue = num(r?.tradingValue) || 0;
-    if (!tradingValue) continue;
+    return rank != null && rank <= rankLimit && changePct != null && changePct > 0 && tradingValue >= minTradingValue;
+  });
+}
+
+export function buildDailyTheme(
+  rows = [],
+  {
+    now = new Date().toISOString(),
+    source = 'auto',
+    rankLimit = DAILY_THEME_TOP_RANK_LIMIT,
+    minTradingValue = DAILY_THEME_MIN_TRADING_VALUE,
+  } = {},
+) {
+  const eligibleRows = dailyThemeEligibleRows(rows, { rankLimit, minTradingValue });
+  const total = eligibleRows.reduce((s, r) => s + (num(r?.tradingValue) || 0), 0);
+  const buckets = new Map();
+  for (const r of eligibleRows) {
+    const tradingValue = num(r?.tradingValue) || 0;
     const theme = inferRowTheme(r);
     if (!buckets.has(theme)) buckets.set(theme, { theme, tradingValue: 0, count: 0, topStocks: [] });
     const b = buckets.get(theme);
     b.tradingValue += tradingValue;
     b.count += 1;
-    b.topStocks.push({ code: String(r?.code ?? ''), name: String(r?.name ?? ''), rank: num(r?.rank), tradingValue });
+    b.topStocks.push({ code: String(r?.code ?? ''), name: String(r?.name ?? ''), rank: num(r?.rank), tradingValue, changePct: num(r?.changePct) });
   }
   const items = [...buckets.values()]
     .sort((a, b) => b.tradingValue - a.tradingValue)
@@ -229,12 +251,20 @@ export function buildDailyTheme(rows = [], { now = new Date().toISOString(), sou
       topStocks: b.topStocks
         .sort((a, b) => b.tradingValue - a.tradingValue)
         .slice(0, 5)
-        .map((s) => ({ code: s.code, name: s.name, rank: s.rank, tradingValue: Math.round(s.tradingValue) })),
+        .map((s) => ({ code: s.code, name: s.name, rank: s.rank, tradingValue: Math.round(s.tradingValue), changePct: s.changePct })),
     }));
   const text = items.length
     ? items.slice(0, 4).map((x) => `${x.theme} ${fmtThemeWonKR(x.tradingValue)}(${x.sharePct}%)`).join(' · ')
-    : '거래대금 기준으로 뚜렷한 테마를 확인할 데이터가 없습니다.';
-  return sanitizeDailyTheme({ text, source, generatedAt: now, updatedAt: source === 'manual' ? now : '', items });
+    : `상위 ${rankLimit}위 중 상승·거래대금 ${fmtThemeWonKR(minTradingValue)} 이상 조건에 맞는 테마가 없습니다.`;
+  return sanitizeDailyTheme({
+    text,
+    source,
+    generatedAt: now,
+    updatedAt: source === 'manual' ? now : '',
+    criteria: { rankLimit, positiveChangeOnly: true, minTradingValue },
+    universe: { eligibleCount: eligibleRows.length, totalTradingValue: Math.round(total) },
+    items,
+  });
 }
 
 export function sanitizeDailyTheme(input) {
@@ -245,6 +275,15 @@ export function sanitizeDailyTheme(input) {
     source,
     generatedAt: String(obj.generatedAt ?? '').trim(),
     updatedAt: String(obj.updatedAt ?? '').trim(),
+    criteria: obj.criteria && typeof obj.criteria === 'object' ? {
+      rankLimit: num(obj.criteria.rankLimit) ?? DAILY_THEME_TOP_RANK_LIMIT,
+      positiveChangeOnly: obj.criteria.positiveChangeOnly !== false,
+      minTradingValue: num(obj.criteria.minTradingValue) ?? DAILY_THEME_MIN_TRADING_VALUE,
+    } : null,
+    universe: obj.universe && typeof obj.universe === 'object' ? {
+      eligibleCount: num(obj.universe.eligibleCount) ?? 0,
+      totalTradingValue: num(obj.universe.totalTradingValue) ?? 0,
+    } : null,
     items: Array.isArray(obj.items) ? obj.items.slice(0, 10).map((it) => ({
       theme: String(it?.theme ?? '').trim(),
       tradingValue: num(it?.tradingValue) ?? 0,
@@ -255,6 +294,7 @@ export function sanitizeDailyTheme(input) {
         name: String(s?.name ?? ''),
         rank: num(s?.rank),
         tradingValue: num(s?.tradingValue) ?? 0,
+        changePct: num(s?.changePct),
       })) : [],
     })).filter((it) => it.theme) : [],
   };

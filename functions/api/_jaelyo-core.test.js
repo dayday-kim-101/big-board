@@ -18,6 +18,7 @@ import {
   MANUAL_FIELDS,
   NOTES_MAX_LEN,
   inferRowTheme,
+  dailyThemeEligibleRows,
   buildDailyTheme,
   applyDailyThemePatch,
 } from './_jaelyo-core.js';
@@ -267,17 +268,34 @@ test('inferRowTheme: manual/notes 테마를 broad theme로 정규화', () => {
   assert.equal(inferRowTheme({ name: 'SK이노베이션', manual: { notes: '(테마) 확인 필요' } }), '원전/에너지');
 });
 
-test('buildDailyTheme: 거래대금 합산 기준으로 상위 테마와 비중 산출', () => {
+test('dailyThemeEligibleRows: 상위 30위 + 상승 + 거래대금 4천억 이상만 포함', () => {
   const rows = [
-    { code: '000660', name: 'SK하이닉스', rank: 1, tradingValue: 700, manual: { notes: '(테마) 반도체(메모리)' } },
-    { code: '005930', name: '삼성전자', rank: 2, tradingValue: 300, manual: { theme: '반도체(종합)' } },
-    { code: '034020', name: '두산에너빌리티', rank: 3, tradingValue: 250, manual: { theme: '원전' } },
+    { code: 'A', rank: 1, changePct: 1.2, tradingValue: 500_000_000_000 },
+    { code: 'B', rank: 31, changePct: 5, tradingValue: 900_000_000_000 },
+    { code: 'C', rank: 2, changePct: -1, tradingValue: 900_000_000_000 },
+    { code: 'D', rank: 3, changePct: 2, tradingValue: 399_999_999_999 },
+  ];
+  assert.deepEqual(dailyThemeEligibleRows(rows).map((r) => r.code), ['A']);
+});
+
+test('buildDailyTheme: 당일 상위 30위 중 상승·거래대금 4천억 이상만 모아 테마/비중 산출', () => {
+  const rows = [
+    { code: '000660', name: 'SK하이닉스', rank: 1, changePct: 3.1, tradingValue: 700_000_000_000, manual: { notes: '(테마) 반도체(메모리)' } },
+    { code: '005930', name: '삼성전자', rank: 2, changePct: 1.2, tradingValue: 300_000_000_000, manual: { theme: '반도체(종합)' } }, // 4천억 미만 제외
+    { code: '034020', name: '두산에너빌리티', rank: 3, changePct: -2, tradingValue: 600_000_000_000, manual: { theme: '원전' } }, // 하락 제외
+    { code: '047810', name: '한국항공우주', rank: 31, changePct: 4, tradingValue: 800_000_000_000, manual: { theme: '방산' } }, // 30위 밖 제외
+    { code: '105560', name: 'KB금융', rank: 4, changePct: 2.3, tradingValue: 500_000_000_000, manual: { theme: '금융' } },
   ];
   const d = buildDailyTheme(rows, { now: '2026-07-13T00:00:00Z' });
   assert.equal(d.source, 'auto');
+  assert.equal(d.criteria.rankLimit, 30);
+  assert.equal(d.criteria.minTradingValue, 400_000_000_000);
+  assert.equal(d.universe.eligibleCount, 2);
   assert.equal(d.items[0].theme, '반도체/HBM');
-  assert.equal(d.items[0].tradingValue, 1000);
-  assert.equal(d.items[0].sharePct, 80);
+  assert.equal(d.items[0].tradingValue, 700_000_000_000);
+  assert.equal(d.items[0].sharePct, 58.3);
+  assert.equal(d.items[0].topStocks[0].changePct, 3.1);
+  assert.equal(d.items[1].theme, '금융/증권');
   assert.ok(d.text.includes('반도체/HBM'));
 });
 

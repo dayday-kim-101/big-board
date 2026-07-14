@@ -297,7 +297,10 @@ function dailyThemePanel(dailyTheme, onEditDailyTheme) {
   const panel = cell('section', undefined, 'jaelyo-theme-panel');
   const head = cell('div', undefined, 'jaelyo-theme-head');
   head.appendChild(cell('h3', '오늘의 테마', 'jaelyo-theme-title'));
-  head.appendChild(cell('span', dailyTheme?.source === 'manual' ? '수동 수정' : '거래대금 기준 자동', 'jaelyo-theme-badge'));
+  const badgeText = dailyTheme?.source === 'manual'
+    ? '수동 수정'
+    : `상위${dailyTheme?.criteria?.rankLimit ?? 30}·상승·${Math.round((dailyTheme?.criteria?.minTradingValue ?? 400_000_000_000) / 100_000_000)}억+`;
+  head.appendChild(cell('span', badgeText, 'jaelyo-theme-badge'));
   panel.appendChild(head);
 
   const ta = document.createElement('textarea');

@@ -3,212 +3,105 @@
   "collectedAt": "2026-06-22T13:59:26.549Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 32.7조(74.5%) · 로봇/AI 2.1조(4.8%) · 금융/증권 1.5조(3.5%) · 자동차/부품 1.1조(2.5%)",
+    "text": "반도체/HBM 19.5조(88.1%) · 로봇/AI 1.4조(6.4%) · 가전(전자) 7781억(3.5%) · 금융/증권 4205억(1.9%)",
     "source": "auto",
     "generatedAt": "2026-06-22T13:59:26.549Z",
     "updatedAt": "",
+    "criteria": {
+      "rankLimit": 30,
+      "positiveChangeOnly": true,
+      "minTradingValue": 400000000000
+    },
+    "universe": {
+      "eligibleCount": 9,
+      "totalTradingValue": 22071333000000
+    },
     "items": [
       {
         "theme": "반도체/HBM",
-        "tradingValue": 32702902000000,
-        "sharePct": 74.5,
-        "count": 28,
+        "tradingValue": 19452381000000,
+        "sharePct": 88.1,
+        "count": 6,
         "topStocks": [
           {
             "code": "000660",
             "name": "SK하이닉스",
             "rank": 1,
-            "tradingValue": 14576913000000
-          },
-          {
-            "code": "005930",
-            "name": "삼성전자",
-            "rank": 2,
-            "tradingValue": 8524670000000
+            "tradingValue": 14576913000000,
+            "changePct": 5.61
           },
           {
             "code": "402340",
             "name": "SK스퀘어",
             "rank": 3,
-            "tradingValue": 2720012000000
-          },
-          {
-            "code": "009150",
-            "name": "삼성전기",
-            "rank": 4,
-            "tradingValue": 1948895000000
+            "tradingValue": 2720012000000,
+            "changePct": 10.67
           },
           {
             "code": "005935",
             "name": "삼성전자우",
             "rank": 6,
-            "tradingValue": 808977000000
+            "tradingValue": 808977000000,
+            "changePct": 0.9
+          },
+          {
+            "code": "403870",
+            "name": "HPSP",
+            "rank": 9,
+            "tradingValue": 468547000000,
+            "changePct": 6.01
+          },
+          {
+            "code": "009155",
+            "name": "삼성전기우",
+            "rank": 10,
+            "tradingValue": 467616000000,
+            "changePct": 17.92
           }
         ]
       },
       {
         "theme": "로봇/AI",
-        "tradingValue": 2087691000000,
-        "sharePct": 4.8,
-        "count": 7,
+        "tradingValue": 1420384000000,
+        "sharePct": 6.4,
+        "count": 1,
         "topStocks": [
           {
             "code": "080220",
             "name": "제주반도체",
             "rank": 5,
-            "tradingValue": 1420384000000
-          },
-          {
-            "code": "064400",
-            "name": "LG씨엔에스",
-            "rank": 21,
-            "tradingValue": 214574000000
-          },
-          {
-            "code": "035420",
-            "name": "NAVER",
-            "rank": 28,
-            "tradingValue": 195084000000
-          },
-          {
-            "code": "017670",
-            "name": "SK텔레콤",
-            "rank": 57,
-            "tradingValue": 94020000000
-          },
-          {
-            "code": "018260",
-            "name": "삼성에스디에스",
-            "rank": 84,
-            "tradingValue": 63363000000
-          }
-        ]
-      },
-      {
-        "theme": "금융/증권",
-        "tradingValue": 1534587000000,
-        "sharePct": 3.5,
-        "count": 10,
-        "topStocks": [
-          {
-            "code": "028260",
-            "name": "삼성물산",
-            "rank": 11,
-            "tradingValue": 420505000000
-          },
-          {
-            "code": "032830",
-            "name": "삼성생명",
-            "rank": 18,
-            "tradingValue": 252309000000
-          },
-          {
-            "code": "034730",
-            "name": "SK",
-            "rank": 34,
-            "tradingValue": 167104000000
-          },
-          {
-            "code": "006800",
-            "name": "미래에셋증권",
-            "rank": 36,
-            "tradingValue": 159370000000
-          },
-          {
-            "code": "105560",
-            "name": "KB금융",
-            "rank": 37,
-            "tradingValue": 150035000000
-          }
-        ]
-      },
-      {
-        "theme": "자동차/부품",
-        "tradingValue": 1079332000000,
-        "sharePct": 2.5,
-        "count": 5,
-        "topStocks": [
-          {
-            "code": "005380",
-            "name": "현대차",
-            "rank": 8,
-            "tradingValue": 564932000000
-          },
-          {
-            "code": "012330",
-            "name": "현대모비스",
-            "rank": 17,
-            "tradingValue": 253637000000
-          },
-          {
-            "code": "000270",
-            "name": "기아",
-            "rank": 47,
-            "tradingValue": 107912000000
-          },
-          {
-            "code": "204320",
-            "name": "HL만도",
-            "rank": 65,
-            "tradingValue": 84274000000
-          },
-          {
-            "code": "307950",
-            "name": "현대오토에버",
-            "rank": 77,
-            "tradingValue": 68577000000
-          }
-        ]
-      },
-      {
-        "theme": "2차전지",
-        "tradingValue": 793829000000,
-        "sharePct": 1.8,
-        "count": 7,
-        "topStocks": [
-          {
-            "code": "006400",
-            "name": "삼성SDI",
-            "rank": 20,
-            "tradingValue": 238828000000
-          },
-          {
-            "code": "373220",
-            "name": "LG에너지솔루션",
-            "rank": 41,
-            "tradingValue": 140551000000
-          },
-          {
-            "code": "005490",
-            "name": "POSCO홀딩스",
-            "rank": 44,
-            "tradingValue": 115052000000
-          },
-          {
-            "code": "086520",
-            "name": "에코프로",
-            "rank": 53,
-            "tradingValue": 100114000000
-          },
-          {
-            "code": "247540",
-            "name": "에코프로비엠",
-            "rank": 69,
-            "tradingValue": 79934000000
+            "tradingValue": 1420384000000,
+            "changePct": 17.24
           }
         ]
       },
       {
         "theme": "가전(전자)",
         "tradingValue": 778063000000,
-        "sharePct": 1.8,
+        "sharePct": 3.5,
         "count": 1,
         "topStocks": [
           {
             "code": "066570",
             "name": "LG전자",
             "rank": 7,
-            "tradingValue": 778063000000
+            "tradingValue": 778063000000,
+            "changePct": 7.57
+          }
+        ]
+      },
+      {
+        "theme": "금융/증권",
+        "tradingValue": 420505000000,
+        "sharePct": 1.9,
+        "count": 1,
+        "topStocks": [
+          {
+            "code": "028260",
+            "name": "삼성물산",
+            "rank": 11,
+            "tradingValue": 420505000000,
+            "changePct": 5.8
           }
         ]
       }
