@@ -125,13 +125,21 @@ tr.drag-over td { box-shadow: inset 0 2px 0 var(--accent); }
 }
 .drag-handle:hover { color: var(--accent); border-color: var(--accent); }
 
-/* 메모 행 (키움 관심종목식 빈칸/구분 한 줄) — 종목 행처럼 모든 컬럼이 채워진 한 행 */
-tr.memo-row td { background: var(--panel); }
+/* 메모 행 (키움 관심종목식 빈칸메모) — quote 영역 전체를 쓰되 컬럼 구분선이 보이는 한 줄 */
+tr.memo-row td { background-color: var(--panel); }
 td.memo-cell { text-align: center; vertical-align: middle; }
-.memo-segment { color: var(--text); }
-.memo-empty-cell { display: block; min-height: 18px; }
+.memo-grid-cell {
+  min-height: 44px;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc((100% / 6) - 1px),
+    var(--line) calc((100% / 6) - 1px),
+    var(--line) calc(100% / 6)
+  );
+}
 .board .board-memo-input {
-  display: block; width: 100%; min-width: 0; box-sizing: border-box;
+  display: block; width: 100%; min-width: 0; min-height: 22px; box-sizing: border-box;
   padding: 0; font: inherit; font-size: 13px; line-height: 1.4;
   background: transparent; color: var(--text); text-align: center;
   border: 0; border-radius: 0;
@@ -141,7 +149,7 @@ td.memo-cell { text-align: center; vertical-align: middle; }
   outline: none;
   box-shadow: inset 0 -1px 0 var(--accent);
 }
-.board-memo-text { display: block; width: 100%; min-width: 0; color: var(--text); font-size: 13px; text-align: center; }
+.board-memo-text { display: block; width: 100%; min-width: 0; min-height: 22px; color: var(--text); font-size: 13px; text-align: center; }
 
 .empty { color: var(--muted); text-align: center; padding: 40px 0; }
 
