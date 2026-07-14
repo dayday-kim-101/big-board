@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T07:19:16.380Z",
+  "updatedAt": "2026-07-14T09:20:26.505Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -46,18 +46,6 @@
       "changePct": -13.99,
       "volume": 51153188,
       "tradingValue": 8459202700,
-      "approxTradingValue": true,
-      "ok": true
-    },
-    "US:TSLA": {
-      "market": "US",
-      "code": "TSLA",
-      "name": "Tesla, Inc.",
-      "price": 394.76,
-      "change": -13,
-      "changePct": -3.19,
-      "volume": 32685743,
-      "tradingValue": 12903023907,
       "approxTradingValue": true,
       "ok": true
     },
