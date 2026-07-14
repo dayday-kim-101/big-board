@@ -164,6 +164,7 @@ test('renderBoard: memo row — 키움 빈칸메모처럼 quote 영역 전체 �
   const td = root.find('memo-cell');
   assert.equal(td.colSpan, 6, 'quote 컬럼 전체 영역을 차지');
   assert.ok(root.find('memo-grid-cell'), '컬럼 구분선이 있는 키움식 memo grid cell');
+  assert.ok(root.find('board-memo-full-line'), '표 전체 폭을 차지하는 memo full-line');
   const input = root.find('memo-input');
   assert.ok(input, 'inline input 생성');
   assert.equal(input.value, '반도체', '기존 텍스트 표시');
@@ -218,8 +219,9 @@ test('renderBoard: onReorderRow — stock/memo 모두 drag 가능, drop 시 (fro
     { market: 'KR', code: 'B', name: 'b', quote: null },
   ] }, { onReorderRow: (from, to) => calls.push([from, to]) });
   const memoCell = root.find('memo-cell');
-  assert.equal(memoCell.colSpan, 6, 'memo row는 quote 영역 전체를 차지');
+  assert.equal(memoCell.colSpan, 7, 'memo row는 actions까지 포함해 표 전체 행을 차지');
   assert.ok(root.find('memo-grid-cell'), '키움식 컬럼 구분선 cell');
+  assert.ok(root.find('board-memo-full-line'), 'actions도 같은 memo row 내부에 포함');
   const handles = root.findAll('drag-handle');
   assert.equal(handles.length, 3, '모든 행(stock+memo)에 drag handle');
   const rows = root.findAll('board-row');

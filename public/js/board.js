@@ -112,7 +112,9 @@ export function renderBoard(container, group, { onRemove, onChart, onReorderRow,
       tr.className = 'board-row memo-row';
       makeDraggable(tr, i, onReorderRow);
       const td = cell('td', undefined, 'memo-cell memo-grid-cell');
-      td.colSpan = COLS.length;
+      td.colSpan = COLS.length + (showActions ? 1 : 0);
+      const memoLine = document.createElement('div');
+      memoLine.className = 'board-memo-full-line';
       const memoValue = row.text ?? '';
       if (onEditMemo) {
         const input = document.createElement('input');
@@ -133,12 +135,13 @@ export function renderBoard(container, group, { onRemove, onChart, onReorderRow,
           commitMemo();
           input.blur?.();
         });
-        td.appendChild(input);
+        memoLine.appendChild(input);
       } else {
-        td.appendChild(cell('span', memoValue, 'memo-text board-memo-text'));
+        memoLine.appendChild(cell('span', memoValue, 'memo-text board-memo-text'));
       }
+      if (showActions) memoLine.appendChild(actionButtons(row, i, onRemove, Boolean(onReorderRow)));
+      td.appendChild(memoLine);
       tr.appendChild(td);
-      if (showActions) tr.appendChild(actionsCell(row, i, onRemove, Boolean(onReorderRow)));
       tbody.appendChild(tr);
       return;
     }
