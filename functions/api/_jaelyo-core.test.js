@@ -17,6 +17,9 @@ import {
   emptyManual,
   MANUAL_FIELDS,
   NOTES_MAX_LEN,
+  inferRowTheme,
+  buildDailyTheme,
+  applyDailyThemePatch,
 } from './_jaelyo-core.js';
 
 // --- parseNaverStocks: 네이버 모바일 시세 → 정규화 (거래대금·시총 백만원 → 원) ---
@@ -255,4 +258,33 @@ test('normalizeBoard: 알 수 없는 필드 제거 + manual 항상 존재 + sour
   const r = board.rows[0];
   assert.equal(r.junk, undefined);
   assert.deepEqual(Object.keys(r.manual).sort(), [...MANUAL_FIELDS].sort());
+});
+
+// --- dailyTheme ---
+test('inferRowTheme: manual/notes 테마를 broad theme로 정규화', () => {
+  assert.equal(inferRowTheme({ manual: { theme: 'mlcc' } }), '반도체/HBM');
+  assert.equal(inferRowTheme({ manual: { notes: '(테마) 반도체(메모리)\n재료: x' } }), '반도체/HBM');
+  assert.equal(inferRowTheme({ name: 'SK이노베이션', manual: { notes: '(테마) 확인 필요' } }), '원전/에너지');
+});
+
+test('buildDailyTheme: 거래대금 합산 기준으로 상위 테마와 비중 산출', () => {
+  const rows = [
+    { code: '000660', name: 'SK하이닉스', rank: 1, tradingValue: 700, manual: { notes: '(테마) 반도체(메모리)' } },
+    { code: '005930', name: '삼성전자', rank: 2, tradingValue: 300, manual: { theme: '반도체(종합)' } },
+    { code: '034020', name: '두산에너빌리티', rank: 3, tradingValue: 250, manual: { theme: '원전' } },
+  ];
+  const d = buildDailyTheme(rows, { now: '2026-07-13T00:00:00Z' });
+  assert.equal(d.source, 'auto');
+  assert.equal(d.items[0].theme, '반도체/HBM');
+  assert.equal(d.items[0].tradingValue, 1000);
+  assert.equal(d.items[0].sharePct, 80);
+  assert.ok(d.text.includes('반도체/HBM'));
+});
+
+test('applyDailyThemePatch: 날짜 단위 테마를 manual source로 저장', () => {
+  const board = { date: '2026-07-13', rows: [], dailyTheme: buildDailyTheme([]) };
+  const next = applyDailyThemePatch(board, { text: '반도체/HBM 중심' }, { now: 'NOW' });
+  assert.equal(next.dailyTheme.source, 'manual');
+  assert.equal(next.dailyTheme.text, '반도체/HBM 중심');
+  assert.equal(next.dailyTheme.updatedAt, 'NOW');
 });

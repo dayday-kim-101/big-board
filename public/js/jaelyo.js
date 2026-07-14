@@ -293,6 +293,48 @@ function manualCell(row, col, onEditManual) {
   return td;
 }
 
+function dailyThemePanel(dailyTheme, onEditDailyTheme) {
+  const panel = cell('section', undefined, 'jaelyo-theme-panel');
+  const head = cell('div', undefined, 'jaelyo-theme-head');
+  head.appendChild(cell('h3', '오늘의 테마', 'jaelyo-theme-title'));
+  head.appendChild(cell('span', dailyTheme?.source === 'manual' ? '수동 수정' : '거래대금 기준 자동', 'jaelyo-theme-badge'));
+  panel.appendChild(head);
+
+  const ta = document.createElement('textarea');
+  ta.className = 'jaelyo-theme-text';
+  ta.rows = 2;
+  ta.placeholder = '그날 거래대금이 몰린 테마를 정리하세요';
+  ta.value = dailyTheme?.text || '';
+  panel.appendChild(ta);
+
+  const items = dailyTheme?.items || [];
+  if (items.length) {
+    const chips = cell('div', undefined, 'jaelyo-theme-chips');
+    for (const it of items.slice(0, 6)) {
+      const top = (it.topStocks || []).slice(0, 3).map((s) => s.name).join(', ');
+      chips.appendChild(cell('span', `${it.theme} ${Number(it.sharePct || 0).toFixed(1)}%${top ? ` · ${top}` : ''}`, 'jaelyo-theme-chip'));
+    }
+    panel.appendChild(chips);
+  }
+
+  const actions = cell('div', undefined, 'jaelyo-theme-actions');
+  const save = document.createElement('button');
+  save.type = 'button';
+  save.className = 'jaelyo-theme-save';
+  save.textContent = '테마 저장';
+  save.addEventListener('click', async () => {
+    const label = save.textContent;
+    save.disabled = true;
+    save.textContent = '저장 중…';
+    const ok = await onEditDailyTheme?.({ ...dailyTheme, text: ta.value });
+    save.disabled = false;
+    save.textContent = ok === false ? '다시 저장' : label;
+  });
+  actions.appendChild(save);
+  panel.appendChild(actions);
+  return panel;
+}
+
 // 헤더 셀: 라벨 + 우측 너비 조절 핸들(드래그). 더블클릭 시 기본 너비로 리셋.
 // th 개수는 16개로 유지(핸들은 th의 자식). ctx = { widths, widthOf, totalW, table }.
 function headerCell(label, colEl, ctx) {
@@ -334,8 +376,8 @@ function startResize(e, label, colEl, ctx) {
 }
 
 // container에 재료정리 보드를 그린다.
-// opts: { dates[], selectedDate, board:{rows[]}, onSelectDate(date), onEditManual(code, patch), onChart({market,code,name}) }
-export function renderJaelyo(container, { dates = [], selectedDate = null, board = null, onSelectDate, onEditManual, onChart } = {}) {
+// opts: { dates[], selectedDate, board:{rows[]}, onSelectDate(date), onEditManual(code, patch), onEditDailyTheme(dailyTheme), onChart({market,code,name}) }
+export function renderJaelyo(container, { dates = [], selectedDate = null, board = null, onSelectDate, onEditManual, onEditDailyTheme, onChart } = {}) {
   container.innerHTML = '';
 
   const section = document.createElement('section');
@@ -364,6 +406,8 @@ export function renderJaelyo(container, { dates = [], selectedDate = null, board
   }
   head.appendChild(select);
   section.appendChild(head);
+
+  if (board) section.appendChild(dailyThemePanel(board.dailyTheme, onEditDailyTheme));
 
   // 격자 래퍼 — 세로 리사이즈 + 스크롤(CSS)
   const wrap = document.createElement('div');

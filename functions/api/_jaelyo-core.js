@@ -29,6 +29,7 @@ export const MANUAL_FIELDS = [
 
 // 자유 메모(notes) 최대 길이(문자). 과도한 저장 방지.
 export const NOTES_MAX_LEN = 4000;
+export const DAILY_THEME_MAX_LEN = 2000;
 
 // 네이버 단위(응답의 한글 라벨로 확인): 거래대금(accumulatedTradingValue)=백만원, 시총(marketValue)=억원.
 const WON_PER_MILLION = 1_000_000; // 거래대금 백만원 → 원
@@ -138,6 +139,133 @@ function clampField(key, value) {
   return key === 'notes' && s.length > NOTES_MAX_LEN ? s.slice(0, NOTES_MAX_LEN) : s;
 }
 
+function clampDailyThemeText(value) {
+  const s = String(value ?? '').trim();
+  return s.length > DAILY_THEME_MAX_LEN ? s.slice(0, DAILY_THEME_MAX_LEN) : s;
+}
+
+// --- date-level 오늘의 테마 요약 ---
+// 종목별 manual.theme를 덮지 않는 별도 날짜 단위 요약. 거래대금 합산 기준으로 theme별 집중도를 계산한다.
+const THEME_KEYWORDS = [
+  ['반도체/HBM', /반도체|HBM|DRAM|낸드|파운드리|MLCC|기판|하이닉스|삼성전자|삼성전기|피에스케이|원익|테크윙|리노공업/i],
+  ['전력/전선', /전력|전선|변압기|전력기기|LS ELECTRIC|LS|대한전선|일진전기|HD현대일렉트릭/i],
+  ['조선/해양', /조선|해양|선박|엔진|한화오션|HD현대중공업|삼성중공업|조선선재/i],
+  ['방산/우주항공', /방산|방위|우주|항공|한화에어로|LIG|현대로템|한국항공우주/i],
+  ['원전/에너지', /원전|원자력|SMR|두산에너빌리티|한전|S-Oil|SK이노베이션|정유|석유|가스/i],
+  ['2차전지', /2차전지|배터리|양극재|음극재|전해액|에코프로|엘앤에프|포스코퓨처엠|LG에너지솔루션/i],
+  ['바이오/헬스케어', /바이오|제약|헬스케어|의료|셀트리온|삼성바이오|HLB|알테오젠/i],
+  ['로봇/AI', /로봇|AI|인공지능|소프트웨어|클라우드|데이터센터|NAVER|카카오/i],
+  ['자동차/부품', /자동차|차부품|전장|현대차|기아|모비스|타이어/i],
+  ['금융/증권', /금융|은행|증권|보험|지주|KB금융|신한지주|하나금융|미래에셋|한국금융/i],
+  ['화장품/소비재', /화장품|뷰티|소비재|음식료|식품|아모레|LG생활건강|삼양식품/i],
+  ['게임/콘텐츠', /게임|콘텐츠|엔터|미디어|크래프톤|넷마블|하이브|JYP|와이지/i],
+  ['건설/기계', /건설|기계|건설기계|두산밥캣|현대건설|대우건설/i],
+];
+
+function extractThemeFromNotes(notes) {
+  const first = String(notes ?? '').split(/\r?\n/).find((line) => line.trim()) || '';
+  const m = /^\s*\(?테마\)?\s*[:)]?\s*(.+)$/i.exec(first);
+  if (!m) return '';
+  const value = m[1].trim();
+  return /확인\s*필요|미정|없음/.test(value) ? '' : value;
+}
+
+function normalizeThemeLabel(theme) {
+  const t = String(theme ?? '').trim();
+  if (!t) return '';
+  if (/반도체|HBM|DRAM|낸드|파운드리|MLCC|mlcc|기판|삼전닉스/i.test(t)) return '반도체/HBM';
+  if (/전력|전선|변압기|전력기기/i.test(t)) return '전력/전선';
+  if (/조선|해양|선박|엔진/i.test(t)) return '조선/해양';
+  if (/방산|방위|우주|항공/i.test(t)) return '방산/우주항공';
+  if (/원전|원자력|SMR|정유|석유|가스|에너지/i.test(t)) return '원전/에너지';
+  if (/2차전지|배터리|양극재|음극재|전해액/i.test(t)) return '2차전지';
+  if (/바이오|제약|헬스케어|의료/i.test(t)) return '바이오/헬스케어';
+  if (/로봇|AI|인공지능|소프트웨어|데이터센터/i.test(t)) return '로봇/AI';
+  if (/자동차|전장|타이어/i.test(t)) return '자동차/부품';
+  if (/금융|은행|증권|보험|지주/i.test(t)) return '금융/증권';
+  if (/화장품|뷰티|소비재|음식료|식품/i.test(t)) return '화장품/소비재';
+  if (/게임|콘텐츠|엔터|미디어/i.test(t)) return '게임/콘텐츠';
+  return t;
+}
+
+export function inferRowTheme(row) {
+  const manualTheme = String(row?.manual?.theme ?? '').trim();
+  if (manualTheme) return normalizeThemeLabel(manualTheme);
+  const notesTheme = extractThemeFromNotes(row?.manual?.notes);
+  if (notesTheme) return normalizeThemeLabel(notesTheme);
+  const haystack = `${row?.name ?? ''} ${row?.manual?.notes ?? ''} ${row?.manual?.material ?? ''}`;
+  for (const [theme, re] of THEME_KEYWORDS) if (re.test(haystack)) return theme;
+  return '개별종목/기타';
+}
+
+function fmtThemeWonKR(value) {
+  const n = num(value) || 0;
+  if (n >= 1_0000_0000_0000) return `${round(n / 1_0000_0000_0000, 1)}조`;
+  if (n >= 1_0000_0000) return `${round(n / 1_0000_0000, 0)}억`;
+  return `${n}원`;
+}
+
+export function buildDailyTheme(rows = [], { now = new Date().toISOString(), source = 'auto' } = {}) {
+  const total = (rows ?? []).reduce((s, r) => s + (num(r?.tradingValue) || 0), 0);
+  const buckets = new Map();
+  for (const r of rows ?? []) {
+    const tradingValue = num(r?.tradingValue) || 0;
+    if (!tradingValue) continue;
+    const theme = inferRowTheme(r);
+    if (!buckets.has(theme)) buckets.set(theme, { theme, tradingValue: 0, count: 0, topStocks: [] });
+    const b = buckets.get(theme);
+    b.tradingValue += tradingValue;
+    b.count += 1;
+    b.topStocks.push({ code: String(r?.code ?? ''), name: String(r?.name ?? ''), rank: num(r?.rank), tradingValue });
+  }
+  const items = [...buckets.values()]
+    .sort((a, b) => b.tradingValue - a.tradingValue)
+    .slice(0, 6)
+    .map((b) => ({
+      theme: b.theme,
+      tradingValue: Math.round(b.tradingValue),
+      sharePct: total ? round((b.tradingValue / total) * 100, 1) : 0,
+      count: b.count,
+      topStocks: b.topStocks
+        .sort((a, b) => b.tradingValue - a.tradingValue)
+        .slice(0, 5)
+        .map((s) => ({ code: s.code, name: s.name, rank: s.rank, tradingValue: Math.round(s.tradingValue) })),
+    }));
+  const text = items.length
+    ? items.slice(0, 4).map((x) => `${x.theme} ${fmtThemeWonKR(x.tradingValue)}(${x.sharePct}%)`).join(' · ')
+    : '거래대금 기준으로 뚜렷한 테마를 확인할 데이터가 없습니다.';
+  return sanitizeDailyTheme({ text, source, generatedAt: now, updatedAt: source === 'manual' ? now : '', items });
+}
+
+export function sanitizeDailyTheme(input) {
+  const obj = input && typeof input === 'object' ? input : {};
+  const source = obj.source === 'manual' ? 'manual' : 'auto';
+  return {
+    text: clampDailyThemeText(obj.text),
+    source,
+    generatedAt: String(obj.generatedAt ?? '').trim(),
+    updatedAt: String(obj.updatedAt ?? '').trim(),
+    items: Array.isArray(obj.items) ? obj.items.slice(0, 10).map((it) => ({
+      theme: String(it?.theme ?? '').trim(),
+      tradingValue: num(it?.tradingValue) ?? 0,
+      sharePct: num(it?.sharePct) ?? 0,
+      count: num(it?.count) ?? 0,
+      topStocks: Array.isArray(it?.topStocks) ? it.topStocks.slice(0, 8).map((s) => ({
+        code: String(s?.code ?? ''),
+        name: String(s?.name ?? ''),
+        rank: num(s?.rank),
+        tradingValue: num(s?.tradingValue) ?? 0,
+      })) : [],
+    })).filter((it) => it.theme) : [],
+  };
+}
+
+export function applyDailyThemePatch(board, patch, { now = new Date().toISOString() } = {}) {
+  const base = sanitizeDailyTheme(board?.dailyTheme);
+  const next = sanitizeDailyTheme({ ...base, ...patch, source: 'manual', updatedAt: now });
+  return { ...board, dailyTheme: next };
+}
+
 // 신규 수집행에 같은 날짜 파일의 기존 manual을 code 기준 보존(재수집 idempotent).
 export function mergeManual(newRows, prevRows = []) {
   const prev = {};
@@ -238,11 +366,12 @@ export function buildGlobalManualByCodeFromBoards(boards = [], seeds = {}) {
 }
 
 // 최종 스키마로 정규화 — 알 수 없는 필드 제거, manual 항상 7키 존재.
-export function normalizeBoard({ date, rows = [], collectedAt = null, source = 'naver' }) {
+export function normalizeBoard({ date, rows = [], collectedAt = null, source = 'naver', dailyTheme = null }) {
   return {
     date,
     collectedAt,
     source,
+    dailyTheme: sanitizeDailyTheme(dailyTheme),
     rows: (rows ?? []).map((r) => ({
       rank: num(r.rank),
       prevRank: num(r.prevRank),

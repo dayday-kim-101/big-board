@@ -102,6 +102,17 @@ export async function putJaelyoManual(date, code, manual) {
   return res.json();
 }
 
+// 날짜 단위 오늘의 테마 저장. dailyTheme = { text } 또는 전체 dailyTheme 객체.
+export async function putJaelyoDailyTheme(date, dailyTheme) {
+  const res = await fetch(`/api/jaelyo?date=${encodeURIComponent(date)}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'dailyTheme', dailyTheme }),
+  });
+  if (!res.ok) throw new Error((await safeErr(res)) || `오늘의 테마 저장 실패 (${res.status})`);
+  return res.json();
+}
+
 // --- 매크로 지표 (읽기 전용 정적 파일) ---
 
 // → { collectedAt, seed?, indicators: [...] }. 실패 시 빈 데이터.

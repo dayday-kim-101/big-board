@@ -15,6 +15,7 @@ import {
   mergeRowsWithGlobalManual,
   updateGlobalManual,
   normalizeBoard,
+  buildDailyTheme,
 } from '../functions/api/_jaelyo-core.js';
 import { fillMissingNotes } from './jaelyo-notes-core.js';
 
@@ -152,7 +153,14 @@ async function main() {
     );
   }
 
-  const board = normalizeBoard({ date, collectedAt: new Date().toISOString(), source: 'naver', rows });
+  const collectedAt = new Date().toISOString();
+  const board = normalizeBoard({
+    date,
+    collectedAt,
+    source: 'naver',
+    rows,
+    dailyTheme: buildDailyTheme(rows, { now: collectedAt }),
+  });
   await mkdir(OUT_DIR, { recursive: true });
   await writeFile(path.join(OUT_DIR, `${date}.json`), JSON.stringify(board, null, 2) + '\n');
   console.log(

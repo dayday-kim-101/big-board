@@ -2,6 +2,230 @@
   "date": "2026-06-30",
   "collectedAt": "2026-06-30T12:44:39.966Z",
   "source": "naver",
+  "dailyTheme": {
+    "text": "반도체/HBM 32.6조(76%) · 금융/증권 1.7조(3.9%) · 2차전지 1.2조(2.9%) · 전력/전선 1.1조(2.5%)",
+    "source": "auto",
+    "generatedAt": "2026-06-30T12:44:39.966Z",
+    "updatedAt": "",
+    "items": [
+      {
+        "theme": "반도체/HBM",
+        "tradingValue": 32578743000000,
+        "sharePct": 76,
+        "count": 26,
+        "topStocks": [
+          {
+            "code": "000660",
+            "name": "SK하이닉스",
+            "rank": 1,
+            "tradingValue": 13070533000000
+          },
+          {
+            "code": "005930",
+            "name": "삼성전자",
+            "rank": 2,
+            "tradingValue": 9434300000000
+          },
+          {
+            "code": "009150",
+            "name": "삼성전기",
+            "rank": 3,
+            "tradingValue": 2802227000000
+          },
+          {
+            "code": "402340",
+            "name": "SK스퀘어",
+            "rank": 4,
+            "tradingValue": 2473667000000
+          },
+          {
+            "code": "005935",
+            "name": "삼성전자우",
+            "rank": 5,
+            "tradingValue": 914544000000
+          }
+        ]
+      },
+      {
+        "theme": "금융/증권",
+        "tradingValue": 1689053000000,
+        "sharePct": 3.9,
+        "count": 10,
+        "topStocks": [
+          {
+            "code": "028260",
+            "name": "삼성물산",
+            "rank": 11,
+            "tradingValue": 332605000000
+          },
+          {
+            "code": "034730",
+            "name": "SK",
+            "rank": 13,
+            "tradingValue": 303264000000
+          },
+          {
+            "code": "105560",
+            "name": "KB금융",
+            "rank": 22,
+            "tradingValue": 239017000000
+          },
+          {
+            "code": "032830",
+            "name": "삼성생명",
+            "rank": 27,
+            "tradingValue": 205095000000
+          },
+          {
+            "code": "055550",
+            "name": "신한지주",
+            "rank": 44,
+            "tradingValue": 132728000000
+          }
+        ]
+      },
+      {
+        "theme": "2차전지",
+        "tradingValue": 1225968000000,
+        "sharePct": 2.9,
+        "count": 7,
+        "topStocks": [
+          {
+            "code": "006400",
+            "name": "삼성SDI",
+            "rank": 16,
+            "tradingValue": 274697000000
+          },
+          {
+            "code": "086520",
+            "name": "에코프로",
+            "rank": 17,
+            "tradingValue": 260520000000
+          },
+          {
+            "code": "373220",
+            "name": "LG에너지솔루션",
+            "rank": 19,
+            "tradingValue": 247990000000
+          },
+          {
+            "code": "247540",
+            "name": "에코프로비엠",
+            "rank": 41,
+            "tradingValue": 142895000000
+          },
+          {
+            "code": "005490",
+            "name": "POSCO홀딩스",
+            "rank": 48,
+            "tradingValue": 127845000000
+          }
+        ]
+      },
+      {
+        "theme": "전력/전선",
+        "tradingValue": 1071577000000,
+        "sharePct": 2.5,
+        "count": 9,
+        "topStocks": [
+          {
+            "code": "010120",
+            "name": "LS ELECTRIC",
+            "rank": 18,
+            "tradingValue": 248705000000
+          },
+          {
+            "code": "267260",
+            "name": "HD현대일렉트릭",
+            "rank": 34,
+            "tradingValue": 173078000000
+          },
+          {
+            "code": "298040",
+            "name": "효성중공업",
+            "rank": 37,
+            "tradingValue": 161966000000
+          },
+          {
+            "code": "001440",
+            "name": "대한전선",
+            "rank": 59,
+            "tradingValue": 96703000000
+          },
+          {
+            "code": "062040",
+            "name": "산일전기",
+            "rank": 63,
+            "tradingValue": 87560000000
+          }
+        ]
+      },
+      {
+        "theme": "자동차/부품",
+        "tradingValue": 676445000000,
+        "sharePct": 1.6,
+        "count": 3,
+        "topStocks": [
+          {
+            "code": "005380",
+            "name": "현대차",
+            "rank": 9,
+            "tradingValue": 385330000000
+          },
+          {
+            "code": "012330",
+            "name": "현대모비스",
+            "rank": 39,
+            "tradingValue": 157736000000
+          },
+          {
+            "code": "000270",
+            "name": "기아",
+            "rank": 43,
+            "tradingValue": 133379000000
+          }
+        ]
+      },
+      {
+        "theme": "바이오/헬스케어",
+        "tradingValue": 663254000000,
+        "sharePct": 1.5,
+        "count": 7,
+        "topStocks": [
+          {
+            "code": "196170",
+            "name": "알테오젠",
+            "rank": 40,
+            "tradingValue": 156401000000
+          },
+          {
+            "code": "214450",
+            "name": "파마리서치",
+            "rank": 53,
+            "tradingValue": 112358000000
+          },
+          {
+            "code": "207940",
+            "name": "삼성바이오로직스",
+            "rank": 56,
+            "tradingValue": 103575000000
+          },
+          {
+            "code": "068270",
+            "name": "셀트리온",
+            "rank": 58,
+            "tradingValue": 99192000000
+          },
+          {
+            "code": "141080",
+            "name": "리가켐바이오",
+            "rank": 83,
+            "tradingValue": 69806000000
+          }
+        ]
+      }
+    ]
+  },
   "rows": [
     {
       "rank": 1,
