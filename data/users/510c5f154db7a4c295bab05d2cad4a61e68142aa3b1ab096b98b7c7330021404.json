@@ -5,11 +5,6 @@
       "name": "7.13 재료가 좋고 눌림 살펴보기",
       "tickers": [
         {
-          "market": "US",
-          "code": "TSLA",
-          "name": "Tesla, Inc."
-        },
-        {
           "market": "KR",
           "code": "403870",
           "name": "HPSP"
@@ -37,5 +32,5 @@
       ]
     }
   ],
-  "updatedAt": "2026-07-14T08:16:20.685Z"
+  "updatedAt": "2026-07-14T08:16:22.034Z"
 }
