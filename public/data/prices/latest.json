@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T20:56:28.172Z",
+  "updatedAt": "2026-07-15T21:59:35.292Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -8,8 +8,8 @@
       "price": 327.5,
       "change": 12.64,
       "changePct": 4.01,
-      "volume": 58741821,
-      "tradingValue": 19237946378,
+      "volume": 60780931,
+      "tradingValue": 19905754903,
       "approxTradingValue": true,
       "ok": true
     },
@@ -44,8 +44,8 @@
       "price": 165.55,
       "change": -11.11,
       "changePct": -6.29,
-      "volume": 64323966,
-      "tradingValue": 10648832571,
+      "volume": 66161047,
+      "tradingValue": 10952961331,
       "approxTradingValue": true,
       "ok": true
     },
