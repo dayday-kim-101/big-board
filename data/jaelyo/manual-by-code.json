@@ -699,6 +699,16 @@
     "supplyDemand": "",
     "notes": "(테마) 반도체(장비)\n재료: HPSP — 고압수소어닐링 장비 독점\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동, 테라팹\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   },
+  "413630": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 씨피시스템 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
   "419050": {
     "newOrExisting": "",
     "theme": "",
@@ -788,6 +798,16 @@
     "financials": "",
     "supplyDemand": "",
     "notes": "(테마) 소재\n재료: 키스트론 — 부품/소재 추정(확인 필요)\n세계: 확인 필요\n국내: 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "476060": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 온코닉테라퓨틱스 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   },
   "477850": {
     "newOrExisting": "신규",
@@ -2378,5 +2398,45 @@
     "financials": "",
     "supplyDemand": "",
     "notes": "(테마) 확인 필요\n재료: 현대차2우B — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "005360": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 모나미 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "049080": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 기가레인 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "000020": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 동화약품 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "042110": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 에스씨디 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   }
 }
