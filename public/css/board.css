@@ -564,3 +564,49 @@ select.manual-input { min-width: 0; }
 .trades-journal { resize: vertical; font-family: inherit; width: 100%; }
 
 .trades-empty { color: var(--muted); padding: 24px; text-align: center; }
+
+/* 키움 Mock 테스트 */
+.kiwoom-mock { margin-top: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+.km-title { margin: 0 0 6px; font-size: 18px; color: var(--accent); }
+.km-desc, .km-help, .km-empty { color: var(--muted); font-size: 13px; }
+.km-form { display: grid; gap: 12px; }
+.km-field { display: grid; gap: 5px; min-width: 0; }
+.km-label { color: var(--muted); font-size: 12px; font-weight: 700; }
+.km-search { position: relative; display: grid; gap: 8px; }
+.km-search-results { position: absolute; z-index: 30; top: 72px; left: 0; right: 0; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 4px; box-shadow: 0 8px 24px rgba(0,0,0,.4); max-height: 280px; overflow-y: auto; }
+.km-search-item { width: 100%; display: flex; justify-content: space-between; gap: 10px; text-align: left; background: transparent; border: none; }
+.km-search-item:hover { background: var(--panel); }
+.km-search-item span { color: var(--muted); font-size: 12px; }
+.km-selected-stock { display: inline-flex; align-items: center; width: fit-content; min-height: 28px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--text); background: var(--panel-2); font-size: 13px; }
+.km-side-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.km-side-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 10px; background: #101621; }
+.km-side-card.buy { border-color: rgba(255,77,79,.35); }
+.km-side-card.sell { border-color: rgba(77,123,255,.35); }
+.km-check { display: inline-flex; align-items: center; gap: 8px; }
+.km-check input { width: auto; }
+.km-options { display: grid; grid-template-columns: 1.4fr .8fr 1fr; gap: 10px; align-items: start; }
+.km-actions { display: flex; justify-content: flex-end; gap: 8px; }
+button.primary { background: var(--accent); color: #1a1300; border-color: var(--accent); font-weight: 700; }
+.km-subtitle { margin: 14px 0 8px; font-size: 15px; color: var(--text); }
+.km-saved { display: grid; gap: 8px; }
+.km-condition { display: flex; align-items: center; gap: 8px; justify-content: space-between; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: var(--panel-2); }
+.km-condition span { flex: 1; min-width: 0; color: var(--text); font-size: 13px; }
+.km-result-card { margin-top: 14px; border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #101621; }
+.km-result-title { margin: 0 0 10px; font-size: 16px; color: var(--accent); }
+.km-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; }
+.km-summary-item { display: grid; gap: 3px; border: 1px solid var(--line); border-radius: 10px; padding: 8px; background: var(--panel); }
+.km-summary-item span { color: var(--muted); font-size: 12px; }
+.km-summary-item strong { font-size: 14px; }
+.km-orders { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 12px; }
+.km-orders th, .km-orders td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: left; }
+.km-timeline { margin: 0; padding-left: 22px; display: grid; gap: 6px; }
+.km-step { color: var(--text); }
+.km-buy { color: var(--up); }
+.km-sell { color: var(--down); }
+.km-warn { color: var(--accent); }
+.km-tick { color: var(--muted); }
+.km-errors { color: var(--up); }
+@media (max-width: 760px) {
+  .km-side-grid, .km-options, .km-summary { grid-template-columns: 1fr; }
+  .km-condition { align-items: flex-start; flex-wrap: wrap; }
+}

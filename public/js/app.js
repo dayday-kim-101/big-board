@@ -10,6 +10,7 @@ import { renderJaelyo } from './jaelyo.js';
 import { renderMacro } from './macro.js';
 import { openMacroChart } from './macro-chart.js';
 import { renderTrades } from './trades.js';
+import { renderKiwoomMock } from './kiwoom-mock.js';
 import { pickPrevClose } from './trades-core.js';
 
 const EMAIL_KEY = 'bigboard:email';
@@ -25,7 +26,7 @@ const state = {
   jaelyo: { dates: [], selectedDate: null, board: null },
   macro: { data: null },
   trades: { data: null },
-  bottomTab: 'jaelyo', // 전광판 아래 탭: 'jaelyo' | 'macro' | 'crisis' | 'trades'
+  bottomTab: 'jaelyo', // 전광판 아래 탭: 'jaelyo' | 'macro' | 'crisis' | 'trades' | 'kiwoomMock'
 };
 
 const BOTTOM_TABS = [
@@ -33,6 +34,7 @@ const BOTTOM_TABS = [
   { key: 'macro', label: '매크로 지표' },
   { key: 'crisis', label: '금융위기' },
   { key: 'trades', label: '매매기록' },
+  { key: 'kiwoomMock', label: '키움 Mock' },
 ];
 
 // 매크로 데이터(공용)를 탭별로 분류. category==='crisis'는 금융위기 탭, 그 외는 매크로 탭.
@@ -150,7 +152,14 @@ function renderBottomTabs() {
 function paintBottom() {
   if (state.bottomTab === 'macro' || state.bottomTab === 'crisis') paintMacroTab(state.bottomTab);
   else if (state.bottomTab === 'trades') paintTrades();
+  else if (state.bottomTab === 'kiwoomMock') paintKiwoomMock();
   else paintJaelyo();
+}
+
+function paintKiwoomMock() {
+  const root = document.getElementById('bottom-content');
+  if (!root) return;
+  renderKiwoomMock(root, { searchTickers });
 }
 
 function paintTrades() {
