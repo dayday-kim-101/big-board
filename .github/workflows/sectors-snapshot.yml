@@ -1,0 +1,46 @@
+name: 섹터맵 시총 갱신
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # 재료정리와 같은 주기 — 평일 21시대(KST) 재시도 창, 12:00~13:40 UTC 20분 간격(= 21:00~22:40 KST).
+    # GitHub 예약 실행은 정시에 지연·누락될 수 있어 여러 번 띄운다. 스크립트는 시총 변동이 없으면
+    # 파일을 건드리지 않으므로 그날 첫 성공 이후 호출은 '변경 없음'으로 커밋을 만들지 않는다.
+    # 휴장일도 시총이 그대로라 변경 없음 → 커밋 생략으로 자연 처리된다.
+    - cron: "0,20,40 12 * * 1-5"
+    - cron: "0,20,40 13 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sectors-snapshot
+  cancel-in-progress: false
+
+jobs:
+  sectors:
+    runs-on: ubuntu-latest
+    # 멈춘 호출이 러너를 점유하지 않도록 백스톱(개별 fetch 타임아웃은 스크립트가 처리).
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 섹터맵 시총 갱신
+        # 네이버 공개 API라 인증·시크릿 불필요.
+        run: node scripts/sectors-caps-snapshot.mjs
+
+      - name: 변경 시 커밋
+        run: |
+          if [ -n "$(git status --porcelain public/data/sectors.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add public/data/sectors.json
+            git commit -m "chore: 섹터맵 시총 갱신 [skip ci]"
+            git push
+          else
+            echo "변경 없음 — 커밋 생략"
+          fi

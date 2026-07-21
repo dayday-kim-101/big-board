@@ -12,7 +12,8 @@
     "test": "node --test",
     "jaelyo:prefill-notes": "node scripts/jaelyo-prefill-notes.mjs",
     "jaelyo:manual-by-code": "node scripts/build-jaelyo-manual-by-code.mjs",
-    "jaelyo:daily-themes": "node scripts/build-jaelyo-daily-themes.mjs"
+    "jaelyo:daily-themes": "node scripts/build-jaelyo-daily-themes.mjs",
+    "sectors:caps": "node scripts/sectors-caps-snapshot.mjs"
   },
   "engines": {
     "node": ">=20"
