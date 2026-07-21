@@ -1,7 +1,7 @@
 // 진입·상태·그룹/종목 관리·새로고침 오케스트레이션.
 import {
   getList, putList, getQuotes, getSnapshot, searchTickers, getHistory,
-  getJaelyoDates, getJaelyo, putJaelyoManual, putJaelyoDailyTheme, getMacro,
+  getJaelyoDates, getJaelyo, putJaelyoManual, putJaelyoDailyTheme, getMacro, getSectors,
   getTrades, putTradesUpsert, putTradeManual, putTradesJournal, putTradesResultTag,
 } from './api.js';
 import { mergeBoard } from './format.js';
@@ -11,6 +11,7 @@ import { renderMacro } from './macro.js';
 import { openMacroChart } from './macro-chart.js';
 import { renderTrades } from './trades.js';
 import { renderKiwoomMock } from './kiwoom-mock.js';
+import { renderSectorMap } from './sectormap.js';
 import { pickPrevClose } from './trades-core.js';
 
 const EMAIL_KEY = 'bigboard:email';
@@ -26,11 +27,13 @@ const state = {
   jaelyo: { dates: [], selectedDate: null, board: null },
   macro: { data: null },
   trades: { data: null },
-  bottomTab: 'jaelyo', // 전광판 아래 탭: 'jaelyo' | 'macro' | 'crisis' | 'trades' | 'kiwoomMock'
+  sectorMap: { data: null, quotesRequested: false },
+  bottomTab: 'jaelyo', // 전광판 아래 탭: 'jaelyo' | 'sectorMap' | 'macro' | 'crisis' | 'trades' | 'kiwoomMock'
 };
 
 const BOTTOM_TABS = [
   { key: 'jaelyo', label: '재료정리' },
+  { key: 'sectorMap', label: '섹터맵' },
   { key: 'macro', label: '매크로 지표' },
   { key: 'crisis', label: '금융위기' },
   { key: 'trades', label: '매매기록' },
@@ -104,8 +107,8 @@ async function enterBoard(email) {
     state.quotes = snap.quotes || {};
     state.updatedAt = snap.updatedAt;
     if (!state.activeGroupId && state.list.groups[0]) state.activeGroupId = state.list.groups[0].id;
-    // 재료정리 보드 + 매크로 지표(공용) + 매매기록(개인) 로드 — 실패해도 전광판은 표시.
-    await Promise.allSettled([loadJaelyo(), loadMacro(), loadTrades()]);
+    // 재료정리 보드 + 매크로 지표(공용) + 매매기록(개인) + 섹터맵 로드 — 실패해도 전광판은 표시.
+    await Promise.allSettled([loadJaelyo(), loadMacro(), loadTrades(), loadSectorMap()]);
     renderApp();
   } catch (e) {
     renderGate(`목록을 불러오지 못했습니다: ${e.message}`);
@@ -127,6 +130,10 @@ async function loadMacro() {
 
 async function loadTrades() {
   state.trades.data = await getTrades(state.email);
+}
+
+async function loadSectorMap() {
+  state.sectorMap.data = await getSectors();
 }
 
 // 전광판 아래 탭바(재료정리 / 매크로 지표). 클릭 시 내용 영역만 교체.
@@ -153,7 +160,33 @@ function paintBottom() {
   if (state.bottomTab === 'macro' || state.bottomTab === 'crisis') paintMacroTab(state.bottomTab);
   else if (state.bottomTab === 'trades') paintTrades();
   else if (state.bottomTab === 'kiwoomMock') paintKiwoomMock();
+  else if (state.bottomTab === 'sectorMap') paintSectorMap();
   else paintJaelyo();
+}
+
+function paintSectorMap() {
+  const root = document.getElementById('bottom-content');
+  if (!root) return;
+  renderSectorMap(root, { sectors: state.sectorMap.data?.sectors ?? [], quotes: state.quotes });
+  loadSectorQuotes();
+}
+
+// 섹터맵 종목 중 스냅샷에 시세가 없는 것만 최초 1회 조회해 병합. 완료되면 다시 그림.
+async function loadSectorQuotes() {
+  if (state.sectorMap.quotesRequested) return;
+  const sectors = state.sectorMap.data?.sectors ?? [];
+  const missing = [...new Set(sectors.flatMap((s) => s.companies.map((c) => c.code)))]
+    .filter((code) => !state.quotes[`KR:${code}`])
+    .map((code) => ({ market: 'KR', code }));
+  if (!missing.length) return;
+  state.sectorMap.quotesRequested = true;
+  try {
+    const { quotes } = await getQuotes(missing);
+    state.quotes = { ...state.quotes, ...quotes };
+    if (state.bottomTab === 'sectorMap') paintSectorMap();
+  } catch {
+    // 시세 조회 실패해도 섹터맵은 중립색으로 표시.
+  }
 }
 
 function paintKiwoomMock() {

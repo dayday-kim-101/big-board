@@ -126,6 +126,19 @@ export async function getMacro() {
   return { collectedAt: null, indicators: [] };
 }
 
+// --- 섹터맵 (읽기 전용 정적 파일) ---
+
+// → { updatedAt, sectors: [...] }. 실패 시 빈 데이터.
+export async function getSectors() {
+  try {
+    const res = await fetch('/data/sectors.json', { cache: 'no-cache' });
+    if (res.ok) return await res.json();
+  } catch {
+    /* 빈 데이터 반환 */
+  }
+  return { updatedAt: null, sectors: [] };
+}
+
 // --- 매매기록 ---
 
 // 전체 매매기록 로드. 없으면 기본값 반환.
