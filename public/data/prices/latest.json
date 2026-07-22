@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-22T20:37:47.375Z",
+  "updatedAt": "2026-07-22T21:40:51.689Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -8,8 +8,8 @@
       "price": 325.89,
       "change": -1.85,
       "changePct": -0.56,
-      "volume": 34293717,
-      "tradingValue": 11175979433,
+      "volume": 38603904,
+      "tradingValue": 12580626275,
       "approxTradingValue": true,
       "ok": true
     },
@@ -44,8 +44,8 @@
       "price": 160.99,
       "change": 2.45,
       "changePct": 1.55,
-      "volume": 41780751,
-      "tradingValue": 6726283103,
+      "volume": 44551166,
+      "tradingValue": 7172292214,
       "approxTradingValue": true,
       "ok": true
     },
@@ -76,13 +76,13 @@
     "KR:347850": {
       "market": "KR",
       "code": "347850",
-      "name": "347850.KS,0P0001SUIY,588717",
-      "price": 36200,
-      "change": 1550,
-      "changePct": 4.47,
-      "volume": null,
-      "tradingValue": null,
-      "approxTradingValue": true,
+      "name": "디앤디파마텍",
+      "price": 59000,
+      "change": -2000,
+      "changePct": -3.28,
+      "volume": 1171543,
+      "tradingValue": 71130000000,
+      "approxTradingValue": false,
       "ok": true
     },
     "KR:093370": {
