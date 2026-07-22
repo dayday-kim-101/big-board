@@ -171,17 +171,17 @@ function paintSectorMap() {
   loadSectorQuotes();
 }
 
-// 섹터맵 종목 중 스냅샷에 시세가 없는 것만 최초 1회 조회해 병합. 완료되면 다시 그림.
-async function loadSectorQuotes() {
-  if (state.sectorMap.quotesRequested) return;
+// 섹터맵 시세 로드. 기본은 스냅샷에 없는 종목만 최초 1회, force면 전 종목 재조회(새로고침).
+async function loadSectorQuotes(force = false) {
+  if (!force && state.sectorMap.quotesRequested) return;
   const sectors = state.sectorMap.data?.sectors ?? [];
-  const missing = [...new Set(sectors.flatMap((s) => s.companies.map((c) => c.code)))]
-    .filter((code) => !state.quotes[`KR:${code}`])
+  const targets = [...new Set(sectors.flatMap((s) => s.companies.map((c) => c.code)))]
+    .filter((code) => force || !state.quotes[`KR:${code}`])
     .map((code) => ({ market: 'KR', code }));
-  if (!missing.length) return;
+  if (!targets.length) return;
   state.sectorMap.quotesRequested = true;
   try {
-    const { quotes } = await getQuotes(missing);
+    const { quotes } = await getQuotes(targets);
     state.quotes = { ...state.quotes, ...quotes };
     if (state.bottomTab === 'sectorMap') paintSectorMap();
   } catch {
@@ -779,13 +779,19 @@ function editMemoRow(g, index, text) {
 async function refresh() {
   const g = activeGroup();
   const stocks = g ? g.tickers.filter((t) => t.type !== 'memo') : []; // memo row는 시세 조회 제외
-  if (!stocks.length) return;
+  if (!stocks.length && !state.sectorMap.data) return;
   state.loading = true;
   renderApp();
   try {
-    const { updatedAt, quotes } = await getQuotes(stocks.map((t) => ({ market: t.market, code: t.code })));
-    state.quotes = { ...state.quotes, ...quotes };
-    state.updatedAt = updatedAt;
+    // 전광판 시세와 섹터맵 시세를 함께 갱신. 섹터맵 쪽은 자체 catch라 실패해도 전광판 갱신은 유지.
+    const [board] = await Promise.all([
+      stocks.length ? getQuotes(stocks.map((t) => ({ market: t.market, code: t.code }))) : Promise.resolve(null),
+      loadSectorQuotes(true),
+    ]);
+    if (board) {
+      state.quotes = { ...state.quotes, ...board.quotes };
+      state.updatedAt = board.updatedAt;
+    }
   } catch (e) {
     alert(`새로고침 실패: ${e.message}`);
   } finally {
