@@ -40,15 +40,40 @@ export async function searchTickers(q) {
   }
 }
 
-// 실시간 시세 (수동 새로고침). items: [{market, code}]
+// Cloudflare Function은 요청당 바깥 fetch 서브리퀘스트 한도(무료 50)가 있고
+// /api/quotes는 종목당 fetch 1회를 쓴다. 한 번에 많이 보내면 한도 초과분이
+// 조용히 실패하므로(섹터맵 118종목에서 실제 발생) 40개씩 나눠 병렬 요청한다.
+const QUOTES_BATCH_SIZE = 40;
+
+// 실시간 시세 (수동 새로고침). items: [{market, code}] → { updatedAt, quotes }
+// 일부 배치만 실패하면 성공분을 병합해 반환하고, 전부 실패하면 throw.
 export async function getQuotes(items) {
-  const res = await fetch('/api/quotes', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ items }),
-  });
-  if (!res.ok) throw new Error(`시세 로드 실패 (${res.status})`);
-  return res.json(); // { updatedAt, quotes }
+  const list = Array.isArray(items) ? items : [];
+  const chunks = [];
+  for (let i = 0; i < list.length; i += QUOTES_BATCH_SIZE) {
+    chunks.push(list.slice(i, i + QUOTES_BATCH_SIZE));
+  }
+  if (!chunks.length) return { updatedAt: null, quotes: {} };
+
+  const results = await Promise.allSettled(chunks.map(async (chunk) => {
+    const res = await fetch('/api/quotes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: chunk }),
+    });
+    if (!res.ok) throw new Error(`시세 로드 실패 (${res.status})`);
+    return res.json(); // { updatedAt, quotes }
+  }));
+
+  const ok = results.filter((r) => r.status === 'fulfilled').map((r) => r.value);
+  if (!ok.length) throw results[0].reason;
+  const quotes = {};
+  let updatedAt = null;
+  for (const r of ok) {
+    Object.assign(quotes, r.quotes);
+    if (r.updatedAt && (!updatedAt || r.updatedAt > updatedAt)) updatedAt = r.updatedAt;
+  }
+  return { updatedAt, quotes };
 }
 
 // 스냅샷 (첫 로드 — 빠름).
@@ -128,8 +153,7 @@ export async function getMacro() {
 
 // --- 섹터맵 (읽기 전용 정적 파일) ---
 
-// → { updatedAt, sectors: [...] }. 실패 시 빈 데이터.
-// 섹터맵 데이터 (시총 포함).
+// 섹터맵 데이터 (시총 포함). 실패 시 빈 데이터.
 // 1순위: /api/sectors — Function이 GitHub에서 직접 읽어 재배포 없이 항상 최신.
 // 폴백: /data/sectors.json 정적 파일 (마지막 배포 시점 기준, 다소 오래될 수 있음).
 export async function getSectors() {
