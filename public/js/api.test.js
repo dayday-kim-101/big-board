@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { getSnapshot, getQuotes } from './api.js';
+import { getSnapshot, getQuotes, getSectors } from './api.js';
 
 function stubFetch(handler) {
   const calls = [];
@@ -91,4 +91,39 @@ test('getQuotes: 빈 목록 → 요청 없이 빈 결과', async () => {
   const out = await getQuotes([]);
   assert.deepEqual(out, { updatedAt: null, quotes: {} });
   assert.equal(calls.length, 0);
+});
+
+test('getSectors: /api/sectors 성공 시 그대로 사용 (정적 미호출)', async () => {
+  const data = { updatedAt: '2026-07-22', sectors: [{ name: '반도체', totalCapTrillion: 1, companies: [] }] };
+  const calls = stubFetch((url) => {
+    if (url === '/api/sectors') return res(true, data);
+    return res(true, { updatedAt: null, sectors: [] });
+  });
+  const out = await getSectors();
+  assert.deepEqual(out, data);
+  assert.deepEqual(calls, ['/api/sectors'], '정적 파일은 호출하지 않음');
+});
+
+test('getSectors: Function 비-200 → 정적 파일로 폴백', async () => {
+  const staticData = { updatedAt: '2026-07-21', sectors: [] };
+  const calls = stubFetch((url) => {
+    if (url === '/api/sectors') return res(false, { error: 'x' });
+    if (url.startsWith('/data/sectors.json')) return res(true, staticData);
+    return res(false, {});
+  });
+  const out = await getSectors();
+  assert.deepEqual(out, staticData);
+  assert.equal(calls.length, 2, 'Function 후 정적 폴백');
+  assert.ok(calls[1].startsWith('/data/sectors.json'));
+});
+
+test('getSectors: Function 예외 → 정적 폴백, 둘 다 실패 → 빈 데이터', async () => {
+  const staticData = { updatedAt: null, sectors: [{ name: 'X', totalCapTrillion: 1, companies: [] }] };
+  stubFetch((url) => {
+    if (url === '/api/sectors') throw new Error('network');
+    return res(true, staticData);
+  });
+  assert.deepEqual(await getSectors(), staticData);
+  stubFetch(() => res(false, {}));
+  assert.deepEqual(await getSectors(), { updatedAt: null, sectors: [] });
 });
