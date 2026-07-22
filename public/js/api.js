@@ -129,7 +129,16 @@ export async function getMacro() {
 // --- 섹터맵 (읽기 전용 정적 파일) ---
 
 // → { updatedAt, sectors: [...] }. 실패 시 빈 데이터.
+// 섹터맵 데이터 (시총 포함).
+// 1순위: /api/sectors — Function이 GitHub에서 직접 읽어 재배포 없이 항상 최신.
+// 폴백: /data/sectors.json 정적 파일 (마지막 배포 시점 기준, 다소 오래될 수 있음).
 export async function getSectors() {
+  try {
+    const res = await fetch('/api/sectors');
+    if (res.ok) return await res.json();
+  } catch {
+    /* 폴백으로 진행 */
+  }
   try {
     const res = await fetch('/data/sectors.json', { cache: 'no-cache' });
     if (res.ok) return await res.json();
