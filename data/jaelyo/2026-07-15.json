@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-15T13:39:33.675Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 23.9조(98.3%) · 자동차/부품 4079억(1.7%)",
+    "text": "반도체/HBM 7종목(87.5%) · 자동차/부품 1종목(12.5%)",
     "source": "auto",
     "generatedAt": "2026-07-15T13:39:33.675Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 8,
@@ -20,22 +22,15 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 23911127000000,
-        "sharePct": 98.3,
+        "sharePct": 87.5,
         "count": 7,
         "topStocks": [
           {
-            "code": "000660",
-            "name": "SK하이닉스",
-            "rank": 1,
-            "tradingValue": 12583875000000,
-            "changePct": 8.83
-          },
-          {
-            "code": "005930",
-            "name": "삼성전자",
-            "rank": 2,
-            "tradingValue": 6777345000000,
-            "changePct": 6.27
+            "code": "042700",
+            "name": "한미반도체",
+            "rank": 6,
+            "tradingValue": 608070000000,
+            "changePct": 29.88
           },
           {
             "code": "402340",
@@ -52,6 +47,13 @@
             "changePct": 12.14
           },
           {
+            "code": "000660",
+            "name": "SK하이닉스",
+            "rank": 1,
+            "tradingValue": 12583875000000,
+            "changePct": 8.83
+          },
+          {
             "code": "036930",
             "name": "주성엔지니어링",
             "rank": 5,
@@ -63,7 +65,7 @@
       {
         "theme": "자동차/부품",
         "tradingValue": 407861000000,
-        "sharePct": 1.7,
+        "sharePct": 12.5,
         "count": 1,
         "topStocks": [
           {

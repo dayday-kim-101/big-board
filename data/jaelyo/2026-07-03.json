@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-03T13:59:14.643Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 32.6조(97.4%) · 자동차/부품 4616억(1.4%) · 전력/전선 4102억(1.2%)",
+    "text": "반도체/HBM 5종목(71.4%) · 자동차/부품 1종목(14.3%) · 전력/전선 1종목(14.3%)",
     "source": "auto",
     "generatedAt": "2026-07-03T13:59:14.643Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 7,
@@ -20,7 +22,7 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 32641899000000,
-        "sharePct": 97.4,
+        "sharePct": 71.4,
         "count": 5,
         "topStocks": [
           {
@@ -31,18 +33,18 @@
             "changePct": 10.88
           },
           {
+            "code": "005935",
+            "name": "삼성전자우",
+            "rank": 5,
+            "tradingValue": 986711000000,
+            "changePct": 10.23
+          },
+          {
             "code": "005930",
             "name": "삼성전자",
             "rank": 2,
             "tradingValue": 9448214000000,
             "changePct": 8.22
-          },
-          {
-            "code": "009150",
-            "name": "삼성전기",
-            "rank": 3,
-            "tradingValue": 2217718000000,
-            "changePct": 3.27
           },
           {
             "code": "402340",
@@ -52,18 +54,18 @@
             "changePct": 4.2
           },
           {
-            "code": "005935",
-            "name": "삼성전자우",
-            "rank": 5,
-            "tradingValue": 986711000000,
-            "changePct": 10.23
+            "code": "009150",
+            "name": "삼성전기",
+            "rank": 3,
+            "tradingValue": 2217718000000,
+            "changePct": 3.27
           }
         ]
       },
       {
         "theme": "자동차/부품",
         "tradingValue": 461609000000,
-        "sharePct": 1.4,
+        "sharePct": 14.3,
         "count": 1,
         "topStocks": [
           {
@@ -78,7 +80,7 @@
       {
         "theme": "전력/전선",
         "tradingValue": 410176000000,
-        "sharePct": 1.2,
+        "sharePct": 14.3,
         "count": 1,
         "topStocks": [
           {

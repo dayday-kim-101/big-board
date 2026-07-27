@@ -3,14 +3,16 @@
   "collectedAt": "2026-06-16T13:44:08.445Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 18.3조(79.9%) · 방산/우주항공 1.4조(6.2%) · 플랜트 or 재건축 1.3조(5.7%) · 원전/에너지 1.2조(5.4%)",
+    "text": "반도체/HBM 6종목(54.5%) · 방산/우주항공 2종목(18.2%) · 플랜트 or 재건축 1종목(9.1%) · 원전/에너지 1종목(9.1%)",
     "source": "auto",
     "generatedAt": "2026-06-16T13:44:08.445Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 11,
@@ -20,9 +22,16 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 18278154000000,
-        "sharePct": 79.9,
+        "sharePct": 54.5,
         "count": 6,
         "topStocks": [
+          {
+            "code": "402340",
+            "name": "SK스퀘어",
+            "rank": 6,
+            "tradingValue": 1222637000000,
+            "changePct": 6.23
+          },
           {
             "code": "000660",
             "name": "SK하이닉스",
@@ -31,11 +40,11 @@
             "changePct": 4.11
           },
           {
-            "code": "005930",
-            "name": "삼성전자",
-            "rank": 2,
-            "tradingValue": 5677739000000,
-            "changePct": 1.78
+            "code": "005935",
+            "name": "삼성전자우",
+            "rank": 10,
+            "tradingValue": 733340000000,
+            "changePct": 3.7
           },
           {
             "code": "009150",
@@ -45,25 +54,18 @@
             "changePct": 2.45
           },
           {
-            "code": "402340",
-            "name": "SK스퀘어",
-            "rank": 6,
-            "tradingValue": 1222637000000,
-            "changePct": 6.23
-          },
-          {
-            "code": "005935",
-            "name": "삼성전자우",
-            "rank": 10,
-            "tradingValue": 733340000000,
-            "changePct": 3.7
+            "code": "005930",
+            "name": "삼성전자",
+            "rank": 2,
+            "tradingValue": 5677739000000,
+            "changePct": 1.78
           }
         ]
       },
       {
         "theme": "방산/우주항공",
         "tradingValue": 1413943000000,
-        "sharePct": 6.2,
+        "sharePct": 18.2,
         "count": 2,
         "topStocks": [
           {
@@ -85,7 +87,7 @@
       {
         "theme": "플랜트 or 재건축",
         "tradingValue": 1296995000000,
-        "sharePct": 5.7,
+        "sharePct": 9.1,
         "count": 1,
         "topStocks": [
           {
@@ -100,7 +102,7 @@
       {
         "theme": "원전/에너지",
         "tradingValue": 1238544000000,
-        "sharePct": 5.4,
+        "sharePct": 9.1,
         "count": 1,
         "topStocks": [
           {
@@ -115,7 +117,7 @@
       {
         "theme": "전자부품",
         "tradingValue": 647853000000,
-        "sharePct": 2.8,
+        "sharePct": 9.1,
         "count": 1,
         "topStocks": [
           {

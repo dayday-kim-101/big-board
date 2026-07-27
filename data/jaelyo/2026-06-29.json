@@ -3,14 +3,16 @@
   "collectedAt": "2026-06-29T13:33:57.337Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 1.6조(46.1%) · 디스플레이(장비) 7916억(22.5%) · 자동차/부품 5770억(16.4%) · 신재생 5291억(15%)",
+    "text": "반도체/HBM 1종목(25%) · 디스플레이(장비) 1종목(25%) · 자동차/부품 1종목(25%) · 신재생 1종목(25%)",
     "source": "auto",
     "generatedAt": "2026-06-29T13:33:57.337Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 4,
@@ -20,7 +22,7 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 1621456000000,
-        "sharePct": 46.1,
+        "sharePct": 25,
         "count": 1,
         "topStocks": [
           {
@@ -35,7 +37,7 @@
       {
         "theme": "디스플레이(장비)",
         "tradingValue": 791623000000,
-        "sharePct": 22.5,
+        "sharePct": 25,
         "count": 1,
         "topStocks": [
           {
@@ -50,7 +52,7 @@
       {
         "theme": "자동차/부품",
         "tradingValue": 576982000000,
-        "sharePct": 16.4,
+        "sharePct": 25,
         "count": 1,
         "topStocks": [
           {
@@ -65,7 +67,7 @@
       {
         "theme": "신재생",
         "tradingValue": 529072000000,
-        "sharePct": 15,
+        "sharePct": 25,
         "count": 1,
         "topStocks": [
           {

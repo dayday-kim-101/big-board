@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-08T14:00:00.012Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "가전(전자) 6521억(100%)",
+    "text": "가전(전자) 1종목(100%)",
     "source": "auto",
     "generatedAt": "2026-07-08T14:00:00.012Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 1,

@@ -3,14 +3,16 @@
   "collectedAt": "2026-06-18T13:13:33.280Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 31.8조(89.4%) · 닉스 주주 1.9조(5.5%) · 전자부품 9368억(2.6%) · 메모리 설계 8994억(2.5%)",
+    "text": "반도체/HBM 5종목(62.5%) · 닉스 주주 1종목(12.5%) · 전자부품 1종목(12.5%) · 메모리 설계 1종목(12.5%)",
     "source": "auto",
     "generatedAt": "2026-06-18T13:13:33.280Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 8,
@@ -20,9 +22,23 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 31785831000000,
-        "sharePct": 89.4,
+        "sharePct": 62.5,
         "count": 5,
         "topStocks": [
+          {
+            "code": "001820",
+            "name": "삼화콘덴서",
+            "rank": 8,
+            "tradingValue": 773371000000,
+            "changePct": 25.56
+          },
+          {
+            "code": "009150",
+            "name": "삼성전기",
+            "rank": 3,
+            "tradingValue": 3536352000000,
+            "changePct": 8.27
+          },
           {
             "code": "000660",
             "name": "SK하이닉스",
@@ -38,32 +54,18 @@
             "changePct": 4.62
           },
           {
-            "code": "009150",
-            "name": "삼성전기",
-            "rank": 3,
-            "tradingValue": 3536352000000,
-            "changePct": 8.27
-          },
-          {
             "code": "005935",
             "name": "삼성전자우",
             "rank": 5,
             "tradingValue": 1118568000000,
             "changePct": 0.88
-          },
-          {
-            "code": "001820",
-            "name": "삼화콘덴서",
-            "rank": 8,
-            "tradingValue": 773371000000,
-            "changePct": 25.56
           }
         ]
       },
       {
         "theme": "닉스 주주",
         "tradingValue": 1948545000000,
-        "sharePct": 5.5,
+        "sharePct": 12.5,
         "count": 1,
         "topStocks": [
           {
@@ -78,7 +80,7 @@
       {
         "theme": "전자부품",
         "tradingValue": 936826000000,
-        "sharePct": 2.6,
+        "sharePct": 12.5,
         "count": 1,
         "topStocks": [
           {
@@ -93,7 +95,7 @@
       {
         "theme": "메모리 설계",
         "tradingValue": 899406000000,
-        "sharePct": 2.5,
+        "sharePct": 12.5,
         "count": 1,
         "topStocks": [
           {

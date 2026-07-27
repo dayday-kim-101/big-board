@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-02T12:42:25.317Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "방산/우주항공 4089억(100%)",
+    "text": "방산/우주항공 1종목(100%)",
     "source": "auto",
     "generatedAt": "2026-07-02T12:42:25.317Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 1,

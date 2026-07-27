@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-07T14:28:47.578Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 4890억(100%)",
+    "text": "반도체/HBM 1종목(100%)",
     "source": "auto",
     "generatedAt": "2026-07-07T14:28:47.578Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 1,

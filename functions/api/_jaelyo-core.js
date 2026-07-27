@@ -147,7 +147,7 @@ function clampDailyThemeText(value) {
 }
 
 // --- date-level 오늘의 테마 요약 ---
-// 종목별 manual.theme를 덮지 않는 별도 날짜 단위 요약. 거래대금 합산 기준으로 theme별 집중도를 계산한다.
+// 종목별 manual.theme를 덮지 않는 별도 날짜 단위 요약. 상승·유동성 종목을 등락률 순으로 고르고 theme별 종목 개수로 집중도를 계산한다.
 const THEME_KEYWORDS = [
   ['반도체/HBM', /반도체|HBM|DRAM|낸드|파운드리|MLCC|기판|하이닉스|삼성전자|삼성전기|피에스케이|원익|테크윙|리노공업/i],
   ['전력/전선', /전력|전선|변압기|전력기기|LS ELECTRIC|LS|대한전선|일진전기|HD현대일렉트릭/i],
@@ -211,12 +211,14 @@ export function dailyThemeEligibleRows(
   rows = [],
   { rankLimit = DAILY_THEME_TOP_RANK_LIMIT, minTradingValue = DAILY_THEME_MIN_TRADING_VALUE } = {},
 ) {
-  return (rows ?? []).filter((r) => {
-    const rank = num(r?.rank);
-    const changePct = num(r?.changePct);
-    const tradingValue = num(r?.tradingValue) || 0;
-    return rank != null && rank <= rankLimit && changePct != null && changePct > 0 && tradingValue >= minTradingValue;
-  });
+  return (rows ?? [])
+    .filter((r) => {
+      const changePct = num(r?.changePct);
+      const tradingValue = num(r?.tradingValue) || 0;
+      return changePct != null && changePct > 0 && tradingValue >= minTradingValue;
+    })
+    .sort((a, b) => (num(b?.changePct) || 0) - (num(a?.changePct) || 0))
+    .slice(0, rankLimit);
 }
 
 export function buildDailyTheme(
@@ -229,7 +231,8 @@ export function buildDailyTheme(
   } = {},
 ) {
   const eligibleRows = dailyThemeEligibleRows(rows, { rankLimit, minTradingValue });
-  const total = eligibleRows.reduce((s, r) => s + (num(r?.tradingValue) || 0), 0);
+  const totalTradingValue = eligibleRows.reduce((s, r) => s + (num(r?.tradingValue) || 0), 0);
+  const totalCount = eligibleRows.length;
   const buckets = new Map();
   for (const r of eligibleRows) {
     const tradingValue = num(r?.tradingValue) || 0;
@@ -241,28 +244,28 @@ export function buildDailyTheme(
     b.topStocks.push({ code: String(r?.code ?? ''), name: String(r?.name ?? ''), rank: num(r?.rank), tradingValue, changePct: num(r?.changePct) });
   }
   const items = [...buckets.values()]
-    .sort((a, b) => b.tradingValue - a.tradingValue)
+    .sort((a, b) => (b.count - a.count) || (b.tradingValue - a.tradingValue))
     .slice(0, 6)
     .map((b) => ({
       theme: b.theme,
       tradingValue: Math.round(b.tradingValue),
-      sharePct: total ? round((b.tradingValue / total) * 100, 1) : 0,
+      sharePct: totalCount ? round((b.count / totalCount) * 100, 1) : 0,
       count: b.count,
       topStocks: b.topStocks
-        .sort((a, b) => b.tradingValue - a.tradingValue)
+        .sort((a, b) => (b.changePct - a.changePct) || (b.tradingValue - a.tradingValue))
         .slice(0, 5)
         .map((s) => ({ code: s.code, name: s.name, rank: s.rank, tradingValue: Math.round(s.tradingValue), changePct: s.changePct })),
     }));
   const text = items.length
-    ? items.slice(0, 4).map((x) => `${x.theme} ${fmtThemeWonKR(x.tradingValue)}(${x.sharePct}%)`).join(' · ')
-    : `상위 ${rankLimit}위 중 상승·거래대금 ${fmtThemeWonKR(minTradingValue)} 이상 조건에 맞는 테마가 없습니다.`;
+    ? items.slice(0, 4).map((x) => `${x.theme} ${x.count}종목(${x.sharePct}%)`).join(' · ')
+    : `상승·거래대금 ${fmtThemeWonKR(minTradingValue)} 이상 조건에 맞는 종목이 없습니다.`;
   return sanitizeDailyTheme({
     text,
     source,
     generatedAt: now,
     updatedAt: source === 'manual' ? now : '',
-    criteria: { rankLimit, positiveChangeOnly: true, minTradingValue },
-    universe: { eligibleCount: eligibleRows.length, totalTradingValue: Math.round(total) },
+    criteria: { rankLimit, positiveChangeOnly: true, minTradingValue, rankBasis: 'changePctDescAfterLiquidityFilter', scoring: 'themeStockCount' },
+    universe: { eligibleCount: eligibleRows.length, totalTradingValue: Math.round(totalTradingValue) },
     items,
   });
 }
@@ -279,6 +282,8 @@ export function sanitizeDailyTheme(input) {
       rankLimit: num(obj.criteria.rankLimit) ?? DAILY_THEME_TOP_RANK_LIMIT,
       positiveChangeOnly: obj.criteria.positiveChangeOnly !== false,
       minTradingValue: num(obj.criteria.minTradingValue) ?? DAILY_THEME_MIN_TRADING_VALUE,
+      rankBasis: String(obj.criteria.rankBasis ?? '').trim(),
+      scoring: String(obj.criteria.scoring ?? '').trim(),
     } : null,
     universe: obj.universe && typeof obj.universe === 'object' ? {
       eligibleCount: num(obj.universe.eligibleCount) ?? 0,

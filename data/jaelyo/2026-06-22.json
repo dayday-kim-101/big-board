@@ -3,14 +3,16 @@
   "collectedAt": "2026-06-22T13:59:26.549Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 19.5조(88.1%) · 로봇/AI 1.4조(6.4%) · 가전(전자) 7781억(3.5%) · 금융/증권 4205억(1.9%)",
+    "text": "반도체/HBM 6종목(66.7%) · 로봇/AI 1종목(11.1%) · 가전(전자) 1종목(11.1%) · 금융/증권 1종목(11.1%)",
     "source": "auto",
     "generatedAt": "2026-06-22T13:59:26.549Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 9,
@@ -20,15 +22,15 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 19452381000000,
-        "sharePct": 88.1,
+        "sharePct": 66.7,
         "count": 6,
         "topStocks": [
           {
-            "code": "000660",
-            "name": "SK하이닉스",
-            "rank": 1,
-            "tradingValue": 14576913000000,
-            "changePct": 5.61
+            "code": "009155",
+            "name": "삼성전기우",
+            "rank": 10,
+            "tradingValue": 467616000000,
+            "changePct": 17.92
           },
           {
             "code": "402340",
@@ -38,13 +40,6 @@
             "changePct": 10.67
           },
           {
-            "code": "005935",
-            "name": "삼성전자우",
-            "rank": 6,
-            "tradingValue": 808977000000,
-            "changePct": 0.9
-          },
-          {
             "code": "403870",
             "name": "HPSP",
             "rank": 9,
@@ -52,18 +47,25 @@
             "changePct": 6.01
           },
           {
-            "code": "009155",
-            "name": "삼성전기우",
-            "rank": 10,
-            "tradingValue": 467616000000,
-            "changePct": 17.92
+            "code": "000660",
+            "name": "SK하이닉스",
+            "rank": 1,
+            "tradingValue": 14576913000000,
+            "changePct": 5.61
+          },
+          {
+            "code": "036930",
+            "name": "주성엔지니어링",
+            "rank": 12,
+            "tradingValue": 410316000000,
+            "changePct": 2.49
           }
         ]
       },
       {
         "theme": "로봇/AI",
         "tradingValue": 1420384000000,
-        "sharePct": 6.4,
+        "sharePct": 11.1,
         "count": 1,
         "topStocks": [
           {
@@ -78,7 +80,7 @@
       {
         "theme": "가전(전자)",
         "tradingValue": 778063000000,
-        "sharePct": 3.5,
+        "sharePct": 11.1,
         "count": 1,
         "topStocks": [
           {
@@ -93,7 +95,7 @@
       {
         "theme": "금융/증권",
         "tradingValue": 420505000000,
-        "sharePct": 1.9,
+        "sharePct": 11.1,
         "count": 1,
         "topStocks": [
           {

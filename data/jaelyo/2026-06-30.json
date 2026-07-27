@@ -3,14 +3,16 @@
   "collectedAt": "2026-06-30T12:44:39.966Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 29.8조(100%)",
+    "text": "반도체/HBM 7종목(100%)",
     "source": "auto",
     "generatedAt": "2026-06-30T12:44:39.966Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 7,
@@ -24,18 +26,11 @@
         "count": 7,
         "topStocks": [
           {
-            "code": "000660",
-            "name": "SK하이닉스",
-            "rank": 1,
-            "tradingValue": 13070533000000,
-            "changePct": 0.84
-          },
-          {
-            "code": "005930",
-            "name": "삼성전자",
-            "rank": 2,
-            "tradingValue": 9434300000000,
-            "changePct": 3.41
+            "code": "036930",
+            "name": "주성엔지니어링",
+            "rank": 6,
+            "tradingValue": 629877000000,
+            "changePct": 13.82
           },
           {
             "code": "009150",
@@ -45,6 +40,13 @@
             "changePct": 7.16
           },
           {
+            "code": "240810",
+            "name": "원익IPS",
+            "rank": 7,
+            "tradingValue": 520421000000,
+            "changePct": 5.72
+          },
+          {
             "code": "402340",
             "name": "SK스퀘어",
             "rank": 4,
@@ -52,11 +54,11 @@
             "changePct": 3.48
           },
           {
-            "code": "005935",
-            "name": "삼성전자우",
-            "rank": 5,
-            "tradingValue": 914544000000,
-            "changePct": 0.71
+            "code": "005930",
+            "name": "삼성전자",
+            "rank": 2,
+            "tradingValue": 9434300000000,
+            "changePct": 3.41
           }
         ]
       }

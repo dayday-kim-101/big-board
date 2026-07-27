@@ -268,35 +268,51 @@ test('inferRowTheme: manual/notes 테마를 broad theme로 정규화', () => {
   assert.equal(inferRowTheme({ name: 'SK이노베이션', manual: { notes: '(테마) 확인 필요' } }), '원전/에너지');
 });
 
-test('dailyThemeEligibleRows: 상위 30위 + 상승 + 거래대금 4천억 이상만 포함', () => {
+test('dailyThemeEligibleRows: 상승 + 거래대금 4천억 이상을 먼저 거른 뒤 등락률 상위 30개만 포함', () => {
   const rows = [
-    { code: 'A', rank: 1, changePct: 1.2, tradingValue: 500_000_000_000 },
+    { code: 'A', rank: 100, changePct: 1.2, tradingValue: 500_000_000_000 },
     { code: 'B', rank: 31, changePct: 5, tradingValue: 900_000_000_000 },
     { code: 'C', rank: 2, changePct: -1, tradingValue: 900_000_000_000 },
     { code: 'D', rank: 3, changePct: 2, tradingValue: 399_999_999_999 },
   ];
-  assert.deepEqual(dailyThemeEligibleRows(rows).map((r) => r.code), ['A']);
+  assert.deepEqual(dailyThemeEligibleRows(rows).map((r) => r.code), ['B', 'A']);
 });
 
-test('buildDailyTheme: 당일 상위 30위 중 상승·거래대금 4천억 이상만 모아 테마/비중 산출', () => {
+test('dailyThemeEligibleRows: 유동성 필터 후 등락률 상위 30개로 제한', () => {
+  const rows = Array.from({ length: 31 }, (_, i) => ({
+    code: `C${i}`,
+    rank: i + 1,
+    changePct: 100 - i,
+    tradingValue: 500_000_000_000,
+  }));
+  const out = dailyThemeEligibleRows(rows);
+  assert.equal(out.length, 30);
+  assert.equal(out[0].code, 'C0');
+  assert.equal(out.at(-1).code, 'C29');
+});
+
+test('buildDailyTheme: 유동성 종목의 테마 개수 기준으로 오늘의 테마 산출', () => {
   const rows = [
-    { code: '000660', name: 'SK하이닉스', rank: 1, changePct: 3.1, tradingValue: 700_000_000_000, manual: { notes: '(테마) 반도체(메모리)' } },
-    { code: '005930', name: '삼성전자', rank: 2, changePct: 1.2, tradingValue: 300_000_000_000, manual: { theme: '반도체(종합)' } }, // 4천억 미만 제외
+    { code: '000660', name: 'SK하이닉스', rank: 80, changePct: 3.1, tradingValue: 700_000_000_000, manual: { notes: '(테마) 반도체(메모리)' } },
+    { code: '005930', name: '삼성전자', rank: 90, changePct: 1.2, tradingValue: 500_000_000_000, manual: { theme: '반도체(종합)' } },
     { code: '034020', name: '두산에너빌리티', rank: 3, changePct: -2, tradingValue: 600_000_000_000, manual: { theme: '원전' } }, // 하락 제외
-    { code: '047810', name: '한국항공우주', rank: 31, changePct: 4, tradingValue: 800_000_000_000, manual: { theme: '방산' } }, // 30위 밖 제외
-    { code: '105560', name: 'KB금융', rank: 4, changePct: 2.3, tradingValue: 500_000_000_000, manual: { theme: '금융' } },
+    { code: '047810', name: '한국항공우주', rank: 31, changePct: 4, tradingValue: 800_000_000_000, manual: { theme: '방산' } },
+    { code: '105560', name: 'KB금융', rank: 4, changePct: 2.3, tradingValue: 900_000_000_000, manual: { theme: '금융' } },
   ];
   const d = buildDailyTheme(rows, { now: '2026-07-13T00:00:00Z' });
   assert.equal(d.source, 'auto');
   assert.equal(d.criteria.rankLimit, 30);
   assert.equal(d.criteria.minTradingValue, 400_000_000_000);
-  assert.equal(d.universe.eligibleCount, 2);
+  assert.equal(d.criteria.rankBasis, 'changePctDescAfterLiquidityFilter');
+  assert.equal(d.criteria.scoring, 'themeStockCount');
+  assert.equal(d.universe.eligibleCount, 4);
   assert.equal(d.items[0].theme, '반도체/HBM');
-  assert.equal(d.items[0].tradingValue, 700_000_000_000);
-  assert.equal(d.items[0].sharePct, 58.3);
-  assert.equal(d.items[0].topStocks[0].changePct, 3.1);
-  assert.equal(d.items[1].theme, '금융/증권');
-  assert.ok(d.text.includes('반도체/HBM'));
+  assert.equal(d.items[0].count, 2);
+  assert.equal(d.items[0].sharePct, 50);
+  assert.equal(d.items[0].tradingValue, 1_200_000_000_000);
+  assert.equal(d.items[0].topStocks[0].code, '000660');
+  assert.equal(d.items[1].theme, '금융/증권'); // 동률이면 거래대금 합계 우선
+  assert.ok(d.text.includes('반도체/HBM 2종목(50%)'));
 });
 
 test('applyDailyThemePatch: 날짜 단위 테마를 manual source로 저장', () => {

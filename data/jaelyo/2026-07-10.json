@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-10T14:21:34.000Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 9.4조(100%)",
+    "text": "반도체/HBM 5종목(100%)",
     "source": "auto",
     "generatedAt": "2026-07-10T14:21:34.000Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 5,
@@ -24,18 +26,11 @@
         "count": 5,
         "topStocks": [
           {
-            "code": "005930",
-            "name": "삼성전자",
-            "rank": 2,
-            "tradingValue": 5768281000000,
-            "changePct": 2.52
-          },
-          {
-            "code": "009150",
-            "name": "삼성전기",
-            "rank": 3,
-            "tradingValue": 1392755000000,
-            "changePct": 6.1
+            "code": "036930",
+            "name": "주성엔지니어링",
+            "rank": 6,
+            "tradingValue": 419369000000,
+            "changePct": 7.57
           },
           {
             "code": "402340",
@@ -45,6 +40,13 @@
             "changePct": 6.18
           },
           {
+            "code": "009150",
+            "name": "삼성전기",
+            "rank": 3,
+            "tradingValue": 1392755000000,
+            "changePct": 6.1
+          },
+          {
             "code": "005935",
             "name": "삼성전자우",
             "rank": 5,
@@ -52,11 +54,11 @@
             "changePct": 4.69
           },
           {
-            "code": "036930",
-            "name": "주성엔지니어링",
-            "rank": 6,
-            "tradingValue": 419369000000,
-            "changePct": 7.57
+            "code": "005930",
+            "name": "삼성전자",
+            "rank": 2,
+            "tradingValue": 5768281000000,
+            "changePct": 2.52
           }
         ]
       }

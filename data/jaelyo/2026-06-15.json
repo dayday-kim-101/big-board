@@ -3,14 +3,16 @@
   "collectedAt": "2026-06-15T14:05:22.897Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 20.5조(74%) · 테라팹 2.7조(9.8%) · 자동차/부품 1.7조(6%) · 가전(전자) 6568억(2.4%)",
+    "text": "반도체/HBM 6종목(40%) · 자동차/부품 3종목(20%) · 테라팹 1종목(6.7%) · 가전(전자) 1종목(6.7%)",
     "source": "auto",
     "generatedAt": "2026-06-15T14:05:22.897Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 15,
@@ -20,9 +22,16 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 20493186000000,
-        "sharePct": 74,
+        "sharePct": 40,
         "count": 6,
         "topStocks": [
+          {
+            "code": "009150",
+            "name": "삼성전기",
+            "rank": 3,
+            "tradingValue": 2887929000000,
+            "changePct": 16.63
+          },
           {
             "code": "000660",
             "name": "SK하이닉스",
@@ -38,11 +47,11 @@
             "changePct": 4.5
           },
           {
-            "code": "009150",
-            "name": "삼성전기",
-            "rank": 3,
-            "tradingValue": 2887929000000,
-            "changePct": 16.63
+            "code": "005935",
+            "name": "삼성전자우",
+            "rank": 8,
+            "tradingValue": 640502000000,
+            "changePct": 4.35
           },
           {
             "code": "402340",
@@ -50,20 +59,42 @@
             "rank": 5,
             "tradingValue": 1470537000000,
             "changePct": 4.05
+          }
+        ]
+      },
+      {
+        "theme": "자동차/부품",
+        "tradingValue": 1667967000000,
+        "sharePct": 20,
+        "count": 3,
+        "topStocks": [
+          {
+            "code": "018880",
+            "name": "한온시스템",
+            "rank": 16,
+            "tradingValue": 451710000000,
+            "changePct": 20.85
           },
           {
-            "code": "005935",
-            "name": "삼성전자우",
-            "rank": 8,
-            "tradingValue": 640502000000,
-            "changePct": 4.35
+            "code": "204320",
+            "name": "HL만도",
+            "rank": 11,
+            "tradingValue": 533117000000,
+            "changePct": 8.62
+          },
+          {
+            "code": "005380",
+            "name": "현대차",
+            "rank": 6,
+            "tradingValue": 683140000000,
+            "changePct": 6.59
           }
         ]
       },
       {
         "theme": "테라팹",
         "tradingValue": 2721465000000,
-        "sharePct": 9.8,
+        "sharePct": 6.7,
         "count": 1,
         "topStocks": [
           {
@@ -76,38 +107,9 @@
         ]
       },
       {
-        "theme": "자동차/부품",
-        "tradingValue": 1667967000000,
-        "sharePct": 6,
-        "count": 3,
-        "topStocks": [
-          {
-            "code": "005380",
-            "name": "현대차",
-            "rank": 6,
-            "tradingValue": 683140000000,
-            "changePct": 6.59
-          },
-          {
-            "code": "204320",
-            "name": "HL만도",
-            "rank": 11,
-            "tradingValue": 533117000000,
-            "changePct": 8.62
-          },
-          {
-            "code": "018880",
-            "name": "한온시스템",
-            "rank": 16,
-            "tradingValue": 451710000000,
-            "changePct": 20.85
-          }
-        ]
-      },
-      {
         "theme": "가전(전자)",
         "tradingValue": 656761000000,
-        "sharePct": 2.4,
+        "sharePct": 6.7,
         "count": 1,
         "topStocks": [
           {
@@ -122,7 +124,7 @@
       {
         "theme": "전자부품",
         "tradingValue": 638462000000,
-        "sharePct": 2.3,
+        "sharePct": 6.7,
         "count": 1,
         "topStocks": [
           {
@@ -137,7 +139,7 @@
       {
         "theme": "신재생",
         "tradingValue": 522031000000,
-        "sharePct": 1.9,
+        "sharePct": 6.7,
         "count": 1,
         "topStocks": [
           {

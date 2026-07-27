@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-27T14:28:28.436Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 12.5조(95.3%) · 로봇/AI 6114억(4.7%)",
+    "text": "반도체/HBM 2종목(66.7%) · 로봇/AI 1종목(33.3%)",
     "source": "auto",
     "generatedAt": "2026-07-27T14:28:28.436Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 3,
@@ -20,7 +22,7 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 12499372000000,
-        "sharePct": 95.3,
+        "sharePct": 66.7,
         "count": 2,
         "topStocks": [
           {
@@ -42,7 +44,7 @@
       {
         "theme": "로봇/AI",
         "tradingValue": 611411000000,
-        "sharePct": 4.7,
+        "sharePct": 33.3,
         "count": 1,
         "topStocks": [
           {

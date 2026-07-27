@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-06T22:33:35.345Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 8.3조(93.5%) · 조선/해양 5810억(6.5%)",
+    "text": "반도체/HBM 2종목(66.7%) · 조선/해양 1종목(33.3%)",
     "source": "auto",
     "generatedAt": "2026-07-06T22:33:35.345Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 3,
@@ -20,7 +22,7 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 8323959000000,
-        "sharePct": 93.5,
+        "sharePct": 66.7,
         "count": 2,
         "topStocks": [
           {
@@ -42,7 +44,7 @@
       {
         "theme": "조선/해양",
         "tradingValue": 580957000000,
-        "sharePct": 6.5,
+        "sharePct": 33.3,
         "count": 1,
         "topStocks": [
           {

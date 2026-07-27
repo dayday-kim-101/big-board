@@ -3,14 +3,16 @@
   "collectedAt": "2026-06-17T13:19:47.757Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 18.8조(88.8%) · 전력/전선 9816억(4.6%) · 조선/해양 8167억(3.9%) · 비만치료제 5770억(2.7%)",
+    "text": "반도체/HBM 6종목(60%) · 전력/전선 2종목(20%) · 조선/해양 1종목(10%) · 비만치료제 1종목(10%)",
     "source": "auto",
     "generatedAt": "2026-06-17T13:19:47.757Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 10,
@@ -20,22 +22,15 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 18800783000000,
-        "sharePct": 88.8,
+        "sharePct": 60,
         "count": 6,
         "topStocks": [
           {
-            "code": "000660",
-            "name": "SK하이닉스",
-            "rank": 1,
-            "tradingValue": 9186442000000,
-            "changePct": 5.84
-          },
-          {
-            "code": "005930",
-            "name": "삼성전자",
-            "rank": 2,
-            "tradingValue": 6085609000000,
-            "changePct": 1.02
+            "code": "080220",
+            "name": "제주반도체",
+            "rank": 5,
+            "tradingValue": 989851000000,
+            "changePct": 10.18
           },
           {
             "code": "402340",
@@ -45,11 +40,18 @@
             "changePct": 6.33
           },
           {
-            "code": "080220",
-            "name": "제주반도체",
-            "rank": 5,
-            "tradingValue": 989851000000,
-            "changePct": 10.18
+            "code": "000660",
+            "name": "SK하이닉스",
+            "rank": 1,
+            "tradingValue": 9186442000000,
+            "changePct": 5.84
+          },
+          {
+            "code": "240810",
+            "name": "원익IPS",
+            "rank": 14,
+            "tradingValue": 415345000000,
+            "changePct": 3.59
           },
           {
             "code": "005935",
@@ -63,7 +65,7 @@
       {
         "theme": "전력/전선",
         "tradingValue": 981568000000,
-        "sharePct": 4.6,
+        "sharePct": 20,
         "count": 2,
         "topStocks": [
           {
@@ -85,7 +87,7 @@
       {
         "theme": "조선/해양",
         "tradingValue": 816701000000,
-        "sharePct": 3.9,
+        "sharePct": 10,
         "count": 1,
         "topStocks": [
           {
@@ -100,7 +102,7 @@
       {
         "theme": "비만치료제",
         "tradingValue": 577019000000,
-        "sharePct": 2.7,
+        "sharePct": 10,
         "count": 1,
         "topStocks": [
           {

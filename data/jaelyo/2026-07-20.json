@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-20T14:01:22.714Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "원전/에너지 4141억(100%)",
+    "text": "원전/에너지 1종목(100%)",
     "source": "auto",
     "generatedAt": "2026-07-20T14:01:22.714Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 1,

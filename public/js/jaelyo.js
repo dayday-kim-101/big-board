@@ -299,7 +299,7 @@ function dailyThemePanel(dailyTheme, onEditDailyTheme) {
   head.appendChild(cell('h3', '오늘의 테마', 'jaelyo-theme-title'));
   const badgeText = dailyTheme?.source === 'manual'
     ? '수동 수정'
-    : `상위${dailyTheme?.criteria?.rankLimit ?? 30}·상승·${Math.round((dailyTheme?.criteria?.minTradingValue ?? 400_000_000_000) / 100_000_000)}억+`;
+    : `상승·${Math.round((dailyTheme?.criteria?.minTradingValue ?? 400_000_000_000) / 100_000_000)}억+·등락률${dailyTheme?.criteria?.rankLimit ?? 30}·개수기준`;
   head.appendChild(cell('span', badgeText, 'jaelyo-theme-badge'));
   panel.appendChild(head);
 
