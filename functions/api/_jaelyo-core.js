@@ -54,13 +54,14 @@ function round(n, d) {
 // --- 순수 파서/계산/병합 (테스트 대상) ---
 
 // 네이버 모바일 시세 응답(한 페이지) → [{code, name, price, changePct, tradingValue(원), marketCap(원)}].
-export function parseNaverStocks(json) {
+export function parseNaverStocks(json, market = '') {
   const arr = json?.stocks;
   if (!Array.isArray(arr)) throw new Error('네이버 시세 응답 형식 오류');
   return arr
     // 재료정리는 개별 종목(재료/테마) 대상 → ETF/ETN 제외(stockEnd: stock | etf | etn).
     .filter((o) => o?.stockEndType === 'stock')
     .map((o) => ({
+      market: String(market || o.marketType || '').trim(),
       code: String(o.itemCode ?? '').trim(),
       name: String(o.stockName ?? '').trim(),
       price: num(o.closePrice),
@@ -84,6 +85,7 @@ export function rankByTradingValue(rows, limit = 100) {
     .sort((a, b) => num(b.tradingValue) - num(a.tradingValue))
     .slice(0, limit)
     .map((r, i) => ({
+      market: String(r.market ?? ''),
       code: r.code,
       name: r.name,
       price: num(r.price),
@@ -311,6 +313,92 @@ export function applyDailyThemePatch(board, patch, { now = new Date().toISOStrin
   return { ...board, dailyTheme: next };
 }
 
+// --- date-level 시장 거래대금/수급 요약 ---
+function marketName(key) {
+  if (key === 'ALL') return '전체';
+  if (key === 'KOSPI') return '코스피';
+  if (key === 'KOSDAQ') return '코스닥';
+  return key;
+}
+
+function marketFlowLabel(up, down, flat) {
+  if (down > up * 2) return '매도 우위';
+  if (up > down * 2) return '매수 우위';
+  if (up > down) return '상승 우위';
+  if (down > up) return '하락 우위';
+  return flat ? '보합/혼조' : '혼조';
+}
+
+function marketFlowText(section) {
+  const { label, upCount, downCount, flatCount, topTradingStocks = [] } = section;
+  const top = topTradingStocks[0];
+  const base = `${label}: ${marketFlowLabel(upCount, downCount, flatCount)}(상승 ${upCount} · 하락 ${downCount} · 보합 ${flatCount})`;
+  return top ? `${base}, 거래대금 1위 ${top.name} ${fmtThemeWonKR(top.tradingValue)}` : base;
+}
+
+function summarizeMarketRows(rows, key) {
+  const list = key === 'ALL' ? [...(rows ?? [])] : (rows ?? []).filter((r) => r?.market === key);
+  const upCount = list.filter((r) => (num(r?.changePct) ?? 0) > 0).length;
+  const downCount = list.filter((r) => (num(r?.changePct) ?? 0) < 0).length;
+  const flatCount = Math.max(0, list.length - upCount - downCount);
+  const totalTradingValue = list.reduce((s, r) => s + (num(r?.tradingValue) || 0), 0);
+  const topTradingStocks = [...list]
+    .sort((a, b) => (num(b?.tradingValue) || 0) - (num(a?.tradingValue) || 0))
+    .slice(0, 5)
+    .map((r) => ({
+      code: String(r?.code ?? ''),
+      name: String(r?.name ?? ''),
+      market: String(r?.market ?? ''),
+      tradingValue: Math.round(num(r?.tradingValue) || 0),
+      changePct: num(r?.changePct),
+    }));
+  return {
+    key,
+    label: marketName(key),
+    stockCount: list.length,
+    totalTradingValue: Math.round(totalTradingValue),
+    upCount,
+    downCount,
+    flatCount,
+    flowLabel: marketFlowLabel(upCount, downCount, flatCount),
+    topTradingStocks,
+  };
+}
+
+export function buildMarketSummary(rows = [], { now = new Date().toISOString() } = {}) {
+  const sections = ['ALL', 'KOSPI', 'KOSDAQ'].map((key) => summarizeMarketRows(rows, key));
+  return sanitizeMarketSummary({
+    generatedAt: now,
+    sections,
+    flowNotes: sections.map(marketFlowText),
+  });
+}
+
+export function sanitizeMarketSummary(input) {
+  const obj = input && typeof input === 'object' ? input : {};
+  return {
+    generatedAt: String(obj.generatedAt ?? '').trim(),
+    sections: Array.isArray(obj.sections) ? obj.sections.slice(0, 3).map((s) => ({
+      key: String(s?.key ?? '').trim(),
+      label: String(s?.label ?? '').trim(),
+      stockCount: num(s?.stockCount) ?? 0,
+      totalTradingValue: num(s?.totalTradingValue) ?? 0,
+      upCount: num(s?.upCount) ?? 0,
+      downCount: num(s?.downCount) ?? 0,
+      flatCount: num(s?.flatCount) ?? 0,
+      flowLabel: String(s?.flowLabel ?? '').trim(),
+      topTradingStocks: Array.isArray(s?.topTradingStocks) ? s.topTradingStocks.slice(0, 5).map((r) => ({
+        code: String(r?.code ?? ''),
+        name: String(r?.name ?? ''),
+        market: String(r?.market ?? ''),
+        tradingValue: num(r?.tradingValue) ?? 0,
+        changePct: num(r?.changePct),
+      })) : [],
+    })).filter((s) => s.key) : [],
+    flowNotes: Array.isArray(obj.flowNotes) ? obj.flowNotes.slice(0, 6).map((x) => String(x ?? '').trim()).filter(Boolean) : [],
+  };
+}
+
 // 신규 수집행에 같은 날짜 파일의 기존 manual을 code 기준 보존(재수집 idempotent).
 export function mergeManual(newRows, prevRows = []) {
   const prev = {};
@@ -411,13 +499,15 @@ export function buildGlobalManualByCodeFromBoards(boards = [], seeds = {}) {
 }
 
 // 최종 스키마로 정규화 — 알 수 없는 필드 제거, manual 항상 7키 존재.
-export function normalizeBoard({ date, rows = [], collectedAt = null, source = 'naver', dailyTheme = null }) {
+export function normalizeBoard({ date, rows = [], collectedAt = null, source = 'naver', dailyTheme = null, marketSummary = null }) {
   return {
     date,
     collectedAt,
     source,
     dailyTheme: sanitizeDailyTheme(dailyTheme),
+    marketSummary: sanitizeMarketSummary(marketSummary),
     rows: (rows ?? []).map((r) => ({
+      market: String(r.market ?? ''),
       rank: num(r.rank),
       prevRank: num(r.prevRank),
       code: String(r.code ?? ''),
@@ -451,12 +541,12 @@ async function getJson(url) {
 // 한 시장(KOSPI|KOSDAQ) 전 종목을 페이지네이션으로 모은다.
 async function fetchMarket(market, { pageSize = 100 } = {}) {
   const first = await getJson(`${NAVER_BASE}/${market}?page=1&pageSize=${pageSize}`);
-  let rows = parseNaverStocks(first);
+  let rows = parseNaverStocks(first, market);
   const tradedDate = naverTradedDate(first);
   const total = num(first?.totalCount) ?? rows.length;
   const pages = Math.max(1, Math.ceil(total / pageSize));
   for (let p = 2; p <= pages; p++) {
-    rows = rows.concat(parseNaverStocks(await getJson(`${NAVER_BASE}/${market}?page=${p}&pageSize=${pageSize}`)));
+    rows = rows.concat(parseNaverStocks(await getJson(`${NAVER_BASE}/${market}?page=${p}&pageSize=${pageSize}`), market));
     await sleep(120); // 네이버에 과부하 주지 않도록 간격
   }
   return { rows, tradedDate };

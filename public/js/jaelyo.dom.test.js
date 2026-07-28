@@ -80,6 +80,15 @@ function sampleBoard() {
       criteria: { rankLimit: 30, positiveChangeOnly: true, minTradingValue: 400_000_000_000, scoring: 'themeStockCount' },
       items: [{ theme: '반도체/HBM', sharePct: 70, count: 7, topStocks: [] }],
     },
+    marketSummary: {
+      generatedAt: 'NOW',
+      sections: [
+        { key: 'ALL', label: '전체', stockCount: 4, totalTradingValue: 2_000_000_000_000, upCount: 1, downCount: 2, flatCount: 1, flowLabel: '하락 우위', topTradingStocks: [] },
+        { key: 'KOSPI', label: '코스피', stockCount: 2, totalTradingValue: 1_600_000_000_000, upCount: 1, downCount: 1, flatCount: 0, flowLabel: '혼조', topTradingStocks: [{ code: '000660', name: 'SK하이닉스', market: 'KOSPI', tradingValue: 900_000_000_000, changePct: 1.2 }] },
+        { key: 'KOSDAQ', label: '코스닥', stockCount: 2, totalTradingValue: 400_000_000_000, upCount: 0, downCount: 1, flatCount: 1, flowLabel: '하락 우위', topTradingStocks: [{ code: '091990', name: '셀트리온헬스케어', market: 'KOSDAQ', tradingValue: 300_000_000_000, changePct: -1 }] },
+      ],
+      flowNotes: ['전체: 하락 우위(상승 1 · 하락 2 · 보합 1)'],
+    },
     rows: [
       { rank: 5, prevRank: 1063, code: '028050', name: '삼성E&A', price: 64900, changePct: 23.6, marketCap: 1.27e12, tradingValue: 5e11, tvToMcapPct: 25, manual: { newOrExisting: '', theme: '건설', material: '', materialPersistence: '', materialContinuity: '', financials: '', supplyDemand: '' } },
       { rank: 1, prevRank: 1, code: '005930', name: '삼성전자', price: 81000, changePct: 1.2, marketCap: 5e14, tradingValue: 1e11, tvToMcapPct: 0.02, manual: { newOrExisting: '기존', theme: '', material: '', materialPersistence: '', materialContinuity: '', financials: '', supplyDemand: '' } },
@@ -96,6 +105,19 @@ test('renderJaelyo: 16열 헤더 렌더', () => {
   }
   const ths = root.findAll('th');
   assert.equal(ths.length, 16);
+});
+
+test('renderJaelyo: 시장 거래대금/수급 요약 패널 렌더', () => {
+  const root = new FakeEl('div');
+  renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board: sampleBoard() });
+  const text = root.allText();
+  assert.ok(root.findByClass('jaelyo-market-panel')[0], '시장 요약 패널');
+  assert.ok(text.includes('오늘의 시장 거래대금 / 수급'));
+  assert.ok(text.includes('전체'));
+  assert.ok(text.includes('코스피'));
+  assert.ok(text.includes('코스닥'));
+  assert.ok(text.includes('하락 우위'));
+  assert.ok(text.includes('SK하이닉스'));
 });
 
 test('renderJaelyo: 오늘의 테마 패널 렌더 + 저장 콜백', async () => {
