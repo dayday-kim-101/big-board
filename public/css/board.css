@@ -682,3 +682,37 @@ button.primary { background: var(--accent); color: #1a1300; border-color: var(--
 @media (max-width: 480px) {
   .sectormap-map { height: 70vh; min-height: 360px; }
 }
+/* 재료정리: 시장 거래대금/수급 요약 */
+.jaelyo-market-panel {
+  margin: 10px 0 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+}
+.jaelyo-market-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.jaelyo-market-title { margin: 0; font-size: 16px; color: var(--accent); }
+.jaelyo-market-badge { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 3px 8px; background: var(--panel-2); }
+.jaelyo-market-empty { color: var(--muted); font-size: 13px; margin: 0; }
+.jaelyo-market-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.jaelyo-market-card { border: 1px solid var(--line); border-radius: 12px; padding: 10px; background: #101621; display: grid; gap: 4px; }
+.jaelyo-market-card-label { color: var(--muted); font-size: 12px; font-weight: 700; }
+.jaelyo-market-card-value { font-size: 20px; color: var(--text); font-variant-numeric: tabular-nums; }
+.jaelyo-market-flow, .jaelyo-market-meta { color: var(--muted); font-size: 12px; }
+.jaelyo-market-topwrap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.jaelyo-market-topbox { border: 1px solid var(--line); border-radius: 12px; padding: 10px; background: var(--panel-2); }
+.jaelyo-market-subtitle { margin: 0 0 8px; font-size: 13px; color: var(--text); }
+.jaelyo-market-toplist { margin: 0; padding-left: 18px; display: grid; gap: 5px; }
+.jaelyo-market-topitem { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 8px; font-size: 12px; }
+.jaelyo-market-stock { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jaelyo-market-chg { font-variant-numeric: tabular-nums; }
+.jaelyo-market-chg.up { color: var(--up); }
+.jaelyo-market-chg.down { color: var(--down); }
+.jaelyo-market-chg.flat { color: var(--flat); }
+.jaelyo-market-tv { color: var(--muted); font-variant-numeric: tabular-nums; }
+.jaelyo-market-notes { margin: 10px 0 0; padding-left: 18px; color: var(--muted); font-size: 12px; display: grid; gap: 4px; }
+@media (max-width: 760px) {
+  .jaelyo-market-cards, .jaelyo-market-topwrap { grid-template-columns: 1fr; }
+  .jaelyo-market-topitem { grid-template-columns: 1fr auto; }
+  .jaelyo-market-tv { grid-column: 2; }
+}

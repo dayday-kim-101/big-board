@@ -20,6 +20,7 @@ import {
   inferRowTheme,
   dailyThemeEligibleRows,
   buildDailyTheme,
+  buildMarketSummary,
   applyDailyThemePatch,
 } from './_jaelyo-core.js';
 
@@ -35,7 +36,7 @@ test('parseNaverStocks: 필드 매핑 + 백만원→원 환산', () => {
   const rows = parseNaverStocks(json);
   assert.equal(rows.length, 2);
   assert.deepEqual(rows[0], {
-    code: '028050', name: '삼성E&A', price: 64900, changePct: 23.6, tradingValue: 152_285 * 1_000_000, marketCap: 12_700 * 100_000_000, // 1.27조
+    market: '', code: '028050', name: '삼성E&A', price: 64900, changePct: 23.6, tradingValue: 152_285 * 1_000_000, marketCap: 12_700 * 100_000_000, // 1.27조
   });
   assert.equal(rows[1].changePct, -1.2);
   assert.equal(rows[1].tradingValue, 8_937_536 * 1_000_000); // 8.9조원
@@ -313,6 +314,41 @@ test('buildDailyTheme: 유동성 종목의 테마 개수 기준으로 오늘의 
   assert.equal(d.items[0].topStocks[0].code, '000660');
   assert.equal(d.items[1].theme, '금융/증권'); // 동률이면 거래대금 합계 우선
   assert.ok(d.text.includes('반도체/HBM 2종목(50%)'));
+});
+
+test('buildMarketSummary: 전체/코스피/코스닥 거래대금과 상승하락 수급 요약', () => {
+  const rows = [
+    { market: 'KOSPI', code: '005930', name: '삼성전자', changePct: 1.2, tradingValue: 900_000_000_000 },
+    { market: 'KOSPI', code: '000660', name: 'SK하이닉스', changePct: -2.1, tradingValue: 700_000_000_000 },
+    { market: 'KOSDAQ', code: '035900', name: 'JYP Ent.', changePct: 0, tradingValue: 100_000_000_000 },
+    { market: 'KOSDAQ', code: '091990', name: '셀트리온헬스케어', changePct: -1, tradingValue: 300_000_000_000 },
+  ];
+  const s = buildMarketSummary(rows, { now: 'NOW' });
+  assert.equal(s.generatedAt, 'NOW');
+  assert.equal(s.sections.length, 3);
+  const all = s.sections[0];
+  assert.equal(all.key, 'ALL');
+  assert.equal(all.totalTradingValue, 2_000_000_000_000);
+  assert.equal(all.stockCount, 4);
+  assert.equal(all.upCount, 1);
+  assert.equal(all.downCount, 2);
+  assert.equal(all.flatCount, 1);
+  assert.equal(all.topTradingStocks[0].name, '삼성전자');
+  const kospi = s.sections.find((x) => x.key === 'KOSPI');
+  assert.equal(kospi.totalTradingValue, 1_600_000_000_000);
+  const kosdaq = s.sections.find((x) => x.key === 'KOSDAQ');
+  assert.equal(kosdaq.flowLabel, '매도 우위');
+  assert.ok(s.flowNotes.some((note) => note.includes('전체: 하락 우위')));
+});
+
+test('normalizeBoard: marketSummary와 row.market 보존', () => {
+  const board = normalizeBoard({
+    date: '2026-07-28',
+    marketSummary: buildMarketSummary([{ market: 'KOSPI', code: 'A', name: 'A', changePct: 1, tradingValue: 1 }]),
+    rows: [{ market: 'KOSPI', code: 'A', name: 'A' }],
+  });
+  assert.equal(board.marketSummary.sections[0].key, 'ALL');
+  assert.equal(board.rows[0].market, 'KOSPI');
 });
 
 test('applyDailyThemePatch: 날짜 단위 테마를 manual source로 저장', () => {

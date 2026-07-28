@@ -16,6 +16,7 @@ import {
   updateGlobalManual,
   normalizeBoard,
   buildDailyTheme,
+  buildMarketSummary,
 } from '../functions/api/_jaelyo-core.js';
 import { fillMissingNotes } from './jaelyo-notes-core.js';
 
@@ -160,6 +161,7 @@ async function main() {
     source: 'naver',
     rows,
     dailyTheme: buildDailyTheme(rows, { now: collectedAt }),
+    marketSummary: buildMarketSummary(all, { now: collectedAt }),
   });
   await mkdir(OUT_DIR, { recursive: true });
   await writeFile(path.join(OUT_DIR, `${date}.json`), JSON.stringify(board, null, 2) + '\n');

@@ -338,6 +338,56 @@ function dailyThemePanel(dailyTheme, onEditDailyTheme) {
   return panel;
 }
 
+function marketSummaryPanel(marketSummary) {
+  const summary = marketSummary && Array.isArray(marketSummary.sections) ? marketSummary : null;
+  const panel = cell('section', undefined, 'jaelyo-market-panel');
+  const head = cell('div', undefined, 'jaelyo-market-head');
+  head.appendChild(cell('h3', '오늘의 시장 거래대금 / 수급', 'jaelyo-market-title'));
+  head.appendChild(cell('span', summary?.generatedAt ? '네이버 전종목 기준' : '시장 요약 없음', 'jaelyo-market-badge'));
+  panel.appendChild(head);
+  if (!summary?.sections?.length) {
+    panel.appendChild(cell('p', '이 날짜에는 전체/코스피/코스닥 거래대금 요약 데이터가 없습니다.', 'jaelyo-market-empty'));
+    return panel;
+  }
+
+  const cards = cell('div', undefined, 'jaelyo-market-cards');
+  for (const s of summary.sections) {
+    const card = cell('article', undefined, `jaelyo-market-card ${String(s.key || '').toLowerCase()}`);
+    card.appendChild(cell('div', s.label, 'jaelyo-market-card-label'));
+    card.appendChild(cell('strong', fmtWonKR(s.totalTradingValue), 'jaelyo-market-card-value'));
+    card.appendChild(cell('div', `${s.flowLabel} · 상승 ${s.upCount} · 하락 ${s.downCount} · 보합 ${s.flatCount}`, 'jaelyo-market-flow'));
+    card.appendChild(cell('div', `종목 ${s.stockCount}`, 'jaelyo-market-meta'));
+    cards.appendChild(card);
+  }
+  panel.appendChild(cards);
+
+  const topWrap = cell('div', undefined, 'jaelyo-market-topwrap');
+  for (const s of summary.sections.filter((x) => x.key !== 'ALL')) {
+    const box = cell('div', undefined, 'jaelyo-market-topbox');
+    box.appendChild(cell('h4', `${s.label} 거래대금 상위`, 'jaelyo-market-subtitle'));
+    const list = cell('ol', undefined, 'jaelyo-market-toplist');
+    for (const r of (s.topTradingStocks || []).slice(0, 5)) {
+      const li = cell('li', undefined, 'jaelyo-market-topitem');
+      li.append(
+        cell('span', r.name, 'jaelyo-market-stock'),
+        cell('span', fmtPct(r.changePct), `jaelyo-market-chg ${Number(r.changePct) > 0 ? 'up' : Number(r.changePct) < 0 ? 'down' : 'flat'}`),
+        cell('span', fmtWonKR(r.tradingValue), 'jaelyo-market-tv'),
+      );
+      list.appendChild(li);
+    }
+    box.appendChild(list);
+    topWrap.appendChild(box);
+  }
+  panel.appendChild(topWrap);
+
+  if (summary.flowNotes?.length) {
+    const notes = cell('ul', undefined, 'jaelyo-market-notes');
+    for (const note of summary.flowNotes) notes.appendChild(cell('li', note));
+    panel.appendChild(notes);
+  }
+  return panel;
+}
+
 // 헤더 셀: 라벨 + 우측 너비 조절 핸들(드래그). 더블클릭 시 기본 너비로 리셋.
 // th 개수는 16개로 유지(핸들은 th의 자식). ctx = { widths, widthOf, totalW, table }.
 function headerCell(label, colEl, ctx) {
@@ -410,7 +460,10 @@ export function renderJaelyo(container, { dates = [], selectedDate = null, board
   head.appendChild(select);
   section.appendChild(head);
 
-  if (board) section.appendChild(dailyThemePanel(board.dailyTheme, onEditDailyTheme));
+  if (board) {
+    section.appendChild(marketSummaryPanel(board.marketSummary));
+    section.appendChild(dailyThemePanel(board.dailyTheme, onEditDailyTheme));
+  }
 
   // 격자 래퍼 — 세로 리사이즈 + 스크롤(CSS)
   const wrap = document.createElement('div');
