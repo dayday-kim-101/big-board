@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-23T13:52:16.370Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 13.5조(88.4%) · 원전/에너지 1.4조(8.9%) · 로봇/AI 4080억(2.7%)",
+    "text": "반도체/HBM 4종목(66.7%) · 원전/에너지 1종목(16.7%) · 로봇/AI 1종목(16.7%)",
     "source": "auto",
     "generatedAt": "2026-07-23T13:52:16.370Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 6,
@@ -20,9 +22,16 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 13481750000000,
-        "sharePct": 88.4,
+        "sharePct": 66.7,
         "count": 4,
         "topStocks": [
+          {
+            "code": "009150",
+            "name": "삼성전기",
+            "rank": 4,
+            "tradingValue": 950449000000,
+            "changePct": 7.66
+          },
           {
             "code": "000660",
             "name": "SK하이닉스",
@@ -38,13 +47,6 @@
             "changePct": 3.65
           },
           {
-            "code": "009150",
-            "name": "삼성전기",
-            "rank": 4,
-            "tradingValue": 950449000000,
-            "changePct": 7.66
-          },
-          {
             "code": "005935",
             "name": "삼성전자우",
             "rank": 6,
@@ -56,7 +58,7 @@
       {
         "theme": "원전/에너지",
         "tradingValue": 1359014000000,
-        "sharePct": 8.9,
+        "sharePct": 16.7,
         "count": 1,
         "topStocks": [
           {
@@ -71,7 +73,7 @@
       {
         "theme": "로봇/AI",
         "tradingValue": 407972000000,
-        "sharePct": 2.7,
+        "sharePct": 16.7,
         "count": 1,
         "topStocks": [
           {

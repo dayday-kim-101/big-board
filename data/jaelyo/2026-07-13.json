@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-13T14:29:22.436Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "초소형Xray 7588억(35.6%) · 가전(전자) 5150억(24.2%) · 금융/증권 4522억(21.2%) · 원전/에너지 4054억(19%)",
+    "text": "초소형Xray 1종목(25%) · 가전(전자) 1종목(25%) · 금융/증권 1종목(25%) · 원전/에너지 1종목(25%)",
     "source": "auto",
     "generatedAt": "2026-07-13T14:29:22.436Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 4,
@@ -20,7 +22,7 @@
       {
         "theme": "초소형Xray",
         "tradingValue": 758798000000,
-        "sharePct": 35.6,
+        "sharePct": 25,
         "count": 1,
         "topStocks": [
           {
@@ -35,7 +37,7 @@
       {
         "theme": "가전(전자)",
         "tradingValue": 515006000000,
-        "sharePct": 24.2,
+        "sharePct": 25,
         "count": 1,
         "topStocks": [
           {
@@ -50,7 +52,7 @@
       {
         "theme": "금융/증권",
         "tradingValue": 452235000000,
-        "sharePct": 21.2,
+        "sharePct": 25,
         "count": 1,
         "topStocks": [
           {
@@ -65,7 +67,7 @@
       {
         "theme": "원전/에너지",
         "tradingValue": 405438000000,
-        "sharePct": 19,
+        "sharePct": 25,
         "count": 1,
         "topStocks": [
           {

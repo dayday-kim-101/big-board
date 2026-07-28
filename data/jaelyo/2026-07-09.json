@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-09T14:54:23.076Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 23.5조(98.3%) · 금융/증권 4122억(1.7%)",
+    "text": "반도체/HBM 5종목(83.3%) · 금융/증권 1종목(16.7%)",
     "source": "auto",
     "generatedAt": "2026-07-09T14:54:23.076Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 6,
@@ -20,29 +22,22 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 23454694000000,
-        "sharePct": 98.3,
+        "sharePct": 83.3,
         "count": 5,
         "topStocks": [
+          {
+            "code": "002990",
+            "name": "금호건설",
+            "rank": 8,
+            "tradingValue": 408278000000,
+            "changePct": 23.64
+          },
           {
             "code": "000660",
             "name": "SK하이닉스",
             "rank": 1,
             "tradingValue": 12300492000000,
             "changePct": 5.3
-          },
-          {
-            "code": "005930",
-            "name": "삼성전자",
-            "rank": 2,
-            "tradingValue": 8057378000000,
-            "changePct": 0.18
-          },
-          {
-            "code": "009150",
-            "name": "삼성전기",
-            "rank": 3,
-            "tradingValue": 1465762000000,
-            "changePct": 0.95
           },
           {
             "code": "402340",
@@ -52,18 +47,25 @@
             "changePct": 4.49
           },
           {
-            "code": "002990",
-            "name": "금호건설",
-            "rank": 8,
-            "tradingValue": 408278000000,
-            "changePct": 23.64
+            "code": "009150",
+            "name": "삼성전기",
+            "rank": 3,
+            "tradingValue": 1465762000000,
+            "changePct": 0.95
+          },
+          {
+            "code": "005930",
+            "name": "삼성전자",
+            "rank": 2,
+            "tradingValue": 8057378000000,
+            "changePct": 0.18
           }
         ]
       },
       {
         "theme": "금융/증권",
         "tradingValue": 412152000000,
-        "sharePct": 1.7,
+        "sharePct": 16.7,
         "count": 1,
         "topStocks": [
           {

@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-01T13:00:31.858Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 7.1조(73.8%) · 광고테크 1.1조(11.4%) · 신재생 8778억(9.1%) · 전력/전선 5416억(5.6%)",
+    "text": "반도체/HBM 4종목(57.1%) · 광고테크 1종목(14.3%) · 신재생 1종목(14.3%) · 전력/전선 1종목(14.3%)",
     "source": "auto",
     "generatedAt": "2026-07-01T13:00:31.858Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 7,
@@ -20,23 +22,9 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 7107079000000,
-        "sharePct": 73.8,
+        "sharePct": 57.1,
         "count": 4,
         "topStocks": [
-          {
-            "code": "402340",
-            "name": "SK스퀘어",
-            "rank": 3,
-            "tradingValue": 2924306000000,
-            "changePct": 3.54
-          },
-          {
-            "code": "009150",
-            "name": "삼성전기",
-            "rank": 4,
-            "tradingValue": 2190433000000,
-            "changePct": 0.96
-          },
           {
             "code": "036930",
             "name": "주성엔지니어링",
@@ -50,13 +38,27 @@
             "rank": 12,
             "tradingValue": 476637000000,
             "changePct": 15.16
+          },
+          {
+            "code": "402340",
+            "name": "SK스퀘어",
+            "rank": 3,
+            "tradingValue": 2924306000000,
+            "changePct": 3.54
+          },
+          {
+            "code": "009150",
+            "name": "삼성전기",
+            "rank": 4,
+            "tradingValue": 2190433000000,
+            "changePct": 0.96
           }
         ]
       },
       {
         "theme": "광고테크",
         "tradingValue": 1101132000000,
-        "sharePct": 11.4,
+        "sharePct": 14.3,
         "count": 1,
         "topStocks": [
           {
@@ -71,7 +73,7 @@
       {
         "theme": "신재생",
         "tradingValue": 877787000000,
-        "sharePct": 9.1,
+        "sharePct": 14.3,
         "count": 1,
         "topStocks": [
           {
@@ -86,7 +88,7 @@
       {
         "theme": "전력/전선",
         "tradingValue": 541621000000,
-        "sharePct": 5.6,
+        "sharePct": 14.3,
         "count": 1,
         "topStocks": [
           {

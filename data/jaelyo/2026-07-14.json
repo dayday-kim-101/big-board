@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-14T14:42:14.913Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 32.1조(98.7%) · 전력/전선 4160억(1.3%)",
+    "text": "반도체/HBM 5종목(83.3%) · 전력/전선 1종목(16.7%)",
     "source": "auto",
     "generatedAt": "2026-07-14T14:42:14.913Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 6,
@@ -20,9 +22,16 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 32094909000000,
-        "sharePct": 98.7,
+        "sharePct": 83.3,
         "count": 5,
         "topStocks": [
+          {
+            "code": "036930",
+            "name": "주성엔지니어링",
+            "rank": 8,
+            "tradingValue": 418076000000,
+            "changePct": 5.53
+          },
           {
             "code": "000660",
             "name": "SK하이닉스",
@@ -38,13 +47,6 @@
             "changePct": 3.34
           },
           {
-            "code": "402340",
-            "name": "SK스퀘어",
-            "rank": 4,
-            "tradingValue": 1266250000000,
-            "changePct": 2.5
-          },
-          {
             "code": "005935",
             "name": "삼성전자우",
             "rank": 5,
@@ -52,18 +54,18 @@
             "changePct": 3
           },
           {
-            "code": "036930",
-            "name": "주성엔지니어링",
-            "rank": 8,
-            "tradingValue": 418076000000,
-            "changePct": 5.53
+            "code": "402340",
+            "name": "SK스퀘어",
+            "rank": 4,
+            "tradingValue": 1266250000000,
+            "changePct": 2.5
           }
         ]
       },
       {
         "theme": "전력/전선",
         "tradingValue": 416012000000,
-        "sharePct": 1.3,
+        "sharePct": 16.7,
         "count": 1,
         "topStocks": [
           {

@@ -3,14 +3,16 @@
   "collectedAt": "2026-06-25T12:51:28.036Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 37.4조(96.7%) · 금융/증권 1.3조(3.3%)",
+    "text": "반도체/HBM 5종목(71.4%) · 금융/증권 2종목(28.6%)",
     "source": "auto",
     "generatedAt": "2026-06-25T12:51:28.036Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 7,
@@ -20,7 +22,7 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 37393083000000,
-        "sharePct": 96.7,
+        "sharePct": 71.4,
         "count": 5,
         "topStocks": [
           {
@@ -31,11 +33,11 @@
             "changePct": 13.06
           },
           {
-            "code": "005930",
-            "name": "삼성전자",
-            "rank": 2,
-            "tradingValue": 12381294000000,
-            "changePct": 5.29
+            "code": "005935",
+            "name": "삼성전자우",
+            "rank": 4,
+            "tradingValue": 1826432000000,
+            "changePct": 10.07
           },
           {
             "code": "402340",
@@ -45,11 +47,11 @@
             "changePct": 5.56
           },
           {
-            "code": "005935",
-            "name": "삼성전자우",
-            "rank": 4,
-            "tradingValue": 1826432000000,
-            "changePct": 10.07
+            "code": "005930",
+            "name": "삼성전자",
+            "rank": 2,
+            "tradingValue": 12381294000000,
+            "changePct": 5.29
           },
           {
             "code": "009150",
@@ -63,7 +65,7 @@
       {
         "theme": "금융/증권",
         "tradingValue": 1284803000000,
-        "sharePct": 3.3,
+        "sharePct": 28.6,
         "count": 2,
         "topStocks": [
           {

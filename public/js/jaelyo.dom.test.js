@@ -77,8 +77,8 @@ function sampleBoard() {
     dailyTheme: {
       text: '반도체/HBM 70% · 건설 20%',
       source: 'auto',
-      criteria: { rankLimit: 30, positiveChangeOnly: true, minTradingValue: 400_000_000_000 },
-      items: [{ theme: '반도체/HBM', sharePct: 70, topStocks: [] }],
+      criteria: { rankLimit: 30, positiveChangeOnly: true, minTradingValue: 400_000_000_000, scoring: 'themeStockCount' },
+      items: [{ theme: '반도체/HBM', sharePct: 70, count: 7, topStocks: [] }],
     },
     rows: [
       { rank: 5, prevRank: 1063, code: '028050', name: '삼성E&A', price: 64900, changePct: 23.6, marketCap: 1.27e12, tradingValue: 5e11, tvToMcapPct: 25, manual: { newOrExisting: '', theme: '건설', material: '', materialPersistence: '', materialContinuity: '', financials: '', supplyDemand: '' } },
@@ -106,7 +106,7 @@ test('renderJaelyo: 오늘의 테마 패널 렌더 + 저장 콜백', async () =>
     onEditDailyTheme: async (theme) => { saved = theme; return true; },
   });
   assert.ok(root.findByClass('jaelyo-theme-panel')[0], '오늘의 테마 패널');
-  assert.ok(root.allText().includes('상위30·상승·4000억+'));
+  assert.ok(root.allText().includes('상승·4000억+·등락률30·개수기준'));
   assert.ok(root.allText().includes('반도체/HBM 70.0%'));
   const ta = root.findByClass('jaelyo-theme-text')[0];
   ta.value = '수정한 오늘의 테마';

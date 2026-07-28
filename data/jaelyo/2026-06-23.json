@@ -3,14 +3,16 @@
   "collectedAt": "2026-06-23T13:01:35.769Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "상위 30위 중 상승·거래대금 4000억 이상 조건에 맞는 테마가 없습니다.",
+    "text": "상승·거래대금 4000억 이상 조건에 맞는 종목이 없습니다.",
     "source": "auto",
     "generatedAt": "2026-06-23T13:01:35.769Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 0,

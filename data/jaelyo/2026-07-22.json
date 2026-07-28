@@ -3,14 +3,16 @@
   "collectedAt": "2026-07-22T13:47:22.786Z",
   "source": "naver",
   "dailyTheme": {
-    "text": "반도체/HBM 7.6조(89.7%) · 원전/에너지 8668억(10.3%)",
+    "text": "반도체/HBM 3종목(75%) · 원전/에너지 1종목(25%)",
     "source": "auto",
     "generatedAt": "2026-07-22T13:47:22.786Z",
     "updatedAt": "",
     "criteria": {
       "rankLimit": 30,
       "positiveChangeOnly": true,
-      "minTradingValue": 400000000000
+      "minTradingValue": 400000000000,
+      "rankBasis": "changePctDescAfterLiquidityFilter",
+      "scoring": "themeStockCount"
     },
     "universe": {
       "eligibleCount": 4,
@@ -20,16 +22,9 @@
       {
         "theme": "반도체/HBM",
         "tradingValue": 7584252000000,
-        "sharePct": 89.7,
+        "sharePct": 75,
         "count": 3,
         "topStocks": [
-          {
-            "code": "005930",
-            "name": "삼성전자",
-            "rank": 2,
-            "tradingValue": 5734542000000,
-            "changePct": 0.58
-          },
           {
             "code": "009150",
             "name": "삼성전기",
@@ -43,13 +38,20 @@
             "rank": 6,
             "tradingValue": 734204000000,
             "changePct": 2.27
+          },
+          {
+            "code": "005930",
+            "name": "삼성전자",
+            "rank": 2,
+            "tradingValue": 5734542000000,
+            "changePct": 0.58
           }
         ]
       },
       {
         "theme": "원전/에너지",
         "tradingValue": 866757000000,
-        "sharePct": 10.3,
+        "sharePct": 25,
         "count": 1,
         "topStocks": [
           {
