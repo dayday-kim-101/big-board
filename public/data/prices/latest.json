@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-31T20:02:42.584Z",
+  "updatedAt": "2026-07-31T21:17:11.311Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -41,11 +41,11 @@
       "market": "US",
       "code": "SOXL",
       "name": "Direxion Daily Semiconductor Bu",
-      "price": 114.61,
-      "change": -0.11,
-      "changePct": -0.1,
-      "volume": 98869167,
-      "tradingValue": 11331395230,
+      "price": 114.72,
+      "change": 0,
+      "changePct": 0,
+      "volume": 100186959,
+      "tradingValue": 11493447936,
       "approxTradingValue": true,
       "ok": true
     },
@@ -104,8 +104,8 @@
       "price": 143.73,
       "change": -5.27,
       "changePct": -3.54,
-      "volume": 45096477,
-      "tradingValue": 6481716639,
+      "volume": 45673756,
+      "tradingValue": 6564688950,
       "approxTradingValue": true,
       "ok": true
     },
@@ -152,8 +152,8 @@
       "price": 200.75,
       "change": 5.71,
       "changePct": 2.93,
-      "volume": 131276210,
-      "tradingValue": 26353699158,
+      "volume": 139261166,
+      "tradingValue": 27956679075,
       "approxTradingValue": true,
       "ok": true
     }
