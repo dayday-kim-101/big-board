@@ -36,6 +36,11 @@
           "name": "SK hynix Inc."
         },
         {
+          "market": "US",
+          "code": "SNDK",
+          "name": "Sandisk Corporation"
+        },
+        {
           "market": "KR",
           "code": "005930",
           "name": "삼성전자"
@@ -49,14 +54,9 @@
           "market": "KR",
           "code": "000660",
           "name": "SK하이닉스"
-        },
-        {
-          "market": "US",
-          "code": "SNDK",
-          "name": "Sandisk Corporation"
         }
       ]
     }
   ],
-  "updatedAt": "2026-08-02T21:29:16.192Z"
+  "updatedAt": "2026-08-02T21:29:22.276Z"
 }
