@@ -41,14 +41,14 @@
           "name": "Sandisk Corporation"
         },
         {
-          "market": "KR",
-          "code": "005930",
-          "name": "삼성전자"
-        },
-        {
           "market": "US",
           "code": "MU",
           "name": "Micron Technology, Inc."
+        },
+        {
+          "market": "KR",
+          "code": "005930",
+          "name": "삼성전자"
         },
         {
           "market": "KR",
@@ -58,5 +58,5 @@
       ]
     }
   ],
-  "updatedAt": "2026-08-02T21:29:22.276Z"
+  "updatedAt": "2026-08-02T21:29:25.858Z"
 }
