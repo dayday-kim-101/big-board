@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-03T20:38:12.564Z",
+  "updatedAt": "2026-08-03T21:46:30.460Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -16,25 +16,25 @@
     "KR:005930": {
       "market": "KR",
       "code": "005930",
-      "name": "SamsungElec",
+      "name": "삼성전자",
       "price": 239500,
       "change": -23000,
       "changePct": -8.76,
-      "volume": 0,
-      "tradingValue": 0,
-      "approxTradingValue": true,
+      "volume": 27393580,
+      "tradingValue": 6632508000000,
+      "approxTradingValue": false,
       "ok": true
     },
     "KR:009150": {
       "market": "KR",
       "code": "009150",
-      "name": "SamsungElecMech",
+      "name": "삼성전기",
       "price": 1181000,
       "change": 39000,
       "changePct": 3.42,
-      "volume": 0,
-      "tradingValue": 0,
-      "approxTradingValue": true,
+      "volume": 1107138,
+      "tradingValue": 1327907000000,
+      "approxTradingValue": false,
       "ok": true
     },
     "US:SOXL": {
@@ -44,8 +44,8 @@
       "price": 116.71,
       "change": 1.99,
       "changePct": 1.73,
-      "volume": 78877082,
-      "tradingValue": 9205744240,
+      "volume": 79358862,
+      "tradingValue": 9261972784,
       "approxTradingValue": true,
       "ok": true
     },
@@ -104,8 +104,8 @@
       "price": 142.72,
       "change": -1.01,
       "changePct": -0.7,
-      "volume": 28730576,
-      "tradingValue": 4100427807,
+      "volume": 28964333,
+      "tradingValue": 4133789606,
       "approxTradingValue": true,
       "ok": true
     },
