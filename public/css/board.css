@@ -716,3 +716,31 @@ button.primary { background: var(--accent); color: #1a1300; border-color: var(--
   .jaelyo-market-topitem { grid-template-columns: 1fr auto; }
   .jaelyo-market-tv { grid-column: 2; }
 }
+/* 국내증시 메모 */
+.korea-market { margin-top: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+.krm-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px; }
+.krm-title { margin:0; font-size:18px; color:var(--accent); }
+.krm-date, .krm-source { color:var(--muted); font-size:12px; }
+.krm-index-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.krm-index-card { border:1px solid var(--line); border-radius:12px; padding:10px; background:#101621; }
+.krm-index-name { color:var(--muted); font-size:12px; font-weight:700; }
+.krm-index-line { display:grid; gap:4px; margin-top:4px; }
+.krm-index-price { font-size:21px; font-variant-numeric:tabular-nums; }
+.krm-index-change { font-size:13px; font-weight:700; font-variant-numeric:tabular-nums; }
+.krm-index-change.up, .krm-index-card.up .krm-index-price { color:var(--up); }
+.krm-index-change.down, .krm-index-card.down .krm-index-price { color:var(--down); }
+.krm-index-change.flat { color:var(--flat); }
+.krm-market-box, .krm-foreign-box, .krm-memo-box { margin-top:12px; border:1px solid var(--line); border-radius:12px; padding:10px; background:var(--panel-2); }
+.krm-subtitle { margin:0 0 8px; font-size:14px; color:var(--text); }
+.krm-market-row { display:grid; grid-template-columns:86px 1fr 1.4fr; gap:8px; align-items:center; padding:6px 0; border-top:1px solid var(--line); font-size:13px; }
+.krm-market-row:first-of-type { border-top:0; }
+.krm-market-label { color:var(--accent); }
+.krm-breadth, .krm-investor { color:var(--muted); }
+.krm-foreign-list { margin:0; padding-left:20px; display:grid; gap:6px; }
+.krm-foreign-item { display:grid; grid-template-columns:1fr auto; gap:8px; font-size:13px; }
+.krm-foreign-amt { color:var(--up); font-weight:700; font-variant-numeric:tabular-nums; }
+.krm-memo-label { display:block; margin-bottom:6px; font-size:13px; color:var(--muted); font-weight:700; }
+.krm-memo-input { width:100%; box-sizing:border-box; border:1px solid var(--line); border-radius:10px; background:#0b1118; color:var(--text); padding:9px; resize:vertical; }
+.krm-save { margin-top:8px; }
+.krm-empty { color:var(--muted); }
+@media (max-width:760px) { .krm-index-grid, .krm-market-row { grid-template-columns:1fr; } }
