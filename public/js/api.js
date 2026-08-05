@@ -138,6 +138,22 @@ export async function putJaelyoDailyTheme(date, dailyTheme) {
   return res.json();
 }
 
+// --- 국내증시 한줄메모 ---
+
+export async function getKoreaMarket(email) {
+  const res = await fetch(`/api/korea-market?email=${encodeURIComponent(email)}`);
+  if (!res.ok) throw new Error((await safeErr(res)) || `국내증시 로드 실패 (${res.status})`);
+  return res.json();
+}
+
+export async function putKoreaMarketMemo(email, date, memo) {
+  const res = await fetch(`/api/korea-market?email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ memo }),
+  });
+  if (!res.ok) throw new Error((await safeErr(res)) || `국내증시 메모 저장 실패 (${res.status})`);
+  return res.json();
+}
+
 // --- 매크로 지표 (읽기 전용 정적 파일) ---
 
 // → { collectedAt, seed?, indicators: [...] }. 실패 시 빈 데이터.
