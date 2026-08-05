@@ -1,5 +1,3 @@
-import { fmtWonKR } from './format.js';
-
 function el(tag, text, className) {
   const node = document.createElement(tag);
   if (text !== undefined) node.textContent = text;
@@ -26,10 +24,10 @@ function tone(dir, value) {
   if (dir === 'FALLING' || Number(value) < 0) return 'down';
   return 'flat';
 }
-function fmtMoney(v) {
+function fmtTrillion(v) {
   const n = Number(v);
   if (!Number.isFinite(n)) return '—';
-  return fmtWonKR(n);
+  return `${n > 0 ? '+' : ''}${(n / 1_000_000_000_000).toFixed(2)}조`;
 }
 
 function indexCard(idx) {
@@ -48,8 +46,8 @@ function marketRow(m) {
   const b = m.breadth || {};
   const i = m.investor || {};
   row.appendChild(el('strong', m.label, 'krm-market-label'));
-  row.appendChild(el('span', `상승 ${b.upCount ?? 0} · 하락 ${b.downCount ?? 0} · 보합 ${b.flatCount ?? 0}`, 'krm-breadth'));
-  row.appendChild(el('span', `개인 ${fmtMoney(i.personal)} · 외국인 ${fmtMoney(i.foreign)} · 기관 ${fmtMoney(i.institution)}`, 'krm-investor'));
+  row.appendChild(el('span', b.stockCount ? `상승 ${b.upCount ?? 0} · 하락 ${b.downCount ?? 0} · 보합 ${b.flatCount ?? 0}` : '상승/하락: 장마감 데이터 확인 전', 'krm-breadth'));
+  row.appendChild(el('span', `개인 ${fmtTrillion(i.personal)} · 외국인 ${fmtTrillion(i.foreign)} · 기관 ${fmtTrillion(i.institution)}`, 'krm-investor'));
   return row;
 }
 
@@ -77,14 +75,19 @@ export function renderKoreaMarket(container, { report = null, onMemo } = {}) {
   section.appendChild(markets);
 
   const foreign = el('div', undefined, 'krm-foreign-box');
-  foreign.appendChild(el('h3', '외국인 순매수 상위 3종목', 'krm-subtitle'));
-  const ol = el('ol', undefined, 'krm-foreign-list');
-  for (const r of report.foreignerTop || []) {
-    const li = el('li', undefined, 'krm-foreign-item');
-    li.append(el('span', `${r.name} (${r.code})`, 'krm-foreign-name'), el('span', fmtMoney(r.netBuyAmount), 'krm-foreign-amt'));
-    ol.appendChild(li);
+  foreign.appendChild(el('h3', '외국인 순매수 상위 종목', 'krm-subtitle'));
+  for (const market of ['KOSPI', 'KOSDAQ']) {
+    const group = el('div', undefined, 'krm-foreign-market');
+    group.appendChild(el('h4', market === 'KOSPI' ? '코스피' : '코스닥', 'krm-foreign-market-title'));
+    const ol = el('ol', undefined, 'krm-foreign-list');
+    for (const r of (report.foreignerTop || []).filter((x) => x.market === market).slice(0, 3)) {
+      const li = el('li', undefined, 'krm-foreign-item');
+      li.append(el('span', `${r.name} (${r.code})`, 'krm-foreign-name'), el('span', fmtTrillion(r.netBuyAmount), 'krm-foreign-amt'));
+      ol.appendChild(li);
+    }
+    group.appendChild(ol);
+    foreign.appendChild(group);
   }
-  foreign.appendChild(ol);
   section.appendChild(foreign);
 
   const memo = el('div', undefined, 'krm-memo-box');
