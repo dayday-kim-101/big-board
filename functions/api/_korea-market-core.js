@@ -140,7 +140,13 @@ async function fetchEucKr(url) {
   const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'text/html,*/*', Referer: 'https://finance.naver.com/' } });
   if (!res.ok) throw new Error(`Naver finance ${res.status}: ${url}`);
   const buf = await res.arrayBuffer();
-  return new TextDecoder('euc-kr').decode(buf);
+  try {
+    return new TextDecoder('euc-kr').decode(buf);
+  } catch {
+    // Cloudflare Workers runtimes may not expose non-UTF TextDecoder labels consistently.
+    // Numeric cells are ASCII, so UTF-8 fallback still lets the report render instead of failing the whole tab.
+    return new TextDecoder().decode(buf);
+  }
 }
 
 async function fetchIndexRows() {
@@ -162,30 +168,42 @@ export async function fetchKoreaMarketReport({ date = '' } = {}) {
   const indexRows = await fetchIndexRows();
   const reportDate = date || indexRows.find((x) => x.date)?.date || '';
   const marketPayloads = await Promise.all(MARKETS.map(async (m) => {
-    const first = await fetchJson(`https://m.stock.naver.com/api/stocks/marketValue/${m.stockCategory}?page=1&pageSize=100`);
-    const pages = Math.max(1, Math.ceil((num(first.totalCount) || first.stocks?.length || 0) / 100));
-    let stocks = Array.isArray(first.stocks) ? first.stocks : [];
-    for (let p = 2; p <= pages; p += 1) {
-      const j = await fetchJson(`https://m.stock.naver.com/api/stocks/marketValue/${m.stockCategory}?page=${p}&pageSize=100`);
-      stocks = stocks.concat(j.stocks || []);
+    try {
+      const first = await fetchJson(`https://m.stock.naver.com/api/stocks/marketValue/${m.stockCategory}?page=1&pageSize=100`);
+      const pages = Math.max(1, Math.ceil((num(first.totalCount) || first.stocks?.length || 0) / 100));
+      let stocks = Array.isArray(first.stocks) ? first.stocks : [];
+      for (let p = 2; p <= pages; p += 1) {
+        const j = await fetchJson(`https://m.stock.naver.com/api/stocks/marketValue/${m.stockCategory}?page=${p}&pageSize=100`);
+        stocks = stocks.concat(j.stocks || []);
+      }
+      stocks = stocks.filter((x) => x.stockEndType === 'stock');
+      const firstStock = stocks[0] || {};
+      const stockDate = String(firstStock.localTradedAt || '').slice(0, 10);
+      const isClosedForReportDate = stockDate === reportDate && firstStock.marketStatus === 'CLOSE';
+      return { market: m, stocks: isClosedForReportDate ? stocks : [], isClosedForReportDate };
+    } catch {
+      return { market: m, stocks: [], isClosedForReportDate: false };
     }
-    stocks = stocks.filter((x) => x.stockEndType === 'stock');
-    const firstStock = stocks[0] || {};
-    const stockDate = String(firstStock.localTradedAt || '').slice(0, 10);
-    const isClosedForReportDate = stockDate === reportDate && firstStock.marketStatus === 'CLOSE';
-    return { market: m, stocks: isClosedForReportDate ? stocks : [], isClosedForReportDate };
   }));
   const breadth = marketPayloads
     .filter(({ isClosedForReportDate }) => isClosedForReportDate)
     .map(({ market, stocks }) => summarizeBreadth(stocks, market.key));
-  const investor = await Promise.all(MARKETS.map(async (m) => {
-    const html = await fetchEucKr(`https://finance.naver.com/sise/investorDealTrendDay.naver?bizdate=${reportDate.replace(/-/g, '')}&sosok=${m.sosok}`);
-    return { market: m.key, ...parseInvestorTrendHtml(html, reportDate) };
-  }));
+  const investor = (await Promise.all(MARKETS.map(async (m) => {
+    try {
+      const html = await fetchEucKr(`https://finance.naver.com/sise/investorDealTrendDay.naver?bizdate=${reportDate.replace(/-/g, '')}&sosok=${m.sosok}`);
+      return { market: m.key, ...parseInvestorTrendHtml(html, reportDate) };
+    } catch {
+      return { market: m.key, date: reportDate, personal: null, foreign: null, institution: null };
+    }
+  })));
   // 시장별 상위 3개를 각각 보존한다. 코스피 대형주가 금액으로 코스닥을 밀어내지 않게 한다.
   const foreignerTop = (await Promise.all(MARKETS.map(async (m) => {
-    const html = await fetchEucKr(`https://finance.naver.com/sise/sise_deal_rank_iframe.naver?sosok=${m.sosok}&investor_gubun=9000&type=buy`);
-    return parseForeignerTopHtml(html, m.key).slice(0, 3);
+    try {
+      const html = await fetchEucKr(`https://finance.naver.com/sise/sise_deal_rank_iframe.naver?sosok=${m.sosok}&investor_gubun=9000&type=buy`);
+      return parseForeignerTopHtml(html, m.key).slice(0, 3);
+    } catch {
+      return [];
+    }
   }))).flat();
   return buildReport({ date: reportDate, indices: indexRows, breadth, investor, foreignerTop });
 }
