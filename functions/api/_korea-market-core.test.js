@@ -37,8 +37,21 @@ test('parseForeignerTopHtml: 외국인 순매수 상위 파싱', () => {
 });
 
 test('buildReport/applyMemo: 날짜 리포트와 한줄메모', () => {
-  const report = buildReport({ date: '2026-08-05', indices: [parseIndexRow('KOSDAQ', { localTradedAt: '2026-08-05', closePrice: '799.59' })] });
+  const report = buildReport({
+    date: '2026-08-05',
+    indices: [parseIndexRow('KOSDAQ', { localTradedAt: '2026-08-05', closePrice: '799.59' })],
+    foreignerTop: [
+      { market: 'KOSPI', code: '005930', name: '삼성전자', netBuyAmount: 203_198_000_000 },
+      { market: 'KOSPI', code: '028260', name: '삼성물산', netBuyAmount: 38_573_000_000 },
+      { market: 'KOSPI', code: '035420', name: 'NAVER', netBuyAmount: 37_700_000_000 },
+      { market: 'KOSDAQ', code: '028300', name: 'HLB', netBuyAmount: 15_726_000_000 },
+      { market: 'KOSDAQ', code: '196170', name: '알테오젠', netBuyAmount: 14_284_000_000 },
+      { market: 'KOSDAQ', code: '257720', name: '실리콘투', netBuyAmount: 13_350_000_000 },
+    ],
+  });
   const next = applyMemo(report, '외국인 대형주 순매수 확인');
   assert.equal(next.date, '2026-08-05');
   assert.equal(next.memo, '외국인 대형주 순매수 확인');
+  assert.equal(next.foreignerTop.length, 6);
+  assert.equal(next.foreignerTop.filter((x) => x.market === 'KOSDAQ').length, 3);
 });

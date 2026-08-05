@@ -148,7 +148,7 @@ async function fetchIndexRows() {
     const data = await fetchJson(`https://polling.finance.naver.com/api/realtime/domestic/index/${INDEX_CODES.join(',')}`);
     const byCode = new Map((data?.datas || []).map((row) => [row.itemCode || row.symbolCode, row]));
     const rows = INDEX_CODES.map((code) => parseIndexRow(code, byCode.get(code) || {}));
-    if (rows.every((r) => r.date && r.closePrice != null)) return rows;
+    if (rows.every((r) => r.date && r.closePrice != null && r.marketStatus === 'CLOSE')) return rows;
   } catch {
     // polling API 실패 시 price API로 폴백. 단, price API는 marketStatus가 없어 UI에 확정 상태를 표시하지 못한다.
   }
@@ -170,16 +170,22 @@ export async function fetchKoreaMarketReport({ date = '' } = {}) {
       stocks = stocks.concat(j.stocks || []);
     }
     stocks = stocks.filter((x) => x.stockEndType === 'stock');
-    return { market: m, stocks };
+    const firstStock = stocks[0] || {};
+    const stockDate = String(firstStock.localTradedAt || '').slice(0, 10);
+    const isClosedForReportDate = stockDate === reportDate && firstStock.marketStatus === 'CLOSE';
+    return { market: m, stocks: isClosedForReportDate ? stocks : [], isClosedForReportDate };
   }));
-  const breadth = marketPayloads.map(({ market, stocks }) => summarizeBreadth(stocks, market.key));
+  const breadth = marketPayloads
+    .filter(({ isClosedForReportDate }) => isClosedForReportDate)
+    .map(({ market, stocks }) => summarizeBreadth(stocks, market.key));
   const investor = await Promise.all(MARKETS.map(async (m) => {
     const html = await fetchEucKr(`https://finance.naver.com/sise/investorDealTrendDay.naver?bizdate=${reportDate.replace(/-/g, '')}&sosok=${m.sosok}`);
     return { market: m.key, ...parseInvestorTrendHtml(html, reportDate) };
   }));
+  // 시장별 상위 3개를 각각 보존한다. 코스피 대형주가 금액으로 코스닥을 밀어내지 않게 한다.
   const foreignerTop = (await Promise.all(MARKETS.map(async (m) => {
     const html = await fetchEucKr(`https://finance.naver.com/sise/sise_deal_rank_iframe.naver?sosok=${m.sosok}&investor_gubun=9000&type=buy`);
-    return parseForeignerTopHtml(html, m.key);
-  }))).flat().sort((a, b) => (b.netBuyAmount || 0) - (a.netBuyAmount || 0)).slice(0, 3);
+    return parseForeignerTopHtml(html, m.key).slice(0, 3);
+  }))).flat();
   return buildReport({ date: reportDate, indices: indexRows, breadth, investor, foreignerTop });
 }
