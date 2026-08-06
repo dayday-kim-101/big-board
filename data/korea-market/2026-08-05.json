@@ -78,51 +78,51 @@
   "foreignerTop": [
     {
       "market": "KOSPI",
+      "code": "000660",
+      "name": "SK하이닉스",
+      "quantity": 390,
+      "netBuyAmount": 657688000000,
+      "tradingVolume": 3945674
+    },
+    {
+      "market": "KOSPI",
       "code": "005930",
       "name": "삼성전자",
-      "quantity": 851,
-      "netBuyAmount": 203198000000,
-      "tradingVolume": 29433821
+      "quantity": 2299,
+      "netBuyAmount": 577177000000,
+      "tradingVolume": 22577128
     },
     {
       "market": "KOSPI",
-      "code": "028260",
-      "name": "삼성물산",
-      "quantity": 121,
-      "netBuyAmount": 38573000000,
-      "tradingVolume": 485793
-    },
-    {
-      "market": "KOSPI",
-      "code": "035420",
-      "name": "NAVER",
-      "quantity": 166,
-      "netBuyAmount": 37700000000,
-      "tradingVolume": 2278507
+      "code": "005935",
+      "name": "삼성전자우",
+      "quantity": 401,
+      "netBuyAmount": 73677000000,
+      "tradingVolume": 2270420
     },
     {
       "market": "KOSDAQ",
-      "code": "028300",
-      "name": "HLB",
-      "quantity": 474,
-      "netBuyAmount": 15726000000,
-      "tradingVolume": 1400943
+      "code": "214450",
+      "name": "파마리서치",
+      "quantity": 95,
+      "netBuyAmount": 36175000000,
+      "tradingVolume": 200641
     },
     {
       "market": "KOSDAQ",
-      "code": "196170",
-      "name": "알테오젠",
-      "quantity": 42,
-      "netBuyAmount": 14284000000,
-      "tradingVolume": 571972
+      "code": "477850",
+      "name": "마키나락스",
+      "quantity": 669,
+      "netBuyAmount": 19295000000,
+      "tradingVolume": 4593593
     },
     {
       "market": "KOSDAQ",
-      "code": "257720",
-      "name": "실리콘투",
-      "quantity": 360,
-      "netBuyAmount": 13350000000,
-      "tradingVolume": 1104301
+      "code": "277810",
+      "name": "레인보우로보틱스",
+      "quantity": 25,
+      "netBuyAmount": 12063000000,
+      "tradingVolume": 143565
     }
   ]
 }
