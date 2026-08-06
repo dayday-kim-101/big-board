@@ -919,6 +919,26 @@
     "supplyDemand": "",
     "notes": "(테마) 확인 필요\n재료: 현대힘스 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   },
+  "463020": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 뉴엔AI — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "466100": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 클로봇 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
   "475040": {
     "newOrExisting": "",
     "theme": "",
@@ -2738,5 +2758,25 @@
     "financials": "",
     "supplyDemand": "",
     "notes": "(테마) 확인 필요\n재료: 현대백화점 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "010130": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 고려아연 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "041830": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 인바디 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   }
 }
