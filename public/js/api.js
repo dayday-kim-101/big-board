@@ -140,8 +140,10 @@ export async function putJaelyoDailyTheme(date, dailyTheme) {
 
 // --- 국내증시 한줄메모 ---
 
-export async function getKoreaMarket(email) {
-  const res = await fetch(`/api/korea-market?email=${encodeURIComponent(email)}`);
+export async function getKoreaMarket(email, date = '') {
+  const qs = new URLSearchParams({ email });
+  if (date) qs.set('date', date);
+  const res = await fetch(`/api/korea-market?${qs.toString()}`);
   if (!res.ok) throw new Error((await safeErr(res)) || `국내증시 로드 실패 (${res.status})`);
   return res.json();
 }

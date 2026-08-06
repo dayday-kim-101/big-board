@@ -51,12 +51,36 @@ function marketRow(m) {
   return row;
 }
 
-export function renderKoreaMarket(container, { report = null, onMemo } = {}) {
+function fmtDateWithDow(date) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date || ''))) return date || '';
+  const d = new Date(`${date}T00:00:00+09:00`);
+  const dow = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'][d.getDay()] || '';
+  return `${date}(${dow})`;
+}
+
+export function renderKoreaMarket(container, { dates = [], selectedDate = null, report = null, onSelectDate, onMemo } = {}) {
   container.innerHTML = '';
   const section = el('section', undefined, 'korea-market');
   const head = el('div', undefined, 'krm-head');
   head.appendChild(el('h2', '전일 한국증시 메모', 'krm-title'));
-  head.appendChild(el('span', report?.date ? `${report.date} 장마감 기준` : '데이터 없음', 'krm-date'));
+  const select = document.createElement('select');
+  select.className = 'krm-date-select';
+  if (!dates.length) {
+    const opt = document.createElement('option');
+    opt.textContent = '수집된 날짜 없음';
+    select.appendChild(opt);
+  } else {
+    for (const d of dates) {
+      const opt = document.createElement('option');
+      opt.value = d;
+      opt.textContent = fmtDateWithDow(d);
+      select.appendChild(opt);
+    }
+    select.value = selectedDate || report?.date || dates[0];
+    select.addEventListener('change', () => onSelectDate?.(select.value));
+  }
+  head.appendChild(select);
+  head.appendChild(el('span', report?.date ? `${report.date} 20시 이후 장마감 기준` : '데이터 없음', 'krm-date'));
   section.appendChild(head);
 
   if (!report) {
