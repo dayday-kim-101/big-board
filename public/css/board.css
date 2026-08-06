@@ -720,6 +720,7 @@ button.primary { background: var(--accent); color: #1a1300; border-color: var(--
 .korea-market { margin-top: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
 .krm-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px; }
 .krm-title { margin:0; font-size:18px; color:var(--accent); }
+.krm-date-select { border:1px solid var(--line); border-radius:10px; background:#0b1118; color:var(--text); padding:7px 9px; }
 .krm-date, .krm-source { color:var(--muted); font-size:12px; }
 .krm-index-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
 .krm-index-card { border:1px solid var(--line); border-radius:12px; padding:10px; background:#101621; }

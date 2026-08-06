@@ -1,0 +1,42 @@
+name: 국내증시 일별 수집
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # 평일 20시 이후(KST) 보수적 수집 창 — 11:00~12:40 UTC 20분 간격(= 20:00~21:40 KST).
+    # 스크립트가 날짜 파일 기준 멱등이라 첫 성공 이후 중복 커밋은 없다.
+    - cron: "0,20,40 11 * * 1-5"
+    - cron: "0,20,40 12 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: korea-market-snapshot
+  cancel-in-progress: false
+
+jobs:
+  korea-market:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 국내증시 수집
+        run: node scripts/korea-market-snapshot.mjs
+
+      - name: 변경 시 커밋
+        run: |
+          if [ -n "$(git status --porcelain data/korea-market)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/korea-market
+            git commit -m "chore: 국내증시 수집 갱신 [skip ci]"
+            git push
+          else
+            echo "변경 없음 — 커밋 생략"
+          fi

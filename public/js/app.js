@@ -29,7 +29,7 @@ const state = {
   macro: { data: null },
   trades: { data: null },
   sectorMap: { data: null, quotesRequested: false },
-  koreaMarket: { report: null, updatedAt: null },
+  koreaMarket: { dates: [], selectedDate: null, report: null, updatedAt: null },
   bottomTab: 'jaelyo', // 전광판 아래 탭: 'jaelyo' | 'koreaMarket' | 'sectorMap' | 'macro' | 'crisis' | 'trades' | 'kiwoomMock'
 };
 
@@ -127,8 +127,10 @@ async function loadJaelyo() {
   state.jaelyo.board = latest ? await getJaelyo(latest) : null;
 }
 
-async function loadKoreaMarket() {
-  const data = await getKoreaMarket(state.email);
+async function loadKoreaMarket(date = '') {
+  const data = await getKoreaMarket(state.email, date);
+  state.koreaMarket.dates = data.dates ?? state.koreaMarket.dates ?? [];
+  state.koreaMarket.selectedDate = data.report?.date ?? date ?? data.latest ?? state.koreaMarket.dates[0] ?? null;
   state.koreaMarket.report = data.report ?? null;
   state.koreaMarket.updatedAt = data.updatedAt ?? null;
 }
@@ -178,7 +180,18 @@ function paintKoreaMarket() {
   const root = document.getElementById('bottom-content');
   if (!root) return;
   renderKoreaMarket(root, {
+    dates: state.koreaMarket.dates,
+    selectedDate: state.koreaMarket.selectedDate,
     report: state.koreaMarket.report,
+    onSelectDate: async (date) => {
+      state.koreaMarket.selectedDate = date;
+      try {
+        await loadKoreaMarket(date);
+      } catch (e) {
+        alert(`국내증시 날짜 로드 실패 — ${e.message}`);
+      }
+      paintKoreaMarket();
+    },
     onMemo: async (date, memo) => {
       try {
         await putKoreaMarketMemo(state.email, date, memo);

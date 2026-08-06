@@ -1,0 +1,67 @@
+{
+  "date": "2026-06-19",
+  "collectedAt": "2026-06-19T20:00:00+09:00",
+  "source": "naver-static-20kst",
+  "memo": "",
+  "indices": [
+    {
+      "code": "KOSPI",
+      "name": "KOSPI",
+      "date": "2026-06-19",
+      "closePrice": 9052.42,
+      "change": -11.42,
+      "changePct": -0.13,
+      "direction": "FALLING",
+      "marketStatus": ""
+    },
+    {
+      "code": "KOSDAQ",
+      "name": "KOSDAQ",
+      "date": "2026-06-19",
+      "closePrice": 966.59,
+      "change": -34.34,
+      "changePct": -3.43,
+      "direction": "FALLING",
+      "marketStatus": ""
+    },
+    {
+      "code": "KPI200",
+      "name": "KOSPI200",
+      "date": "2026-06-19",
+      "closePrice": 1459.48,
+      "change": 0.25,
+      "changePct": 0.02,
+      "direction": "RISING",
+      "marketStatus": ""
+    }
+  ],
+  "markets": [
+    {
+      "key": "KOSPI",
+      "label": "코스피",
+      "sosok": "01",
+      "breadth": null,
+      "investor": {
+        "market": "KOSPI",
+        "date": "2026-06-19",
+        "personal": 1647800000000,
+        "foreign": -355500000000,
+        "institution": -1224400000000
+      }
+    },
+    {
+      "key": "KOSDAQ",
+      "label": "코스닥",
+      "sosok": "02",
+      "breadth": null,
+      "investor": {
+        "market": "KOSDAQ",
+        "date": "2026-06-19",
+        "personal": 75000000000,
+        "foreign": 497700000000,
+        "institution": -583800000000
+      }
+    }
+  ],
+  "foreignerTop": []
+}
