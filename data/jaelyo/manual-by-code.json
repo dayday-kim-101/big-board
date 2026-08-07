@@ -159,6 +159,16 @@
     "supplyDemand": "",
     "notes": "(테마) 확인 필요\n재료: 메리츠금융지주 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   },
+  "138080": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 오이솔루션 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
   "141080": {
     "newOrExisting": "",
     "theme": "",
@@ -168,6 +178,16 @@
     "financials": "",
     "supplyDemand": "",
     "notes": "(테마) 바이오(ADC)\n재료: 리가켐바이오 — ADC 항암 기술수출\n세계: 글로벌 시장 영향력 큼(수출·공급망 핵심). 세계 사이클과 연동\n국내: 국내 대형 주도주, 기관·외국인 수급 중심\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "148780": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 비큐AI — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   },
   "153890": {
     "newOrExisting": "신규",
@@ -2778,5 +2798,35 @@
     "financials": "",
     "supplyDemand": "",
     "notes": "(테마) 확인 필요\n재료: 인바디 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "039980": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 폴라리스AI — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "092790": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 넥스틸 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "011780": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 금호석유화학 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   }
 }
