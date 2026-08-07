@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-07T06:35:18.589Z",
+  "updatedAt": "2026-08-07T07:54:35.816Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -20,8 +20,8 @@
       "price": 231000,
       "change": 500,
       "changePct": 0.22,
-      "volume": 20422929,
-      "tradingValue": 4763015000000,
+      "volume": 20424708,
+      "tradingValue": 4763426000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -32,8 +32,8 @@
       "price": 1278000,
       "change": 49000,
       "changePct": 3.99,
-      "volume": 894176,
-      "tradingValue": 1136825000000,
+      "volume": 894867,
+      "tradingValue": 1137708000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -56,8 +56,8 @@
       "price": 34400,
       "change": -1400,
       "changePct": -3.91,
-      "volume": 1320029,
-      "tradingValue": 45782000000,
+      "volume": 1321414,
+      "tradingValue": 45830000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -68,8 +68,8 @@
       "price": 127800,
       "change": -5600,
       "changePct": -4.2,
-      "volume": 826519,
-      "tradingValue": 107537000000,
+      "volume": 827690,
+      "tradingValue": 107687000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -80,8 +80,8 @@
       "price": 57500,
       "change": 1800,
       "changePct": 3.23,
-      "volume": 1125734,
-      "tradingValue": 63301000000,
+      "volume": 1127903,
+      "tradingValue": 63426000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -92,8 +92,8 @@
       "price": 9940,
       "change": 80,
       "changePct": 0.81,
-      "volume": 2291471,
-      "tradingValue": 22859000000,
+      "volume": 2294473,
+      "tradingValue": 22888000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -140,8 +140,8 @@
       "price": 1422000,
       "change": -73000,
       "changePct": -4.88,
-      "volume": 4796754,
-      "tradingValue": 6942043000000,
+      "volume": 4796937,
+      "tradingValue": 6942302000000,
       "approxTradingValue": false,
       "ok": true
     },
