@@ -78,51 +78,51 @@
   "foreignerTop": [
     {
       "market": "KOSPI",
-      "code": "000660",
-      "name": "SK하이닉스",
-      "quantity": 390,
-      "netBuyAmount": 657688000000,
-      "tradingVolume": 3945674
+      "code": "180640",
+      "name": "한진칼",
+      "quantity": 312,
+      "netBuyAmount": 36261000000,
+      "tradingVolume": 422973
     },
     {
       "market": "KOSPI",
-      "code": "005930",
-      "name": "삼성전자",
-      "quantity": 2299,
-      "netBuyAmount": 577177000000,
-      "tradingVolume": 22577128
+      "code": "000270",
+      "name": "기아",
+      "quantity": 166,
+      "netBuyAmount": 22088000000,
+      "tradingVolume": 796639
     },
     {
       "market": "KOSPI",
-      "code": "005935",
-      "name": "삼성전자우",
-      "quantity": 401,
-      "netBuyAmount": 73677000000,
-      "tradingVolume": 2270420
+      "code": "207940",
+      "name": "삼성바이오로직스",
+      "quantity": 10,
+      "netBuyAmount": 15303000000,
+      "tradingVolume": 48730
     },
     {
       "market": "KOSDAQ",
-      "code": "214450",
-      "name": "파마리서치",
-      "quantity": 95,
-      "netBuyAmount": 36175000000,
-      "tradingVolume": 200641
+      "code": "089970",
+      "name": "브이엠",
+      "quantity": 159,
+      "netBuyAmount": 10090000000,
+      "tradingVolume": 731612
     },
     {
       "market": "KOSDAQ",
-      "code": "477850",
-      "name": "마키나락스",
-      "quantity": 669,
-      "netBuyAmount": 19295000000,
-      "tradingVolume": 4593593
+      "code": "240810",
+      "name": "원익IPS",
+      "quantity": 103,
+      "netBuyAmount": 9765000000,
+      "tradingVolume": 1037750
     },
     {
       "market": "KOSDAQ",
-      "code": "277810",
-      "name": "레인보우로보틱스",
-      "quantity": 25,
-      "netBuyAmount": 12063000000,
-      "tradingVolume": 143565
+      "code": "067310",
+      "name": "하나마이크론",
+      "quantity": 215,
+      "netBuyAmount": 6716000000,
+      "tradingVolume": 1095155
     }
   ]
 }
