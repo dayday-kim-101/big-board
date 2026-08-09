@@ -72,12 +72,12 @@ async function fetchInvestor(date) {
   }
   return out;
 }
-async function fetchCurrentForeignerTop() {
+async function fetchCurrentForeignerTop(date = '') {
   const out = [];
   for (const m of MARKETS) {
     try {
       const html = await getFinanceHtml(`https://finance.naver.com/sise/sise_deal_rank_iframe.naver?sosok=${m.sosok}&investor_gubun=9000&type=buy`);
-      out.push(...parseForeignerTopHtml(html, m.key).slice(0, 3));
+      out.push(...parseForeignerTopHtml(html, m.key, date).slice(0, 3));
     } catch {}
     await sleep(80);
   }
@@ -90,7 +90,7 @@ const dates = await jaelyoDates();
 const latest = dates.at(-1) || '';
 await mkdir(OUT_DIR, { recursive: true });
 const indexHistory = await fetchIndexHistory(dates);
-const currentForeignerTop = await fetchCurrentForeignerTop();
+const currentForeignerTop = await fetchCurrentForeignerTop(latest);
 let changed = 0;
 let written = 0;
 let missingIndex = 0;

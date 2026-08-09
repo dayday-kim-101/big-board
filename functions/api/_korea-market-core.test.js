@@ -36,6 +36,20 @@ test('parseForeignerTopHtml: 외국인 순매수 상위 파싱', () => {
   assert.equal(r.netBuyAmount, 203_198_000_000);
 });
 
+test('parseForeignerTopHtml: 날짜 구간이 여러 개면 요청 날짜 섹션만 사용', () => {
+  const html = `
+    <div>26.08.06 외국인 순매수</div>
+    <tr><td><a href="/item/main.naver?code=180640">한진칼</a></td><td>312</td><td>36,261</td><td>422,973</td></tr>
+    <div>26.08.07 외국인 순매수</div>
+    <tr><td><a href="/item/main.naver?code=402340">SK스퀘어</a></td><td>112</td><td>106,274</td><td>646,939</td></tr>
+    <tr><td><a href="/item/main.naver?code=133690">TIGER 미국나스닥100</a></td><td>190</td><td>35,169</td><td>1,549,820</td></tr>
+    <tr><td><a href="/item/main.naver?code=096770">SK이노베이션</a></td><td>270</td><td>30,619</td><td>1,271,355</td></tr>
+  `;
+  const rows = parseForeignerTopHtml(html, 'KOSPI', '2026-08-07');
+  assert.deepEqual(rows.map((x) => x.name), ['SK스퀘어', 'SK이노베이션']);
+  assert.equal(rows[0].netBuyAmount, 106_274_000_000);
+});
+
 test('buildReport/applyMemo: 날짜 리포트와 한줄메모', () => {
   const report = buildReport({
     date: '2026-08-05',

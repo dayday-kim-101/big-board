@@ -78,20 +78,41 @@ export function parseInvestorTrendHtml(html, expectedDate = '') {
   return { date: expectedDate, personal: null, foreign: null, institution: null };
 }
 
-export function parseForeignerTopHtml(html, marketKey = '') {
-  const out = [];
-  const rows = [...String(html).matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)].map((m) => m[1]);
-  for (const row of rows) {
+function shortDate(date = '') {
+  const s = String(date || '').slice(0, 10);
+  return /^\d{4}-\d{2}-\d{2}$/.test(s) ? `${s.slice(2, 4)}.${s.slice(5, 7)}.${s.slice(8, 10)}` : '';
+}
+
+export function parseForeignerTopHtml(html, marketKey = '', expectedDate = '') {
+  const source = String(html || '');
+  const targetShortDate = shortDate(expectedDate);
+  let currentDate = '';
+  const byDate = new Map();
+  const undated = [];
+  for (const m of source.matchAll(/(\d{2}\.\d{2}\.\d{2})|<tr[^>]*>([\s\S]*?)<\/tr>/g)) {
+    if (m[1]) {
+      currentDate = m[1];
+      continue;
+    }
+    const row = m[2];
+    if (!row) continue;
     const code = /code=(\d+)/.exec(row)?.[1];
     if (!code) continue;
-    const cells = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((m) => stripHtml(m[1])).filter(Boolean);
-    // 종목명, 수량(주), 금액(백만원), 당일거래량
-    if (cells.length >= 4 && !/^(KODEX|TIGER|KBSTAR|ACE|SOL|HANARO|ARIRANG|PLUS|KOSEF|히어로즈|RISE)\b/i.test(cells[0])) {
-      out.push({ market: marketKey, code, name: cells[0], quantity: num(cells[1]), netBuyAmount: wonFromMillion(cells[2]), tradingVolume: num(cells[3]) });
+    const cells = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((x) => stripHtml(x[1])).filter(Boolean);
+    // 종목명, 수량(천주), 금액(백만원), 당일거래량
+    if (cells.length < 4 || /^(KODEX|TIGER|KBSTAR|ACE|SOL|HANARO|ARIRANG|PLUS|KOSEF|히어로즈|RISE)\b/i.test(cells[0])) continue;
+    const item = { market: marketKey, code, name: cells[0], quantity: num(cells[1]), netBuyAmount: wonFromMillion(cells[2]), tradingVolume: num(cells[3]) };
+    if (currentDate) {
+      if (!byDate.has(currentDate)) byDate.set(currentDate, []);
+      byDate.get(currentDate).push(item);
+    } else {
+      undated.push(item);
     }
-    if (out.length >= 3) break;
   }
-  return out;
+  if (targetShortDate && byDate.has(targetShortDate)) return byDate.get(targetShortDate).slice(0, 3);
+  if (targetShortDate && byDate.size) return [];
+  const latestDate = [...byDate.keys()].sort().at(-1);
+  return (latestDate ? byDate.get(latestDate) : undated).slice(0, 3);
 }
 
 export function buildReport({ date, indices = [], breadth = [], investor = [], foreignerTop = [], collectedAt = new Date().toISOString(), source = 'naver' } = {}) {
@@ -200,7 +221,7 @@ export async function fetchKoreaMarketReport({ date = '' } = {}) {
   const foreignerTop = (await Promise.all(MARKETS.map(async (m) => {
     try {
       const html = await fetchEucKr(`https://finance.naver.com/sise/sise_deal_rank_iframe.naver?sosok=${m.sosok}&investor_gubun=9000&type=buy`);
-      return parseForeignerTopHtml(html, m.key).slice(0, 3);
+      return parseForeignerTopHtml(html, m.key, reportDate).slice(0, 3);
     } catch {
       return [];
     }

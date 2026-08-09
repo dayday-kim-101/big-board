@@ -78,51 +78,51 @@
   "foreignerTop": [
     {
       "market": "KOSPI",
-      "code": "180640",
-      "name": "한진칼",
-      "quantity": 312,
-      "netBuyAmount": 36261000000,
-      "tradingVolume": 422973
+      "code": "402340",
+      "name": "SK스퀘어",
+      "quantity": 112,
+      "netBuyAmount": 106274000000,
+      "tradingVolume": 0
     },
     {
       "market": "KOSPI",
-      "code": "000270",
-      "name": "기아",
-      "quantity": 166,
-      "netBuyAmount": 22088000000,
-      "tradingVolume": 796639
+      "code": "096770",
+      "name": "SK이노베이션",
+      "quantity": 270,
+      "netBuyAmount": 30619000000,
+      "tradingVolume": 0
     },
     {
       "market": "KOSPI",
-      "code": "207940",
-      "name": "삼성바이오로직스",
-      "quantity": 10,
-      "netBuyAmount": 15303000000,
-      "tradingVolume": 48730
+      "code": "068270",
+      "name": "셀트리온",
+      "quantity": 123,
+      "netBuyAmount": 24386000000,
+      "tradingVolume": 0
     },
     {
       "market": "KOSDAQ",
       "code": "089970",
       "name": "브이엠",
-      "quantity": 159,
-      "netBuyAmount": 10090000000,
-      "tradingVolume": 731612
+      "quantity": 200,
+      "netBuyAmount": 12119000000,
+      "tradingVolume": 0
     },
     {
       "market": "KOSDAQ",
-      "code": "240810",
-      "name": "원익IPS",
-      "quantity": 103,
-      "netBuyAmount": 9765000000,
-      "tradingVolume": 1037750
+      "code": "319660",
+      "name": "피에스케이",
+      "quantity": 81,
+      "netBuyAmount": 9557000000,
+      "tradingVolume": 0
     },
     {
       "market": "KOSDAQ",
-      "code": "067310",
-      "name": "하나마이크론",
-      "quantity": 215,
-      "netBuyAmount": 6716000000,
-      "tradingVolume": 1095155
+      "code": "028300",
+      "name": "HLB",
+      "quantity": 191,
+      "netBuyAmount": 6861000000,
+      "tradingVolume": 0
     }
   ]
 }
