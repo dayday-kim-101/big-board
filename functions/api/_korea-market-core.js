@@ -83,7 +83,7 @@ function shortDate(date = '') {
   return /^\d{4}-\d{2}-\d{2}$/.test(s) ? `${s.slice(2, 4)}.${s.slice(5, 7)}.${s.slice(8, 10)}` : '';
 }
 
-export function parseForeignerTopHtml(html, marketKey = '', expectedDate = '') {
+export function parseForeignerTopHtml(html, marketKey = '', expectedDate = '', side = 'buy') {
   const source = String(html || '');
   const targetShortDate = shortDate(expectedDate);
   let currentDate = '';
@@ -101,7 +101,15 @@ export function parseForeignerTopHtml(html, marketKey = '', expectedDate = '') {
     const cells = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((x) => stripHtml(x[1])).filter(Boolean);
     // 종목명, 수량(천주), 금액(백만원), 당일거래량
     if (cells.length < 4 || /^(KODEX|TIGER|KBSTAR|ACE|SOL|HANARO|ARIRANG|PLUS|KOSEF|히어로즈|RISE)\b/i.test(cells[0])) continue;
-    const item = { market: marketKey, code, name: cells[0], quantity: num(cells[1]), netBuyAmount: wonFromMillion(cells[2]), tradingVolume: num(cells[3]) };
+    const amount = wonFromMillion(cells[2]);
+    const item = {
+      market: marketKey,
+      code,
+      name: cells[0],
+      quantity: num(cells[1]),
+      ...(side === 'sell' ? { netSellAmount: amount } : { netBuyAmount: amount }),
+      tradingVolume: num(cells[3]),
+    };
     if (currentDate) {
       if (!byDate.has(currentDate)) byDate.set(currentDate, []);
       byDate.get(currentDate).push(item);
@@ -109,17 +117,17 @@ export function parseForeignerTopHtml(html, marketKey = '', expectedDate = '') {
       undated.push(item);
     }
   }
-  if (targetShortDate && byDate.has(targetShortDate)) return byDate.get(targetShortDate).slice(0, 3);
+  if (targetShortDate && byDate.has(targetShortDate)) return byDate.get(targetShortDate);
   if (targetShortDate && byDate.size) return [];
   const latestDate = [...byDate.keys()].sort().at(-1);
-  return (latestDate ? byDate.get(latestDate) : undated).slice(0, 3);
+  return latestDate ? byDate.get(latestDate) : undated;
 }
 
-export function buildReport({ date, indices = [], breadth = [], investor = [], foreignerTop = [], collectedAt = new Date().toISOString(), source = 'naver' } = {}) {
+export function buildReport({ date, indices = [], breadth = [], investor = [], foreignerTop = [], foreignerSellTop = [], collectedAt = new Date().toISOString(), source = 'naver' } = {}) {
   const byMarket = Object.fromEntries(MARKETS.map((m) => [m.key, { ...m, breadth: null, investor: null }]));
   for (const b of breadth) if (byMarket[b.market]) byMarket[b.market].breadth = b;
   for (const i of investor) if (byMarket[i.market]) byMarket[i.market].investor = i;
-  return sanitizeReport({ date, collectedAt, source, indices, markets: Object.values(byMarket), foreignerTop, memo: '' });
+  return sanitizeReport({ date, collectedAt, source, indices, markets: Object.values(byMarket), foreignerTop, foreignerSellTop, memo: '' });
 }
 
 export function sanitizeReport(input = {}) {
@@ -137,8 +145,11 @@ export function sanitizeReport(input = {}) {
       breadth: m.breadth ? { market: String(m.breadth.market || ''), upCount: num(m.breadth.upCount) || 0, downCount: num(m.breadth.downCount) || 0, flatCount: num(m.breadth.flatCount) || 0, stockCount: num(m.breadth.stockCount) || 0 } : null,
       investor: m.investor ? { market: String(m.investor.market || ''), date: String(m.investor.date || '').slice(0, 10), personal: signedNum(m.investor.personal), foreign: signedNum(m.investor.foreign), institution: signedNum(m.investor.institution) } : null,
     })) : [],
-    foreignerTop: Array.isArray(input.foreignerTop) ? input.foreignerTop.slice(0, 6).map((x) => ({
+    foreignerTop: Array.isArray(input.foreignerTop) ? input.foreignerTop.slice(0, 10).map((x) => ({
       market: String(x.market || ''), code: String(x.code || ''), name: String(x.name || ''), quantity: num(x.quantity), netBuyAmount: signedNum(x.netBuyAmount), tradingVolume: num(x.tradingVolume),
+    })) : [],
+    foreignerSellTop: Array.isArray(input.foreignerSellTop) ? input.foreignerSellTop.slice(0, 10).map((x) => ({
+      market: String(x.market || ''), code: String(x.code || ''), name: String(x.name || ''), quantity: num(x.quantity), netSellAmount: signedNum(x.netSellAmount), tradingVolume: num(x.tradingVolume),
     })) : [],
   };
 }
@@ -218,13 +229,13 @@ export async function fetchKoreaMarketReport({ date = '' } = {}) {
     }
   })));
   // 시장별 상위 3개를 각각 보존한다. 코스피 대형주가 금액으로 코스닥을 밀어내지 않게 한다.
-  const foreignerTop = (await Promise.all(MARKETS.map(async (m) => {
+  const [foreignerTop, foreignerSellTop] = await Promise.all(['buy', 'sell'].map(async (type) => (await Promise.all(MARKETS.map(async (m) => {
     try {
-      const html = await fetchEucKr(`https://finance.naver.com/sise/sise_deal_rank_iframe.naver?sosok=${m.sosok}&investor_gubun=9000&type=buy`);
-      return parseForeignerTopHtml(html, m.key, reportDate).slice(0, 3);
+      const html = await fetchEucKr(`https://finance.naver.com/sise/sise_deal_rank_iframe.naver?sosok=${m.sosok}&investor_gubun=9000&type=${type}`);
+      return parseForeignerTopHtml(html, m.key, reportDate, type).slice(0, 5);
     } catch {
       return [];
     }
-  }))).flat();
-  return buildReport({ date: reportDate, indices: indexRows, breadth, investor, foreignerTop });
+  }))).flat()));
+  return buildReport({ date: reportDate, indices: indexRows, breadth, investor, foreignerTop, foreignerSellTop });
 }
