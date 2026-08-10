@@ -19,13 +19,14 @@ test('pickOnOrBefore: 휴장일이면 직전 거래일 row를 선택', () => {
 });
 
 test('buildReportForDate: 요청 항목과 상승/하락 섹터를 생성', () => {
-  const symbols = ['^GSPC', '^IXIC', '^RUT', 'NVDA', '^SOX', '^TNX', 'XLK', 'XLF', 'XLU'];
+  const symbols = ['^DJI', '^GSPC', '^IXIC', '^RUT', 'NVDA', '^SOX', '^TNX', 'XLK', 'XLF', 'XLU'];
   const seriesBySymbol = Object.fromEntries(symbols.map((s, i) => [s, [
     { date: '2026-08-06', close: 100, change: null, changePct: null },
     { date: '2026-08-07', close: 100 + i, change: i, changePct: i },
   ]]));
   const report = buildReportForDate({ date: '2026-08-07', seriesBySymbol, collectedAt: 'x' });
-  assert.equal(report.indices.length, 3);
+  assert.equal(report.indices.length, 4);
+  assert.equal(report.indices[0].key, 'dow');
   assert.equal(report.focus.length, 2);
   assert.equal(report.rates[0].key, 'us10y');
   assert.ok(report.sectors.rising.length >= 1);

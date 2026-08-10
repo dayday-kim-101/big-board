@@ -1,6 +1,7 @@
 const UA = 'Mozilla/5.0 (compatible; stock-bigboard/0.1)';
 
 export const US_INDICES = [
+  { key: 'dow', label: '다우존스', symbol: '^DJI' },
   { key: 'sp500', label: 'S&P 500', symbol: '^GSPC' },
   { key: 'nasdaq', label: '나스닥', symbol: '^IXIC' },
   { key: 'russell2000', label: '러셀2000', symbol: '^RUT' },
@@ -128,7 +129,7 @@ export function sanitizeReport(input = {}) {
     source: String(input.source || 'yahoo'),
     memo: String(input.memo || '').slice(0, 1000),
     interpretation: String(input.interpretation || '').slice(0, 1000),
-    indices: cleanList(input.indices).slice(0, 3),
+    indices: cleanList(input.indices).slice(0, 4),
     focus: cleanList(input.focus).slice(0, 2),
     rates: cleanList(input.rates).slice(0, 1),
     sectors: {
