@@ -178,9 +178,14 @@
           "market": "KR",
           "code": "010120",
           "name": "LS ELECTRIC"
+        },
+        {
+          "market": "KR",
+          "code": "062040",
+          "name": "산일전기"
         }
       ]
     }
   ],
-  "updatedAt": "2026-08-10T23:02:59.459Z"
+  "updatedAt": "2026-08-10T23:03:04.684Z"
 }
