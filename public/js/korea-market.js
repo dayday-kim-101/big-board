@@ -64,7 +64,9 @@ function foreignerRankBlock(title, rows, amountKey = 'netBuyAmount') {
       const ol = el('ol', undefined, 'krm-foreign-list');
       for (const r of list) {
         const li = el('li', undefined, 'krm-foreign-item');
-        li.append(el('span', `${r.name} (${r.code})`, 'krm-foreign-name'), el('span', fmtTrillion(r[amountKey] ?? r.netBuyAmount ?? r.netSellAmount), 'krm-foreign-amt'));
+        const amount = r[amountKey] ?? r.netBuyAmount ?? r.netSellAmount;
+        const amtClass = Number(amount) < 0 ? 'krm-foreign-amt down' : 'krm-foreign-amt up';
+        li.append(el('span', `${r.name} (${r.code})`, 'krm-foreign-name'), el('span', fmtTrillion(amount), amtClass));
         ol.appendChild(li);
       }
       group.appendChild(ol);
