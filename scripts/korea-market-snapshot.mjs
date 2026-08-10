@@ -72,16 +72,18 @@ async function fetchInvestor(date) {
   }
   return out;
 }
-async function fetchCurrentForeignerTop(date = '') {
-  const out = [];
-  for (const m of MARKETS) {
-    try {
-      const html = await getFinanceHtml(`https://finance.naver.com/sise/sise_deal_rank_iframe.naver?sosok=${m.sosok}&investor_gubun=9000&type=buy`);
-      out.push(...parseForeignerTopHtml(html, m.key, date).slice(0, 3));
-    } catch {}
-    await sleep(80);
+async function fetchCurrentForeignerRanks(date = '') {
+  const result = { buy: [], sell: [] };
+  for (const type of ['buy', 'sell']) {
+    for (const m of MARKETS) {
+      try {
+        const html = await getFinanceHtml(`https://finance.naver.com/sise/sise_deal_rank_iframe.naver?sosok=${m.sosok}&investor_gubun=9000&type=${type}`);
+        result[type].push(...parseForeignerTopHtml(html, m.key, date, type).slice(0, 5));
+      } catch {}
+      await sleep(80);
+    }
   }
-  return out;
+  return result;
 }
 
 const args = new Set(process.argv.slice(2));
@@ -90,7 +92,7 @@ const dates = await jaelyoDates();
 const latest = dates.at(-1) || '';
 await mkdir(OUT_DIR, { recursive: true });
 const indexHistory = await fetchIndexHistory(dates);
-const currentForeignerTop = await fetchCurrentForeignerTop(latest);
+const currentForeignerRanks = await fetchCurrentForeignerRanks(latest);
 let changed = 0;
 let written = 0;
 let missingIndex = 0;
@@ -113,9 +115,9 @@ for (const date of dates) {
     indices,
     breadth,
     investor,
-    // Naver 외국인 매매상위 iframe은 과거 날짜 파라미터가 없어 스냅샷 실행일만 정확히 새로 잡는다.
-    // 이미 저장된 과거 스냅샷의 외국인 순매수 목록은 보존한다.
-    foreignerTop: date === latest ? currentForeignerTop : (prevReport?.foreignerTop || []),
+    // KRX 기준 소스가 붙기 전까지 이미 저장된 과거 스냅샷은 보존하고, 최신일만 현재 수집 가능한 랭킹을 저장한다.
+    foreignerTop: date === latest ? currentForeignerRanks.buy : (prevReport?.foreignerTop || []),
+    foreignerSellTop: date === latest ? currentForeignerRanks.sell : (prevReport?.foreignerSellTop || []),
   });
   const next = `${JSON.stringify(report, null, 2)}\n`;
   if (prev !== next) {

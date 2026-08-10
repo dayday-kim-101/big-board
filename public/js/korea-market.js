@@ -51,6 +51,29 @@ function marketRow(m) {
   return row;
 }
 
+function foreignerRankBlock(title, rows, amountKey = 'netBuyAmount') {
+  const box = el('div', undefined, 'krm-foreign-box');
+  box.appendChild(el('h3', title, 'krm-subtitle'));
+  for (const market of ['KOSPI', 'KOSDAQ']) {
+    const group = el('div', undefined, 'krm-foreign-market');
+    group.appendChild(el('h4', market === 'KOSPI' ? '코스피' : '코스닥', 'krm-foreign-market-title'));
+    const list = rows.filter((x) => x.market === market).slice(0, 5);
+    if (!list.length) {
+      group.appendChild(el('p', 'KRX 기준 데이터 미수집', 'krm-empty-small'));
+    } else {
+      const ol = el('ol', undefined, 'krm-foreign-list');
+      for (const r of list) {
+        const li = el('li', undefined, 'krm-foreign-item');
+        li.append(el('span', `${r.name} (${r.code})`, 'krm-foreign-name'), el('span', fmtTrillion(r[amountKey] ?? r.netBuyAmount ?? r.netSellAmount), 'krm-foreign-amt'));
+        ol.appendChild(li);
+      }
+      group.appendChild(ol);
+    }
+    box.appendChild(group);
+  }
+  return box;
+}
+
 function fmtDateWithDow(date) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(String(date || ''))) return date || '';
   const d = new Date(`${date}T00:00:00+09:00`);
@@ -98,21 +121,8 @@ export function renderKoreaMarket(container, { dates = [], selectedDate = null, 
   for (const m of report.markets || []) markets.appendChild(marketRow(m));
   section.appendChild(markets);
 
-  const foreign = el('div', undefined, 'krm-foreign-box');
-  foreign.appendChild(el('h3', '외국인 순매수 상위 종목', 'krm-subtitle'));
-  for (const market of ['KOSPI', 'KOSDAQ']) {
-    const group = el('div', undefined, 'krm-foreign-market');
-    group.appendChild(el('h4', market === 'KOSPI' ? '코스피' : '코스닥', 'krm-foreign-market-title'));
-    const ol = el('ol', undefined, 'krm-foreign-list');
-    for (const r of (report.foreignerTop || []).filter((x) => x.market === market).slice(0, 3)) {
-      const li = el('li', undefined, 'krm-foreign-item');
-      li.append(el('span', `${r.name} (${r.code})`, 'krm-foreign-name'), el('span', fmtTrillion(r.netBuyAmount), 'krm-foreign-amt'));
-      ol.appendChild(li);
-    }
-    group.appendChild(ol);
-    foreign.appendChild(group);
-  }
-  section.appendChild(foreign);
+  section.appendChild(foreignerRankBlock('외국인 순매수금액 상위 종목', report.foreignerTop || [], 'netBuyAmount'));
+  section.appendChild(foreignerRankBlock('외국인 순매도금액 상위 종목', report.foreignerSellTop || [], 'netSellAmount'));
 
   const memo = el('div', undefined, 'krm-memo-box');
   memo.appendChild(el('label', '한줄메모', 'krm-memo-label'));
@@ -138,7 +148,7 @@ export function renderKoreaMarket(container, { dates = [], selectedDate = null, 
   memo.appendChild(save);
   section.appendChild(memo);
 
-  const source = el('p', '출처: 네이버 국내지수 API, 네이버 전종목 시세, 네이버 투자자별 매매동향/외국인 매매상위', 'krm-source');
+  const source = el('p', '기준: 외국인 수급/종목순위는 KRX 장내거래 확정치 기준으로 수집 예정(현재 KRX 소스 미연결 시 미수집 표시). 지수/상승하락은 기존 국내지수·전종목 시세 기준.', 'krm-source');
   section.appendChild(source);
   container.appendChild(section);
 }
