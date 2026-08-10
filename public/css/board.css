@@ -743,6 +743,8 @@ button.primary { background: var(--accent); color: #1a1300; border-color: var(--
 .krm-empty-small { margin:0; color:var(--muted); font-size:12px; }
 .krm-foreign-item { display:grid; grid-template-columns:1fr auto; gap:8px; font-size:13px; }
 .krm-foreign-amt { color:var(--up); font-weight:700; font-variant-numeric:tabular-nums; }
+.krm-foreign-amt.up { color:var(--up); }
+.krm-foreign-amt.down { color:var(--down); }
 .krm-memo-label { display:block; margin-bottom:6px; font-size:13px; color:var(--muted); font-weight:700; }
 .krm-memo-input { width:100%; box-sizing:border-box; border:1px solid var(--line); border-radius:10px; background:#0b1118; color:var(--text); padding:9px; resize:vertical; }
 .krm-save { margin-top:8px; }
