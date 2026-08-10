@@ -173,8 +173,14 @@
     {
       "id": "g1786402972422382",
       "name": "전력",
-      "tickers": []
+      "tickers": [
+        {
+          "market": "KR",
+          "code": "010120",
+          "name": "LS ELECTRIC"
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-08-10T23:02:52.920Z"
+  "updatedAt": "2026-08-10T23:02:59.459Z"
 }
