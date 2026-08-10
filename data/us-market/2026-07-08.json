@@ -1,0 +1,162 @@
+{
+  "date": "2026-07-08",
+  "collectedAt": "2026-08-10T22:19:42.968Z",
+  "source": "yahoo",
+  "memo": "",
+  "interpretation": "S&P500 -0.28%·나스닥 +0.20%·러셀2000 -0.88%로 중소형주는 상대 약세, NVIDIA +3.65%·SOX +2.23% 기준 기술주/반도체가 상대적으로 지수를 지지; 10년물 4.569% 속 상승 섹터는 에너지·기술, 하락 섹터는 소재·금융.",
+  "indices": [
+    {
+      "key": "sp500",
+      "label": "S&P 500",
+      "symbol": "^GSPC",
+      "date": "2026-07-08",
+      "close": 7482.7099609375,
+      "change": -21.14013671875,
+      "changePct": -0.2817238676629868,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "nasdaq",
+      "label": "나스닥",
+      "symbol": "^IXIC",
+      "date": "2026-07-08",
+      "close": 25870.650390625,
+      "change": 51.9609375,
+      "changePct": 0.20125319526514865,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "russell2000",
+      "label": "러셀2000",
+      "symbol": "^RUT",
+      "date": "2026-07-08",
+      "close": 2956.389892578125,
+      "change": -26.10009765625,
+      "changePct": -0.8751109891972834,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "focus": [
+    {
+      "key": "nvidia",
+      "label": "NVIDIA",
+      "symbol": "NVDA",
+      "date": "2026-07-08",
+      "close": 204.1199951171875,
+      "change": 7.19000244140625,
+      "changePct": 3.6510448935239754,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sox",
+      "label": "필라델피아 반도체지수",
+      "symbol": "^SOX",
+      "date": "2026-07-08",
+      "close": 12574.9697265625,
+      "change": 274.4501953125,
+      "changePct": 2.2312081584460515,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "rates": [
+    {
+      "key": "us10y",
+      "label": "미국 10년물 금리",
+      "symbol": "^TNX",
+      "date": "2026-07-08",
+      "close": 4.568999767303467,
+      "change": 0.039999961853027344,
+      "changePct": 0.8831963694255244,
+      "unit": "%",
+      "decimals": 3
+    }
+  ],
+  "sectors": {
+    "rising": [
+      {
+        "key": "energy",
+        "label": "에너지",
+        "symbol": "XLE",
+        "date": "2026-07-08",
+        "close": 55.599998474121094,
+        "change": 0.9599990844726562,
+        "changePct": 1.7569529560692645,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "technology",
+        "label": "기술",
+        "symbol": "XLK",
+        "date": "2026-07-08",
+        "close": 181.39999389648438,
+        "change": 2.220001220703125,
+        "changePct": 1.2389782963771658,
+        "unit": "",
+        "decimals": 2
+      }
+    ],
+    "falling": [
+      {
+        "key": "materials",
+        "label": "소재",
+        "symbol": "XLB",
+        "date": "2026-07-08",
+        "close": 50.15999984741211,
+        "change": -1.3499984741210938,
+        "changePct": -2.620847443430689,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "financials",
+        "label": "금융",
+        "symbol": "XLF",
+        "date": "2026-07-08",
+        "close": 54.970001220703125,
+        "change": -1.0799980163574219,
+        "changePct": -1.92684751303854,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerDiscretionary",
+        "label": "경기소비재",
+        "symbol": "XLY",
+        "date": "2026-07-08",
+        "close": 115.30000305175781,
+        "change": -2.089996337890625,
+        "changePct": -1.7803870421307142,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "realEstate",
+        "label": "부동산",
+        "symbol": "XLRE",
+        "date": "2026-07-08",
+        "close": 44.150001525878906,
+        "change": -0.7399978637695312,
+        "changePct": -1.6484693112742022,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "communication",
+        "label": "커뮤니케이션",
+        "symbol": "XLC",
+        "date": "2026-07-08",
+        "close": 109.45999908447266,
+        "change": -1.55999755859375,
+        "changePct": -1.4051500682432936,
+        "unit": "",
+        "decimals": 2
+      }
+    ]
+  }
+}

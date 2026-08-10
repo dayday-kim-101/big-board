@@ -14,6 +14,7 @@
     "jaelyo:manual-by-code": "node scripts/build-jaelyo-manual-by-code.mjs",
     "jaelyo:daily-themes": "node scripts/build-jaelyo-daily-themes.mjs",
     "korea-market:snapshot": "node scripts/korea-market-snapshot.mjs",
+    "us-market:snapshot": "node scripts/us-market-snapshot.mjs",
     "sectors:caps": "node scripts/sectors-caps-snapshot.mjs"
   },
   "engines": {

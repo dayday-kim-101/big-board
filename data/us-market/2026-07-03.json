@@ -1,0 +1,173 @@
+{
+  "date": "2026-07-03",
+  "collectedAt": "2026-08-10T22:19:42.968Z",
+  "source": "yahoo",
+  "memo": "",
+  "interpretation": "S&P500 +0.00%·나스닥 -0.80%·러셀2000 -0.55%로 중소형주는 상대 약세, NVIDIA -1.39%·SOX -5.44% 기준 기술주/반도체 탄력은 제한; 10년물 4.485% 속 상승 섹터는 헬스케어·유틸리티, 하락 섹터는 기술·경기소비재.",
+  "indices": [
+    {
+      "key": "sp500",
+      "label": "S&P 500",
+      "symbol": "^GSPC",
+      "date": "2026-07-02",
+      "close": 7483.240234375,
+      "change": 0.01025390625,
+      "changePct": 0.00013702513856667139,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "nasdaq",
+      "label": "나스닥",
+      "symbol": "^IXIC",
+      "date": "2026-07-02",
+      "close": 25832.669921875,
+      "change": -207.359375,
+      "changePct": -0.7963100679955253,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "russell2000",
+      "label": "러셀2000",
+      "symbol": "^RUT",
+      "date": "2026-07-02",
+      "close": 2996.110107421875,
+      "change": -16.47998046875,
+      "changePct": -0.5470369345963381,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "focus": [
+    {
+      "key": "nvidia",
+      "label": "NVIDIA",
+      "symbol": "NVDA",
+      "date": "2026-07-02",
+      "close": 194.8300018310547,
+      "change": -2.75,
+      "changePct": -1.3918412665829665,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sox",
+      "label": "필라델피아 반도체지수",
+      "symbol": "^SOX",
+      "date": "2026-07-02",
+      "close": 12626.2197265625,
+      "change": -727.060546875,
+      "changePct": -5.44480855630116,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "rates": [
+    {
+      "key": "us10y",
+      "label": "미국 10년물 금리",
+      "symbol": "^TNX",
+      "date": "2026-07-02",
+      "close": 4.485000133514404,
+      "change": 0.010000228881835938,
+      "changePct": 0.22346880659111507,
+      "unit": "%",
+      "decimals": 3
+    }
+  ],
+  "sectors": {
+    "rising": [
+      {
+        "key": "healthcare",
+        "label": "헬스케어",
+        "symbol": "XLV",
+        "date": "2026-07-02",
+        "close": 163.74000549316406,
+        "change": 4.20001220703125,
+        "changePct": 2.6325763970032177,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "utilities",
+        "label": "유틸리티",
+        "symbol": "XLU",
+        "date": "2026-07-02",
+        "close": 45.7599983215332,
+        "change": 0.9899978637695312,
+        "changePct": 2.2112974171253406,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerStaples",
+        "label": "필수소비재",
+        "symbol": "XLP",
+        "date": "2026-07-02",
+        "close": 84.98999786376953,
+        "change": 1.6899948120117188,
+        "changePct": 2.0288052222058783,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "materials",
+        "label": "소재",
+        "symbol": "XLB",
+        "date": "2026-07-02",
+        "close": 52.0099983215332,
+        "change": 0.9899978637695312,
+        "changePct": 1.9404113188691359,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "financials",
+        "label": "금융",
+        "symbol": "XLF",
+        "date": "2026-07-02",
+        "close": 55.619998931884766,
+        "change": 0.8400001525878906,
+        "changePct": 1.5334066654002074,
+        "unit": "",
+        "decimals": 2
+      }
+    ],
+    "falling": [
+      {
+        "key": "technology",
+        "label": "기술",
+        "symbol": "XLK",
+        "date": "2026-07-02",
+        "close": 180.58999633789062,
+        "change": -5.029998779296875,
+        "changePct": -2.7098367156627092,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerDiscretionary",
+        "label": "경기소비재",
+        "symbol": "XLY",
+        "date": "2026-07-02",
+        "close": 117.12000274658203,
+        "change": -0.9699935913085938,
+        "changePct": -0.821401999652158,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "communication",
+        "label": "커뮤니케이션",
+        "symbol": "XLC",
+        "date": "2026-07-02",
+        "close": 109.5999984741211,
+        "change": -0.1399993896484375,
+        "changePct": -0.1275737127516913,
+        "unit": "",
+        "decimals": 2
+      }
+    ]
+  }
+}
