@@ -156,6 +156,24 @@ export async function putKoreaMarketMemo(email, date, memo) {
   return res.json();
 }
 
+// --- 미국증시 한줄메모 ---
+
+export async function getUsMarket(email, date = '') {
+  const qs = new URLSearchParams({ email });
+  if (date) qs.set('date', date);
+  const res = await fetch(`/api/us-market?${qs.toString()}`);
+  if (!res.ok) throw new Error((await safeErr(res)) || `미국증시 로드 실패 (${res.status})`);
+  return res.json();
+}
+
+export async function putUsMarketMemo(email, date, memo) {
+  const res = await fetch(`/api/us-market?email=${encodeURIComponent(email)}&date=${encodeURIComponent(date)}`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ memo }),
+  });
+  if (!res.ok) throw new Error((await safeErr(res)) || `미국증시 메모 저장 실패 (${res.status})`);
+  return res.json();
+}
+
 // --- 매크로 지표 (읽기 전용 정적 파일) ---
 
 // → { collectedAt, seed?, indicators: [...] }. 실패 시 빈 데이터.

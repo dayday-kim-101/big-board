@@ -1,7 +1,7 @@
 // 진입·상태·그룹/종목 관리·새로고침 오케스트레이션.
 import {
   getList, putList, getQuotes, getSnapshot, searchTickers, getHistory,
-  getJaelyoDates, getJaelyo, putJaelyoManual, putJaelyoDailyTheme, getKoreaMarket, putKoreaMarketMemo, getMacro, getSectors,
+  getJaelyoDates, getJaelyo, putJaelyoManual, putJaelyoDailyTheme, getKoreaMarket, putKoreaMarketMemo, getUsMarket, putUsMarketMemo, getMacro, getSectors,
   getTrades, putTradesUpsert, putTradeManual, putTradesJournal, putTradesResultTag,
 } from './api.js';
 import { mergeBoard } from './format.js';
@@ -12,6 +12,7 @@ import { openMacroChart } from './macro-chart.js';
 import { renderTrades } from './trades.js';
 import { renderKiwoomMock } from './kiwoom-mock.js';
 import { renderKoreaMarket } from './korea-market.js';
+import { renderUsMarket } from './us-market.js';
 import { renderSectorMap } from './sectormap.js';
 import { pickPrevClose } from './trades-core.js';
 
@@ -30,12 +31,14 @@ const state = {
   trades: { data: null },
   sectorMap: { data: null, quotesRequested: false },
   koreaMarket: { dates: [], selectedDate: null, report: null, updatedAt: null },
-  bottomTab: 'jaelyo', // 전광판 아래 탭: 'jaelyo' | 'koreaMarket' | 'sectorMap' | 'macro' | 'crisis' | 'trades' | 'kiwoomMock'
+  usMarket: { dates: [], selectedDate: null, report: null, updatedAt: null },
+  bottomTab: 'jaelyo', // 전광판 아래 탭
 };
 
 const BOTTOM_TABS = [
   { key: 'jaelyo', label: '재료정리' },
   { key: 'koreaMarket', label: '국내증시 메모' },
+  { key: 'usMarket', label: '미국증시 메모' },
   { key: 'sectorMap', label: '섹터맵' },
   { key: 'macro', label: '매크로 지표' },
   { key: 'crisis', label: '금융위기' },
@@ -111,7 +114,7 @@ async function enterBoard(email) {
     state.updatedAt = snap.updatedAt;
     if (!state.activeGroupId && state.list.groups[0]) state.activeGroupId = state.list.groups[0].id;
     // 재료정리 보드 + 매크로 지표(공용) + 매매기록(개인) + 섹터맵 로드 — 실패해도 전광판은 표시.
-    await Promise.allSettled([loadJaelyo(), loadKoreaMarket(), loadMacro(), loadTrades(), loadSectorMap()]);
+    await Promise.allSettled([loadJaelyo(), loadKoreaMarket(), loadUsMarket(), loadMacro(), loadTrades(), loadSectorMap()]);
     renderApp();
   } catch (e) {
     renderGate(`목록을 불러오지 못했습니다: ${e.message}`);
@@ -133,6 +136,14 @@ async function loadKoreaMarket(date = '') {
   state.koreaMarket.selectedDate = data.report?.date ?? date ?? data.latest ?? state.koreaMarket.dates[0] ?? null;
   state.koreaMarket.report = data.report ?? null;
   state.koreaMarket.updatedAt = data.updatedAt ?? null;
+}
+
+async function loadUsMarket(date = '') {
+  const data = await getUsMarket(state.email, date);
+  state.usMarket.dates = data.dates ?? state.usMarket.dates ?? [];
+  state.usMarket.selectedDate = data.report?.date ?? date ?? data.latest ?? state.usMarket.dates[0] ?? null;
+  state.usMarket.report = data.report ?? null;
+  state.usMarket.updatedAt = data.updatedAt ?? null;
 }
 
 async function loadMacro() {
@@ -173,6 +184,7 @@ function paintBottom() {
   else if (state.bottomTab === 'kiwoomMock') paintKiwoomMock();
   else if (state.bottomTab === 'sectorMap') paintSectorMap();
   else if (state.bottomTab === 'koreaMarket') paintKoreaMarket();
+  else if (state.bottomTab === 'usMarket') paintUsMarket();
   else paintJaelyo();
 }
 
@@ -199,6 +211,35 @@ function paintKoreaMarket() {
         return true;
       } catch (e) {
         alert(`국내증시 메모 저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
+        return false;
+      }
+    },
+  });
+}
+
+function paintUsMarket() {
+  const root = document.getElementById('bottom-content');
+  if (!root) return;
+  renderUsMarket(root, {
+    dates: state.usMarket.dates,
+    selectedDate: state.usMarket.selectedDate,
+    report: state.usMarket.report,
+    onSelectDate: async (date) => {
+      state.usMarket.selectedDate = date;
+      try {
+        await loadUsMarket(date);
+      } catch (e) {
+        alert(`미국증시 날짜 로드 실패 — ${e.message}`);
+      }
+      paintUsMarket();
+    },
+    onMemo: async (date, memo) => {
+      try {
+        await putUsMarketMemo(state.email, date, memo);
+        state.usMarket.report = { ...state.usMarket.report, memo };
+        return true;
+      } catch (e) {
+        alert(`미국증시 메모 저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
         return false;
       }
     },

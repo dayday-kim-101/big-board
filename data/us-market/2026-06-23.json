@@ -1,0 +1,184 @@
+{
+  "date": "2026-06-23",
+  "collectedAt": "2026-08-10T22:19:42.967Z",
+  "source": "yahoo",
+  "memo": "",
+  "interpretation": "S&P500 -1.44%·나스닥 -2.21%·러셀2000 -0.96%로 중소형주도 동반 강세, NVIDIA -4.13%·SOX -7.87% 기준 기술주/반도체 탄력은 제한; 10년물 4.493% 속 상승 섹터는 필수소비재·헬스케어, 하락 섹터는 기술·산업재.",
+  "indices": [
+    {
+      "key": "sp500",
+      "label": "S&P 500",
+      "symbol": "^GSPC",
+      "date": "2026-06-23",
+      "close": 7365.4599609375,
+      "change": -107.330078125,
+      "changePct": -1.4362785193208119,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "nasdaq",
+      "label": "나스닥",
+      "symbol": "^IXIC",
+      "date": "2026-06-23",
+      "close": 25587.0390625,
+      "change": -579.560546875,
+      "changePct": -2.214886746948023,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "russell2000",
+      "label": "러셀2000",
+      "symbol": "^RUT",
+      "date": "2026-06-23",
+      "close": 2975.47998046875,
+      "change": -28.919921875,
+      "changePct": -0.9625856349029768,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "focus": [
+    {
+      "key": "nvidia",
+      "label": "NVIDIA",
+      "symbol": "NVDA",
+      "date": "2026-06-23",
+      "close": 200.0399932861328,
+      "change": -8.610000610351562,
+      "changePct": -4.126528091164557,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sox",
+      "label": "필라델피아 반도체지수",
+      "symbol": "^SOX",
+      "date": "2026-06-23",
+      "close": 13482.509765625,
+      "change": -1152.2099609375,
+      "changePct": -7.873126253632318,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "rates": [
+    {
+      "key": "us10y",
+      "label": "미국 10년물 금리",
+      "symbol": "^TNX",
+      "date": "2026-06-23",
+      "close": 4.493000030517578,
+      "change": -0.015999794006347656,
+      "changePct": -0.35484130913748624,
+      "unit": "%",
+      "decimals": 3
+    }
+  ],
+  "sectors": {
+    "rising": [
+      {
+        "key": "consumerStaples",
+        "label": "필수소비재",
+        "symbol": "XLP",
+        "date": "2026-06-23",
+        "close": 83.72000122070312,
+        "change": 1.5400009155273438,
+        "changePct": 1.8739363711469261,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "healthcare",
+        "label": "헬스케어",
+        "symbol": "XLV",
+        "date": "2026-06-23",
+        "close": 152.17999267578125,
+        "change": 2.1199951171875,
+        "changePct": 1.4127649951211736,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "realEstate",
+        "label": "부동산",
+        "symbol": "XLRE",
+        "date": "2026-06-23",
+        "close": 44.63999938964844,
+        "change": 0.6199989318847656,
+        "changePct": 1.4084482631472084,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "utilities",
+        "label": "유틸리티",
+        "symbol": "XLU",
+        "date": "2026-06-23",
+        "close": 45.06999969482422,
+        "change": 0.34999847412109375,
+        "changePct": 0.7826441515369681,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "energy",
+        "label": "에너지",
+        "symbol": "XLE",
+        "date": "2026-06-23",
+        "close": 54.459999084472656,
+        "change": 0.3999977111816406,
+        "changePct": 0.7399143563086631,
+        "unit": "",
+        "decimals": 2
+      }
+    ],
+    "falling": [
+      {
+        "key": "technology",
+        "label": "기술",
+        "symbol": "XLK",
+        "date": "2026-06-23",
+        "close": 184.19000244140625,
+        "change": -7.959991455078125,
+        "changePct": -4.142592614062926,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "industrials",
+        "label": "산업재",
+        "symbol": "XLI",
+        "date": "2026-06-23",
+        "close": 178.14999389648438,
+        "change": -3.6500091552734375,
+        "changePct": -2.007705772278944,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "materials",
+        "label": "소재",
+        "symbol": "XLB",
+        "date": "2026-06-23",
+        "close": 50.869998931884766,
+        "change": -0.75,
+        "changePct": -1.4529252528456333,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerDiscretionary",
+        "label": "경기소비재",
+        "symbol": "XLY",
+        "date": "2026-06-23",
+        "close": 113.76000213623047,
+        "change": -1.1800003051757812,
+        "changePct": -1.026622829399467,
+        "unit": "",
+        "decimals": 2
+      }
+    ]
+  }
+}

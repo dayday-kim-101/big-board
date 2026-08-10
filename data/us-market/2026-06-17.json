@@ -1,0 +1,139 @@
+{
+  "date": "2026-06-17",
+  "collectedAt": "2026-08-10T22:19:42.967Z",
+  "source": "yahoo",
+  "memo": "",
+  "interpretation": "S&P500 -1.21%·나스닥 -1.34%·러셀2000 -0.72%로 중소형주도 동반 강세, NVIDIA -1.33%·SOX +1.38% 기준 기술주/반도체 탄력은 제한; 10년물 4.463% 속 상승 섹터는 주도 섹터 부재, 하락 섹터는 커뮤니케이션·경기소비재.",
+  "indices": [
+    {
+      "key": "sp500",
+      "label": "S&P 500",
+      "symbol": "^GSPC",
+      "date": "2026-06-17",
+      "close": 7420.10009765625,
+      "change": -91.25,
+      "changePct": -1.214828210822879,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "nasdaq",
+      "label": "나스닥",
+      "symbol": "^IXIC",
+      "date": "2026-06-17",
+      "close": 26021.66015625,
+      "change": -354.6796875,
+      "changePct": -1.3446887991323901,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "russell2000",
+      "label": "러셀2000",
+      "symbol": "^RUT",
+      "date": "2026-06-17",
+      "close": 2917.97998046875,
+      "change": -21.219970703125,
+      "changePct": -0.7219641758181332,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "focus": [
+    {
+      "key": "nvidia",
+      "label": "NVIDIA",
+      "symbol": "NVDA",
+      "date": "2026-06-17",
+      "close": 204.64999389648438,
+      "change": -2.760009765625,
+      "changePct": -1.330702336865737,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sox",
+      "label": "필라델피아 반도체지수",
+      "symbol": "^SOX",
+      "date": "2026-06-17",
+      "close": 13477.0703125,
+      "change": 182.8505859375,
+      "changePct": 1.3754142002945506,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "rates": [
+    {
+      "key": "us10y",
+      "label": "미국 10년물 금리",
+      "symbol": "^TNX",
+      "date": "2026-06-17",
+      "close": 4.4629998207092285,
+      "change": 0.034999847412109375,
+      "changePct": 0.7904211297013232,
+      "unit": "%",
+      "decimals": 3
+    }
+  ],
+  "sectors": {
+    "rising": [],
+    "falling": [
+      {
+        "key": "communication",
+        "label": "커뮤니케이션",
+        "symbol": "XLC",
+        "date": "2026-06-17",
+        "close": 109.19999694824219,
+        "change": -3.1200027465820312,
+        "changePct": -2.777780230643825,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerDiscretionary",
+        "label": "경기소비재",
+        "symbol": "XLY",
+        "date": "2026-06-17",
+        "close": 115.48999786376953,
+        "change": -2.970001220703125,
+        "changePct": -2.5071764677165382,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "realEstate",
+        "label": "부동산",
+        "symbol": "XLRE",
+        "date": "2026-06-17",
+        "close": 43.970001220703125,
+        "change": -1.1299972534179688,
+        "changePct": -2.505537232038654,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerStaples",
+        "label": "필수소비재",
+        "symbol": "XLP",
+        "date": "2026-06-17",
+        "close": 83.68000030517578,
+        "change": -1.9099960327148438,
+        "changePct": -2.231564568801471,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "healthcare",
+        "label": "헬스케어",
+        "symbol": "XLV",
+        "date": "2026-06-17",
+        "close": 150.7100067138672,
+        "change": -2.2299957275390625,
+        "changePct": -1.458085322310237,
+        "unit": "",
+        "decimals": 2
+      }
+    ]
+  }
+}

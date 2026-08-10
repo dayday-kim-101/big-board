@@ -1,0 +1,162 @@
+{
+  "date": "2026-07-29",
+  "collectedAt": "2026-08-10T22:19:42.969Z",
+  "source": "yahoo",
+  "memo": "",
+  "interpretation": "S&P500 -1.52%·나스닥 -1.74%·러셀2000 -1.61%로 중소형주는 상대 약세, NVIDIA -3.55%·SOX -5.33% 기준 기술주/반도체 탄력은 제한; 10년물 4.622% 속 상승 섹터는 에너지·필수소비재, 하락 섹터는 산업재·기술.",
+  "indices": [
+    {
+      "key": "sp500",
+      "label": "S&P 500",
+      "symbol": "^GSPC",
+      "date": "2026-07-29",
+      "close": 7316.14990234375,
+      "change": -112.6298828125,
+      "changePct": -1.516128975010814,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "nasdaq",
+      "label": "나스닥",
+      "symbol": "^IXIC",
+      "date": "2026-07-29",
+      "close": 24442.939453125,
+      "change": -433.970703125,
+      "changePct": -1.7444718833619717,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "russell2000",
+      "label": "러셀2000",
+      "symbol": "^RUT",
+      "date": "2026-07-29",
+      "close": 2906.31005859375,
+      "change": -47.489990234375,
+      "changePct": -1.6077591390526225,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "focus": [
+    {
+      "key": "nvidia",
+      "label": "NVIDIA",
+      "symbol": "NVDA",
+      "date": "2026-07-29",
+      "close": 190.00999450683594,
+      "change": -7,
+      "changePct": -3.553119230079015,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sox",
+      "label": "필라델피아 반도체지수",
+      "symbol": "^SOX",
+      "date": "2026-07-29",
+      "close": 10447.490234375,
+      "change": -588.189453125,
+      "changePct": -5.329888776957128,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "rates": [
+    {
+      "key": "us10y",
+      "label": "미국 10년물 금리",
+      "symbol": "^TNX",
+      "date": "2026-07-29",
+      "close": 4.622000217437744,
+      "change": 0.018000125885009766,
+      "changePct": 0.3909671052795111,
+      "unit": "%",
+      "decimals": 3
+    }
+  ],
+  "sectors": {
+    "rising": [
+      {
+        "key": "energy",
+        "label": "에너지",
+        "symbol": "XLE",
+        "date": "2026-07-29",
+        "close": 58.650001525878906,
+        "change": 1.0800018310546875,
+        "changePct": 1.8759802619067654,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerStaples",
+        "label": "필수소비재",
+        "symbol": "XLP",
+        "date": "2026-07-29",
+        "close": 87.36000061035156,
+        "change": 0.3000030517578125,
+        "changePct": 0.3445934529872945,
+        "unit": "",
+        "decimals": 2
+      }
+    ],
+    "falling": [
+      {
+        "key": "industrials",
+        "label": "산업재",
+        "symbol": "XLI",
+        "date": "2026-07-29",
+        "close": 176.66000366210938,
+        "change": -5.8300018310546875,
+        "changePct": -3.1946965069673774,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "technology",
+        "label": "기술",
+        "symbol": "XLK",
+        "date": "2026-07-29",
+        "close": 166.57000732421875,
+        "change": -4.519989013671875,
+        "changePct": -2.6418780235082924,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "financials",
+        "label": "금융",
+        "symbol": "XLF",
+        "date": "2026-07-29",
+        "close": 56.68000030517578,
+        "change": -0.9199981689453125,
+        "changePct": -1.5972190856196902,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "utilities",
+        "label": "유틸리티",
+        "symbol": "XLU",
+        "date": "2026-07-29",
+        "close": 44.90999984741211,
+        "change": -0.6100006103515625,
+        "changePct": -1.340071626136207,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "materials",
+        "label": "소재",
+        "symbol": "XLB",
+        "date": "2026-07-29",
+        "close": 51.7400016784668,
+        "change": -0.5999984741210938,
+        "changePct": -1.1463478646769312,
+        "unit": "",
+        "decimals": 2
+      }
+    ]
+  }
+}
