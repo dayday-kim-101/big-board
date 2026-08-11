@@ -106,7 +106,7 @@
       "name": "셀트리온",
       "quantity": 146,
       "netBuyAmount": 29351000000,
-      "tradingVolume": 526733
+      "tradingVolume": 533999
     },
     {
       "market": "KOSPI",
@@ -138,7 +138,7 @@
       "name": "주성엔지니어링",
       "quantity": 129,
       "netBuyAmount": 18087000000,
-      "tradingVolume": 1584576
+      "tradingVolume": 1594417
     },
     {
       "market": "KOSDAQ",
@@ -154,7 +154,7 @@
       "name": "대한광통신",
       "quantity": 1268,
       "netBuyAmount": 15474000000,
-      "tradingVolume": 43603066
+      "tradingVolume": 44098334
     }
   ],
   "foreignerSellTop": [
@@ -164,7 +164,7 @@
       "name": "삼성전자",
       "quantity": -4394,
       "netSellAmount": -1013862000000,
-      "tradingVolume": 16324865
+      "tradingVolume": 16327805
     },
     {
       "market": "KOSPI",
@@ -172,7 +172,7 @@
       "name": "SK하이닉스",
       "quantity": -287,
       "netSellAmount": -408778000000,
-      "tradingVolume": 3289681
+      "tradingVolume": 3295283
     },
     {
       "market": "KOSPI",
