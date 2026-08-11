@@ -107,11 +107,6 @@ export function renderUsMarket(container, { dates = [], selectedDate = null, rep
   sectors.appendChild(itemList('하락 섹터', report.sectors?.falling || [], '하락 섹터 없음'));
   section.appendChild(sectors);
 
-  const interpretation = el('div', undefined, 'usm-interpretation');
-  interpretation.appendChild(el('h3', '한 문장 해석', 'krm-subtitle'));
-  interpretation.appendChild(el('p', report.interpretation || '해석 데이터 없음', 'usm-interpretation-text'));
-  section.appendChild(interpretation);
-
   const memo = el('div', undefined, 'krm-memo-box');
   memo.appendChild(el('label', '한줄메모', 'krm-memo-label'));
   const input = document.createElement('textarea');
