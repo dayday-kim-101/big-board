@@ -1,0 +1,184 @@
+{
+  "date": "2026-08-12",
+  "collectedAt": "2026-08-12T22:08:14.316Z",
+  "source": "yahoo",
+  "memo": "",
+  "interpretation": "S&P500 +0.26%·나스닥 +0.54%·러셀2000 +0.61%로 중소형주도 동반 강세, NVIDIA +3.03%·SOX +2.49% 기준 기술주/반도체가 상대적으로 지수를 지지; 10년물 4.682% 속 상승 섹터는 기술·부동산, 하락 섹터는 소재·경기소비재.",
+  "indices": [
+    {
+      "key": "dow",
+      "label": "다우존스",
+      "symbol": "^DJI",
+      "date": "2026-08-12",
+      "close": 53770.26953125,
+      "change": -21.58203125,
+      "changePct": -0.04012137642245711,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sp500",
+      "label": "S&P 500",
+      "symbol": "^GSPC",
+      "date": "2026-08-12",
+      "close": 7748.5,
+      "change": 20.2998046875,
+      "changePct": 0.2626718275208857,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "nasdaq",
+      "label": "나스닥",
+      "symbol": "^IXIC",
+      "date": "2026-08-12",
+      "close": 26588.48828125,
+      "change": 143.0390625,
+      "changePct": 0.5408834666290498,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "russell2000",
+      "label": "러셀2000",
+      "symbol": "^RUT",
+      "date": "2026-08-12",
+      "close": 3045.48291015625,
+      "change": 18.36279296875,
+      "changePct": 0.6066093269470552,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "focus": [
+    {
+      "key": "nvidia",
+      "label": "NVIDIA",
+      "symbol": "NVDA",
+      "date": "2026-08-12",
+      "close": 224.08999633789062,
+      "change": 6.589996337890625,
+      "changePct": 3.029883373742816,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sox",
+      "label": "필라델피아 반도체지수",
+      "symbol": "^SOX",
+      "date": "2026-08-12",
+      "close": 12399.3759765625,
+      "change": 300.90625,
+      "changePct": 2.4871430585915557,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "rates": [
+    {
+      "key": "us10y",
+      "label": "미국 10년물 금리",
+      "symbol": "^TNX",
+      "date": "2026-08-12",
+      "close": 4.682000160217285,
+      "change": -0.0019998550415039062,
+      "changePct": -0.04269545335160327,
+      "unit": "%",
+      "decimals": 3
+    }
+  ],
+  "sectors": {
+    "rising": [
+      {
+        "key": "technology",
+        "label": "기술",
+        "symbol": "XLK",
+        "date": "2026-08-12",
+        "close": 188.86000061035156,
+        "change": 2.7700042724609375,
+        "changePct": 1.4885293820046814,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "realEstate",
+        "label": "부동산",
+        "symbol": "XLRE",
+        "date": "2026-08-12",
+        "close": 44.4900016784668,
+        "change": 0.4099998474121094,
+        "changePct": 0.9301266569441506,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "utilities",
+        "label": "유틸리티",
+        "symbol": "XLU",
+        "date": "2026-08-12",
+        "close": 43.84000015258789,
+        "change": 0.20999908447265625,
+        "changePct": 0.48131808235531626,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerStaples",
+        "label": "필수소비재",
+        "symbol": "XLP",
+        "date": "2026-08-12",
+        "close": 85.08000183105469,
+        "change": 0.3899993896484375,
+        "changePct": 0.4605022770170104,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "healthcare",
+        "label": "헬스케어",
+        "symbol": "XLV",
+        "date": "2026-08-12",
+        "close": 168.44000244140625,
+        "change": 0.4300079345703125,
+        "changePct": 0.25594187764396154,
+        "unit": "",
+        "decimals": 2
+      }
+    ],
+    "falling": [
+      {
+        "key": "materials",
+        "label": "소재",
+        "symbol": "XLB",
+        "date": "2026-08-12",
+        "close": 52.58000183105469,
+        "change": -0.6599998474121094,
+        "changePct": -1.2396690958014185,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerDiscretionary",
+        "label": "경기소비재",
+        "symbol": "XLY",
+        "date": "2026-08-12",
+        "close": 117.88999938964844,
+        "change": -1.3499984741210938,
+        "changePct": -1.1321691532261289,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "communication",
+        "label": "커뮤니케이션",
+        "symbol": "XLC",
+        "date": "2026-08-12",
+        "close": 110.2699966430664,
+        "change": -1,
+        "changePct": -0.8987148648955344,
+        "unit": "",
+        "decimals": 2
+      }
+    ]
+  }
+}
