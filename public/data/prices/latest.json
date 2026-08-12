@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-12T20:19:59.163Z",
+  "updatedAt": "2026-08-12T21:07:46.076Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -8,8 +8,8 @@
       "price": 302.25,
       "change": -2.66,
       "changePct": -0.87,
-      "volume": 37377128,
-      "tradingValue": 11297236938,
+      "volume": 38820559,
+      "tradingValue": 11733513958,
       "approxTradingValue": true,
       "ok": true
     },
@@ -44,8 +44,8 @@
       "price": 142.16,
       "change": 9.16,
       "changePct": 6.89,
-      "volume": 54540434,
-      "tradingValue": 7753468097,
+      "volume": 54905451,
+      "tradingValue": 7805358914,
       "approxTradingValue": true,
       "ok": true
     },
@@ -104,8 +104,8 @@
       "price": 154.41,
       "change": 12.76,
       "changePct": 9.01,
-      "volume": 24294716,
-      "tradingValue": 3751347098,
+      "volume": 25484253,
+      "tradingValue": 3935023506,
       "approxTradingValue": true,
       "ok": true
     },
@@ -416,8 +416,8 @@
       "price": 224.09,
       "change": 6.59,
       "changePct": 3.03,
-      "volume": 105683089,
-      "tradingValue": 23682523414,
+      "volume": 106431963,
+      "tradingValue": 23850338589,
       "approxTradingValue": true,
       "ok": true
     }
