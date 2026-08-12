@@ -82,7 +82,7 @@
       "name": "삼성전자",
       "quantity": 2463,
       "netBuyAmount": 584285000000,
-      "tradingVolume": 23197807
+      "tradingVolume": 23310969
     },
     {
       "market": "KOSPI",
@@ -90,7 +90,7 @@
       "name": "SK스퀘어",
       "quantity": 69,
       "netBuyAmount": 64479000000,
-      "tradingVolume": 473244
+      "tradingVolume": 494514
     },
     {
       "market": "KOSPI",
@@ -106,7 +106,7 @@
       "name": "삼성바이오로직스",
       "quantity": 11,
       "netBuyAmount": 17993000000,
-      "tradingVolume": 61758
+      "tradingVolume": 69856
     },
     {
       "market": "KOSPI",
@@ -114,7 +114,7 @@
       "name": "SK",
       "quantity": 31,
       "netBuyAmount": 15990000000,
-      "tradingVolume": 113792
+      "tradingVolume": 116923
     },
     {
       "market": "KOSDAQ",
@@ -154,7 +154,7 @@
       "name": "고영",
       "quantity": 189,
       "netBuyAmount": 6078000000,
-      "tradingVolume": 1120404
+      "tradingVolume": 1128825
     }
   ],
   "foreignerSellTop": [
@@ -164,7 +164,7 @@
       "name": "SK하이닉스",
       "quantity": -211,
       "netSellAmount": -299781000000,
-      "tradingVolume": 3682655
+      "tradingVolume": 3817655
     },
     {
       "market": "KOSPI",
@@ -188,7 +188,7 @@
       "name": "삼화콘덴서",
       "quantity": -398,
       "netSellAmount": -34683000000,
-      "tradingVolume": 2315045
+      "tradingVolume": 2339274
     },
     {
       "market": "KOSPI",
@@ -204,7 +204,7 @@
       "name": "주성엔지니어링",
       "quantity": -243,
       "netSellAmount": -37685000000,
-      "tradingVolume": 3274568
+      "tradingVolume": 3289600
     },
     {
       "market": "KOSDAQ",
@@ -212,7 +212,7 @@
       "name": "알테오젠",
       "quantity": -84,
       "netSellAmount": -27963000000,
-      "tradingVolume": 741370
+      "tradingVolume": 745854
     },
     {
       "market": "KOSDAQ",
@@ -220,7 +220,7 @@
       "name": "제주반도체",
       "quantity": -250,
       "netSellAmount": -22836000000,
-      "tradingVolume": 3113362
+      "tradingVolume": 3130213
     },
     {
       "market": "KOSDAQ",
@@ -228,7 +228,7 @@
       "name": "디앤디파마텍",
       "quantity": -270,
       "netSellAmount": -16947000000,
-      "tradingVolume": 1928163
+      "tradingVolume": 1939941
     },
     {
       "market": "KOSDAQ",
