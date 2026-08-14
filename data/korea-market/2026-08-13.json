@@ -82,7 +82,7 @@
       "name": "SK하이닉스",
       "quantity": 650,
       "netBuyAmount": 1049916000000,
-      "tradingVolume": 4599305
+      "tradingVolume": 4680347
     },
     {
       "market": "KOSPI",
@@ -106,7 +106,7 @@
       "name": "KB금융",
       "quantity": 321,
       "netBuyAmount": 53868000000,
-      "tradingVolume": 1268495
+      "tradingVolume": 1281602
     },
     {
       "market": "KOSPI",
@@ -146,7 +146,7 @@
       "name": "PS일렉트로닉스",
       "quantity": 1605,
       "netBuyAmount": 16585000000,
-      "tradingVolume": 19368504
+      "tradingVolume": 19378277
     },
     {
       "market": "KOSDAQ",
@@ -164,7 +164,7 @@
       "name": "삼성전자",
       "quantity": -401,
       "netSellAmount": -103862000000,
-      "tradingVolume": 35463855
+      "tradingVolume": 35530867
     },
     {
       "market": "KOSPI",
@@ -172,7 +172,7 @@
       "name": "삼성전자우",
       "quantity": -523,
       "netSellAmount": -99377000000,
-      "tradingVolume": 5491249
+      "tradingVolume": 5591044
     },
     {
       "market": "KOSPI",
@@ -196,7 +196,7 @@
       "name": "맥쿼리인프라",
       "quantity": -2183,
       "netSellAmount": -21057000000,
-      "tradingVolume": 5464555
+      "tradingVolume": 5473946
     },
     {
       "market": "KOSDAQ",
@@ -220,7 +220,7 @@
       "name": "미래에셋벤처투자",
       "quantity": -1167,
       "netSellAmount": -22185000000,
-      "tradingVolume": 6335584
+      "tradingVolume": 6369937
     },
     {
       "market": "KOSDAQ",
