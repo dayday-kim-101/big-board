@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-14T06:52:36.378Z",
+  "updatedAt": "2026-08-14T08:11:54.057Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -20,8 +20,8 @@
       "price": 274500,
       "change": 6500,
       "changePct": 2.43,
-      "volume": 21668189,
-      "tradingValue": 5874097000000,
+      "volume": 21668266,
+      "tradingValue": 5874118000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -32,8 +32,8 @@
       "price": 1558000,
       "change": 55000,
       "changePct": 3.66,
-      "volume": 968089,
-      "tradingValue": 1504260000000,
+      "volume": 968103,
+      "tradingValue": 1504282000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -56,8 +56,8 @@
       "price": 40400,
       "change": -800,
       "changePct": -1.94,
-      "volume": 2307414,
-      "tradingValue": 92917000000,
+      "volume": 2308493,
+      "tradingValue": 92961000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -68,8 +68,8 @@
       "price": 177800,
       "change": -1500,
       "changePct": -0.84,
-      "volume": 1257320,
-      "tradingValue": 224081000000,
+      "volume": 1257725,
+      "tradingValue": 224153000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -80,8 +80,8 @@
       "price": 61400,
       "change": -300,
       "changePct": -0.49,
-      "volume": 755327,
-      "tradingValue": 46111000000,
+      "volume": 755401,
+      "tradingValue": 46116000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -92,8 +92,8 @@
       "price": 12400,
       "change": 440,
       "changePct": 3.68,
-      "volume": 3427164,
-      "tradingValue": 42366000000,
+      "volume": 3428013,
+      "tradingValue": 42377000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -140,8 +140,8 @@
       "price": 1645000,
       "change": 52000,
       "changePct": 3.26,
-      "volume": 4295988,
-      "tradingValue": 7116948000000,
+      "volume": 4295990,
+      "tradingValue": 7116951000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -152,8 +152,8 @@
       "price": 280000,
       "change": 19000,
       "changePct": 7.28,
-      "volume": 392687,
-      "tradingValue": 108772000000,
+      "volume": 392691,
+      "tradingValue": 108773000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -164,7 +164,7 @@
       "price": 118600,
       "change": 6400,
       "changePct": 5.7,
-      "volume": 1362137,
+      "volume": 1362139,
       "tradingValue": 162590000000,
       "approxTradingValue": false,
       "ok": true
@@ -224,8 +224,8 @@
       "price": 404000,
       "change": 25500,
       "changePct": 6.74,
-      "volume": 179664,
-      "tradingValue": 71816000000,
+      "volume": 179666,
+      "tradingValue": 71817000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -248,8 +248,8 @@
       "price": 119100,
       "change": 6100,
       "changePct": 5.4,
-      "volume": 1043065,
-      "tradingValue": 122345000000,
+      "volume": 1043141,
+      "tradingValue": 122354000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -260,8 +260,8 @@
       "price": 81500,
       "change": -6800,
       "changePct": -7.7,
-      "volume": 4160228,
-      "tradingValue": 346438000000,
+      "volume": 4162573,
+      "tradingValue": 346629000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -272,8 +272,8 @@
       "price": 116600,
       "change": -3400,
       "changePct": -2.83,
-      "volume": 1255068,
-      "tradingValue": 144626000000,
+      "volume": 1255228,
+      "tradingValue": 144645000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -320,8 +320,8 @@
       "price": 82600,
       "change": 1700,
       "changePct": 2.1,
-      "volume": 2118953,
-      "tradingValue": 174677000000,
+      "volume": 2119063,
+      "tradingValue": 174686000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -344,8 +344,8 @@
       "price": 11950,
       "change": 190,
       "changePct": 1.62,
-      "volume": 1912931,
-      "tradingValue": 22646000000,
+      "volume": 1913509,
+      "tradingValue": 22653000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -356,8 +356,8 @@
       "price": 206500,
       "change": -7500,
       "changePct": -3.5,
-      "volume": 752425,
-      "tradingValue": 154912000000,
+      "volume": 752430,
+      "tradingValue": 154914000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -380,8 +380,8 @@
       "price": 14710,
       "change": -400,
       "changePct": -2.65,
-      "volume": 5606600,
-      "tradingValue": 82317000000,
+      "volume": 5608439,
+      "tradingValue": 82344000000,
       "approxTradingValue": false,
       "ok": true
     },
@@ -404,8 +404,8 @@
       "price": 58300,
       "change": 1200,
       "changePct": 2.1,
-      "volume": 3799888,
-      "tradingValue": 218722000000,
+      "volume": 3801358,
+      "tradingValue": 218807000000,
       "approxTradingValue": false,
       "ok": true
     },
