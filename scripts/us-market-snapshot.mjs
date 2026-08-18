@@ -37,9 +37,15 @@ export function selectSnapshotDates(allDates, opts = {}, now = new Date()) {
   const sorted = [...new Set(allDates)].filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)).sort();
   if (opts.target === 'yesterday-kst') {
     const target = previousKstDateString(now);
-    return sorted.includes(target) ? [target] : [];
+    if (sorted.includes(target)) return [target];
+
+    // 국내 휴장 다음날(예: 대체공휴일 다음 미국장)에는 어제 국내증시 파일이 없다.
+    // 이때는 오늘 한국장이 끝나면 같은 날짜로 맞춰 볼 수 있도록 KST 오늘 날짜의
+    // 미국증시 메모를 선생성한다. 평소에는 target(어제)이 존재하므로 기존 동작 유지.
+    const today = kstDateString(now);
+    return /^\d{4}-\d{2}-\d{2}$/.test(today) ? [today] : [];
   }
-  if (opts.target === 'date') return sorted.includes(opts.date) ? [opts.date] : [];
+  if (opts.target === 'date') return /^\d{4}-\d{2}-\d{2}$/.test(opts.date) ? [opts.date] : [];
   return sorted;
 }
 

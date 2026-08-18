@@ -107,7 +107,7 @@ export function generateInterpretation(report = {}) {
   const laggards = (report.sectors?.falling || []).slice(0, 2).map((s) => s.label).join('·') || '뚜렷한 하락 섹터 제한';
   const pct = (x) => (Number.isFinite(Number(x?.changePct)) ? `${Number(x.changePct) >= 0 ? '+' : ''}${Number(x.changePct).toFixed(2)}%` : '—');
   const techTone = Number(nq?.changePct ?? 0) >= Number(sp?.changePct ?? 0) && Number(sox?.changePct ?? 0) >= 0 ? '기술주/반도체가 상대적으로 지수를 지지' : '기술주/반도체 탄력은 제한';
-  const breadthTone = Number(rut?.changePct ?? 0) >= Number(sp?.changePct ?? 0) ? '중소형주도 동반 강세' : '중소형주는 상대 약세';
+  const breadthTone = Number(rut?.changePct ?? 0) >= Number(sp?.changePct ?? 0) ? '중소형주는 상대 견조' : '중소형주는 상대 약세';
   return `S&P500 ${pct(sp)}·나스닥 ${pct(nq)}·러셀2000 ${pct(rut)}로 ${breadthTone}, NVIDIA ${pct(nvda)}·SOX ${pct(sox)} 기준 ${techTone}; 10년물 ${y10?.close != null ? Number(y10.close).toFixed(3) + '%' : '—'} 속 상승 섹터는 ${leaders}, 하락 섹터는 ${laggards}.`;
 }
 
