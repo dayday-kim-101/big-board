@@ -16,9 +16,9 @@ test('selectSnapshotDates: yesterday-kst가 국내증시 날짜에 있을 때 �
   assert.deepEqual(selectSnapshotDates(dates, { target: 'yesterday-kst' }, new Date('2026-08-10T21:30:00Z')), ['2026-08-10']);
 });
 
-test('selectSnapshotDates: 대상 국내증시 날짜가 없으면 오늘 KST 날짜로 미국증시 메모를 선생성', () => {
+test('selectSnapshotDates: yesterday-kst는 국내증시 파일이 없어도 실제 미국장 기준일을 선택', () => {
   const dates = ['2026-08-08', '2026-08-14'];
-  assert.deepEqual(selectSnapshotDates(dates, { target: 'yesterday-kst' }, new Date('2026-08-17T22:00:00Z')), ['2026-08-18']);
+  assert.deepEqual(selectSnapshotDates(dates, { target: 'yesterday-kst' }, new Date('2026-08-17T22:00:00Z')), ['2026-08-17']);
 });
 
 test('selectSnapshotDates: --date는 국내증시 파일이 없어도 해당 날짜를 선택', () => {
