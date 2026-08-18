@@ -82,7 +82,7 @@
       "name": "삼성전자",
       "quantity": 4913,
       "netBuyAmount": 1336152000000,
-      "tradingVolume": 21668266
+      "tradingVolume": 21669476
     },
     {
       "market": "KOSPI",
@@ -90,7 +90,7 @@
       "name": "SK하이닉스",
       "quantity": 748,
       "netBuyAmount": 1244772000000,
-      "tradingVolume": 4295990
+      "tradingVolume": 4520990
     },
     {
       "market": "KOSPI",
@@ -98,7 +98,7 @@
       "name": "삼성전자우",
       "quantity": 1324,
       "netBuyAmount": 255536000000,
-      "tradingVolume": 3847111
+      "tradingVolume": 3859277
     },
     {
       "market": "KOSPI",
@@ -130,7 +130,7 @@
       "name": "파두",
       "quantity": 245,
       "netBuyAmount": 17008000000,
-      "tradingVolume": 1184099
+      "tradingVolume": 1187394
     },
     {
       "market": "KOSDAQ",
@@ -196,7 +196,7 @@
       "name": "현대오토에버",
       "quantity": -40,
       "netSellAmount": -19669000000,
-      "tradingVolume": 223184
+      "tradingVolume": 230623
     },
     {
       "market": "KOSDAQ",
@@ -204,7 +204,7 @@
       "name": "제주반도체",
       "quantity": -384,
       "netSellAmount": -32949000000,
-      "tradingVolume": 4162573
+      "tradingVolume": 4217565
     },
     {
       "market": "KOSDAQ",
@@ -212,7 +212,7 @@
       "name": "코오롱티슈진",
       "quantity": -778,
       "netSellAmount": -22045000000,
-      "tradingVolume": 9744130
+      "tradingVolume": 9800839
     },
     {
       "market": "KOSDAQ",
@@ -228,7 +228,7 @@
       "name": "아주IB투자",
       "quantity": -4145,
       "netSellAmount": -17479000000,
-      "tradingVolume": 16497910
+      "tradingVolume": 16676818
     },
     {
       "market": "KOSDAQ",
@@ -236,7 +236,7 @@
       "name": "주성엔지니어링",
       "quantity": -87,
       "netSellAmount": -15585000000,
-      "tradingVolume": 1257725
+      "tradingVolume": 1264896
     }
   ]
 }
