@@ -1,26 +1,26 @@
 {
-  "updatedAt": "2026-08-18",
+  "updatedAt": "2026-08-19",
   "sectors": [
     {
       "name": "반도체",
-      "totalCapTrillion": 2817.6,
+      "totalCapTrillion": 2575.5,
       "companies": [
         {
           "name": "삼성전자",
           "code": "005930",
-          "capTrillion": 1569.7,
+          "capTrillion": 1447,
           "desc": "스마트폰, 가전, IDM"
         },
         {
           "name": "SK하이닉스",
           "code": "000660",
-          "capTrillion": 1214.1,
+          "capTrillion": 1095.7,
           "desc": "메모리 반도체 설계 및 제조"
         },
         {
           "name": "한미반도체",
           "code": "042700",
-          "capTrillion": 21.8,
+          "capTrillion": 21.1,
           "desc": "HBM을 위한 TC본더(위로 쌓는거) 제조"
         },
         {
@@ -32,43 +32,43 @@
         {
           "name": "DB하이텍",
           "code": "000990",
-          "capTrillion": 4.2,
+          "capTrillion": 4.1,
           "desc": "시스템반도체 파운드리"
         },
         {
           "name": "하나마이크론",
           "code": "067310",
-          "capTrillion": 2.6,
+          "capTrillion": 2.4,
           "desc": "국내 1위, 세계 10위 OSAT 기업"
         }
       ]
     },
     {
       "name": "조선",
-      "totalCapTrillion": 128.4,
+      "totalCapTrillion": 124.8,
       "companies": [
         {
           "name": "HD현대중공업",
           "code": "329180",
-          "capTrillion": 51.4,
+          "capTrillion": 49.8,
           "desc": "LNG운반선, MRO"
         },
         {
           "name": "한화오션",
           "code": "042660",
-          "capTrillion": 27.9,
+          "capTrillion": 27,
           "desc": "컨테이너선 제작, MRO"
         },
         {
           "name": "HD한국조선해양",
           "code": "009540",
-          "capTrillion": 26.5,
+          "capTrillion": 26,
           "desc": "컨테이너선, 해양플랜트"
         },
         {
           "name": "삼성중공업",
           "code": "010140",
-          "capTrillion": 18.7,
+          "capTrillion": 18.1,
           "desc": "LNG운반선 제작, FLNG"
         },
         {
@@ -81,24 +81,24 @@
     },
     {
       "name": "제약바이오",
-      "totalCapTrillion": 147.3,
+      "totalCapTrillion": 147.8,
       "companies": [
         {
           "name": "삼성바이오로직스",
           "code": "207940",
-          "capTrillion": 70.9,
+          "capTrillion": 71.5,
           "desc": "바이오의약품 위탁 생산"
         },
         {
           "name": "셀트리온",
           "code": "068270",
-          "capTrillion": 45.5,
+          "capTrillion": 45.2,
           "desc": "바이오시밀러 연구, 생산"
         },
         {
           "name": "알테오젠",
           "code": "196170",
-          "capTrillion": 16,
+          "capTrillion": 16.3,
           "desc": "피하주사 제형 개발"
         },
         {
@@ -116,43 +116,43 @@
         {
           "name": "셀트리온제약",
           "code": "068760",
-          "capTrillion": 1.9,
+          "capTrillion": 1.8,
           "desc": "의약품 국내 유통"
         }
       ]
     },
     {
       "name": "친환경",
-      "totalCapTrillion": 122.3,
+      "totalCapTrillion": 119.5,
       "companies": [
         {
           "name": "두산에너빌리티",
           "code": "034020",
-          "capTrillion": 49.9,
+          "capTrillion": 48.8,
           "desc": "소형모듈원전(SMR)"
         },
         {
           "name": "효성중공업",
           "code": "298040",
-          "capTrillion": 27.8,
+          "capTrillion": 27.1,
           "desc": "전력설비, 변압기 제조"
         },
         {
           "name": "LS일렉트릭",
           "code": "010120",
-          "capTrillion": 31.4,
+          "capTrillion": 30.3,
           "desc": "전력 배전, 초고압 변압기"
         },
         {
           "name": "한화솔루션",
           "code": "009830",
-          "capTrillion": 7.6,
+          "capTrillion": 7.8,
           "desc": "태양광 패널, 모듈 생산"
         },
         {
           "name": "한전기술",
           "code": "052690",
-          "capTrillion": 3.7,
+          "capTrillion": 3.6,
           "desc": "해양부유식 SMR 연구개발"
         },
         {
@@ -165,18 +165,18 @@
     },
     {
       "name": "방산/우주",
-      "totalCapTrillion": 123.2,
+      "totalCapTrillion": 122.9,
       "companies": [
         {
           "name": "한화에어로스페이스",
           "code": "012450",
-          "capTrillion": 59.1,
+          "capTrillion": 60.7,
           "desc": "우주발사체, K9자주포"
         },
         {
           "name": "현대로템",
           "code": "064350",
-          "capTrillion": 15.6,
+          "capTrillion": 14.9,
           "desc": "방산(K2전차), 철도"
         },
         {
@@ -188,26 +188,26 @@
         {
           "name": "한화시스템",
           "code": "272210",
-          "capTrillion": 15.1,
+          "capTrillion": 14.4,
           "desc": "발사대, 레이더(천궁-III)"
         },
         {
           "name": "한국항공우주",
           "code": "047810",
-          "capTrillion": 13.6,
+          "capTrillion": 13.2,
           "desc": "항공기, 발사체 설계/제조"
         },
         {
           "name": "풍산",
           "code": "103140",
-          "capTrillion": 2.3,
+          "capTrillion": 2.2,
           "desc": "동전, 탄약 생산"
         }
       ]
     },
     {
       "name": "의료기기",
-      "totalCapTrillion": 11.1,
+      "totalCapTrillion": 10.9,
       "companies": [
         {
           "name": "파마리서치",
@@ -224,13 +224,13 @@
         {
           "name": "클래시스",
           "code": "214150",
-          "capTrillion": 2.3,
+          "capTrillion": 2.2,
           "desc": "고강도 집속 초음파"
         },
         {
           "name": "원텍",
           "code": "336570",
-          "capTrillion": 0.5,
+          "capTrillion": 0.4,
           "desc": "피부미용 레이저치료기"
         },
         {
@@ -249,60 +249,60 @@
     },
     {
       "name": "자동차",
-      "totalCapTrillion": 196,
+      "totalCapTrillion": 188.9,
       "companies": [
         {
           "name": "현대차",
           "code": "005380",
-          "capTrillion": 89.1,
+          "capTrillion": 84.8,
           "desc": "완성차 브랜드"
         },
         {
           "name": "기아",
           "code": "000270",
-          "capTrillion": 53.6,
+          "capTrillion": 51.9,
           "desc": "완성차 브랜드"
         },
         {
           "name": "현대모비스",
           "code": "012330",
-          "capTrillion": 47,
+          "capTrillion": 46.2,
           "desc": "자동차 부품 제조, 판매"
         },
         {
           "name": "한온시스템",
           "code": "018880",
-          "capTrillion": 3.8,
+          "capTrillion": 3.6,
           "desc": "자동차 공조 관련 부품"
         },
         {
           "name": "HL만도",
           "code": "204320",
-          "capTrillion": 2.5,
+          "capTrillion": 2.4,
           "desc": "제동, 조향, 서스펜션"
         }
       ]
     },
     {
       "name": "정유/화학",
-      "totalCapTrillion": 75.3,
+      "totalCapTrillion": 74.2,
       "companies": [
         {
           "name": "LG화학",
           "code": "051910",
-          "capTrillion": 19.1,
+          "capTrillion": 18.8,
           "desc": "석유화학, 첨단소재"
         },
         {
           "name": "SK이노베이션",
           "code": "096770",
-          "capTrillion": 22.2,
+          "capTrillion": 21.8,
           "desc": "SK On, 석유화학"
         },
         {
           "name": "S-Oil",
           "code": "010950",
-          "capTrillion": 17.3,
+          "capTrillion": 17.1,
           "desc": "정유, 윤활, 석유화학"
         },
         {
@@ -314,20 +314,20 @@
         {
           "name": "금호석유화학",
           "code": "011780",
-          "capTrillion": 3.2,
+          "capTrillion": 3.1,
           "desc": "합성수지, 합성고무, 화학"
         },
         {
           "name": "롯데케미칼",
           "code": "011170",
-          "capTrillion": 2.4,
+          "capTrillion": 2.3,
           "desc": "에틸렌, 합성/복합수지"
         }
       ]
     },
     {
       "name": "엔터/미디어",
-      "totalCapTrillion": 12.5,
+      "totalCapTrillion": 12.6,
       "companies": [
         {
           "name": "하이브",
@@ -338,7 +338,7 @@
         {
           "name": "에스엠",
           "code": "041510",
-          "capTrillion": 1.6,
+          "capTrillion": 1.7,
           "desc": "EXO, NCT127, AESPA"
         },
         {
@@ -369,24 +369,24 @@
     },
     {
       "name": "이차전지",
-      "totalCapTrillion": 180.4,
+      "totalCapTrillion": 181.4,
       "companies": [
         {
           "name": "LG에너지솔루션",
           "code": "373220",
-          "capTrillion": 82.1,
+          "capTrillion": 83.7,
           "desc": "자동차, 소형, ESS전지(프리미엄 배터리 세계 1위)"
         },
         {
           "name": "삼성SDI",
           "code": "006400",
-          "capTrillion": 39.3,
+          "capTrillion": 39.2,
           "desc": "자동차, ESS, 반도체"
         },
         {
           "name": "SK이노베이션",
           "code": "096770",
-          "capTrillion": 22.2,
+          "capTrillion": 21.8,
           "desc": "SK On, 석유화학"
         },
         {
@@ -404,43 +404,43 @@
         {
           "name": "에코프로",
           "code": "086520",
-          "capTrillion": 11.8,
+          "capTrillion": 11.7,
           "desc": "양극재(리튬) 판매"
         }
       ]
     },
     {
       "name": "건설주",
-      "totalCapTrillion": 94.2,
+      "totalCapTrillion": 91.7,
       "companies": [
         {
           "name": "삼성물산",
           "code": "028260",
-          "capTrillion": 59.8,
+          "capTrillion": 56.3,
           "desc": "래미안"
         },
         {
           "name": "현대건설",
           "code": "000720",
-          "capTrillion": 12.3,
+          "capTrillion": 13,
           "desc": "힐스테이트"
         },
         {
           "name": "삼성E&A",
           "code": "028050",
-          "capTrillion": 9.4,
+          "capTrillion": 9.5,
           "desc": "산업설비, 플랜트"
         },
         {
           "name": "DL이앤씨",
           "code": "375500",
-          "capTrillion": 2.7,
+          "capTrillion": 2.8,
           "desc": "이편한세상"
         },
         {
           "name": "GS건설",
           "code": "006360",
-          "capTrillion": 2.9,
+          "capTrillion": 3,
           "desc": "자이"
         },
         {
@@ -453,7 +453,7 @@
     },
     {
       "name": "호텔/레저/유통",
-      "totalCapTrillion": 14.7,
+      "totalCapTrillion": 14.2,
       "companies": [
         {
           "name": "강원랜드",
@@ -464,13 +464,13 @@
         {
           "name": "이마트",
           "code": "139480",
-          "capTrillion": 2.1,
+          "capTrillion": 2,
           "desc": "온라인, 오프라인 유통"
         },
         {
           "name": "롯데쇼핑",
           "code": "023530",
-          "capTrillion": 2.9,
+          "capTrillion": 2.7,
           "desc": "백화점, 아울렛, 마트"
         },
         {
@@ -488,31 +488,31 @@
         {
           "name": "신세계",
           "code": "004170",
-          "capTrillion": 4,
+          "capTrillion": 3.8,
           "desc": "백화점, 면세업, 유통"
         }
       ]
     },
     {
       "name": "통신주",
-      "totalCapTrillion": 193.3,
+      "totalCapTrillion": 175,
       "companies": [
         {
           "name": "SK스퀘어",
           "code": "402340",
-          "capTrillion": 149.8,
+          "capTrillion": 132.5,
           "desc": "ICT, 디지털 인프라, AI"
         },
         {
           "name": "KT",
           "code": "030200",
-          "capTrillion": 13.7,
+          "capTrillion": 13.3,
           "desc": "무선 및 위성 통신업"
         },
         {
           "name": "SK텔레콤",
           "code": "017670",
-          "capTrillion": 21.4,
+          "capTrillion": 21,
           "desc": "무선 및 위성 통신업"
         },
         {
@@ -524,43 +524,43 @@
         {
           "name": "RFHIC",
           "code": "218410",
-          "capTrillion": 1.4,
+          "capTrillion": 1.3,
           "desc": "무선 주파수 부품 생산"
         },
         {
           "name": "케이엠더블유",
           "code": "032500",
-          "capTrillion": 0.7,
+          "capTrillion": 0.6,
           "desc": "무선통신 기지국 장비 생산"
         }
       ]
     },
     {
       "name": "운수/항공",
-      "totalCapTrillion": 57.2,
+      "totalCapTrillion": 55.9,
       "companies": [
         {
           "name": "HMM",
           "code": "011200",
-          "capTrillion": 21.4,
+          "capTrillion": 20.5,
           "desc": "컨테이너 해상화물 운송"
         },
         {
           "name": "현대글로비스",
           "code": "086280",
-          "capTrillion": 15.5,
+          "capTrillion": 15.3,
           "desc": "육상 및 해상 물류 유통"
         },
         {
           "name": "대한항공",
           "code": "003490",
-          "capTrillion": 9.3,
+          "capTrillion": 9.2,
           "desc": "항공 여객 운송, MRO"
         },
         {
           "name": "한진칼",
           "code": "180640",
-          "capTrillion": 7.9,
+          "capTrillion": 7.8,
           "desc": "항공운송, 종합물류"
         },
         {
@@ -579,18 +579,18 @@
     },
     {
       "name": "화장품",
-      "totalCapTrillion": 35.7,
+      "totalCapTrillion": 35.5,
       "companies": [
         {
           "name": "에이피알",
           "code": "278470",
-          "capTrillion": 14.8,
+          "capTrillion": 14.4,
           "desc": "메디큐브, 에이프릴스킨"
         },
         {
           "name": "아모레퍼시픽",
           "code": "090430",
-          "capTrillion": 7.7,
+          "capTrillion": 7.8,
           "desc": "설화수, 헤라, 이니스프리"
         },
         {
@@ -602,43 +602,43 @@
         {
           "name": "실리콘투",
           "code": "257720",
-          "capTrillion": 2.9,
+          "capTrillion": 3,
           "desc": "화장품 유통, 해외 판매"
         },
         {
           "name": "코스맥스",
           "code": "192820",
-          "capTrillion": 2.7,
+          "capTrillion": 2.8,
           "desc": "화장품 및 건기식 ODM"
         },
         {
           "name": "한국콜마",
           "code": "161890",
-          "capTrillion": 3.1,
+          "capTrillion": 3,
           "desc": "화장품, 제약 ODM/OEM"
         }
       ]
     },
     {
       "name": "IT/게임",
-      "totalCapTrillion": 71.5,
+      "totalCapTrillion": 69.2,
       "companies": [
         {
           "name": "NAVER",
           "code": "035420",
-          "capTrillion": 34.1,
+          "capTrillion": 32.7,
           "desc": "서치플랫폼, 커머스, 핀테크"
         },
         {
           "name": "카카오",
           "code": "035720",
-          "capTrillion": 16.9,
+          "capTrillion": 16.6,
           "desc": "콘텐츠, 플랫폼, 커머스"
         },
         {
           "name": "크래프톤",
           "code": "259960",
-          "capTrillion": 10.5,
+          "capTrillion": 10.2,
           "desc": "배틀그라운드"
         },
         {
@@ -650,7 +650,7 @@
         {
           "name": "엔씨소프트",
           "code": "036570",
-          "capTrillion": 5,
+          "capTrillion": 4.7,
           "desc": "리니지"
         },
         {
@@ -663,18 +663,18 @@
     },
     {
       "name": "의류",
-      "totalCapTrillion": 9.4,
+      "totalCapTrillion": 9.1,
       "companies": [
         {
           "name": "영원무역",
           "code": "111770",
-          "capTrillion": 3.6,
+          "capTrillion": 3.4,
           "desc": "노스페이스 위탁생산"
         },
         {
           "name": "F&F",
           "code": "383220",
-          "capTrillion": 2.5,
+          "capTrillion": 2.4,
           "desc": "MLB, 디스커버리"
         },
         {
@@ -699,60 +699,60 @@
     },
     {
       "name": "은행/증권",
-      "totalCapTrillion": 200.4,
+      "totalCapTrillion": 197.3,
       "companies": [
         {
           "name": "KB금융",
           "code": "105560",
-          "capTrillion": 59.8,
+          "capTrillion": 59,
           "desc": "은행, 카드, 증권 서비스"
         },
         {
           "name": "신한지주",
           "code": "055550",
-          "capTrillion": 50,
+          "capTrillion": 49.3,
           "desc": "은행, 카드, 증권 서비스"
         },
         {
           "name": "하나금융지주",
           "code": "086790",
-          "capTrillion": 35.9,
+          "capTrillion": 35,
           "desc": "은행, 카드, 증권 서비스"
         },
         {
           "name": "우리금융지주",
           "code": "316140",
-          "capTrillion": 24.6,
+          "capTrillion": 24.4,
           "desc": "은행, 카드, 보험 서비스"
         },
         {
           "name": "메리츠금융지주",
           "code": "138040",
-          "capTrillion": 19.6,
+          "capTrillion": 19.3,
           "desc": "단일 종목 상장, 보험업"
         },
         {
           "name": "카카오뱅크",
           "code": "323410",
-          "capTrillion": 10.5,
+          "capTrillion": 10.3,
           "desc": "대출, 간편 결제 서비스"
         }
       ]
     },
     {
       "name": "식품",
-      "totalCapTrillion": 41.2,
+      "totalCapTrillion": 40.8,
       "companies": [
         {
           "name": "KT&G",
           "code": "033780",
-          "capTrillion": 18.3,
+          "capTrillion": 18.2,
           "desc": "담배 및 홍삼 제조"
         },
         {
           "name": "삼양식품",
           "code": "003230",
-          "capTrillion": 10,
+          "capTrillion": 9.8,
           "desc": "라면, 스낵, 유제품 제조"
         },
         {
@@ -764,7 +764,7 @@
         {
           "name": "CJ제일제당",
           "code": "097950",
-          "capTrillion": 2.8,
+          "capTrillion": 2.7,
           "desc": "설탕, 만두 제조"
         },
         {
@@ -783,42 +783,42 @@
     },
     {
       "name": "보험",
-      "totalCapTrillion": 113.6,
+      "totalCapTrillion": 106.4,
       "companies": [
         {
           "name": "삼성생명",
           "code": "032830",
-          "capTrillion": 62.1,
+          "capTrillion": 55.2,
           "desc": "생명보험업(암,뇌,심)"
         },
         {
           "name": "삼성화재",
           "code": "000810",
-          "capTrillion": 27.9,
+          "capTrillion": 27.4,
           "desc": "손해보험업(여행,자동차)"
         },
         {
           "name": "DB손해보험",
           "code": "005830",
-          "capTrillion": 11.9,
+          "capTrillion": 12.3,
           "desc": "손해보험업(화재,자동차)"
         },
         {
           "name": "한화생명",
           "code": "088350",
-          "capTrillion": 4.8,
+          "capTrillion": 4.6,
           "desc": "생명보험업(암,뇌,심)"
         },
         {
           "name": "현대해상",
           "code": "001450",
-          "capTrillion": 4.2,
+          "capTrillion": 4.3,
           "desc": "손해보험업(화재,자동차)"
         },
         {
           "name": "코리안리",
           "code": "003690",
-          "capTrillion": 2.7,
+          "capTrillion": 2.6,
           "desc": "재보험(보험사의 보험)"
         }
       ]
