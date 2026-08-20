@@ -138,7 +138,7 @@
       "name": "HPSP",
       "quantity": 298,
       "netBuyAmount": 12891000000,
-      "tradingVolume": 6337022
+      "tradingVolume": 6419914
     },
     {
       "market": "KOSDAQ",
@@ -164,7 +164,7 @@
       "name": "SK하이닉스",
       "quantity": -1199,
       "netSellAmount": -1817617000000,
-      "tradingVolume": 4206017
+      "tradingVolume": 4223067
     },
     {
       "market": "KOSPI",
@@ -172,7 +172,7 @@
       "name": "삼성전자",
       "quantity": -4178,
       "netSellAmount": -1037160000000,
-      "tradingVolume": 22683374
+      "tradingVolume": 22788552
     },
     {
       "market": "KOSPI",
@@ -180,7 +180,7 @@
       "name": "SK스퀘어",
       "quantity": -213,
       "netSellAmount": -215519000000,
-      "tradingVolume": 626319
+      "tradingVolume": 628410
     },
     {
       "market": "KOSPI",
@@ -188,7 +188,7 @@
       "name": "삼성전기",
       "quantity": -108,
       "netSellAmount": -149609000000,
-      "tradingVolume": 738198
+      "tradingVolume": 739938
     },
     {
       "market": "KOSPI",
@@ -196,7 +196,7 @@
       "name": "삼성전자우",
       "quantity": -761,
       "netSellAmount": -133039000000,
-      "tradingVolume": 2968920
+      "tradingVolume": 3098303
     },
     {
       "market": "KOSDAQ",
