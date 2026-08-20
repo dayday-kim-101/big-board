@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseIndexRow, summarizeBreadth, parseInvestorTrendHtml, parseForeignerTopHtml, buildReport, applyMemo } from './_korea-market-core.js';
+import { parseIndexRow, summarizeBreadth, parseInvestorTrendHtml, parseForeignerTopHtml, buildReport, applyMemo, computeInvestorFlows, sanitizeReport } from './_korea-market-core.js';
 
 test('parseIndexRow: 네이버 지수 응답 정규화', () => {
   const idx = parseIndexRow('KOSPI', {
@@ -83,4 +83,53 @@ test('buildReport/applyMemo: 날짜 리포트와 한줄메모', () => {
   assert.equal(next.foreignerTop.filter((x) => x.market === 'KOSDAQ').length, 3);
   assert.equal(next.foreignerSellTop.length, 2);
   assert.equal(next.foreignerSellTop[0].netSellAmount, 100_000_000_000);
+});
+
+const T = 1_000_000_000_000;
+function flowReport(date, kospi, kosdaq) {
+  return {
+    date,
+    markets: [
+      { key: 'KOSPI', label: '코스피', investor: kospi ? { market: 'KOSPI', date, ...kospi } : null },
+      { key: 'KOSDAQ', label: '코스닥', investor: kosdaq ? { market: 'KOSDAQ', date, ...kosdaq } : null },
+    ],
+  };
+}
+
+test('computeInvestorFlows: 5/10/20일 누적과 평균', () => {
+  const reports = Array.from({ length: 20 }, (_, i) => flowReport(
+    `2026-08-${String(20 - i).padStart(2, '0')}`,
+    { personal: T, foreign: -T, institution: 0 },
+    { personal: 2 * T, foreign: 0, institution: 0 },
+  ));
+  const flows = computeInvestorFlows(reports);
+  const kospi = flows.markets.find((m) => m.key === 'KOSPI');
+  assert.deepEqual(kospi.flows.personal.map((f) => [f.window, f.days, f.total, f.average, f.complete]), [
+    [5, 5, 5 * T, T, true], [10, 10, 10 * T, T, true], [20, 20, 20 * T, T, true],
+  ]);
+  assert.equal(kospi.flows.foreign[0].total, -5 * T);
+  assert.equal(flows.markets.find((m) => m.key === 'KOSDAQ').flows.personal[2].total, 40 * T);
+  assert.equal(flows.asOf, '2026-08-20');
+  assert.equal(flows.sampleDays, 20);
+});
+
+test('computeInvestorFlows: 데이터 부족 시 가능한 일수만 집계', () => {
+  const reports = [
+    flowReport('2026-08-20', { personal: 3 * T, foreign: null, institution: null }),
+    flowReport('2026-08-19', { personal: T, foreign: null, institution: null }),
+    null,
+  ];
+  const kospi = computeInvestorFlows(reports).markets.find((m) => m.key === 'KOSPI');
+  assert.deepEqual(kospi.flows.personal[0], { window: 5, days: 2, total: 4 * T, average: 2 * T, complete: false });
+  assert.deepEqual(kospi.flows.foreign[0], { window: 5, days: 0, total: null, average: null, complete: false });
+  assert.deepEqual(kospi.flows.personal[2], { window: 20, days: 2, total: 4 * T, average: 2 * T, complete: false });
+});
+
+test('sanitizeReport/applyMemo: investorFlows 보존', () => {
+  const investorFlows = computeInvestorFlows([flowReport('2026-08-20', { personal: T, foreign: -T, institution: 0 })]);
+  const out = applyMemo(sanitizeReport({ date: '2026-08-20', investorFlows }), '메모');
+  assert.equal(out.investorFlows.markets.length, 2);
+  assert.equal(out.investorFlows.markets[0].flows.personal[0].total, T);
+  assert.equal(out.investorFlows.markets[0].flows.foreign[0].average, -T);
+  assert.equal(sanitizeReport({ date: '2026-08-20' }).investorFlows, null);
 });

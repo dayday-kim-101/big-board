@@ -2,7 +2,7 @@
 // GET /api/korea-market?email=&date=YYYY-MM-DD → 해당일 리포트 + 사용자 한줄메모
 // PUT /api/korea-market?email=&date=YYYY-MM-DD body:{ memo }
 import { emailKey, normalizeEmail, readJson, writeJson, listDir } from './_github.js';
-import { applyMemo, sanitizeReport } from './_korea-market-core.js';
+import { applyMemo, sanitizeReport, computeInvestorFlows, MAX_FLOW_LOOKBACK } from './_korea-market-core.js';
 
 const REPORT_DIR = 'data/korea-market';
 const NOTE_DIR = 'data/korea-market-notes';
@@ -25,6 +25,21 @@ export function parseDirDates(items) {
     .sort((a, b) => (a < b ? 1 : a > b ? -1 : 0));
 }
 
+async function loadFlowReports(env, dates, date, selectedReport) {
+  const idx = dates.indexOf(date);
+  if (idx < 0) return [selectedReport || null];
+  const window = dates.slice(idx, idx + MAX_FLOW_LOOKBACK);
+  const rest = await Promise.all(window.slice(1).map(async (d) => {
+    try {
+      const { data } = await readJson(env, reportPath(d));
+      return data || null;
+    } catch {
+      return null;
+    }
+  }));
+  return [selectedReport || null, ...rest];
+}
+
 export async function onRequestGet({ request, env }) {
   if (!envReady(env)) return err('서버 환경변수(GITHUB_*) 미설정', 500);
   const url = new URL(request.url);
@@ -38,7 +53,9 @@ export async function onRequestGet({ request, env }) {
     if (!date) return new Response(JSON.stringify({ dates: [], latest: null, report: null, updatedAt: null }), { headers: JSON_HEADERS });
     const [{ data: reportData }, { data: notesData }] = await Promise.all([readJson(env, reportPath(date)), readJson(env, notePath(hash))]);
     const notes = notesData || emptyNotes();
-    const base = reportData ? sanitizeReport(reportData) : sanitizeReport({ date });
+    const flowReports = await loadFlowReports(env, dates, date, reportData);
+    const investorFlows = computeInvestorFlows(flowReports);
+    const base = sanitizeReport({ ...(reportData || { date }), date, investorFlows });
     const memo = String(notes.notes?.[date] ?? '');
     return new Response(JSON.stringify({ dates, latest: dates[0] ?? null, report: applyMemo(base, memo), updatedAt: notes.updatedAt ?? null }), { headers: requestedDate ? REPORT_HEADERS : JSON_HEADERS });
   } catch (e) {

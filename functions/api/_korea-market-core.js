@@ -5,6 +5,13 @@ const MARKETS = [
   { key: 'KOSPI', label: '코스피', sosok: '01', stockCategory: 'KOSPI' },
   { key: 'KOSDAQ', label: '코스닥', sosok: '02', stockCategory: 'KOSDAQ' },
 ];
+export const FLOW_WINDOWS = [5, 10, 20];
+export const INVESTOR_KINDS = [
+  { key: 'personal', label: '개인' },
+  { key: 'foreign', label: '외국인' },
+  { key: 'institution', label: '기관' },
+];
+export const MAX_FLOW_LOOKBACK = Math.max(...FLOW_WINDOWS);
 
 export function num(v) {
   if (v === null || v === undefined || v === '') return null;
@@ -123,6 +130,58 @@ export function parseForeignerTopHtml(html, marketKey = '', expectedDate = '', s
   return latestDate ? byDate.get(latestDate) : undated;
 }
 
+export function computeInvestorFlows(reports = [], { windows = FLOW_WINDOWS } = {}) {
+  const list = Array.isArray(reports) ? reports : [];
+  const wins = (Array.isArray(windows) ? windows : FLOW_WINDOWS).map((w) => num(w)).filter((w) => w > 0);
+  const markets = MARKETS.map((m) => {
+    const series = list.map((r) => (Array.isArray(r?.markets) ? r.markets.find((x) => String(x?.key) === m.key) : null)?.investor || null);
+    const flows = {};
+    for (const kind of INVESTOR_KINDS) {
+      flows[kind.key] = wins.map((w) => {
+        let total = 0;
+        let days = 0;
+        for (const inv of series.slice(0, w)) {
+          const v = signedNum(inv?.[kind.key]);
+          if (v == null) continue;
+          total += v;
+          days += 1;
+        }
+        return days
+          ? { window: w, days, total, average: total / days, complete: days === w }
+          : { window: w, days: 0, total: null, average: null, complete: false };
+      });
+    }
+    return { key: m.key, label: m.label, flows };
+  });
+  return {
+    windows: wins,
+    asOf: String(list[0]?.date || '').slice(0, 10),
+    sampleDays: list.filter(Boolean).length,
+    markets,
+  };
+}
+
+export function sanitizeInvestorFlows(input) {
+  if (!input || !Array.isArray(input.markets)) return null;
+  const windows = (Array.isArray(input.windows) ? input.windows : []).map((w) => num(w)).filter((w) => w > 0).slice(0, 6);
+  return {
+    windows,
+    asOf: String(input.asOf || '').slice(0, 10),
+    sampleDays: num(input.sampleDays) || 0,
+    markets: input.markets.slice(0, 4).map((m) => ({
+      key: String(m.key || ''),
+      label: String(m.label || ''),
+      flows: Object.fromEntries(INVESTOR_KINDS.map((k) => [k.key, (Array.isArray(m.flows?.[k.key]) ? m.flows[k.key] : []).slice(0, 6).map((f) => ({
+        window: num(f?.window) || 0,
+        days: num(f?.days) || 0,
+        total: signedNum(f?.total),
+        average: signedNum(f?.average),
+        complete: Boolean(f?.complete),
+      }))])),
+    })),
+  };
+}
+
 export function buildReport({ date, indices = [], breadth = [], investor = [], foreignerTop = [], foreignerSellTop = [], collectedAt = new Date().toISOString(), source = 'naver' } = {}) {
   const byMarket = Object.fromEntries(MARKETS.map((m) => [m.key, { ...m, breadth: null, investor: null }]));
   for (const b of breadth) if (byMarket[b.market]) byMarket[b.market].breadth = b;
@@ -145,6 +204,7 @@ export function sanitizeReport(input = {}) {
       breadth: m.breadth ? { market: String(m.breadth.market || ''), upCount: num(m.breadth.upCount) || 0, downCount: num(m.breadth.downCount) || 0, flatCount: num(m.breadth.flatCount) || 0, stockCount: num(m.breadth.stockCount) || 0 } : null,
       investor: m.investor ? { market: String(m.investor.market || ''), date: String(m.investor.date || '').slice(0, 10), personal: signedNum(m.investor.personal), foreign: signedNum(m.investor.foreign), institution: signedNum(m.investor.institution) } : null,
     })) : [],
+    investorFlows: sanitizeInvestorFlows(input.investorFlows),
     foreignerTop: Array.isArray(input.foreignerTop) ? input.foreignerTop.slice(0, 10).map((x) => ({
       market: String(x.market || ''), code: String(x.code || ''), name: String(x.name || ''), quantity: num(x.quantity), netBuyAmount: signedNum(x.netBuyAmount), tradingVolume: num(x.tradingVolume),
     })) : [],

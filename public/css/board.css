@@ -732,6 +732,19 @@ button.primary { background: var(--accent); color: #1a1300; border-color: var(--
 .krm-index-change.down, .krm-index-card.down .krm-index-price { color:var(--down); }
 .krm-index-change.flat { color:var(--flat); }
 .krm-market-box, .krm-foreign-box, .krm-memo-box { margin-top:12px; border:1px solid var(--line); border-radius:12px; padding:10px; background:var(--panel-2); }
+.krm-flow-box { margin-top:12px; border:1px solid var(--line); border-radius:12px; padding:10px; background:var(--panel-2); }
+.krm-flow-market { margin-top:8px; }
+.krm-flow-market-title { margin:0 0 6px; color:var(--accent); font-size:13px; }
+.krm-flow-table { width:100%; border-collapse:collapse; font-size:13px; }
+.krm-flow-th { padding:4px 6px; text-align:right; color:var(--muted); font-size:12px; font-weight:700; border-bottom:1px solid var(--line); }
+.krm-flow-th:first-child { text-align:left; }
+.krm-flow-rowhead { padding:6px; text-align:left; color:var(--muted); font-weight:700; white-space:nowrap; }
+.krm-flow-cell { padding:6px; text-align:right; font-variant-numeric:tabular-nums; }
+.krm-flow-value { font-weight:700; }
+.krm-flow-cell.up .krm-flow-value { color:var(--up); }
+.krm-flow-cell.down .krm-flow-value { color:var(--down); }
+.krm-flow-cell.flat .krm-flow-value { color:var(--flat); }
+.krm-flow-note { display:block; color:var(--muted); font-size:11px; font-weight:400; }
 .krm-subtitle { margin:0 0 8px; font-size:14px; color:var(--text); }
 .krm-market-row { display:grid; grid-template-columns:86px 1fr 1.4fr; gap:8px; align-items:center; padding:6px 0; border-top:1px solid var(--line); font-size:13px; }
 .krm-market-row:first-of-type { border-top:0; }
