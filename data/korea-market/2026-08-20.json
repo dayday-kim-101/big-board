@@ -1,0 +1,242 @@
+{
+  "date": "2026-08-20",
+  "collectedAt": "2026-08-20T20:00:00+09:00",
+  "source": "naver-static-20kst",
+  "memo": "",
+  "indices": [
+    {
+      "code": "KOSPI",
+      "name": "KOSPI",
+      "date": "2026-08-20",
+      "closePrice": 6852.58,
+      "change": 381.41,
+      "changePct": 5.89,
+      "direction": "RISING",
+      "marketStatus": ""
+    },
+    {
+      "code": "KOSDAQ",
+      "name": "KOSDAQ",
+      "date": "2026-08-20",
+      "closePrice": 840.89,
+      "change": 16.43,
+      "changePct": 1.99,
+      "direction": "RISING",
+      "marketStatus": ""
+    },
+    {
+      "code": "KPI200",
+      "name": "KOSPI200",
+      "date": "2026-08-20",
+      "closePrice": 1080.98,
+      "change": 68.37,
+      "changePct": 6.75,
+      "direction": "RISING",
+      "marketStatus": ""
+    }
+  ],
+  "markets": [
+    {
+      "key": "KOSPI",
+      "label": "코스피",
+      "sosok": "01",
+      "breadth": {
+        "market": "KOSPI",
+        "upCount": 522,
+        "downCount": 338,
+        "flatCount": 84,
+        "stockCount": 944
+      },
+      "investor": {
+        "market": "KOSPI",
+        "date": "2026-08-20",
+        "personal": -2271200000000,
+        "foreign": 1706800000000,
+        "institution": -489500000000
+      }
+    },
+    {
+      "key": "KOSDAQ",
+      "label": "코스닥",
+      "sosok": "02",
+      "breadth": {
+        "market": "KOSDAQ",
+        "upCount": 1064,
+        "downCount": 576,
+        "flatCount": 181,
+        "stockCount": 1821
+      },
+      "investor": {
+        "market": "KOSDAQ",
+        "date": "2026-08-20",
+        "personal": 1600000000,
+        "foreign": -132800000000,
+        "institution": 119400000000
+      }
+    }
+  ],
+  "foreignerTop": [
+    {
+      "market": "KOSPI",
+      "code": "005930",
+      "name": "삼성전자",
+      "quantity": 4222,
+      "netBuyAmount": 1133148000000,
+      "tradingVolume": 26093355
+    },
+    {
+      "market": "KOSPI",
+      "code": "000660",
+      "name": "SK하이닉스",
+      "quantity": 313,
+      "netBuyAmount": 529248000000,
+      "tradingVolume": 5452849
+    },
+    {
+      "market": "KOSPI",
+      "code": "402340",
+      "name": "SK스퀘어",
+      "quantity": 68,
+      "netBuyAmount": 76667000000,
+      "tradingVolume": 850827
+    },
+    {
+      "market": "KOSPI",
+      "code": "005935",
+      "name": "삼성전자우",
+      "quantity": 258,
+      "netBuyAmount": 48565000000,
+      "tradingVolume": 3576677
+    },
+    {
+      "market": "KOSPI",
+      "code": "035420",
+      "name": "NAVER",
+      "quantity": 188,
+      "netBuyAmount": 41461000000,
+      "tradingVolume": 961900
+    },
+    {
+      "market": "KOSDAQ",
+      "code": "196170",
+      "name": "알테오젠",
+      "quantity": 88,
+      "netBuyAmount": 29613000000,
+      "tradingVolume": 1004105
+    },
+    {
+      "market": "KOSDAQ",
+      "code": "214450",
+      "name": "파마리서치",
+      "quantity": 62,
+      "netBuyAmount": 25438000000,
+      "tradingVolume": 156013
+    },
+    {
+      "market": "KOSDAQ",
+      "code": "131290",
+      "name": "티에스이",
+      "quantity": 34,
+      "netBuyAmount": 8278000000,
+      "tradingVolume": 149992
+    },
+    {
+      "market": "KOSDAQ",
+      "code": "032820",
+      "name": "우리기술",
+      "quantity": 557,
+      "netBuyAmount": 6733000000,
+      "tradingVolume": 2231156
+    },
+    {
+      "market": "KOSDAQ",
+      "code": "036930",
+      "name": "주성엔지니어링",
+      "quantity": 33,
+      "netBuyAmount": 5895000000,
+      "tradingVolume": 788301
+    }
+  ],
+  "foreignerSellTop": [
+    {
+      "market": "KOSPI",
+      "code": "009150",
+      "name": "삼성전기",
+      "quantity": -166,
+      "netSellAmount": -229510000000,
+      "tradingVolume": 766198
+    },
+    {
+      "market": "KOSPI",
+      "code": "011070",
+      "name": "LG이노텍",
+      "quantity": -55,
+      "netSellAmount": -32817000000,
+      "tradingVolume": 241915
+    },
+    {
+      "market": "KOSPI",
+      "code": "005690",
+      "name": "파미셀",
+      "quantity": -2192,
+      "netSellAmount": -26975000000,
+      "tradingVolume": 9979943
+    },
+    {
+      "market": "KOSPI",
+      "code": "017670",
+      "name": "SK텔레콤",
+      "quantity": -257,
+      "netSellAmount": -25153000000,
+      "tradingVolume": 1473659
+    },
+    {
+      "market": "KOSPI",
+      "code": "010120",
+      "name": "LS ELECTRIC",
+      "quantity": -108,
+      "netSellAmount": -21513000000,
+      "tradingVolume": 558235
+    },
+    {
+      "market": "KOSDAQ",
+      "code": "237690",
+      "name": "에스티팜",
+      "quantity": -234,
+      "netSellAmount": -26059000000,
+      "tradingVolume": 1411054
+    },
+    {
+      "market": "KOSDAQ",
+      "code": "028300",
+      "name": "HLB",
+      "quantity": -454,
+      "netSellAmount": -18165000000,
+      "tradingVolume": 1695039
+    },
+    {
+      "market": "KOSDAQ",
+      "code": "039030",
+      "name": "이오테크닉스",
+      "quantity": -33,
+      "netSellAmount": -13966000000,
+      "tradingVolume": 106381
+    },
+    {
+      "market": "KOSDAQ",
+      "code": "178320",
+      "name": "서진시스템",
+      "quantity": -268,
+      "netSellAmount": -10512000000,
+      "tradingVolume": 1026720
+    },
+    {
+      "market": "KOSDAQ",
+      "code": "067310",
+      "name": "하나마이크론",
+      "quantity": -239,
+      "netSellAmount": -8884000000,
+      "tradingVolume": 1511210
+    }
+  ]
+}
