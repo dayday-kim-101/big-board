@@ -30,6 +30,58 @@ function fmtTrillion(v) {
   return `${n > 0 ? '+' : ''}${(n / 1_000_000_000_000).toFixed(2)}조`;
 }
 
+const FLOW_KINDS = [
+  { key: 'personal', label: '개인' },
+  { key: 'foreign', label: '외국인' },
+  { key: 'institution', label: '기관' },
+];
+const DEFAULT_FLOW_WINDOWS = [5, 10, 20];
+
+function flowCell(f) {
+  const td = el('td', undefined, `krm-flow-cell ${f && f.days ? tone(null, f.total) : 'flat'}`);
+  if (!f || !f.days) {
+    td.appendChild(el('span', '데이터 부족', 'krm-flow-value'));
+    return td;
+  }
+  td.appendChild(el('span', `${fmtTrillion(f.total)} / ${fmtTrillion(f.average)}`, 'krm-flow-value'));
+  if (!f.complete) td.appendChild(el('span', `${f.days}일 기준`, 'krm-flow-note'));
+  return td;
+}
+
+function investorFlowBlock(flows) {
+  const box = el('div', undefined, 'krm-flow-box');
+  box.appendChild(el('h3', '투자자 수급 누적 / 평균 (5·10·20 거래일)', 'krm-subtitle'));
+  const markets = Array.isArray(flows?.markets) ? flows.markets : [];
+  if (!markets.length) {
+    box.appendChild(el('p', '누적 수급 데이터 미수집', 'krm-empty-small'));
+    return box;
+  }
+  const windows = Array.isArray(flows.windows) && flows.windows.length ? flows.windows : DEFAULT_FLOW_WINDOWS;
+  for (const m of markets) {
+    const group = el('div', undefined, 'krm-flow-market');
+    group.appendChild(el('h4', m.label || m.key, 'krm-flow-market-title'));
+    const table = el('table', undefined, 'krm-flow-table');
+    const thead = el('thead');
+    const headRow = el('tr', undefined, 'krm-flow-head');
+    headRow.appendChild(el('th', '투자자', 'krm-flow-th'));
+    for (const w of windows) headRow.appendChild(el('th', `${w}일 누적 / 평균`, 'krm-flow-th'));
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+    const tbody = el('tbody');
+    for (const kind of FLOW_KINDS) {
+      const tr = el('tr', undefined, 'krm-flow-row');
+      tr.appendChild(el('th', kind.label, 'krm-flow-rowhead'));
+      const series = Array.isArray(m.flows?.[kind.key]) ? m.flows[kind.key] : [];
+      for (const w of windows) tr.appendChild(flowCell(series.find((x) => Number(x?.window) === Number(w))));
+      tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    group.appendChild(table);
+    box.appendChild(group);
+  }
+  return box;
+}
+
 function indexCard(idx) {
   const cls = tone(idx.direction, idx.change);
   const card = el('article', undefined, `krm-index-card ${cls}`);
@@ -122,6 +174,8 @@ export function renderKoreaMarket(container, { dates = [], selectedDate = null, 
   markets.appendChild(el('h3', '상승·하락 종목 수 / 투자자 수급', 'krm-subtitle'));
   for (const m of report.markets || []) markets.appendChild(marketRow(m));
   section.appendChild(markets);
+
+  section.appendChild(investorFlowBlock(report.investorFlows));
 
   section.appendChild(foreignerRankBlock('외국인 순매수금액 상위 종목', report.foreignerTop || [], 'netBuyAmount'));
   section.appendChild(foreignerRankBlock('외국인 순매도금액 상위 종목', report.foreignerSellTop || [], 'netSellAmount'));
