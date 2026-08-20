@@ -1,0 +1,173 @@
+{
+  "date": "2026-08-20",
+  "collectedAt": "2026-08-20T22:27:56.927Z",
+  "source": "yahoo",
+  "memo": "",
+  "interpretation": "S&P500 -0.87%·나스닥 -1.00%·러셀2000 -1.34%로 중소형주는 상대 약세, NVIDIA -0.33%·SOX +0.53% 기준 기술주/반도체 탄력은 제한; 10년물 4.696% 속 상승 섹터는 에너지·부동산, 하락 섹터는 헬스케어·경기소비재.",
+  "indices": [
+    {
+      "key": "dow",
+      "label": "다우존스",
+      "symbol": "^DJI",
+      "date": "2026-08-20",
+      "close": 52759.2109375,
+      "change": -703.83984375,
+      "changePct": -1.316497718452018,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sp500",
+      "label": "S&P 500",
+      "symbol": "^GSPC",
+      "date": "2026-08-20",
+      "close": 7641.16015625,
+      "change": -66.81982421875,
+      "changePct": -0.866891512277727,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "nasdaq",
+      "label": "나스닥",
+      "symbol": "^IXIC",
+      "date": "2026-08-20",
+      "close": 26067.166015625,
+      "change": -263.923828125,
+      "changePct": -1.0023277794088172,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "russell2000",
+      "label": "러셀2000",
+      "symbol": "^RUT",
+      "date": "2026-08-20",
+      "close": 2992.43359375,
+      "change": -40.50634765625,
+      "changePct": -1.3355473052153108,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "focus": [
+    {
+      "key": "nvidia",
+      "label": "NVIDIA",
+      "symbol": "NVDA",
+      "date": "2026-08-20",
+      "close": 216.85000610351562,
+      "change": -0.709991455078125,
+      "changePct": -0.32634283096409233,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sox",
+      "label": "필라델피아 반도체지수",
+      "symbol": "^SOX",
+      "date": "2026-08-20",
+      "close": 11800.0185546875,
+      "change": 61.7880859375,
+      "changePct": 0.5263833088129832,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "rates": [
+    {
+      "key": "us10y",
+      "label": "미국 10년물 금리",
+      "symbol": "^TNX",
+      "date": "2026-08-20",
+      "close": 4.696000099182129,
+      "change": 0.043000221252441406,
+      "changePct": 0.9241397459819833,
+      "unit": "%",
+      "decimals": 3
+    }
+  ],
+  "sectors": {
+    "rising": [
+      {
+        "key": "energy",
+        "label": "에너지",
+        "symbol": "XLE",
+        "date": "2026-08-20",
+        "close": 63.75,
+        "change": 0.1699981689453125,
+        "changePct": 0.2673767915217006,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "realEstate",
+        "label": "부동산",
+        "symbol": "XLRE",
+        "date": "2026-08-20",
+        "close": 45.08000183105469,
+        "change": 0.09000015258789062,
+        "changePct": 0.2000447860195717,
+        "unit": "",
+        "decimals": 2
+      }
+    ],
+    "falling": [
+      {
+        "key": "healthcare",
+        "label": "헬스케어",
+        "symbol": "XLV",
+        "date": "2026-08-20",
+        "close": 172.38999938964844,
+        "change": -3.2899932861328125,
+        "changePct": -1.8727193893982679,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerDiscretionary",
+        "label": "경기소비재",
+        "symbol": "XLY",
+        "date": "2026-08-20",
+        "close": 116.68000030517578,
+        "change": -1.9099960327148438,
+        "changePct": -1.6105878165918974,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerStaples",
+        "label": "필수소비재",
+        "symbol": "XLP",
+        "date": "2026-08-20",
+        "close": 85.31999969482422,
+        "change": -1.220001220703125,
+        "changePct": -1.4097541111583554,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "industrials",
+        "label": "산업재",
+        "symbol": "XLI",
+        "date": "2026-08-20",
+        "close": 179.77000427246094,
+        "change": -2.17999267578125,
+        "changePct": -1.1981273494614977,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "financials",
+        "label": "금융",
+        "symbol": "XLF",
+        "date": "2026-08-20",
+        "close": 56.95000076293945,
+        "change": -0.529998779296875,
+        "changePct": -0.9220577305457904,
+        "unit": "",
+        "decimals": 2
+      }
+    ]
+  }
+}
