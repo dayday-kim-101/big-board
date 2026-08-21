@@ -75,6 +75,7 @@
       }
     }
   ],
+  "investorFlows": null,
   "foreignerTop": [
     {
       "market": "KOSPI",
@@ -82,7 +83,7 @@
       "name": "삼성전자",
       "quantity": 4222,
       "netBuyAmount": 1133148000000,
-      "tradingVolume": 26093355
+      "tradingVolume": 26095919
     },
     {
       "market": "KOSPI",
@@ -90,7 +91,7 @@
       "name": "SK하이닉스",
       "quantity": 313,
       "netBuyAmount": 529248000000,
-      "tradingVolume": 5452849
+      "tradingVolume": 5452970
     },
     {
       "market": "KOSPI",
@@ -98,7 +99,7 @@
       "name": "SK스퀘어",
       "quantity": 68,
       "netBuyAmount": 76667000000,
-      "tradingVolume": 850827
+      "tradingVolume": 853378
     },
     {
       "market": "KOSPI",
@@ -106,7 +107,7 @@
       "name": "삼성전자우",
       "quantity": 258,
       "netBuyAmount": 48565000000,
-      "tradingVolume": 3576677
+      "tradingVolume": 3721849
     },
     {
       "market": "KOSPI",
@@ -122,7 +123,7 @@
       "name": "알테오젠",
       "quantity": 88,
       "netBuyAmount": 29613000000,
-      "tradingVolume": 1004105
+      "tradingVolume": 1019594
     },
     {
       "market": "KOSDAQ",
@@ -146,7 +147,7 @@
       "name": "우리기술",
       "quantity": 557,
       "netBuyAmount": 6733000000,
-      "tradingVolume": 2231156
+      "tradingVolume": 2259624
     },
     {
       "market": "KOSDAQ",
@@ -154,7 +155,7 @@
       "name": "주성엔지니어링",
       "quantity": 33,
       "netBuyAmount": 5895000000,
-      "tradingVolume": 788301
+      "tradingVolume": 794960
     }
   ],
   "foreignerSellTop": [
@@ -180,7 +181,7 @@
       "name": "파미셀",
       "quantity": -2192,
       "netSellAmount": -26975000000,
-      "tradingVolume": 9979943
+      "tradingVolume": 10117272
     },
     {
       "market": "KOSPI",
@@ -228,7 +229,7 @@
       "name": "서진시스템",
       "quantity": -268,
       "netSellAmount": -10512000000,
-      "tradingVolume": 1026720
+      "tradingVolume": 1030510
     },
     {
       "market": "KOSDAQ",
@@ -236,7 +237,7 @@
       "name": "하나마이크론",
       "quantity": -239,
       "netSellAmount": -8884000000,
-      "tradingVolume": 1511210
+      "tradingVolume": 1535497
     }
   ]
 }
