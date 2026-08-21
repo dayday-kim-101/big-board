@@ -1,0 +1,173 @@
+{
+  "date": "2026-08-21",
+  "collectedAt": "2026-08-21T22:25:30.146Z",
+  "source": "yahoo",
+  "memo": "",
+  "interpretation": "S&P500 +0.43%·나스닥 +0.43%·러셀2000 +0.85%로 중소형주는 상대 견조, NVIDIA -0.98%·SOX -0.51% 기준 기술주/반도체 탄력은 제한; 10년물 4.738% 속 상승 섹터는 소재·헬스케어, 하락 섹터는 유틸리티·에너지.",
+  "indices": [
+    {
+      "key": "dow",
+      "label": "다우존스",
+      "symbol": "^DJI",
+      "date": "2026-08-21",
+      "close": 53277.01171875,
+      "change": 517.80078125,
+      "changePct": 0.9814414811157827,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sp500",
+      "label": "S&P 500",
+      "symbol": "^GSPC",
+      "date": "2026-08-21",
+      "close": 7674.3701171875,
+      "change": 33.2099609375,
+      "changePct": 0.4346193543703738,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "nasdaq",
+      "label": "나스닥",
+      "symbol": "^IXIC",
+      "date": "2026-08-21",
+      "close": 26180.455078125,
+      "change": 113.28515625,
+      "changePct": 0.43458939574001687,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "russell2000",
+      "label": "러셀2000",
+      "symbol": "^RUT",
+      "date": "2026-08-21",
+      "close": 3017.870849609375,
+      "change": 25.44091796875,
+      "changePct": 0.8501758955071607,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "focus": [
+    {
+      "key": "nvidia",
+      "label": "NVIDIA",
+      "symbol": "NVDA",
+      "date": "2026-08-21",
+      "close": 214.72000122070312,
+      "change": -2.1300048828125,
+      "changePct": -0.9822480160760152,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sox",
+      "label": "필라델피아 반도체지수",
+      "symbol": "^SOX",
+      "date": "2026-08-21",
+      "close": 11740.3740234375,
+      "change": -59.6455078125,
+      "changePct": -0.5054695685421601,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "rates": [
+    {
+      "key": "us10y",
+      "label": "미국 10년물 금리",
+      "symbol": "^TNX",
+      "date": "2026-08-21",
+      "close": 4.73799991607666,
+      "change": 0.04199981689453125,
+      "changePct": 0.894374276138667,
+      "unit": "%",
+      "decimals": 3
+    }
+  ],
+  "sectors": {
+    "rising": [
+      {
+        "key": "materials",
+        "label": "소재",
+        "symbol": "XLB",
+        "date": "2026-08-21",
+        "close": 53.540000915527344,
+        "change": 1.1200027465820312,
+        "changePct": 2.136594402335451,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "healthcare",
+        "label": "헬스케어",
+        "symbol": "XLV",
+        "date": "2026-08-21",
+        "close": 174.6199951171875,
+        "change": 2.2299957275390625,
+        "changePct": 1.293576040045492,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerDiscretionary",
+        "label": "경기소비재",
+        "symbol": "XLY",
+        "date": "2026-08-21",
+        "close": 118.0199966430664,
+        "change": 1.339996337890625,
+        "changePct": 1.148437036669415,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "financials",
+        "label": "금융",
+        "symbol": "XLF",
+        "date": "2026-08-21",
+        "close": 57.47999954223633,
+        "change": 0.529998779296875,
+        "changePct": 0.930638757149543,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerStaples",
+        "label": "필수소비재",
+        "symbol": "XLP",
+        "date": "2026-08-21",
+        "close": 85.98999786376953,
+        "change": 0.6699981689453125,
+        "changePct": 0.7852768065421791,
+        "unit": "",
+        "decimals": 2
+      }
+    ],
+    "falling": [
+      {
+        "key": "utilities",
+        "label": "유틸리티",
+        "symbol": "XLU",
+        "date": "2026-08-21",
+        "close": 42.77000045776367,
+        "change": -1,
+        "changePct": -2.284669841310513,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "energy",
+        "label": "에너지",
+        "symbol": "XLE",
+        "date": "2026-08-21",
+        "close": 63.63999938964844,
+        "change": -0.1100006103515625,
+        "changePct": -0.17254997702205882,
+        "unit": "",
+        "decimals": 2
+      }
+    ]
+  }
+}
