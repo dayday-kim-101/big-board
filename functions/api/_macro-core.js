@@ -194,7 +194,8 @@ export function normalizeIndicator(ind) {
     source: String(ind?.source ?? ''),
     series: (ind?.series ?? []).map((s) => ({
       name: String(s?.name ?? ''),
-      points: cleanPoints(s?.points),
+      // 수집 단계의 maxPoints 결정을 보존한다. 여기서 기본 60개로 다시 자르면 장기 차트가 잘린다.
+      points: cleanPoints(s?.points, 0),
     })),
   };
   const threshold = normalizeThreshold(ind?.threshold);

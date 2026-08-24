@@ -12,6 +12,7 @@
 //    아래 값은 출발점이며, 실제 키로 https://ecos.bok.or.kr/api/ 통계코드검색에서 확인할 것.
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
+import { inflateRawSync } from 'node:zlib';
 import {
   fetchYahooOHLC, fetchFredSeries, fetchEcosSeries, fetchDbnomicsSeries,
   cleanPoints, mergePoints, normalizeMacro,
@@ -27,6 +28,209 @@ const M_START = `${Y - 3}01`;
 const M_END = `${Y}12`;
 const Q_START = `${Y - 4}Q1`;
 const Q_END = `${Y}Q4`;
+
+const GPR_DAILY_URL = 'https://raw.githubusercontent.com/iacoviel/iacoviel.github.io/master/gpr_files/data_gpr_daily_recent.dta';
+let gprDailyCache = null;
+
+function xmlText(s = '') {
+  return String(s)
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'");
+}
+
+function columnIndex(ref = '') {
+  const letters = String(ref).match(/^[A-Z]+/i)?.[0]?.toUpperCase() || '';
+  let n = 0;
+  for (const ch of letters) n = n * 26 + ch.charCodeAt(0) - 64;
+  return n - 1;
+}
+
+function unzipEntry(buf, wantedName) {
+  const eocdSig = 0x06054b50;
+  let eocd = -1;
+  for (let i = buf.length - 22; i >= Math.max(0, buf.length - 66000); i--) {
+    if (buf.readUInt32LE(i) === eocdSig) { eocd = i; break; }
+  }
+  if (eocd < 0) throw new Error('XLSX ZIP EOCD 없음');
+  const entries = buf.readUInt16LE(eocd + 10);
+  const cdOffset = buf.readUInt32LE(eocd + 16);
+  let p = cdOffset;
+  for (let i = 0; i < entries; i++) {
+    if (buf.readUInt32LE(p) !== 0x02014b50) throw new Error('XLSX central directory 오류');
+    const method = buf.readUInt16LE(p + 10);
+    const compSize = buf.readUInt32LE(p + 20);
+    const nameLen = buf.readUInt16LE(p + 28);
+    const extraLen = buf.readUInt16LE(p + 30);
+    const commentLen = buf.readUInt16LE(p + 32);
+    const localOffset = buf.readUInt32LE(p + 42);
+    const name = buf.subarray(p + 46, p + 46 + nameLen).toString('utf8');
+    if (name === wantedName) {
+      if (buf.readUInt32LE(localOffset) !== 0x04034b50) throw new Error('XLSX local header 오류');
+      const localNameLen = buf.readUInt16LE(localOffset + 26);
+      const localExtraLen = buf.readUInt16LE(localOffset + 28);
+      const start = localOffset + 30 + localNameLen + localExtraLen;
+      const data = buf.subarray(start, start + compSize);
+      if (method === 0) return data.toString('utf8');
+      if (method === 8) return inflateRawSync(data).toString('utf8');
+      throw new Error(`지원하지 않는 XLSX 압축 방식: ${method}`);
+    }
+    p += 46 + nameLen + extraLen + commentLen;
+  }
+  throw new Error(`XLSX 엔트리 없음: ${wantedName}`);
+}
+
+function parseSharedStrings(xml) {
+  return [...String(xml).matchAll(/<si[\s\S]*?<\/si>/g)].map((m) => {
+    const parts = [...m[0].matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)].map((t) => xmlText(t[1]));
+    return parts.join('');
+  });
+}
+
+export function parseOpenXmlWorksheetRows(sheetXml, sharedStrings = []) {
+  const rows = [];
+  for (const rowMatch of String(sheetXml).matchAll(/<row[^>]*>([\s\S]*?)<\/row>/g)) {
+    const row = [];
+    for (const c of rowMatch[1].matchAll(/<c\b([^>]*)>([\s\S]*?)<\/c>/g)) {
+      const attrs = c[1];
+      const body = c[2];
+      const ref = attrs.match(/\br="([A-Z]+\d+)"/)?.[1] || '';
+      const idx = columnIndex(ref);
+      const type = attrs.match(/\bt="([^"]+)"/)?.[1] || '';
+      const raw = body.match(/<v[^>]*>([\s\S]*?)<\/v>/)?.[1]
+        ?? body.match(/<t[^>]*>([\s\S]*?)<\/t>/)?.[1]
+        ?? '';
+      const text = xmlText(raw);
+      if (idx < 0) continue;
+      if (type === 's') row[idx] = sharedStrings[Number(text)] ?? '';
+      else if (type === 'inlineStr' || type === 'str') row[idx] = text;
+      else {
+        const n = Number(text);
+        row[idx] = Number.isFinite(n) && text !== '' ? n : text;
+      }
+    }
+    if (row.some((v) => v !== undefined && v !== '')) rows.push(row);
+  }
+  return rows;
+}
+
+function parseGprDate(value) {
+  const s = String(Math.trunc(Number(value)) || value || '').trim();
+  if (/^\d{8}$/.test(s)) return `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}`;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  return null;
+}
+
+export function parseGprDailyRows(rows = []) {
+  const header = (rows[0] || []).map((x) => String(x || '').trim());
+  const idx = Object.fromEntries(header.map((h, i) => [h, i]));
+  const pick = (row, key) => {
+    const v = Number(row[idx[key]]);
+    return Number.isFinite(v) ? v : null;
+  };
+  const series = { composite: [], threat: [], act: [] };
+  for (const row of rows.slice(1)) {
+    const date = parseGprDate(row[idx.DATE]);
+    if (!date) continue;
+    const composite = pick(row, 'GPRD*');
+    const threat = pick(row, 'GPRD_THREAT');
+    const act = pick(row, 'GPRD_ACT');
+    if (composite != null) series.composite.push({ date, value: composite });
+    if (threat != null) series.threat.push({ date, value: threat });
+    if (act != null) series.act.push({ date, value: act });
+  }
+  for (const key of Object.keys(series)) series[key].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+  return series;
+}
+
+function tagBody(buf, tag) {
+  const open = Buffer.from(`<${tag}>`);
+  const close = Buffer.from(`</${tag}>`);
+  const a = buf.indexOf(open);
+  if (a < 0) throw new Error(`DTA 태그 없음: ${tag}`);
+  const start = a + open.length;
+  const b = buf.indexOf(close, start);
+  if (b < 0) throw new Error(`DTA 닫는 태그 없음: ${tag}`);
+  return buf.subarray(start, b);
+}
+
+function stataTypeSize(type) {
+  if (type >= 1 && type <= 2045) return type;
+  if (type === 65526) return 8; // double
+  if (type === 65527) return 4; // float
+  if (type === 65528) return 4; // long
+  if (type === 65529) return 2; // int
+  if (type === 65530) return 1; // byte
+  throw new Error(`지원하지 않는 Stata 타입: ${type}`);
+}
+
+function readStataValue(buf, offset, type) {
+  if (type >= 1 && type <= 2045) return buf.subarray(offset, offset + type).toString('utf8').replace(/\0+$/g, '').trim();
+  if (type === 65526) return buf.readDoubleLE(offset);
+  if (type === 65527) return buf.readFloatLE(offset);
+  if (type === 65528) return buf.readInt32LE(offset);
+  if (type === 65529) return buf.readInt16LE(offset);
+  if (type === 65530) return buf.readInt8(offset);
+  return null;
+}
+
+export function parseStata118Rows(buf) {
+  const release = tagBody(buf, 'release').toString('utf8');
+  if (release !== '118') throw new Error(`지원하지 않는 Stata release: ${release}`);
+  const byteorder = tagBody(buf, 'byteorder').toString('utf8');
+  if (byteorder !== 'LSF') throw new Error(`지원하지 않는 Stata byteorder: ${byteorder}`);
+  const k = tagBody(buf, 'K').readUInt16LE(0);
+  const n = Number(tagBody(buf, 'N').readBigUInt64LE(0));
+  const typeBytes = tagBody(buf, 'variable_types');
+  const types = Array.from({ length: k }, (_, i) => typeBytes.readUInt16LE(i * 2));
+  const nameBytes = tagBody(buf, 'varnames');
+  const names = Array.from({ length: k }, (_, i) => nameBytes.subarray(i * 129, (i + 1) * 129).toString('utf8').split('\0')[0]);
+  const rowSize = types.reduce((sum, t) => sum + stataTypeSize(t), 0);
+  const dataStart = buf.indexOf(Buffer.from('<data>')) + 6;
+  if (dataStart < 6) throw new Error('DTA data 섹션 없음');
+  const rows = [];
+  for (let r = 0; r < n; r++) {
+    let p = dataStart + r * rowSize;
+    const row = {};
+    for (let c = 0; c < k; c++) {
+      row[names[c]] = readStataValue(buf, p, types[c]);
+      p += stataTypeSize(types[c]);
+    }
+    rows.push(row);
+  }
+  return rows;
+}
+
+export function parseGprDailyRecords(records = []) {
+  const series = { composite: [], threat: [], act: [] };
+  for (const row of records) {
+    const date = parseGprDate(row.DAY);
+    if (!date) continue;
+    const composite = Number(row.GPRD);
+    const threat = Number(row.GPRD_THREAT);
+    const act = Number(row.GPRD_ACT);
+    if (Number.isFinite(composite)) series.composite.push({ date, value: composite });
+    if (Number.isFinite(threat)) series.threat.push({ date, value: threat });
+    if (Number.isFinite(act)) series.act.push({ date, value: act });
+  }
+  for (const key of Object.keys(series)) series[key].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+  return series;
+}
+
+export async function fetchGprDailySeries(url = GPR_DAILY_URL) {
+  const res = await fetch(url, { headers: { 'User-Agent': 'stock-bigboard/0.1', Accept: 'application/octet-stream,*/*' } });
+  if (!res.ok) throw new Error(`GPR DTA ${res.status}: ${url}`);
+  const buf = Buffer.from(await res.arrayBuffer());
+  return parseGprDailyRecords(parseStata118Rows(buf));
+}
+
+async function getGprDailySeries() {
+  if (!gprDailyCache) gprDailyCache = fetchGprDailySeries();
+  return gprDailyCache;
+}
 
 // 지표 정의. 새 지표는 여기 추가. (테스트에서 정의 검증용으로 export)
 export const INDICATORS = [
@@ -57,6 +261,20 @@ export const INDICATORS = [
       // valid: HY OAS 실측 역사범위(평시 ~3%, 2008 고점 ~22%) 밖은 오염 → 제외. 누적되면 영구 저장되므로 입구에서 차단.
       { name: 'HY OAS', accumulate: true, maxPoints: 5200, valid: (v) => v >= 0 && v <= 30,
         fetch: () => fetchFredSeries('BAMLH0A0HYM2', FRED_API_KEY, { limit: 800 }) },
+    ],
+  },
+  {
+    key: 'gpr_daily', label: '지정학적 리스크 지수', unit: '', decimals: 1, source: 'Caldara & Iacoviello GPR / GitHub',
+    category: 'crisis', // 금융위기 탭. 100 초과 = 장기 평균보다 지정학 리스크가 높음.
+    threshold: { value: 100, aboveIsBad: true, label: '고조' },
+    series: [
+      // Caldara & Iacoviello daily GPR. 공개 Stata(DTA)의 1985년 이후 일별 전체 히스토리를 최대한 보존.
+      { name: '종합 GPR', maxPoints: 20000, valid: (v) => v >= 0 && v <= 3000,
+        fetch: async () => (await getGprDailySeries()).composite },
+      { name: '위협', maxPoints: 20000, valid: (v) => v >= 0 && v <= 3000,
+        fetch: async () => (await getGprDailySeries()).threat },
+      { name: '현실화', maxPoints: 20000, valid: (v) => v >= 0 && v <= 3000,
+        fetch: async () => (await getGprDailySeries()).act },
     ],
   },
   {
