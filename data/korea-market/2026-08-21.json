@@ -83,7 +83,7 @@
       "name": "삼성전자",
       "quantity": 1567,
       "netBuyAmount": 431676000000,
-      "tradingVolume": 27672192
+      "tradingVolume": 27746471
     },
     {
       "market": "KOSPI",
@@ -91,7 +91,7 @@
       "name": "LG전자",
       "quantity": 163,
       "netBuyAmount": 31653000000,
-      "tradingVolume": 857095
+      "tradingVolume": 858709
     },
     {
       "market": "KOSPI",
@@ -107,7 +107,7 @@
       "name": "한화에어로스페이스",
       "quantity": 24,
       "netBuyAmount": 26698000000,
-      "tradingVolume": 193649
+      "tradingVolume": 193892
     },
     {
       "market": "KOSPI",
@@ -115,7 +115,7 @@
       "name": "대덕전자",
       "quantity": 189,
       "netBuyAmount": 19877000000,
-      "tradingVolume": 665782
+      "tradingVolume": 668559
     },
     {
       "market": "KOSDAQ",
@@ -123,7 +123,7 @@
       "name": "파두",
       "quantity": 158,
       "netBuyAmount": 9848000000,
-      "tradingVolume": 468466
+      "tradingVolume": 470084
     },
     {
       "market": "KOSDAQ",
@@ -131,7 +131,7 @@
       "name": "원익IPS",
       "quantity": 81,
       "netBuyAmount": 8626000000,
-      "tradingVolume": 574556
+      "tradingVolume": 579449
     },
     {
       "market": "KOSDAQ",
@@ -165,7 +165,7 @@
       "name": "삼성전기",
       "quantity": -90,
       "netSellAmount": -118658000000,
-      "tradingVolume": 702036
+      "tradingVolume": 702691
     },
     {
       "market": "KOSPI",
@@ -173,7 +173,7 @@
       "name": "삼성전자우",
       "quantity": -497,
       "netSellAmount": -103498000000,
-      "tradingVolume": 10353917
+      "tradingVolume": 10625176
     },
     {
       "market": "KOSPI",
@@ -181,7 +181,7 @@
       "name": "삼성생명",
       "quantity": -238,
       "netSellAmount": -75666000000,
-      "tradingVolume": 1037198
+      "tradingVolume": 1038229
     },
     {
       "market": "KOSPI",
@@ -189,7 +189,7 @@
       "name": "두산에너빌리티",
       "quantity": -924,
       "netSellAmount": -68673000000,
-      "tradingVolume": 2463699
+      "tradingVolume": 2467372
     },
     {
       "market": "KOSPI",
@@ -197,7 +197,7 @@
       "name": "카카오",
       "quantity": -1491,
       "netSellAmount": -51281000000,
-      "tradingVolume": 10055024
+      "tradingVolume": 10109356
     },
     {
       "market": "KOSDAQ",
@@ -205,7 +205,7 @@
       "name": "알테오젠",
       "quantity": -61,
       "netSellAmount": -19286000000,
-      "tradingVolume": 490983
+      "tradingVolume": 491494
     },
     {
       "market": "KOSDAQ",
@@ -213,7 +213,7 @@
       "name": "HPSP",
       "quantity": -393,
       "netSellAmount": -17434000000,
-      "tradingVolume": 2486983
+      "tradingVolume": 2509334
     },
     {
       "market": "KOSDAQ",
@@ -237,7 +237,7 @@
       "name": "디앤디파마텍",
       "quantity": -188,
       "netSellAmount": -10806000000,
-      "tradingVolume": 2637358
+      "tradingVolume": 2654919
     }
   ]
 }
