@@ -4,7 +4,7 @@ import {
   parseFredObservations, parseStooqCsv, parseYahooChart, parseYahooOHLC, ecosTimeToDate, parseEcosRows,
   parseDbnomicsSeries, cleanPoints, mergePoints, normalizeMacro, normalizeIndicator, hasData,
 } from '../functions/api/_macro-core.js';
-import { INDICATORS } from './macro-snapshot.mjs';
+import { INDICATORS, parseOpenXmlWorksheetRows, parseGprDailyRows, parseGprDailyRecords } from './macro-snapshot.mjs';
 
 test('parseYahooOHLC: OHLC 포인트, null 바 제외', () => {
   const json = { chart: { result: [{
@@ -112,6 +112,51 @@ test('parseDbnomicsSeries: docs 없거나 비면 throw', () => {
   assert.throws(() => parseDbnomicsSeries({}), /DBnomics 응답 형식 오류/);
 });
 
+test('parseOpenXmlWorksheetRows: sharedStrings와 숫자 셀을 행 배열로 변환', () => {
+  const xml = '<worksheet><sheetData><row r="1"><c r="A1" t="s"><v>0</v></c><c r="J1" t="s"><v>1</v></c></row><row r="2"><c r="A2"><v>19850101</v></c><c r="J2"><v>141.69</v></c></row></sheetData></worksheet>';
+  const rows = parseOpenXmlWorksheetRows(xml, ['DATE', 'GPRD*']);
+  assert.equal(rows[0][0], 'DATE');
+  assert.equal(rows[0][9], 'GPRD*');
+  assert.equal(rows[1][0], 19850101);
+  assert.equal(rows[1][9], 141.69);
+});
+
+test('parseGprDailyRows: daily GPR 종합·위협·현실화 시리즈 추출', () => {
+  const rows = [
+    ['DATE', 'DAY_NUMBERS', 'N11D', 'GPRD_RAW', 'GPRD_THREAT_RAW', 'GPRD_ACT_RAW', 'GPRD_SHARE', 'GPRD_THREAT_SHARE', 'GPRD_ACT_SHARE', 'GPRD*', 'GPRD_THREAT', 'GPRD_ACT'],
+    [19850102, 1985.0027, 891, 3, 2, 1, 0, 0, 0, 65.361, 51.939, 122.759],
+    [19850101, 1985, 822, 6, 4, 2, 0, 0, 0, 141.695, 112.597, 266.127],
+    ['bad', 0, 0, 0, 0, 0, 0, 0, 0, 999, 999, 999],
+  ];
+  const out = parseGprDailyRows(rows);
+  assert.deepEqual(out.composite.map((p) => p.date), ['1985-01-01', '1985-01-02']);
+  assert.equal(out.composite[0].value, 141.695);
+  assert.equal(out.threat[1].value, 51.939);
+  assert.equal(out.act[0].value, 266.127);
+});
+
+test('parseGprDailyRecords: Stata DTA record 필드에서 daily GPR 시리즈 추출', () => {
+  const out = parseGprDailyRecords([
+    { DAY: '20260817', GPRD: 133.5, GPRD_THREAT: 155.2, GPRD_ACT: 44.1 },
+    { DAY: '20260816', GPRD: 80.25, GPRD_THREAT: 77.7, GPRD_ACT: 12.3 },
+    { DAY: '', GPRD: 999, GPRD_THREAT: 999, GPRD_ACT: 999 },
+  ]);
+  assert.deepEqual(out.composite.map((p) => p.date), ['2026-08-16', '2026-08-17']);
+  assert.equal(out.composite[1].value, 133.5);
+  assert.equal(out.threat[1].value, 155.2);
+  assert.equal(out.act[0].value, 12.3);
+});
+
+test('INDICATORS: 지정학적 리스크 지수는 금융위기 탭에 1985년 이후 일별 전체 보존 설정', () => {
+  const ind = INDICATORS.find((i) => i.key === 'gpr_daily');
+  assert.ok(ind, 'gpr_daily 지표가 정의되어야 함');
+  assert.equal(ind.category, 'crisis');
+  assert.equal(ind.label, '지정학적 리스크 지수');
+  assert.deepEqual(ind.series.map((s) => s.name), ['종합 GPR', '위협', '현실화']);
+  assert.ok(ind.series.every((s) => s.maxPoints >= 12800));
+  assert.deepEqual(ind.threshold, { value: 100, aboveIsBad: true, label: '고조' });
+});
+
 test('cleanPoints: 유효값만, 오름차순, 최대 개수', () => {
   const pts = [{ date: '2026-02-01', value: 2 }, { date: '2026-01-01', value: 1 }, { date: 'x', value: 9 }];
   assert.deepEqual(cleanPoints(pts), [{ date: '2026-01-01', value: 1 }, { date: '2026-02-01', value: 2 }]);
@@ -169,6 +214,12 @@ test('normalizeIndicator: threshold 없으면 키 자체가 없음(기존 지표
 test('normalizeIndicator: threshold.value 비숫자면 threshold 미포함', () => {
   const out = normalizeIndicator({ key: 'x', label: 'x', threshold: { label: '침체' }, series: [] });
   assert.equal('threshold' in out, false);
+});
+
+test('normalizeIndicator: 수집 단계 maxPoints 결과를 60개로 재절단하지 않는다', () => {
+  const points = Array.from({ length: 75 }, (_, i) => ({ date: `2026-03-${String(i + 1).padStart(2, '0')}`, value: i + 1 }));
+  const out = normalizeIndicator({ key: 'long', label: '장기', series: [{ name: 'daily', points }] });
+  assert.equal(out.series[0].points.length, 75);
 });
 
 test('INDICATORS: 미국 국채금리(10년물·2년물) 지표 정의 포함', () => {
