@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-25T20:10:48.934Z",
+  "updatedAt": "2026-08-25T20:48:23.150Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -8,8 +8,8 @@
       "price": 309.9,
       "change": -0.44,
       "changePct": -0.14,
-      "volume": 23585977,
-      "tradingValue": 7309294272,
+      "volume": 25550756,
+      "tradingValue": 7918179284,
       "approxTradingValue": true,
       "ok": true
     },
@@ -41,11 +41,11 @@
       "market": "US",
       "code": "SOXL",
       "name": "Direxion Daily Semiconductor Bu",
-      "price": 115.86,
-      "change": 4.7,
-      "changePct": 4.23,
-      "volume": 44653507,
-      "tradingValue": 5173555321,
+      "price": 115.67,
+      "change": 4.51,
+      "changePct": 4.06,
+      "volume": 46054003,
+      "tradingValue": 5327066527,
       "approxTradingValue": true,
       "ok": true
     },
@@ -104,8 +104,8 @@
       "price": 159.53,
       "change": 4.16,
       "changePct": 2.68,
-      "volume": 11954536,
-      "tradingValue": 1907107128,
+      "volume": 12063522,
+      "tradingValue": 1924493665,
       "approxTradingValue": true,
       "ok": true
     },
@@ -116,8 +116,8 @@
       "price": 1480.77,
       "change": -12.35,
       "changePct": -0.83,
-      "volume": 8533609,
-      "tradingValue": 12636312199,
+      "volume": 8577697,
+      "tradingValue": 12701596387,
       "approxTradingValue": true,
       "ok": true
     },
@@ -128,8 +128,8 @@
       "price": 932.97,
       "change": 22.54,
       "changePct": 2.48,
-      "volume": 18827834,
-      "tradingValue": 17565804287,
+      "volume": 18902503,
+      "tradingValue": 17635468224,
       "approxTradingValue": true,
       "ok": true
     },
@@ -416,8 +416,8 @@
       "price": 213.05,
       "change": 4.57,
       "changePct": 2.19,
-      "volume": 103178605,
-      "tradingValue": 21982201795,
+      "volume": 118609303,
+      "tradingValue": 25269712004,
       "approxTradingValue": true,
       "ok": true
     }
