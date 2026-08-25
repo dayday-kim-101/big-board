@@ -83,7 +83,7 @@
       "name": "SK스퀘어",
       "quantity": 50,
       "netBuyAmount": 54650000000,
-      "tradingVolume": 458200
+      "tradingVolume": 458531
     },
     {
       "market": "KOSPI",
@@ -91,7 +91,7 @@
       "name": "카카오",
       "quantity": 886,
       "netBuyAmount": 31750000000,
-      "tradingVolume": 3738325
+      "tradingVolume": 3756429
     },
     {
       "market": "KOSPI",
@@ -155,7 +155,7 @@
       "name": "대한광통신",
       "quantity": 1123,
       "netBuyAmount": 14474000000,
-      "tradingVolume": 6192250
+      "tradingVolume": 6245549
     }
   ],
   "foreignerSellTop": [
@@ -165,7 +165,7 @@
       "name": "삼성전자",
       "quantity": -6882,
       "netSellAmount": -1801118000000,
-      "tradingVolume": 32451480
+      "tradingVolume": 32451940
     },
     {
       "market": "KOSPI",
@@ -173,7 +173,7 @@
       "name": "SK하이닉스",
       "quantity": -913,
       "netSellAmount": -1563478000000,
-      "tradingVolume": 3993766
+      "tradingVolume": 3994599
     },
     {
       "market": "KOSPI",
@@ -181,7 +181,7 @@
       "name": "삼성전자우",
       "quantity": -1825,
       "netSellAmount": -349832000000,
-      "tradingVolume": 6614839
+      "tradingVolume": 6666892
     },
     {
       "market": "KOSPI",
@@ -189,7 +189,7 @@
       "name": "NAVER",
       "quantity": -289,
       "netSellAmount": -65277000000,
-      "tradingVolume": 1544482
+      "tradingVolume": 1557982
     },
     {
       "market": "KOSPI",
@@ -221,7 +221,7 @@
       "name": "우리기술투자",
       "quantity": -823,
       "netSellAmount": -5185000000,
-      "tradingVolume": 11290441
+      "tradingVolume": 11422112
     },
     {
       "market": "KOSDAQ",
@@ -237,7 +237,7 @@
       "name": "디케이티",
       "quantity": -185,
       "netSellAmount": -3391000000,
-      "tradingVolume": 1413455
+      "tradingVolume": 1430082
     }
   ]
 }
