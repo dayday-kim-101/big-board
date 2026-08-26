@@ -99,7 +99,7 @@
       "name": "LIG디펜스앤에어로스페이스",
       "quantity": 27,
       "netBuyAmount": 19013000000,
-      "tradingVolume": 138751
+      "tradingVolume": 142609
     },
     {
       "market": "KOSPI",
@@ -115,7 +115,7 @@
       "name": "대덕전자",
       "quantity": 140,
       "netBuyAmount": 14871000000,
-      "tradingVolume": 516327
+      "tradingVolume": 519192
     },
     {
       "market": "KOSDAQ",
@@ -123,7 +123,7 @@
       "name": "주성엔지니어링",
       "quantity": 97,
       "netBuyAmount": 16732000000,
-      "tradingVolume": 927037
+      "tradingVolume": 940538
     },
     {
       "market": "KOSDAQ",
@@ -131,7 +131,7 @@
       "name": "HPSP",
       "quantity": 322,
       "netBuyAmount": 15226000000,
-      "tradingVolume": 3619560
+      "tradingVolume": 3661601
     },
     {
       "market": "KOSDAQ",
@@ -139,7 +139,7 @@
       "name": "원익IPS",
       "quantity": 114,
       "netBuyAmount": 12344000000,
-      "tradingVolume": 534101
+      "tradingVolume": 537092
     },
     {
       "market": "KOSDAQ",
@@ -147,7 +147,7 @@
       "name": "제주반도체",
       "quantity": 144,
       "netBuyAmount": 10765000000,
-      "tradingVolume": 1019805
+      "tradingVolume": 1037392
     },
     {
       "market": "KOSDAQ",
@@ -165,7 +165,7 @@
       "name": "SK하이닉스",
       "quantity": -1234,
       "netSellAmount": -1995729000000,
-      "tradingVolume": 4013938
+      "tradingVolume": 4029660
     },
     {
       "market": "KOSPI",
@@ -173,7 +173,7 @@
       "name": "삼성전자",
       "quantity": -5003,
       "netSellAmount": -1256203000000,
-      "tradingVolume": 21596130
+      "tradingVolume": 21617407
     },
     {
       "market": "KOSPI",
@@ -181,7 +181,7 @@
       "name": "삼성전자우",
       "quantity": -1682,
       "netSellAmount": -320035000000,
-      "tradingVolume": 5907616
+      "tradingVolume": 7291610
     },
     {
       "market": "KOSPI",
@@ -229,7 +229,7 @@
       "name": "마키나락스",
       "quantity": -228,
       "netSellAmount": -5352000000,
-      "tradingVolume": 1552202
+      "tradingVolume": 1570050
     },
     {
       "market": "KOSDAQ",
