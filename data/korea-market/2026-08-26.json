@@ -91,7 +91,7 @@
       "name": "대한항공",
       "quantity": 1982,
       "netBuyAmount": 54504000000,
-      "tradingVolume": 6193259
+      "tradingVolume": 6214419
     },
     {
       "market": "KOSPI",
@@ -107,7 +107,7 @@
       "name": "삼성생명",
       "quantity": 97,
       "netBuyAmount": 29441000000,
-      "tradingVolume": 548963
+      "tradingVolume": 1073963
     },
     {
       "market": "KOSPI",
@@ -115,7 +115,7 @@
       "name": "SK스퀘어",
       "quantity": 18,
       "netBuyAmount": 19482000000,
-      "tradingVolume": 481572
+      "tradingVolume": 512126
     },
     {
       "market": "KOSDAQ",
@@ -197,7 +197,7 @@
       "name": "현대모비스",
       "quantity": -99,
       "netSellAmount": -47904000000,
-      "tradingVolume": 572296
+      "tradingVolume": 580296
     },
     {
       "market": "KOSDAQ",
@@ -205,7 +205,7 @@
       "name": "대한광통신",
       "quantity": -1648,
       "netSellAmount": -22445000000,
-      "tradingVolume": 13666385
+      "tradingVolume": 13729873
     },
     {
       "market": "KOSDAQ",
@@ -213,7 +213,7 @@
       "name": "주성엔지니어링",
       "quantity": -127,
       "netSellAmount": -22133000000,
-      "tradingVolume": 659892
+      "tradingVolume": 667362
     },
     {
       "market": "KOSDAQ",
@@ -229,7 +229,7 @@
       "name": "HPSP",
       "quantity": -216,
       "netSellAmount": -10404000000,
-      "tradingVolume": 1972925
+      "tradingVolume": 1987915
     },
     {
       "market": "KOSDAQ",
