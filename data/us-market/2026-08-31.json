@@ -1,0 +1,173 @@
+{
+  "date": "2026-08-31",
+  "collectedAt": "2026-09-01T01:01:03.922Z",
+  "source": "yahoo",
+  "memo": "",
+  "interpretation": "S&P500 -0.33%·나스닥 -0.12%·러셀2000 -0.54%로 중소형주는 상대 약세, NVIDIA +1.48%·SOX +0.57% 기준 기술주/반도체가 상대적으로 지수를 지지; 10년물 4.758% 속 상승 섹터는 에너지·기술, 하락 섹터는 커뮤니케이션·유틸리티.",
+  "indices": [
+    {
+      "key": "dow",
+      "label": "다우존스",
+      "symbol": "^DJI",
+      "date": "2026-08-31",
+      "close": 53185.8984375,
+      "change": -374.08984375,
+      "changePct": -0.698450197161375,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sp500",
+      "label": "S&P 500",
+      "symbol": "^GSPC",
+      "date": "2026-08-31",
+      "close": 7686.14013671875,
+      "change": -25.61962890625,
+      "changePct": -0.3322150804080922,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "nasdaq",
+      "label": "나스닥",
+      "symbol": "^IXIC",
+      "date": "2026-08-31",
+      "close": 26370.888671875,
+      "change": -31.53125,
+      "changePct": -0.11942560603649685,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "russell2000",
+      "label": "러셀2000",
+      "symbol": "^RUT",
+      "date": "2026-08-31",
+      "close": 2956.451904296875,
+      "change": -15.918212890625,
+      "changePct": -0.5355393932464589,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "focus": [
+    {
+      "key": "nvidia",
+      "label": "NVIDIA",
+      "symbol": "NVDA",
+      "date": "2026-08-31",
+      "close": 220.77999877929688,
+      "change": 3.2299957275390625,
+      "changePct": 1.4847141724795134,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sox",
+      "label": "필라델피아 반도체지수",
+      "symbol": "^SOX",
+      "date": "2026-08-31",
+      "close": 11535.05078125,
+      "change": 65.390625,
+      "changePct": 0.5701182433410428,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "rates": [
+    {
+      "key": "us10y",
+      "label": "미국 10년물 금리",
+      "symbol": "^TNX",
+      "date": "2026-08-31",
+      "close": 4.758000373840332,
+      "change": 0.03800058364868164,
+      "changePct": 0.8050971469881923,
+      "unit": "%",
+      "decimals": 3
+    }
+  ],
+  "sectors": {
+    "rising": [
+      {
+        "key": "energy",
+        "label": "에너지",
+        "symbol": "XLE",
+        "date": "2026-08-31",
+        "close": 63.959999084472656,
+        "change": 1.279998779296875,
+        "changePct": 2.0421167406905383,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "technology",
+        "label": "기술",
+        "symbol": "XLK",
+        "date": "2026-08-31",
+        "close": 186.5,
+        "change": 0.80999755859375,
+        "changePct": 0.43620956860579585,
+        "unit": "",
+        "decimals": 2
+      }
+    ],
+    "falling": [
+      {
+        "key": "communication",
+        "label": "커뮤니케이션",
+        "symbol": "XLC",
+        "date": "2026-08-31",
+        "close": 111.45999908447266,
+        "change": -1.529998779296875,
+        "changePct": -1.3541010781693907,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "utilities",
+        "label": "유틸리티",
+        "symbol": "XLU",
+        "date": "2026-08-31",
+        "close": 42.22999954223633,
+        "change": -0.5,
+        "changePct": -1.1701380888286146,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "industrials",
+        "label": "산업재",
+        "symbol": "XLI",
+        "date": "2026-08-31",
+        "close": 175.1300048828125,
+        "change": -2.0099945068359375,
+        "changePct": -1.134692623778679,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "materials",
+        "label": "소재",
+        "symbol": "XLB",
+        "date": "2026-08-31",
+        "close": 52.689998626708984,
+        "change": -0.4900016784667969,
+        "changePct": -0.9214021731006029,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "realEstate",
+        "label": "부동산",
+        "symbol": "XLRE",
+        "date": "2026-08-31",
+        "close": 44.11000061035156,
+        "change": -0.3699989318847656,
+        "changePct": -0.8318321395966524,
+        "unit": "",
+        "decimals": 2
+      }
+    ]
+  }
+}
