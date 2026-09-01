@@ -60,7 +60,7 @@ globalThis.document = {
   fireKey: (key) => docListeners.keydown?.({ key }),
 };
 
-const { renderJaelyo, MANUAL_COLS, naverNewsSearchUrl, openMemoModal } = await import('./jaelyo.js');
+const { renderJaelyo, MANUAL_COLS, naverNewsSearchUrl, naverFinanceInvestorUrl, openMemoModal } = await import('./jaelyo.js');
 const { MANUAL_FIELDS } = await import('../../functions/api/_jaelyo-core.js');
 
 // 서버/클라이언트 수동필드 계약 패리티 — public/은 functions/를 import할 수 없어
@@ -199,6 +199,32 @@ test('renderJaelyo: 종목코드는 네이버뉴스 검색 anchor(새 탭 + 종�
   assert.equal(a.target, '_blank', '새 탭');
   assert.ok(a.rel.includes('noopener'), 'rel noopener');
   assert.ok(a.rel.includes('noreferrer'), 'rel noreferrer');
+});
+
+test('naverFinanceInvestorUrl: PC 네이버증권 투자자별 매매동향 URL 생성', () => {
+  assert.equal(
+    naverFinanceInvestorUrl('005930'),
+    'https://finance.naver.com/item/frgn.naver?code=005930',
+  );
+  assert.equal(
+    naverFinanceInvestorUrl('A005930'),
+    'https://finance.naver.com/item/frgn.naver?code=005930',
+  );
+});
+
+test('renderJaelyo: 등락률은 PC 네이버증권 수급 페이지 anchor(새 탭)로 렌더', () => {
+  const root = new FakeEl('div');
+  renderJaelyo(root, { dates: ['2026-05-07'], selectedDate: '2026-05-07', board: sampleBoard() });
+  const anchors = root.findAll('a').filter((a) => a.className.includes('jaelyo-flow-link'));
+  assert.equal(anchors.length, 2, '행마다 등락률 anchor');
+  const a = anchors.find((x) => x.textContent.includes('23.60%'));
+  assert.ok(a, '등락률이 anchor 텍스트');
+  assert.equal(a.href, 'https://finance.naver.com/item/frgn.naver?code=028050');
+  assert.ok(a.href.startsWith('https://finance.naver.com/'), 'PC 네이버증권 도메인');
+  assert.equal(a.target, '_blank', '새 탭');
+  assert.ok(a.rel.includes('noopener'), 'rel noopener');
+  assert.ok(a.rel.includes('noreferrer'), 'rel noreferrer');
+  assert.ok(a.title.includes('투자자별 매매동향'), 'title에 수급 페이지 설명');
 });
 
 // 해당 행의 종목코드 anchor를 찾는 헬퍼.
