@@ -100,6 +100,13 @@ export function naverNewsSearchUrl(name, date) {
   return url;
 }
 
+// 종목코드 → PC 네이버증권 투자자별 매매동향 URL.
+// 모바일(m.stock.naver.com)이 아니라 finance.naver.com PC 페이지를 명시적으로 사용한다.
+export function naverFinanceInvestorUrl(code) {
+  const clean = String(code ?? '').replace(/\D/g, '').padStart(6, '0').slice(-6);
+  return `https://finance.naver.com/item/frgn.naver?code=${encodeURIComponent(clean)}`;
+}
+
 // 종목명 셀: 클릭하면 해당 종목의 메모 팝업을 여는 버튼. (네이버뉴스는 종목코드 셀이 담당)
 // onEditManual을 팝업에 전달 → 팝업에서 직접 수정·저장.
 function nameCell(row, onEditManual) {
@@ -267,6 +274,32 @@ function priceCell(row, onChart) {
   btn.title = `${row.name} 차트 보기`;
   btn.addEventListener('click', () => onChart({ market: 'KR', code: row.code, name: row.name }));
   td.appendChild(btn);
+  return td;
+}
+
+// 등락률 셀: 클릭하면 PC 네이버증권 투자자별 매매동향(수급) 페이지를 새 탭으로 연다.
+// 시각적으로 링크임을 드러내되, td의 hot-change 배경 강조는 유지한다.
+function changePctCell(row) {
+  const td = cell('td', undefined, numCls(isHotChange(row.changePct) && 'hot-change'));
+  const a = document.createElement('a');
+  a.className = 'jaelyo-flow-link';
+  a.textContent = fmtPct(row.changePct);
+  a.href = naverFinanceInvestorUrl(row.code);
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.title = `${row.name} 네이버증권 투자자별 매매동향(수급) 보기`;
+  a.addEventListener('click', (ev) => {
+    const opener = typeof window !== 'undefined' && typeof window.open === 'function' ? window.open : null;
+    if (!opener) return; // window.open 없음 → anchor 기본 새 탭 폴백
+    let opened = null;
+    try {
+      opened = opener(a.href, '_blank', 'noopener,noreferrer');
+    } catch {
+      opened = null;
+    }
+    if (opened) ev.preventDefault?.();
+  });
+  td.appendChild(a);
   return td;
 }
 
@@ -514,7 +547,7 @@ export function renderJaelyo(container, { dates = [], selectedDate = null, board
     tr.appendChild(codeCell(r, newsDate));
     tr.appendChild(nameCell(r, onEditManual));
     tr.appendChild(priceCell(r, onChart));
-    tr.appendChild(cell('td', fmtPct(r.changePct), numCls(isHotChange(r.changePct) && 'hot-change')));
+    tr.appendChild(changePctCell(r));
     tr.appendChild(cell('td', fmtWonKR(r.marketCap), numCls(isSmallCap(r.marketCap) && 'small-cap')));
     tr.appendChild(cell('td', fmtWonKR(r.tradingValue), numCls(isHighTradingValue(r.tradingValue) && 'high-tv')));
     tr.appendChild(cell('td', fmtRatio(r.tvToMcapPct), numCls(isHighTvRatio(r.tvToMcapPct) && 'high-ratio')));
