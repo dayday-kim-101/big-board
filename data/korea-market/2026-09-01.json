@@ -83,7 +83,7 @@
       "name": "SK하이닉스",
       "quantity": 92,
       "netBuyAmount": 157042000000,
-      "tradingVolume": 2481959
+      "tradingVolume": 2727724
     },
     {
       "market": "KOSPI",
@@ -91,7 +91,7 @@
       "name": "SK스퀘어",
       "quantity": 43,
       "netBuyAmount": 45497000000,
-      "tradingVolume": 435185
+      "tradingVolume": 461669
     },
     {
       "market": "KOSPI",
@@ -107,7 +107,7 @@
       "name": "삼성전자우",
       "quantity": 108,
       "netBuyAmount": 20436000000,
-      "tradingVolume": 1584214
+      "tradingVolume": 2015205
     },
     {
       "market": "KOSPI",
@@ -115,7 +115,7 @@
       "name": "우리금융지주",
       "quantity": 594,
       "netBuyAmount": 20337000000,
-      "tradingVolume": 1804911
+      "tradingVolume": 2086698
     },
     {
       "market": "KOSDAQ",
@@ -139,7 +139,7 @@
       "name": "원익IPS",
       "quantity": 90,
       "netBuyAmount": 9876000000,
-      "tradingVolume": 340169
+      "tradingVolume": 345292
     },
     {
       "market": "KOSDAQ",
@@ -165,7 +165,7 @@
       "name": "삼성전자",
       "quantity": -708,
       "netSellAmount": -181473000000,
-      "tradingVolume": 12765827
+      "tradingVolume": 15319615
     },
     {
       "market": "KOSPI",
@@ -181,7 +181,7 @@
       "name": "삼성SDI",
       "quantity": -109,
       "netSellAmount": -62880000000,
-      "tradingVolume": 572609
+      "tradingVolume": 579230
     },
     {
       "market": "KOSPI",
@@ -189,7 +189,7 @@
       "name": "삼성전기",
       "quantity": -42,
       "netSellAmount": -59717000000,
-      "tradingVolume": 576344
+      "tradingVolume": 595818
     },
     {
       "market": "KOSPI",
@@ -197,7 +197,7 @@
       "name": "LG전자",
       "quantity": -243,
       "netSellAmount": -50080000000,
-      "tradingVolume": 664356
+      "tradingVolume": 716877
     },
     {
       "market": "KOSDAQ",
@@ -205,7 +205,7 @@
       "name": "HLB",
       "quantity": -1197,
       "netSellAmount": -42441000000,
-      "tradingVolume": 1926671
+      "tradingVolume": 1978375
     },
     {
       "market": "KOSDAQ",
@@ -229,7 +229,7 @@
       "name": "우리기술",
       "quantity": -1104,
       "netSellAmount": -11853000000,
-      "tradingVolume": 4214592
+      "tradingVolume": 4242963
     },
     {
       "market": "KOSDAQ",
@@ -237,7 +237,7 @@
       "name": "제주반도체",
       "quantity": -129,
       "netSellAmount": -10362000000,
-      "tradingVolume": 1893723
+      "tradingVolume": 1918078
     }
   ]
 }
