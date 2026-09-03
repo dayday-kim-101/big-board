@@ -107,7 +107,7 @@
       "name": "한미반도체",
       "quantity": 78,
       "netBuyAmount": 16776000000,
-      "tradingVolume": 310603
+      "tradingVolume": 311065
     },
     {
       "market": "KOSPI",
@@ -115,7 +115,7 @@
       "name": "NAVER",
       "quantity": 76,
       "netBuyAmount": 16065000000,
-      "tradingVolume": 532643
+      "tradingVolume": 532940
     },
     {
       "market": "KOSDAQ",
@@ -123,7 +123,7 @@
       "name": "주성엔지니어링",
       "quantity": 167,
       "netBuyAmount": 29280000000,
-      "tradingVolume": 1013792
+      "tradingVolume": 1020234
     },
     {
       "market": "KOSDAQ",
@@ -131,7 +131,7 @@
       "name": "원익IPS",
       "quantity": 151,
       "netBuyAmount": 16612000000,
-      "tradingVolume": 543695
+      "tradingVolume": 545823
     },
     {
       "market": "KOSDAQ",
@@ -165,7 +165,7 @@
       "name": "SK하이닉스",
       "quantity": -652,
       "netSellAmount": -1064052000000,
-      "tradingVolume": 2533913
+      "tradingVolume": 2568478
     },
     {
       "market": "KOSPI",
@@ -173,7 +173,7 @@
       "name": "삼성전자",
       "quantity": -1322,
       "netSellAmount": -332715000000,
-      "tradingVolume": 15160930
+      "tradingVolume": 15176841
     },
     {
       "market": "KOSPI",
@@ -181,7 +181,7 @@
       "name": "SK스퀘어",
       "quantity": -101,
       "netSellAmount": -101273000000,
-      "tradingVolume": 536496
+      "tradingVolume": 538084
     },
     {
       "market": "KOSPI",
@@ -189,7 +189,7 @@
       "name": "현대차",
       "quantity": -139,
       "netSellAmount": -53218000000,
-      "tradingVolume": 817753
+      "tradingVolume": 818127
     },
     {
       "market": "KOSPI",
@@ -213,7 +213,7 @@
       "name": "인제니아테라퓨틱스(Reg.S)",
       "quantity": -365,
       "netSellAmount": -7252000000,
-      "tradingVolume": 10343936
+      "tradingVolume": 10417819
     },
     {
       "market": "KOSDAQ",
@@ -237,7 +237,7 @@
       "name": "엑시콘",
       "quantity": -184,
       "netSellAmount": -5637000000,
-      "tradingVolume": 1018361
+      "tradingVolume": 1019544
     }
   ]
 }
