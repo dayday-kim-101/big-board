@@ -83,7 +83,7 @@
       "name": "우리금융지주",
       "quantity": 13052,
       "netBuyAmount": 431651000000,
-      "tradingVolume": 4178024
+      "tradingVolume": 18186793
     },
     {
       "market": "KOSPI",
@@ -147,7 +147,7 @@
       "name": "원익IPS",
       "quantity": 96,
       "netBuyAmount": 10198000000,
-      "tradingVolume": 462131
+      "tradingVolume": 464832
     },
     {
       "market": "KOSDAQ",
@@ -165,7 +165,7 @@
       "name": "SK하이닉스",
       "quantity": -235,
       "netSellAmount": -381452000000,
-      "tradingVolume": 2628539
+      "tradingVolume": 2632758
     },
     {
       "market": "KOSPI",
@@ -173,7 +173,7 @@
       "name": "삼성전기",
       "quantity": -110,
       "netSellAmount": -152134000000,
-      "tradingVolume": 590687
+      "tradingVolume": 615807
     },
     {
       "market": "KOSPI",
@@ -181,7 +181,7 @@
       "name": "삼성전자우",
       "quantity": -269,
       "netSellAmount": -49639000000,
-      "tradingVolume": 1882683
+      "tradingVolume": 1914009
     },
     {
       "market": "KOSPI",
@@ -189,7 +189,7 @@
       "name": "삼성화재",
       "quantity": -41,
       "netSellAmount": -28055000000,
-      "tradingVolume": 168948
+      "tradingVolume": 238820
     },
     {
       "market": "KOSPI",
@@ -205,7 +205,7 @@
       "name": "알테오젠",
       "quantity": -245,
       "netSellAmount": -72135000000,
-      "tradingVolume": 1245429
+      "tradingVolume": 1248714
     },
     {
       "market": "KOSDAQ",
@@ -221,7 +221,7 @@
       "name": "주성엔지니어링",
       "quantity": -61,
       "netSellAmount": -10575000000,
-      "tradingVolume": 714838
+      "tradingVolume": 719882
     },
     {
       "market": "KOSDAQ",
@@ -237,7 +237,7 @@
       "name": "대한광통신",
       "quantity": -503,
       "netSellAmount": -6695000000,
-      "tradingVolume": 3920456
+      "tradingVolume": 3955301
     }
   ]
 }
