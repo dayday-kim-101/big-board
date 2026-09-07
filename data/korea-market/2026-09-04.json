@@ -83,7 +83,7 @@
       "name": "SK하이닉스",
       "quantity": 309,
       "netBuyAmount": 511804000000,
-      "tradingVolume": 2827725
+      "tradingVolume": 2827892
     },
     {
       "market": "KOSPI",
@@ -91,7 +91,7 @@
       "name": "삼성전기",
       "quantity": 141,
       "netBuyAmount": 197123000000,
-      "tradingVolume": 572762
+      "tradingVolume": 622762
     },
     {
       "market": "KOSPI",
@@ -99,7 +99,7 @@
       "name": "SK스퀘어",
       "quantity": 130,
       "netBuyAmount": 133021000000,
-      "tradingVolume": 428582
+      "tradingVolume": 455382
     },
     {
       "market": "KOSPI",
@@ -107,7 +107,7 @@
       "name": "삼성전자우",
       "quantity": 649,
       "netBuyAmount": 123200000000,
-      "tradingVolume": 2100010
+      "tradingVolume": 2510353
     },
     {
       "market": "KOSPI",
@@ -131,7 +131,7 @@
       "name": "주성엔지니어링",
       "quantity": 272,
       "netBuyAmount": 47913000000,
-      "tradingVolume": 866453
+      "tradingVolume": 872606
     },
     {
       "market": "KOSDAQ",
@@ -147,7 +147,7 @@
       "name": "원익IPS",
       "quantity": 136,
       "netBuyAmount": 15092000000,
-      "tradingVolume": 901935
+      "tradingVolume": 905726
     },
     {
       "market": "KOSDAQ",
@@ -155,7 +155,7 @@
       "name": "제주반도체",
       "quantity": 173,
       "netBuyAmount": 12272000000,
-      "tradingVolume": 739092
+      "tradingVolume": 748175
     }
   ],
   "foreignerSellTop": [
@@ -165,7 +165,7 @@
       "name": "KB금융",
       "quantity": -268,
       "netSellAmount": -46383000000,
-      "tradingVolume": 1339705
+      "tradingVolume": 1344239
     },
     {
       "market": "KOSPI",
@@ -221,7 +221,7 @@
       "name": "피노",
       "quantity": -556,
       "netSellAmount": -5626000000,
-      "tradingVolume": 5901516
+      "tradingVolume": 5920208
     },
     {
       "market": "KOSDAQ",
