@@ -83,7 +83,7 @@
       "name": "삼성전자",
       "quantity": 3333,
       "netBuyAmount": 914026000000,
-      "tradingVolume": 22563172
+      "tradingVolume": 22716517
     },
     {
       "market": "KOSPI",
@@ -91,7 +91,7 @@
       "name": "SK하이닉스",
       "quantity": 98,
       "netBuyAmount": 180389000000,
-      "tradingVolume": 4119139
+      "tradingVolume": 4164618
     },
     {
       "market": "KOSPI",
@@ -99,7 +99,7 @@
       "name": "SK스퀘어",
       "quantity": 94,
       "netBuyAmount": 109359000000,
-      "tradingVolume": 560679
+      "tradingVolume": 570963
     },
     {
       "market": "KOSPI",
@@ -115,7 +115,7 @@
       "name": "대우건설",
       "quantity": 1578,
       "netBuyAmount": 31900000000,
-      "tradingVolume": 26835543
+      "tradingVolume": 27026812
     },
     {
       "market": "KOSDAQ",
@@ -123,7 +123,7 @@
       "name": "로보티즈",
       "quantity": 247,
       "netBuyAmount": 66176000000,
-      "tradingVolume": 565816
+      "tradingVolume": 932341
     },
     {
       "market": "KOSDAQ",
@@ -131,7 +131,7 @@
       "name": "주성엔지니어링",
       "quantity": 313,
       "netBuyAmount": 63165000000,
-      "tradingVolume": 2525657
+      "tradingVolume": 2543098
     },
     {
       "market": "KOSDAQ",
@@ -139,7 +139,7 @@
       "name": "HPSP",
       "quantity": 574,
       "netBuyAmount": 31435000000,
-      "tradingVolume": 2700870
+      "tradingVolume": 2713737
     },
     {
       "market": "KOSDAQ",
@@ -165,7 +165,7 @@
       "name": "삼성전기",
       "quantity": -217,
       "netSellAmount": -304987000000,
-      "tradingVolume": 662079
+      "tradingVolume": 681519
     },
     {
       "market": "KOSPI",
@@ -221,7 +221,7 @@
       "name": "대한광통신",
       "quantity": -639,
       "netSellAmount": -9001000000,
-      "tradingVolume": 16421068
+      "tradingVolume": 16490355
     },
     {
       "market": "KOSDAQ",
@@ -229,7 +229,7 @@
       "name": "서진시스템",
       "quantity": -139,
       "netSellAmount": -5115000000,
-      "tradingVolume": 842655
+      "tradingVolume": 848095
     },
     {
       "market": "KOSDAQ",
@@ -237,7 +237,7 @@
       "name": "세미파이브",
       "quantity": -292,
       "netSellAmount": -5084000000,
-      "tradingVolume": 3994207
+      "tradingVolume": 4025348
     }
   ]
 }
