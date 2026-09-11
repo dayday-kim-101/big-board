@@ -1,0 +1,173 @@
+{
+  "date": "2026-09-11",
+  "collectedAt": "2026-09-11T23:55:25.062Z",
+  "source": "yahoo",
+  "memo": "",
+  "interpretation": "S&P500 +0.86%·나스닥 +0.96%·러셀2000 +0.45%로 중소형주는 상대 약세, NVIDIA -0.03%·SOX +1.81% 기준 기술주/반도체가 상대적으로 지수를 지지; 10년물 4.975% 속 상승 섹터는 기술·산업재, 하락 섹터는 유틸리티·헬스케어.",
+  "indices": [
+    {
+      "key": "dow",
+      "label": "다우존스",
+      "symbol": "^DJI",
+      "date": "2026-09-11",
+      "close": 52573.2890625,
+      "change": 509.1875,
+      "changePct": 0.9780011269161137,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sp500",
+      "label": "S&P 500",
+      "symbol": "^GSPC",
+      "date": "2026-09-11",
+      "close": 7656.97998046875,
+      "change": 65.27978515625,
+      "changePct": 0.8598836028398098,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "nasdaq",
+      "label": "나스닥",
+      "symbol": "^IXIC",
+      "date": "2026-09-11",
+      "close": 26333.03515625,
+      "change": 251.314453125,
+      "changePct": 0.9635654640488831,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "russell2000",
+      "label": "러셀2000",
+      "symbol": "^RUT",
+      "date": "2026-09-11",
+      "close": 2903.9443359375,
+      "change": 12.994384765625,
+      "changePct": 0.44948494388004184,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "focus": [
+    {
+      "key": "nvidia",
+      "label": "NVIDIA",
+      "symbol": "NVDA",
+      "date": "2026-09-11",
+      "close": 218.2899932861328,
+      "change": -0.07000732421875,
+      "changePct": -0.032060507429505496,
+      "unit": "",
+      "decimals": 2
+    },
+    {
+      "key": "sox",
+      "label": "필라델피아 반도체지수",
+      "symbol": "^SOX",
+      "date": "2026-09-11",
+      "close": 11823.998046875,
+      "change": 209.828125,
+      "changePct": 1.8066562346809991,
+      "unit": "",
+      "decimals": 2
+    }
+  ],
+  "rates": [
+    {
+      "key": "us10y",
+      "label": "미국 10년물 금리",
+      "symbol": "^TNX",
+      "date": "2026-09-11",
+      "close": 4.974999904632568,
+      "change": 0.031000137329101562,
+      "changePct": 0.6270254609257296,
+      "unit": "%",
+      "decimals": 3
+    }
+  ],
+  "sectors": {
+    "rising": [
+      {
+        "key": "technology",
+        "label": "기술",
+        "symbol": "XLK",
+        "date": "2026-09-11",
+        "close": 187.6699981689453,
+        "change": 2.4499969482421875,
+        "changePct": 1.322749666394202,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "industrials",
+        "label": "산업재",
+        "symbol": "XLI",
+        "date": "2026-09-11",
+        "close": 172.3699951171875,
+        "change": 1.8199920654296875,
+        "changePct": 1.0671310658829856,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "communication",
+        "label": "커뮤니케이션",
+        "symbol": "XLC",
+        "date": "2026-09-11",
+        "close": 112.5999984741211,
+        "change": 1.0999984741210938,
+        "changePct": 0.9865457167005326,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "consumerDiscretionary",
+        "label": "경기소비재",
+        "symbol": "XLY",
+        "date": "2026-09-11",
+        "close": 112.95999908447266,
+        "change": 1,
+        "changePct": 0.8931761416374346,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "realEstate",
+        "label": "부동산",
+        "symbol": "XLRE",
+        "date": "2026-09-11",
+        "close": 43.41999816894531,
+        "change": 0.3699989318847656,
+        "changePct": 0.8594632716421602,
+        "unit": "",
+        "decimals": 2
+      }
+    ],
+    "falling": [
+      {
+        "key": "utilities",
+        "label": "유틸리티",
+        "symbol": "XLU",
+        "date": "2026-09-11",
+        "close": 42.38999938964844,
+        "change": -0.13000106811523438,
+        "changePct": -0.30574098474991346,
+        "unit": "",
+        "decimals": 2
+      },
+      {
+        "key": "healthcare",
+        "label": "헬스케어",
+        "symbol": "XLV",
+        "date": "2026-09-11",
+        "close": 165.36000061035156,
+        "change": -0.3000030517578125,
+        "changePct": -0.1810956447699456,
+        "unit": "",
+        "decimals": 2
+      }
+    ]
+  }
+}
