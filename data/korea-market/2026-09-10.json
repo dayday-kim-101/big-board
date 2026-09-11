@@ -83,7 +83,7 @@
       "name": "삼성전자우",
       "quantity": 709,
       "netBuyAmount": 142357000000,
-      "tradingVolume": 3460446
+      "tradingVolume": 3537807
     },
     {
       "market": "KOSPI",
@@ -107,7 +107,7 @@
       "name": "한화에어로스페이스",
       "quantity": 58,
       "netBuyAmount": 61682000000,
-      "tradingVolume": 181425
+      "tradingVolume": 210165
     },
     {
       "market": "KOSPI",
@@ -115,7 +115,7 @@
       "name": "대한항공",
       "quantity": 2080,
       "netBuyAmount": 61259000000,
-      "tradingVolume": 4285655
+      "tradingVolume": 4292536
     },
     {
       "market": "KOSDAQ",
@@ -123,7 +123,7 @@
       "name": "고영",
       "quantity": 2065,
       "netBuyAmount": 58224000000,
-      "tradingVolume": 4342016
+      "tradingVolume": 4369889
     },
     {
       "market": "KOSDAQ",
@@ -131,7 +131,7 @@
       "name": "테크윙",
       "quantity": 1087,
       "netBuyAmount": 52689000000,
-      "tradingVolume": 2043076
+      "tradingVolume": 2049557
     },
     {
       "market": "KOSDAQ",
@@ -155,7 +155,7 @@
       "name": "하나머티리얼즈",
       "quantity": 513,
       "netBuyAmount": 27372000000,
-      "tradingVolume": 854527
+      "tradingVolume": 854553
     }
   ],
   "foreignerSellTop": [
@@ -165,7 +165,7 @@
       "name": "SK하이닉스",
       "quantity": -957,
       "netSellAmount": -1769096000000,
-      "tradingVolume": 4375585
+      "tradingVolume": 4483585
     },
     {
       "market": "KOSPI",
@@ -173,7 +173,7 @@
       "name": "삼성전자",
       "quantity": -5769,
       "netSellAmount": -1551584000000,
-      "tradingVolume": 21010910
+      "tradingVolume": 22517075
     },
     {
       "market": "KOSPI",
@@ -205,7 +205,7 @@
       "name": "원익IPS",
       "quantity": -1177,
       "netSellAmount": -142957000000,
-      "tradingVolume": 2748440
+      "tradingVolume": 2757237
     },
     {
       "market": "KOSDAQ",
@@ -221,7 +221,7 @@
       "name": "주성엔지니어링",
       "quantity": -522,
       "netSellAmount": -117029000000,
-      "tradingVolume": 5054125
+      "tradingVolume": 5078610
     },
     {
       "market": "KOSDAQ",
