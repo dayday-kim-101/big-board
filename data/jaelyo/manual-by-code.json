@@ -269,6 +269,26 @@
     "supplyDemand": "",
     "notes": "(테마) 디스플레이(장비)\n재료: 져스텍 — 머신비전·디스플레이 장비(확인 필요)\n세계: 확인 필요\n국내: 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   },
+  "158430": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 아톤 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "160190": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 하이젠알앤엠 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
   "161890": {
     "newOrExisting": "",
     "theme": "",
@@ -368,6 +388,16 @@
     "financials": "",
     "supplyDemand": "",
     "notes": "(테마) 전자부품\n재료: 강동씨앤엘 — 부품(확인 필요)\n세계: 확인 필요\n국내: 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "201490": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 미투온 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   },
   "203650": {
     "newOrExisting": "",
@@ -1248,6 +1278,16 @@
     "financials": "",
     "supplyDemand": "",
     "notes": "(테마) 2차전지\n재료: 삼기에너지솔루션즈 — 2차전지 부품 추정(확인 필요)\n세계: 확인 필요\n국내: 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "437730": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 삼현 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   },
   "439090": {
     "newOrExisting": "",
@@ -3978,5 +4018,25 @@
     "financials": "",
     "supplyDemand": "",
     "notes": "(테마) 확인 필요\n재료: 라온시큐어 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "062970": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 한국첨단소재 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "054920": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 한컴위드 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   }
 }
