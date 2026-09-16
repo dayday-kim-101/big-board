@@ -83,7 +83,7 @@
       "name": "SK스퀘어",
       "quantity": 37,
       "netBuyAmount": 37401000000,
-      "tradingVolume": 338492
+      "tradingVolume": 366583
     },
     {
       "market": "KOSPI",
@@ -107,7 +107,7 @@
       "name": "삼성전기",
       "quantity": 19,
       "netBuyAmount": 25762000000,
-      "tradingVolume": 312818
+      "tradingVolume": 313138
     },
     {
       "market": "KOSPI",
@@ -165,7 +165,7 @@
       "name": "SK하이닉스",
       "quantity": -587,
       "netSellAmount": -998480000000,
-      "tradingVolume": 2651098
+      "tradingVolume": 2732031
     },
     {
       "market": "KOSPI",
@@ -229,7 +229,7 @@
       "name": "우리기술",
       "quantity": -524,
       "netSellAmount": -6945000000,
-      "tradingVolume": 4724529
+      "tradingVolume": 5096353
     },
     {
       "market": "KOSDAQ",
