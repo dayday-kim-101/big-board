@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T20:28:20.782Z",
+  "updatedAt": "2026-09-17T23:00:02.447Z",
   "quotes": {
     "US:AAPL": {
       "market": "US",
@@ -8,8 +8,8 @@
       "price": 337,
       "change": 4.59,
       "changePct": 1.38,
-      "volume": 36188003,
-      "tradingValue": 12195357011,
+      "volume": 36423997,
+      "tradingValue": 12274886989,
       "approxTradingValue": true,
       "ok": true
     },
@@ -44,8 +44,8 @@
       "price": 114.82,
       "change": 10.85,
       "changePct": 10.44,
-      "volume": 55527137,
-      "tradingValue": 6375625870,
+      "volume": 55751188,
+      "tradingValue": 6401351406,
       "approxTradingValue": true,
       "ok": true
     },
@@ -104,8 +104,8 @@
       "price": 182.99,
       "change": 8.12,
       "changePct": 4.64,
-      "volume": 16416885,
-      "tradingValue": 3004125786,
+      "volume": 16543003,
+      "tradingValue": 3027204119,
       "approxTradingValue": true,
       "ok": true
     },
@@ -116,8 +116,8 @@
       "price": 1614.39,
       "change": 94.42,
       "changePct": 6.21,
-      "volume": 8378922,
-      "tradingValue": 13526847888,
+      "volume": 8402626,
+      "tradingValue": 13565115388,
       "approxTradingValue": true,
       "ok": true
     },
@@ -128,8 +128,8 @@
       "price": 977.5,
       "change": 50.95,
       "changePct": 5.5,
-      "volume": 21670977,
-      "tradingValue": 21183380018,
+      "volume": 21883599,
+      "tradingValue": 21391218023,
       "approxTradingValue": true,
       "ok": true
     },
@@ -354,10 +354,10 @@
       "code": "010120",
       "name": "LS ELECTRIC",
       "price": 203000,
-      "change": 3600,
-      "changePct": 1.81,
-      "volume": 288005,
-      "tradingValue": 58022000000,
+      "change": 0,
+      "changePct": 0,
+      "volume": null,
+      "tradingValue": null,
       "approxTradingValue": false,
       "ok": true
     },
@@ -402,10 +402,10 @@
       "code": "475150",
       "name": "SK이터닉스",
       "price": 49500,
-      "change": 700,
-      "changePct": 1.43,
-      "volume": 398405,
-      "tradingValue": 19646000000,
+      "change": 0,
+      "changePct": 0,
+      "volume": null,
+      "tradingValue": null,
       "approxTradingValue": false,
       "ok": true
     },
@@ -416,8 +416,8 @@
       "price": 219.34,
       "change": 5.44,
       "changePct": 2.54,
-      "volume": 92249429,
-      "tradingValue": 20233989757,
+      "volume": 92845751,
+      "tradingValue": 20364787024,
       "approxTradingValue": true,
       "ok": true
     }
