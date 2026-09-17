@@ -791,3 +791,23 @@ button.primary { background: var(--accent); color: #1a1300; border-color: var(--
 .usm-interpretation { margin-top:12px; }
 .usm-interpretation-text { margin:0; color:var(--text); line-height:1.45; font-size:13px; }
 @media (max-width:760px) { .usm-index-grid, .usm-focus-grid, .usm-sectors { grid-template-columns:1fr; } }
+
+
+/* ---------- 정책브리핑 ---------- */
+.policy-briefing { margin-top: 32px; border-top: 1px solid var(--line); padding-top: 16px; }
+.policy-summary { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); padding: 12px; margin: 0 0 12px; }
+.policy-title { color: var(--accent); }
+.policy-summary-text { margin: 6px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.policy-rank-list { display: grid; gap: 10px; padding: 0; margin: 0 0 12px; list-style: none; }
+.policy-rank-item { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); padding: 12px; }
+.policy-rank-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.policy-industry { font-size: 15px; }
+.policy-score { font: 700 12px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #1a1300; background: var(--accent); border-radius: 999px; padding: 3px 8px; }
+.policy-line { margin: 4px 0; color: var(--text); font-size: 13px; line-height: 1.45; }
+.policy-korea { color: var(--muted); }
+.policy-box { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); padding: 10px 12px; margin: 0 0 12px; }
+.policy-bullets { margin: 6px 0 0; padding-left: 18px; }
+.policy-bullet { margin: 4px 0; font-size: 13px; line-height: 1.45; }
+.policy-sources { line-height: 1.7; }
+.policy-source-link { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.policy-source-link:hover { color: var(--text); }

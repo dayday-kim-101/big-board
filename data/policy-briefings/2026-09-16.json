@@ -1,0 +1,53 @@
+{
+  "date": "2026-09-16",
+  "title": "일일 정책·투자 브리핑 — 2026-09-16 백필",
+  "generatedAt": "2026-09-18T08:27:51+09:00",
+  "status": "backfilled",
+  "summary": "2026-09-16 정기 크론은 모델 provider 연결 실패로 본문 생성이 누락되어, 당시 수집 데이터 기준으로 백필했다.",
+  "topIndustries": [
+    {
+      "rank": 1,
+      "name": "금리·환율 민감 수출/반도체",
+      "score": 76,
+      "reason": "9/15 Reuters의 Fed 결정·금리 전망 보도와 BOJ/엔화 뉴스가 겹치며 성장주·수출주 밸류에이션 변동성이 커짐.",
+      "koreaConnection": "반도체·자동차·2차전지 등 달러/엔화 민감 업종은 환율·금리 방향 확인 필요."
+    },
+    {
+      "rank": 2,
+      "name": "AI 데이터센터·전력 인프라",
+      "score": 72,
+      "reason": "Google AI 투자·데이터센터 전력 수요 뉴스는 유지되지만 신규 고신뢰 정책 발표는 제한적.",
+      "koreaConnection": "변압기·전선·ESS·냉각·IDC 전력관리 밸류체인 관심 유지."
+    },
+    {
+      "rank": 3,
+      "name": "방산·우주/국방 AI",
+      "score": 66,
+      "reason": "방산 ETF/국방 수요 보도는 있으나 계약·예산 공식 근거가 약해 강한 결론은 보류.",
+      "koreaConnection": "방산 전자, 유도무기, 위성/통신 관련주는 수주 공시 확인 필요."
+    }
+  ],
+  "changes": {
+    "us": "Fed 결정 전 금리 전망이 핵심 변수로 부상.",
+    "global": "BOJ·엔화 정책 불확실성이 일본/한국 수출주 상대 강도에 영향.",
+    "korea": "신규 고신뢰 정책 신호 제한적."
+  },
+  "risks": [
+    "9/16 수집분은 고신뢰 공식 발표보다 RSS/재인용 비중이 높음.",
+    "금리 상승은 AI CapEx·전력 인프라 성장주에 단기 부담."
+  ],
+  "sources": [
+    {
+      "label": "Reuters: Fed와 금리전망",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPOVlScl92S19PTzRxcUZnRjVUcTU2dUJ5a1FZQjY1dVlhRkt0Uk1MOXJjU0ZvblpLX2tqemFDMGhIbEZkMnRHMGtzanNzdjFTSF9CaE9IQkNsb1BXQ0VuT01oOXBoOEtHNmJZamhXb0xnaDBhMW5CaS1lUVU1NXd6YjFaczdpNDRpZmxqUlhiMXhpWm5VbmR3cU9XUUs?oc=5"
+    },
+    {
+      "label": "TradingNEWS: BOJ·엔화 정책",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOeXVkdy1qVUxEbE9uUlFTRnJaYWJZNnI4ekU5bW92Sk5rRUxwNVNaT2Rkb3lNU2pTcnNDWnV0V1VPOHFnVFhsODhLZkpMQ01BNkNyN0FaLVRfdDh0MTNtMnNhb1RlM3U5SlZPdXNaMUdyTWFzUmhJUGZpOFVnNWVya0FIQVFuRDZ6ZXVoTGhvNFg2LXFyZExnbldvVQ?oc=5"
+    },
+    {
+      "label": "TradingNEWS: Google AI 투자",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPejYzU1JnVTVvU2JVQUFZRmpDcUZzSm0wYm9JRVo2bEdvTzRubzJwajA3YnRHcVhZcXdaRzZHS2VmYmlHZkswcHZUbzBuZ1p3dUFTd2N1bU1sQXdnbnBqdFBJRmFPTXcwd0NaQmpsYVRZQ094N0UxRi1QRFY2WnAyQXU3MkpsOW4xQzNCeUlpaDBENFJJWG9JZEFrS19lT3luWHhLMlFuWm1IRlFRaUNndEwwSzVFLXJFdjZzTFQ3T0lEZw?oc=5"
+    }
+  ]
+}
