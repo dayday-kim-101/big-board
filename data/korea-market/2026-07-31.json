@@ -50,9 +50,9 @@
       "investor": {
         "market": "KOSPI",
         "date": "2026-07-31",
-        "personal": -8284000000000,
-        "foreign": 7241000000000,
-        "institution": 1150300000000
+        "personal": null,
+        "foreign": null,
+        "institution": null
       }
     },
     {
@@ -69,9 +69,9 @@
       "investor": {
         "market": "KOSDAQ",
         "date": "2026-07-31",
-        "personal": -471500000000,
-        "foreign": 169700000000,
-        "institution": 298500000000
+        "personal": null,
+        "foreign": null,
+        "institution": null
       }
     }
   ],
