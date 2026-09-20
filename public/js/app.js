@@ -4,6 +4,7 @@ import {
   getJaelyoDates, getJaelyo, putJaelyoManual, putJaelyoDailyTheme, getKoreaMarket, putKoreaMarketMemo, getUsMarket, putUsMarketMemo, getMacro, getSectors,
   getTrades, putTradesUpsert, putTradeManual, putTradesJournal, putTradesResultTag,
 } from './api.js';
+import { getPolicyBriefing } from './policy-briefing-api.js';
 import { mergeBoard } from './format.js';
 import { renderBoard } from './board.js';
 import { renderJaelyo } from './jaelyo.js';
@@ -13,6 +14,7 @@ import { renderTrades } from './trades.js';
 import { renderKiwoomMock } from './kiwoom-mock.js';
 import { renderKoreaMarket } from './korea-market.js';
 import { renderUsMarket } from './us-market.js';
+import { renderPolicyBriefing } from './policy-briefing.js';
 import { renderSectorMap } from './sectormap.js';
 import { pickPrevClose } from './trades-core.js';
 
@@ -32,6 +34,7 @@ const state = {
   sectorMap: { data: null, quotesRequested: false },
   koreaMarket: { dates: [], selectedDate: null, report: null, updatedAt: null },
   usMarket: { dates: [], selectedDate: null, report: null, updatedAt: null },
+  policyBriefing: { dates: [], selectedDate: null, report: null },
   bottomTab: 'jaelyo', // 전광판 아래 탭
 };
 
@@ -39,6 +42,7 @@ const BOTTOM_TABS = [
   { key: 'jaelyo', label: '재료정리' },
   { key: 'koreaMarket', label: '국내증시 메모' },
   { key: 'usMarket', label: '미국증시 메모' },
+  { key: 'policyBriefing', label: '정책브리핑' },
   { key: 'sectorMap', label: '섹터맵' },
   { key: 'macro', label: '매크로 지표' },
   { key: 'crisis', label: '금융위기' },
@@ -113,8 +117,8 @@ async function enterBoard(email) {
     state.quotes = snap.quotes || {};
     state.updatedAt = snap.updatedAt;
     if (!state.activeGroupId && state.list.groups[0]) state.activeGroupId = state.list.groups[0].id;
-    // 재료정리 보드 + 매크로 지표(공용) + 매매기록(개인) + 섹터맵 로드 — 실패해도 전광판은 표시.
-    await Promise.allSettled([loadJaelyo(), loadKoreaMarket(), loadUsMarket(), loadMacro(), loadTrades(), loadSectorMap()]);
+    // 재료정리 보드 + 정책/시장 메모 + 매크로 지표(공용) + 매매기록(개인) + 섹터맵 로드 — 실패해도 전광판은 표시.
+    await Promise.allSettled([loadJaelyo(), loadKoreaMarket(), loadUsMarket(), loadPolicyBriefing(), loadMacro(), loadTrades(), loadSectorMap()]);
     renderApp();
   } catch (e) {
     renderGate(`목록을 불러오지 못했습니다: ${e.message}`);
@@ -144,6 +148,13 @@ async function loadUsMarket(date = '') {
   state.usMarket.selectedDate = data.report?.date ?? date ?? data.latest ?? state.usMarket.dates[0] ?? null;
   state.usMarket.report = data.report ?? null;
   state.usMarket.updatedAt = data.updatedAt ?? null;
+}
+
+async function loadPolicyBriefing(date = '') {
+  const data = await getPolicyBriefing(date);
+  state.policyBriefing.dates = data.dates ?? state.policyBriefing.dates ?? [];
+  state.policyBriefing.selectedDate = data.report?.date ?? date ?? data.latest ?? state.policyBriefing.dates[0] ?? null;
+  state.policyBriefing.report = data.report ?? null;
 }
 
 async function loadMacro() {
@@ -185,6 +196,7 @@ function paintBottom() {
   else if (state.bottomTab === 'sectorMap') paintSectorMap();
   else if (state.bottomTab === 'koreaMarket') paintKoreaMarket();
   else if (state.bottomTab === 'usMarket') paintUsMarket();
+  else if (state.bottomTab === 'policyBriefing') paintPolicyBriefing();
   else paintJaelyo();
 }
 
@@ -242,6 +254,25 @@ function paintUsMarket() {
         alert(`미국증시 메모 저장 실패 — 변경이 취소되었습니다.\n${e.message}`);
         return false;
       }
+    },
+  });
+}
+
+function paintPolicyBriefing() {
+  const root = document.getElementById('bottom-content');
+  if (!root) return;
+  renderPolicyBriefing(root, {
+    dates: state.policyBriefing.dates,
+    selectedDate: state.policyBriefing.selectedDate,
+    report: state.policyBriefing.report,
+    onSelectDate: async (date) => {
+      state.policyBriefing.selectedDate = date;
+      try {
+        await loadPolicyBriefing(date);
+      } catch (e) {
+        alert(`정책브리핑 날짜 로드 실패 — ${e.message}`);
+      }
+      paintPolicyBriefing();
     },
   });
 }
