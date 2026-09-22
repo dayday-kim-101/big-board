@@ -1,0 +1,81 @@
+{
+  "date": "2026-09-22",
+  "collectedAt": "2026-09-22T20:00:00+09:00",
+  "source": "naver-static-20kst",
+  "memo": "",
+  "indices": [
+    {
+      "code": "KOSPI",
+      "name": "KOSPI",
+      "date": "2026-09-22",
+      "closePrice": 7017.91,
+      "change": 10.19,
+      "changePct": 0.15,
+      "direction": "RISING",
+      "marketStatus": ""
+    },
+    {
+      "code": "KOSDAQ",
+      "name": "KOSDAQ",
+      "date": "2026-09-22",
+      "closePrice": 834.38,
+      "change": -1.89,
+      "changePct": -0.23,
+      "direction": "FALLING",
+      "marketStatus": ""
+    },
+    {
+      "code": "KPI200",
+      "name": "KOSPI200",
+      "date": "2026-09-22",
+      "closePrice": 1113.3,
+      "change": 1.14,
+      "changePct": 0.1,
+      "direction": "RISING",
+      "marketStatus": ""
+    }
+  ],
+  "markets": [
+    {
+      "key": "KOSPI",
+      "label": "코스피",
+      "sosok": "01",
+      "breadth": {
+        "market": "KOSPI",
+        "upCount": 441,
+        "downCount": 418,
+        "flatCount": 85,
+        "stockCount": 944
+      },
+      "investor": {
+        "market": "KOSPI",
+        "date": "2026-09-22",
+        "personal": null,
+        "foreign": null,
+        "institution": null
+      }
+    },
+    {
+      "key": "KOSDAQ",
+      "label": "코스닥",
+      "sosok": "02",
+      "breadth": {
+        "market": "KOSDAQ",
+        "upCount": 772,
+        "downCount": 862,
+        "flatCount": 186,
+        "stockCount": 1820
+      },
+      "investor": {
+        "market": "KOSDAQ",
+        "date": "2026-09-22",
+        "personal": null,
+        "foreign": null,
+        "institution": null
+      }
+    }
+  ],
+  "investorFlows": null,
+  "foreignerTop": [],
+  "foreignerSellTop": []
+}
