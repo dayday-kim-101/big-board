@@ -1259,6 +1259,16 @@
     "supplyDemand": "",
     "notes": "(테마) 광통신(AI DC)\n재료: 라이콤 — 광증폭기·광통신 부품\n세계: 글로벌 영향력은 제한적/확인 필요\n국내: 테마 순환매 수급에 민감(중소형), 국내 관심 위주\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   },
+  "393210": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 토마토시스템 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
   "396300": {
     "newOrExisting": "",
     "theme": "",
@@ -4258,5 +4268,25 @@
     "financials": "",
     "supplyDemand": "",
     "notes": "(테마) 확인 필요\n재료: KB제34호스팩 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "0010S0": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 와이즈플래닛컴퍼니 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
+  },
+  "092870": {
+    "newOrExisting": "",
+    "theme": "",
+    "material": "",
+    "materialPersistence": "",
+    "materialContinuity": "",
+    "financials": "",
+    "supplyDemand": "",
+    "notes": "(테마) 확인 필요\n재료: 엑시콘 — 재료정리 거래대금 상위권 편입, 구체 재료 확인 필요\n세계: 확인 필요\n국내: 거래대금 상위권 편입, 수급·뉴스 확인 필요\n체크: 재료 지속성, 실적/재무, 공시·뉴스 원문, 수급 연속성 확인 필요"
   }
 }
